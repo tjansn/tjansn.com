@@ -1,0 +1,1484 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Tom Jansen | AI Integration · Product Leadership · Agentic Systems</title>
+        <meta name="description" content="Freelance Consultant specializing in AI Integration, Agentic Systems, and Product Leadership. 15+ years bridging strategy and engineering." />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Oswald:wght@400;700&family=Roboto:wght@300;400;700&family=Space+Mono&display=swap"
+            rel="stylesheet"
+        />
+        <style id="base-style">
+            body { margin: 0; padding: 0; }
+            #theme-switcher {
+                position: fixed; bottom: 20px; right: 20px; z-index: 9999;
+                font-family: system-ui, -apple-system, sans-serif;
+            }
+            #theme-toggle {
+                background: #fff; border: 1px solid #ddd;
+                border-radius: 6px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                display: flex; align-items: center; gap: 6px; padding: 8px 14px;
+                font-size: 0.8rem; font-weight: 600; color: #333;
+                transition: transform 0.2s, box-shadow 0.2s;
+            }
+            #theme-toggle svg { width: 16px; height: 16px; flex-shrink: 0; }
+            #theme-toggle:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.15); }
+            #theme-menu {
+                position: absolute; bottom: 46px; right: 0; background: #fff;
+                border: 1px solid #eee; border-radius: 8px; padding: 8px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.1); display: none; width: 160px;
+            }
+            #theme-menu.visible { display: block; animation: popIn 0.2s cubic-bezier(0.175,0.885,0.32,1.275); }
+            .theme-option {
+                display: block; width: 100%; text-align: left; padding: 8px 12px;
+                border: none; background: none; cursor: pointer; border-radius: 4px;
+                font-size: 0.9rem; color: #333;
+            }
+            .theme-option:hover { background: #f5f5f5; }
+            .theme-option.active { background: #eef2ff; color: #4f46e5; font-weight: 600; }
+            @keyframes popIn {
+                from { opacity: 0; transform: translateY(10px) scale(0.95); }
+                to { opacity: 1; transform: translateY(0) scale(1); }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app"></div>
+
+        <div id="theme-switcher">
+            <div id="theme-menu">
+                <button class="theme-option" onclick="setTheme('product')">Product Lead</button>
+                <button class="theme-option" onclick="setTheme('terminal')">Terminal</button>
+                <button class="theme-option" onclick="setTheme('split')">Power Split</button>
+                <button class="theme-option" onclick="setTheme('bold')">Bold Type</button>
+            </div>
+            <button id="theme-toggle" onclick="toggleMenu()" title="Switch Theme">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20 7 7 0 0 1 0-14 3 3 0 0 0 0-6"/></svg>
+                Switch Theme
+            </button>
+        </div>
+
+        <script>
+            /**
+             * ==========================================
+             *  CONTENT CONFIGURATION
+             * ==========================================
+             */
+            const icons = {
+                wrench: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>',
+                target: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
+                users: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+                lightbulb: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg>',
+                cpu: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>',
+                rocket: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>',
+                zap: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+                barchart: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>',
+                x: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
+                calendar: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+                mail: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>',
+                phone: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+                linkedin: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>',
+                arrowRight: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>',
+            };
+
+            const portfolioData = {
+                meta: {
+                    name: "Tom Jansen",
+                    role: "Freelance Consultant",
+                    tagline: "Bridging Strategy & Agentic AI",
+                    subtitle: "AI Integration · Product Leadership · Agentic Systems",
+                    availability: "Contact me about availability",
+                    copyright: "© 2026 Tom Jansen",
+                    location: "Aachen, Germany",
+                    bookingLink: "https://calendar.notion.so/meet/thomasjansen/ncnaw4pbl",
+                },
+                images: {
+                    portrait: "Tom_web Kopie.jpg",
+                    hero: "IMG_4796.JPG",
+                    avatar: "memoji.png",
+                    alt1: "IMG_5314.jpeg",
+                    alt2: "Hochzeit_831.jpg",
+                },
+                about: {
+                    headline: "I help companies navigate AI & digital transformation — from strategy to shipping.",
+                    short: "15+ years transforming complex ideas into scalable software. Specializing in Agentic AI, Product Leadership, and Team Scaling.",
+                    long: "I operate at the intersection of business strategy and deep tech. From scaling e-commerce platforms to millions in revenue to architecting autonomous AI agent workflows for major Telcos — my focus is always on delivering tangible value through intelligent engineering.",
+                    story: "I'm a bridge builder by nature. With a background spanning health science, entrepreneurship, e-commerce, software development, and digital marketing, I learn new domains fast — even complicated ones. I've run my own companies, scaled teams from scratch, and shipped products across 17 countries. Since early 2023, I've been deep in the world of AI-assisted engineering flows, building 10+ internal tools that make people's daily work faster and less error-prone. I don't believe in technology for technology's sake — I believe in technology that serves the business goal.",
+                    values: [
+                        { icon: icons.wrench, label: "Hands-on", text: "I don't just advise — I build, ship, and iterate alongside your team." },
+                        { icon: icons.target, label: "Results-driven", text: "Every engagement targets measurable outcomes: speed, revenue, quality." },
+                        { icon: icons.users, label: "Servant leader", text: "I lead by clarity, fairness, and trust — not pressure. Teams I lead are faster AND happier." },
+                        { icon: icons.lightbulb, label: "Resourceful", text: "Out-of-the-box thinker. I consistently deliver more with fewer resources." },
+                    ],
+                    languages: ["German (Native)", "English (Fluent)", "Dutch (Fluent)"],
+                },
+                services: [
+                    {
+                        icon: icons.cpu,
+                        title: "AI & Agentic Integration",
+                        items: [
+                            "Agentic AI workflows & autonomous agents",
+                            "AI-assisted engineering & development flows",
+                            "Internal tool development with LLMs",
+                            "Mobile AI research (OpenClaw on Android — drastically lower hardware costs)",
+                        ],
+                    },
+                    {
+                        icon: icons.rocket,
+                        title: "Product & Strategy",
+                        items: [
+                            "Fractional Product Ownership & roadmapping",
+                            "End-to-end: from strategy to tactics to daily execution",
+                            "SaaS (B2B/B2C) product management",
+                            "Market entry, pricing, and technical architecture",
+                        ],
+                    },
+                    {
+                        icon: icons.zap,
+                        title: "Engineering & Teams",
+                        items: [
+                            "Dev team leadership & performance optimization",
+                            "Multi-team coordination (dev, UX/UI, stakeholders)",
+                            "Workflow automation (Telco, E-commerce)",
+                            "Legacy modernization & data migration",
+                        ],
+                    },
+                    {
+                        icon: icons.barchart,
+                        title: "Consulting & Coaching",
+                        items: [
+                            "Prototyping & conceptualization",
+                            "Scrum, Kanban & JTBD implementation",
+                            "PO mentoring & certification coaching (PSPO II)",
+                            "Agency management & vendor coordination",
+                        ],
+                    },
+                ],
+                problems: [
+                    { icon: icons.x, text: "Your digital or AI transformation is stalling — too many open fronts, no clear direction" },
+                    { icon: icons.x, text: "Your software teams are underperforming — inefficient processes, low velocity, poor coordination" },
+                    { icon: icons.x, text: "You're struggling with agencies — overpromised, underdelivered, budget overruns" },
+                    { icon: icons.x, text: "Data migration or complex software projects are stuck or over budget" },
+                    { icon: icons.x, text: "You see AI potential but don't know where to start or how to operationalize it" },
+                    { icon: icons.x, text: "Stakeholder complexity is killing your projects — requirements keep shifting, nobody owns the outcome" },
+                ],
+                projects: [
+                    {
+                        name: "Telco Workflow Automation",
+                        client: "Telecommunications",
+                        period: "2023 – Present",
+                        result: "End-to-end BSS/OSS workflow automation for broadband & mobile providers.",
+                        details: "Built automated workflows for carrier provisioning, number porting, and partner integration. Implemented churn prediction models and upsale campaigning using mobile telco data analytics.",
+                        tags: ["Automation", "Data Analytics", "FTTH", "BSS/OSS"],
+                    },
+                    {
+                        name: "AI-Powered Internal Tooling",
+                        client: "Multiple clients",
+                        period: "2023 – Present",
+                        result: "Built 10+ internal tools using AI-assisted engineering flows.",
+                        details: "Pioneering agentic coding and engineering workflows since early 2023. Tools range from workflow automation to data processing, making daily work faster and less error-prone. Also deployed AI agents on mobile Android hardware — drastically lowering infrastructure costs.",
+                        tags: ["Agentic AI", "LLM Integration", "Internal Tools", "OpenClaw"],
+                    },
+                    {
+                        name: "Dev Team Acceleration",
+                        client: "Multiple engagements",
+                        period: "2018 – Present",
+                        result: "Doubled dev team velocity while improving team coherence and happiness.",
+                        details: "Across multiple engagements, consistently brought development teams to 2× their former capacity. Led by serving — clarity, fairness, and trust. Navigated complicated stakeholder landscapes with competing priorities.",
+                        tags: ["Agile Leadership", "Team Scaling", "PSPO II", "Servant Leadership"],
+                    },
+                    {
+                        name: "SaaS Business Platform — Trades Industry",
+                        client: "Digital Agency",
+                        period: "2020 – 2023",
+                        result: "Delivered a complete B2B platform in 6 months under extreme time pressure.",
+                        details: "Led the dev team and coordinated 4 development squads plus UX/UI designers to build a full digital business platform for a traditional industry. Managed complex stakeholder expectations and technical challenges while staying within budget, timeline, and scope.",
+                        tags: ["Team Leadership", "Multi-team Coordination", "SaaS", "Stakeholder Management"],
+                    },
+                    {
+                        name: "17-Country E-Commerce & CMS Relaunch",
+                        client: "Consumer Electronics",
+                        period: "2016 – 2018",
+                        result: "Unified CMS and e-commerce across 17 country versions into one platform.",
+                        details: "Managed requirements across 5 business units. Revamped information architecture and lead generation processes while coordinating internal dev teams and external agencies for a major consumer electronics brand.",
+                        tags: ["E-commerce", "CMS Migration", "International", "Agency Management"],
+                    },
+                    {
+                        name: "E-Commerce Scale-up — European Market Leader",
+                        client: "Co-Founded Startup",
+                        period: "2011 – 2015",
+                        result: "Grew revenue from €160k to ~€2M with a lean team of 4 people.",
+                        details: "Expanded into 10 new European markets in 5 years. Built the entire e-commerce, inventory, accounting, and CRM stack from scratch. Handled everything from digital marketing to supply chain as co-founder.",
+                        tags: ["Entrepreneurship", "E-commerce", "Scaling", "Lean Team"],
+                    },
+                ],
+                skills: {
+                    ai: ["Agentic Coding", "Agentic AI", "LLM Engineering", "n8n", "LangChain", "OpenClaw"],
+                    tools: ["Claude Code", "Amp", "Cursor", "Codex CLI", "ChatGPT", "Gemini", "Perplexity"],
+                    product: ["Product Strategy", "PSPO II", "Roadmapping", "Stakeholder Mgmt", "JTBD"],
+                    tech: ["JavaScript / TypeScript", "Python", "PHP / Laravel", "Svelte", "Vue", "React", "Tailwind CSS", "Ruby / Rails", "HTML / CSS", "Bash", "Git"],
+                    domains: ["Telco/FTTH", "E-Commerce", "Health/Science", "SaaS B2B/B2C", "Crypto/Web3"],
+                },
+                pricing: [
+                    { model: "Day Rate", details: "Upon request", useCase: "Project work, ad-hoc consulting" },
+                    { model: "Monthly Flat Rate", details: "4,500 € / month", useCase: "3–4 sessions up to 32h (remote, on-site as needed) — incl. prep & follow-up" },
+                    { model: "Compact Option", details: "2,500 € / 2 days", useCase: "1–2 sessions up to 16h for quick audits (remote, on-site as needed) — incl. prep & follow-up" },
+                    { model: "Hybrid", details: "Day rate + retainer combo", useCase: "Strategic long-term partnership" },
+                ],
+                pricingNote: "All prices are B2B net prices excl. 19% VAT. Travel & accommodation not included. Remote-first with regular on-site touchpoints. Flexible scheduling.",
+                contact: {
+                    linkedin: "https://www.linkedin.com/in/tjansn/",
+                    x: "https://x.com/thomasjansn",
+                    github: "https://github.com/tjansn",
+                    email: "thomas@jansn.de",
+                    phone: "+49 172 9637517",
+                    booking: "https://calendar.notion.so/meet/thomasjansen/ncnaw4pbl",
+                    label: "Connect on LinkedIn",
+                },
+            };
+
+            /**
+             * ==========================================
+             *  SHARED SECTION GENERATORS
+             * ==========================================
+             */
+            function renderServices(data, cardClass, itemClass) {
+                return data.services.map(s => `
+                    <div class="${cardClass}">
+                        <div class="service-icon">${s.icon}</div>
+                        <h3>${s.title}</h3>
+                        <ul class="${itemClass}">${s.items.map(i => `<li>${i}</li>`).join('')}</ul>
+                    </div>
+                `).join('');
+            }
+
+            function renderProblems(data) {
+                return data.problems.map(p => `<div class="problem-item"><span class="problem-icon">${p.icon}</span><span>${p.text}</span></div>`).join('');
+            }
+
+            function renderProjects(data, itemClass) {
+                return data.projects.map(p => `
+                    <div class="${itemClass}">
+                        <div class="project-header">
+                            <h3>${p.name}</h3>
+                            <span class="project-period">${p.period}</span>
+                        </div>
+                        <div class="project-client">${p.client}</div>
+                        <div class="project-result">${p.result}</div>
+                        <p class="project-details">${p.details}</p>
+                        <div class="project-tags">${p.tags.map(t => `<span class="tag-pill">${t}</span>`).join('')}</div>
+                    </div>
+                `).join('');
+            }
+
+            function renderPricing(data) {
+                return `
+                    <div class="pricing-grid">
+                        ${data.pricing.map(p => `
+                            <div class="pricing-card">
+                                <h3>${p.model}</h3>
+                                <div class="pricing-details">${p.details}</div>
+                                <p class="pricing-usecase">${p.useCase}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <p class="pricing-note">${data.pricingNote}</p>
+                `;
+            }
+
+            /**
+             * ==========================================
+             *  THEME DEFINITIONS
+             * ==========================================
+             */
+            const themes = {
+
+                // ======================================
+                //  THEME 1: PRODUCT LEAD
+                // ======================================
+                product: {
+                    css: `
+:root { --bg: #0a0a0a; --text: #E8E4DE; --text-light: #8a8580; --accent: #C8A96E; --line: rgba(200,169,110,0.15); --surface: #131313; --red: #e74c3c; --green: #6BCB77; }
+body { background: var(--bg); color: var(--text); font-family: "Inter", sans-serif; line-height: 1.7; }
+h1, h2, h3 { font-family: "Playfair Display", serif; font-weight: 400; color: var(--text); }
+h4 { font-family: "Inter", sans-serif; font-weight: 500; color: var(--accent); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.75rem; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 2.5rem; }
+a { color: var(--accent); text-decoration: none; transition: opacity 0.3s; }
+a:hover { opacity: 0.8; }
+
+/* Hero */
+.hero { position: relative; min-height: 100vh; display: flex; align-items: center; overflow: hidden; }
+.hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,10,10,1) 0%, rgba(10,10,10,0.95) 45%, rgba(10,10,10,0.4) 75%, rgba(10,10,10,0.15) 100%); z-index: 1; }
+.hero-bg { position: absolute; top: 0; right: 0; width: 60%; height: 100%; object-fit: cover; object-position: center top; }
+.hero-content { position: relative; z-index: 2; max-width: 1100px; margin: 0 auto; padding: 0 2.5rem; width: 100%; }
+.hero-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.3em; color: var(--accent); display: inline-block; margin-bottom: 2rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--accent); }
+.hero h1 { font-size: clamp(2.8rem, 5vw, 4.5rem); line-height: 1.08; margin-bottom: 2rem; letter-spacing: -0.02em; max-width: 700px; }
+.hero h1 em { font-style: italic; color: var(--accent); }
+.hero .lead { font-size: 1.05rem; color: var(--text-light); margin-bottom: 2.5rem; max-width: 520px; line-height: 1.8; }
+.hero-cta { display: inline-flex; align-items: center; gap: 0.75rem; color: var(--text); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.05em; padding: 0.9rem 0; border-bottom: 1px solid var(--text-light); transition: border-color 0.3s, gap 0.3s; }
+.hero-cta:hover { border-color: var(--accent); gap: 1.2rem; opacity: 1; }
+
+/* Nav */
+.nav-bar { display: flex; gap: 1.5rem; flex-wrap: wrap; padding: 1.5rem 0; border-bottom: 1px solid var(--line); margin-bottom: 4rem; }
+.nav-bar a { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-light); text-decoration: none; transition: color 0.3s; }
+.nav-bar a:hover { color: var(--accent); }
+
+/* Sections */
+section { padding: 5rem 0; }
+.section-divider { width: 100%; height: 1px; background: linear-gradient(90deg, var(--accent), transparent 60%); }
+.section-header { margin-bottom: 3rem; }
+.section-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.3em; color: var(--accent); display: block; margin-bottom: 1rem; }
+.section-header h2 { font-size: clamp(2rem, 3.5vw, 3rem); letter-spacing: -0.01em; }
+
+/* About Values */
+.values-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-top: 2rem; }
+.value-item { display: flex; gap: 1rem; align-items: flex-start; }
+.value-icon { flex-shrink: 0; margin-top: 0.2rem; }
+.value-icon svg { width: 22px; height: 22px; }
+.value-label { font-weight: 600; color: var(--text); font-size: 0.9rem; margin-bottom: 0.25rem; }
+.value-text { color: var(--text-light); font-size: 0.85rem; }
+.about-story { color: var(--text-light); font-size: 1rem; line-height: 1.9; max-width: 800px; margin-bottom: 3rem; }
+.lang-list { display: flex; gap: 1rem; margin-top: 1.5rem; }
+.lang-badge { padding: 0.4rem 1rem; border: 1px solid var(--line); border-radius: 100px; font-size: 0.75rem; color: var(--text-light); }
+
+/* Services */
+.services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+.service-card { padding: 2rem; background: var(--surface); border-radius: 4px; border: 1px solid var(--line); transition: border-color 0.3s; }
+.service-card:hover { border-color: var(--accent); }
+.service-icon { margin-bottom: 1rem; color: var(--accent); }
+.service-icon svg { width: 28px; height: 28px; }
+.service-card h3 { font-size: 1.2rem; margin: 0 0 1rem 0; }
+.service-card ul { list-style: none; padding: 0; margin: 0; }
+.service-card li { color: var(--text-light); font-size: 0.85rem; padding: 0.3rem 0; padding-left: 1rem; position: relative; }
+.service-card li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
+
+/* Problems */
+.problems-section { background: var(--surface); border-radius: 8px; padding: 3rem; border: 1px solid var(--line); }
+.problem-item { display: flex; gap: 1rem; align-items: flex-start; padding: 0.8rem 0; font-size: 0.95rem; color: var(--text-light); }
+.problem-icon { flex-shrink: 0; color: #c0392b; }
+.problem-icon svg { width: 16px; height: 16px; }
+.solution-cta { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 2rem; padding: 1rem 2rem; border: 1px solid var(--accent); color: var(--accent); font-size: 0.85rem; letter-spacing: 0.05em; border-radius: 4px; text-decoration: none; transition: all 0.3s; }
+.solution-cta:hover { background: var(--accent); color: var(--bg); opacity: 1; }
+
+/* Projects */
+.project-item { padding: 2.5rem 0; border-bottom: 1px solid var(--line); }
+.project-item:first-child { border-top: 1px solid var(--line); }
+.project-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 1rem; margin-bottom: 0.5rem; }
+.project-header h3 { font-size: 1.2rem; margin: 0; font-weight: 400; }
+.project-period { font-size: 0.8rem; color: var(--text-light); }
+.project-client { font-size: 0.8rem; color: var(--accent); margin-bottom: 0.75rem; }
+.project-result { font-size: 1rem; color: var(--text); font-weight: 500; margin-bottom: 0.75rem; }
+.project-details { color: var(--text-light); font-size: 0.9rem; margin-bottom: 1rem; }
+.project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.tag-pill { display: inline-block; padding: 0.25rem 0.75rem; border: 1px solid var(--line); border-radius: 100px; font-size: 0.7rem; color: var(--text-light); transition: border-color 0.3s, color 0.3s; }
+.tag-pill:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Skills */
+.skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+.skill-card { padding: 2rem; background: var(--surface); border-radius: 4px; border: 1px solid var(--line); transition: border-color 0.3s; }
+.skill-card:hover { border-color: var(--accent); }
+.skill-card p { color: var(--text-light); font-size: 0.9rem; line-height: 1.7; margin: 0; }
+
+/* Pricing */
+.pricing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+.pricing-card { padding: 2rem; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; transition: border-color 0.3s; }
+.pricing-card:hover { border-color: var(--accent); }
+.pricing-card h3 { font-size: 1.1rem; margin: 0 0 0.5rem 0; }
+.pricing-details { color: var(--accent); font-size: 1rem; font-weight: 500; margin-bottom: 0.75rem; }
+.pricing-usecase { color: var(--text-light); font-size: 0.85rem; margin: 0; }
+.pricing-note { color: var(--text-light); font-size: 0.8rem; margin-top: 2rem; font-style: italic; }
+
+/* Footer */
+footer { padding: 6rem 0 4rem; text-align: center; }
+.footer-line { width: 60px; height: 1px; background: var(--accent); margin: 0 auto 3rem; }
+.footer-tagline { font-family: "Playfair Display", serif; font-size: 1.1rem; font-style: italic; color: var(--text-light); margin-bottom: 2rem; }
+.footer-links { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
+.footer-link { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--accent); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.8rem 2rem; border: 1px solid var(--accent); transition: all 0.3s; }
+.footer-link:hover { background: var(--accent); color: var(--bg); opacity: 1; }
+.footer-link.primary { background: var(--accent); color: var(--bg); }
+.footer-link.primary:hover { background: transparent; color: var(--accent); }
+.footer-contact-info { color: var(--text-light); font-size: 0.8rem; margin: 1.5rem 0; line-height: 1.8; }
+.footer-copy { margin-top: 3rem; font-size: 0.75rem; color: #444; }
+
+@media(max-width:768px) {
+    .hero::before { background: linear-gradient(180deg, rgba(10,10,10,0.9) 40%, rgba(10,10,10,0.5) 100%); }
+    .hero-bg { width: 100%; }
+    .values-grid, .services-grid, .skills-grid, .pricing-grid { grid-template-columns: 1fr; }
+    .project-header { flex-direction: column; gap: 0.25rem; }
+    .container { padding: 0 1.5rem; }
+}
+                    `,
+                    render: (data) => `
+<div class="hero">
+    <img src="${data.images.hero}" class="hero-bg" alt="${data.meta.name}">
+    <div class="hero-content">
+        <span class="hero-label">${data.meta.role} · ${data.meta.location}</span>
+        <h1>${data.about.headline.replace(/AI/g, '<em>AI</em>')}</h1>
+        <p class="lead">${data.about.long}</p>
+        <a href="${data.meta.bookingLink}" class="hero-cta" target="_blank">Book a free intro call <span>&rarr;</span></a>
+    </div>
+</div>
+<div class="section-divider"></div>
+<div class="container">
+    <nav class="nav-bar">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#challenges">Your Challenges</a>
+        <a href="#projects">Projects</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <section id="about">
+        <div class="section-header">
+            <span class="section-label">About Me</span>
+            <h2>My Story & What Drives Me</h2>
+        </div>
+        <p class="about-story">${data.about.story}</p>
+        <div class="values-grid">
+            ${data.about.values.map(v => `
+                <div class="value-item">
+                    <span class="value-icon">${v.icon}</span>
+                    <div>
+                        <div class="value-label">${v.label}</div>
+                        <div class="value-text">${v.text}</div>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+        <div class="lang-list">
+            ${data.about.languages.map(l => `<span class="lang-badge">${l}</span>`).join('')}
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section id="services">
+        <div class="section-header">
+            <span class="section-label">Portfolio & Services</span>
+            <h2>How I Can Help</h2>
+        </div>
+        <div class="services-grid">
+            ${renderServices(data, 'service-card', 'service-list')}
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section id="challenges">
+        <div class="section-header">
+            <span class="section-label">Your Challenges</span>
+            <h2>Sound Familiar?</h2>
+        </div>
+        <div class="problems-section">
+            ${renderProblems(data)}
+            <a href="${data.meta.bookingLink}" class="solution-cta" target="_blank">→ Let's solve this together — book a free call</a>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section id="projects">
+        <div class="section-header">
+            <span class="section-label">Track Record</span>
+            <h2>Highlight Projects</h2>
+        </div>
+        ${renderProjects(data, 'project-item')}
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section id="skills">
+        <div class="section-header">
+            <span class="section-label">Capabilities</span>
+            <h2>Expertise</h2>
+        </div>
+        <div class="skills-grid">
+            <div class="skill-card"><h4>AI & Agentic Engineering</h4><p>${data.skills.ai.join(', ')}</p></div>
+            <div class="skill-card"><h4>AI Tools & Platforms</h4><p>${data.skills.tools.join(', ')}</p></div>
+            <div class="skill-card"><h4>Product Strategy</h4><p>${data.skills.product.join(', ')}</p></div>
+            <div class="skill-card"><h4>Languages & Frameworks</h4><p>${data.skills.tech.join(', ')}</p></div>
+            <div class="skill-card"><h4>Domain Expertise</h4><p>${data.skills.domains.join(', ')}</p></div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section id="pricing">
+        <div class="section-header">
+            <span class="section-label">Engagement</span>
+            <h2>Pricing & Options</h2>
+        </div>
+        ${renderPricing(data)}
+    </section>
+
+    <footer id="contact">
+        <div class="footer-line"></div>
+        <p class="footer-tagline">Ready to build something meaningful?</p>
+        <div class="footer-links">
+            <a href="${data.meta.bookingLink}" class="footer-link primary" target="_blank">${icons.calendar} Book a Free Intro Call</a>
+            <a href="${data.contact.linkedin}" class="footer-link" target="_blank">LinkedIn</a>
+            <a href="${data.contact.x}" class="footer-link" target="_blank">X / Twitter</a>
+            <a href="${data.contact.github}" class="footer-link" target="_blank">GitHub</a>
+            <a href="mailto:${data.contact.email}" class="footer-link">Email</a>
+        </div>
+        <div class="footer-contact-info">
+            ${data.contact.email}<br>
+            ${data.meta.location}
+        </div>
+        <div class="footer-copy">${data.meta.copyright}</div>
+    </footer>
+</div>
+                    `,
+                },
+
+                // ======================================
+                //  THEME 2: TERMINAL
+                // ======================================
+                terminal: {
+                    css: `
+:root { --bg: #0a0e14; --text: #b3b1ad; --accent: #39bae6; --key: #ff8f40; --str: #c2d94c; --err: #ff3333; --comment: #626a73; --purple: #d2a6ff; }
+body { background: var(--bg); color: var(--text); font-family: "Space Mono", monospace; margin: 0; height: 100vh; overflow: hidden; }
+#matrix-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.07; }
+.scanlines { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none;
+    background: repeating-linear-gradient(0deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px, transparent 1px, transparent 2px); }
+.crt-flicker { display: none; }
+.term-wrapper { position: relative; z-index: 2; display: flex; align-items: center; justify-content: center; height: 100vh; padding: 20px; box-sizing: border-box; }
+.term-window { width: 100%; max-width: 960px; height: 85vh; background: rgba(15,20,25,0.92); border: 1px solid #1a1f29; border-radius: 10px; display: flex; flex-direction: column; box-shadow: 0 0 80px rgba(57,186,230,0.08), 0 25px 60px rgba(0,0,0,0.6); backdrop-filter: blur(10px); }
+.term-head { padding: 10px 16px; background: rgba(10,14,20,0.95); border-bottom: 1px solid #1a1f29; border-radius: 10px 10px 0 0; display: flex; align-items: center; justify-content: space-between; }
+.controls { display: flex; gap: 8px; }
+.dot { width: 12px; height: 12px; border-radius: 50%; transition: opacity 0.2s; cursor: pointer; }
+.dot:hover { opacity: 0.7; }
+.term-tabs { display: flex; gap: 2px; }
+.term-tab { padding: 4px 12px; font-size: 0.7rem; color: var(--comment); border-radius: 4px; cursor: pointer; transition: all 0.2s; }
+.term-tab.active { background: rgba(57,186,230,0.1); color: var(--accent); }
+.term-body { flex: 1; padding: 20px; overflow-y: auto; font-size: 0.85rem; line-height: 1.6; scroll-behavior: smooth; }
+.term-body::-webkit-scrollbar { width: 6px; }
+.term-body::-webkit-scrollbar-track { background: transparent; }
+.term-body::-webkit-scrollbar-thumb { background: #1a1f29; border-radius: 3px; }
+.prompt-line { margin-bottom: 0.5rem; }
+.prompt { color: var(--str); }
+.prompt-dir { color: var(--accent); }
+.prompt-arrow { color: var(--key); }
+.typed-cmd { color: var(--text); }
+.output-block { margin: 0.5rem 0 1.5rem 0; padding-left: 4px; }
+.input-row { display: flex; align-items: center; gap: 0; margin-top: 0.5rem; }
+#cmd-input { background: none; border: none; color: var(--text); font-family: inherit; font-size: inherit; outline: none; flex: 1; caret-color: var(--accent); padding: 0; margin-left: 8px; }
+pre { margin: 0; white-space: pre-wrap; word-break: break-word; }
+a { color: var(--str); text-decoration: none; cursor: pointer; border-bottom: 1px dashed var(--comment); transition: border-color 0.2s, color 0.2s; }
+a:hover { color: var(--accent); border-color: var(--accent); }
+.json-key { color: var(--accent); }
+.json-val { color: var(--str); }
+.json-str { color: var(--key); }
+.ascii-art { color: var(--accent); font-size: 0.65rem; line-height: 1.15; margin-bottom: 1rem; }
+.success { color: var(--str); }
+.error { color: var(--err); }
+.info { color: var(--accent); }
+.muted { color: var(--comment); }
+.highlight { color: var(--key); }
+.purple { color: var(--purple); }
+.skill-row { display: flex; align-items: center; gap: 10px; margin: 4px 0; }
+.skill-label { width: 180px; color: var(--text); }
+.skill-bar { flex: 1; height: 8px; background: #1a1f29; border-radius: 4px; overflow: hidden; max-width: 300px; }
+.skill-fill { height: 100%; border-radius: 4px; transition: width 0.8s cubic-bezier(0.22,0.61,0.36,1); }
+.hint-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+.hint-chip { padding: 2px 8px; font-size: 0.75rem; color: var(--comment); border: 1px solid #1a1f29; border-radius: 3px; cursor: pointer; transition: all 0.2s; }
+.hint-chip:hover { color: var(--accent); border-color: var(--accent); }
+@media(max-width:600px) { .term-window { height: 95vh; border-radius: 0; } .term-head { border-radius: 0; } .ascii-art { font-size: 0.45rem; } }
+                    `,
+                    render: (data) => `
+<canvas id="matrix-bg"></canvas>
+<div class="scanlines"></div>
+<div class="crt-flicker"></div>
+<div class="term-wrapper">
+    <div class="term-window">
+        <div class="term-head">
+            <div class="controls">
+                <div class="dot" style="background:#ff5f56"></div>
+                <div class="dot" style="background:#ffbd2e"></div>
+                <div class="dot" style="background:#27c93f"></div>
+            </div>
+            <div class="term-tabs">
+                <div class="term-tab active">tom@portfolio</div>
+                <div class="term-tab">zsh</div>
+            </div>
+            <div style="width:50px"></div>
+        </div>
+        <div class="term-body" id="term-output">
+            <div id="boot-sequence"></div>
+            <div id="dynamic-log"></div>
+            <div class="input-row" id="input-area" style="display:none;">
+                <span class="prompt">tom</span><span class="muted">@</span><span class="prompt-dir">portfolio</span>&nbsp;<span class="prompt-arrow">❯</span>
+                <input type="text" id="cmd-input" spellcheck="false" autocomplete="off" autofocus>
+            </div>
+        </div>
+    </div>
+</div>
+                    `,
+                    init: (data) => {
+                        // === MATRIX RAIN ===
+                        const canvas = document.getElementById('matrix-bg');
+                        if (canvas) {
+                            const ctx = canvas.getContext('2d');
+                            canvas.width = window.innerWidth;
+                            canvas.height = window.innerHeight;
+                            const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789ABCDEF';
+                            const fontSize = 14;
+                            const columns = Math.floor(canvas.width / fontSize);
+                            const drops = Array(columns).fill(1);
+                            function drawMatrix() {
+                                ctx.fillStyle = 'rgba(10,14,20,0.05)';
+                                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                                ctx.fillStyle = '#39bae6';
+                                ctx.font = fontSize + 'px monospace';
+                                for (let i = 0; i < drops.length; i++) {
+                                    const char = chars[Math.floor(Math.random() * chars.length)];
+                                    ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+                                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                                    drops[i]++;
+                                }
+                            }
+                            setInterval(drawMatrix, 50);
+                            window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+                        }
+
+                        // === TERMINAL ENGINE ===
+                        const output = document.getElementById('term-output');
+                        const log = document.getElementById('dynamic-log');
+                        const bootEl = document.getElementById('boot-sequence');
+                        const inputArea = document.getElementById('input-area');
+                        const cmdInput = document.getElementById('cmd-input');
+                        let cmdHistory = [];
+                        let historyIdx = -1;
+
+                        function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+                        function scrollBottom() { output.scrollTop = output.scrollHeight; }
+                        function addOutput(html) {
+                            const div = document.createElement('div');
+                            div.innerHTML = html;
+                            log.appendChild(div);
+                            scrollBottom();
+                        }
+                        function addPromptLine(cmd) {
+                            addOutput('<div class="prompt-line"><span class="prompt">tom</span><span class="muted">@</span><span class="prompt-dir">portfolio</span> <span class="prompt-arrow">❯</span> <span class="typed-cmd">' + esc(cmd) + '</span></div>');
+                        }
+                        async function typeText(el, text, speed) {
+                            for (let i = 0; i < text.length; i++) {
+                                el.textContent += text[i];
+                                scrollBottom();
+                                await new Promise(r => setTimeout(r, speed));
+                            }
+                        }
+
+                        // === BOOT SEQUENCE ===
+                        async function bootSequence() {
+                            const lines = [
+                                { text: '> Initializing system...', cls: 'muted', delay: 400 },
+                                { text: '> Loading kernel modules ████████████████ OK', cls: 'muted', delay: 300 },
+                                { text: '> Mounting /dev/portfolio ... OK', cls: 'muted', delay: 200 },
+                                { text: '> Starting network daemon ... OK', cls: 'muted', delay: 150 },
+                                { text: '> Authenticating user: tom ... ', cls: 'muted', delay: 400, append: '<span class="success">GRANTED</span>' },
+                                { text: '', delay: 200 },
+                            ];
+                            for (const line of lines) {
+                                const el = document.createElement('div');
+                                el.className = line.cls || '';
+                                bootEl.appendChild(el);
+                                await typeText(el, line.text, 12);
+                                if (line.append) el.innerHTML += line.append;
+                                await new Promise(r => setTimeout(r, line.delay));
+                            }
+                            const ascii = `
+<pre class="ascii-art"> ___________           __        
+|           |.-----. |  |.-----.
+|--   ---   ||  _  | |  ||__ --|
+|_________  ||_____|.|__||_____|
+   |____|   portfolio v3.0      
+</pre>`;
+                            const artEl = document.createElement('div');
+                            artEl.innerHTML = ascii;
+                            bootEl.appendChild(artEl);
+                            await new Promise(r => setTimeout(r, 300));
+
+                            addOutput('<div class="muted">Welcome back, <span class="highlight">Tom</span>. Last login: ' + new Date().toLocaleString() + '</div>');
+                            addOutput('<div class="muted">Type <span class="info">help</span> for available commands. Tab-complete supported.</div>');
+                            addOutput('<div style="margin:4px 0"><div class="hint-row"><span class="hint-chip" onclick="runCmd(\'help\')">help</span><span class="hint-chip" onclick="runCmd(\'whoami\')">whoami</span><span class="hint-chip" onclick="runCmd(\'skills\')">skills</span><span class="hint-chip" onclick="runCmd(\'projects\')">projects</span><span class="hint-chip" onclick="runCmd(\'services\')">services</span><span class="hint-chip" onclick="runCmd(\'pricing\')">pricing</span><span class="hint-chip" onclick="runCmd(\'contact\')">contact</span></div></div>');
+                            inputArea.style.display = 'flex';
+                            cmdInput.focus();
+                            scrollBottom();
+                        }
+
+                        // === COMMANDS ===
+                        const commands = {
+                            help: () => `<div class="output-block"><pre class="muted">
+<span class="info">Available commands:</span>
+
+  <span class="highlight">whoami</span>        Display user profile & story
+  <span class="highlight">skills</span>        Show skill matrix with proficiency
+  <span class="highlight">services</span>      What I can do for you
+  <span class="highlight">problems</span>      Your challenges — my solutions
+  <span class="highlight">projects</span>      Highlight project track record
+  <span class="highlight">pricing</span>       Engagement models & rates
+  <span class="highlight">contact</span>       Open communication channel
+  <span class="highlight">cat</span> <span class="muted">[file]</span>    Read a file (try: profile.json, README.md)
+  <span class="highlight">ls</span>            List directory contents
+  <span class="highlight">neofetch</span>      System information
+  <span class="highlight">matrix</span>        Toggle background intensity
+  <span class="highlight">clear</span>         Clear terminal
+  <span class="highlight">sudo</span> <span class="muted">[cmd]</span>    Try it...
+  <span class="highlight">history</span>       Show command history
+  <span class="highlight">exit</span>          Close session
+</pre></div>`,
+
+                            whoami: () => `<div class="output-block"><pre>
+<span class="json-key">Name:</span>    <span class="json-val">${data.meta.name}</span>
+<span class="json-key">Role:</span>    <span class="json-val">${data.meta.role}</span>
+<span class="json-key">Based:</span>   <span class="json-val">${data.meta.location}</span>
+<span class="json-key">Focus:</span>   <span class="json-val">${data.meta.tagline}</span>
+<span class="json-key">Lang:</span>    <span class="json-val">${data.about.languages.join(' · ')}</span>
+
+<span class="muted">${data.about.story}</span>
+
+<span class="info">Values:</span>
+${data.about.values.map(v => `  <span class="highlight">${v.label}</span> — ${v.text}`).join('\n')}
+</pre></div>`,
+
+                            skills: () => {
+                                const skillBars = [
+                                    ...data.skills.ai.map((s,i) => ({name: s, pct: [95,90,85,88,82,80][i] || 80, color: 'var(--accent)'})),
+                                    ...data.skills.tools.map((s,i) => ({name: s, pct: [95,90,93,85,92,88,85][i] || 80, color: 'var(--purple)'})),
+                                    ...data.skills.product.map((s,i) => ({name: s, pct: [92,95,88,85,80][i] || 80, color: 'var(--str)'})),
+                                    ...data.skills.tech.map((s,i) => ({name: s, pct: [88,82,85,78,75,75,80,72,85,82,90][i] || 75, color: 'var(--key)'})),
+                                ];
+                                const rows = skillBars.map(s =>
+                                    '<div class="skill-row"><span class="skill-label">' + s.name + '</span><div class="skill-bar"><div class="skill-fill" data-width="' + s.pct + '" style="width:0%; background:' + s.color + ';"></div></div><span class="muted" style="width:35px;text-align:right;">' + s.pct + '%</span></div>'
+                                ).join('');
+                                setTimeout(() => {
+                                    document.querySelectorAll('.skill-fill[data-width]').forEach(el => {
+                                        el.style.width = el.dataset.width + '%';
+                                    });
+                                }, 50);
+                                return '<div class="output-block"><pre><span class="info">Domain expertise:</span> ' + data.skills.domains.join(' · ') + '</pre>' + rows + '</div>';
+                            },
+
+                            services: () => '<div class="output-block">' + data.services.map(s => `
+<div style="margin-bottom:1.5rem;">
+<div><span class="info">${s.icon} ${s.title}</span></div>
+${s.items.map(i => `<div class="muted">  → ${i}</div>`).join('')}
+</div>`).join('') + '</div>',
+
+                            problems: () => `<div class="output-block"><pre>
+<span class="info">━━━ YOUR CHALLENGES — MY SOLUTIONS ━━━</span>
+
+${data.problems.map(p => `<span class="error">${p.icon}</span> ${p.text}`).join('\n')}
+
+<span class="success">→ Let's solve this together.</span>
+<span class="muted">Type <span class="info">contact</span> to get in touch or <span class="info">pricing</span> for engagement options.</span>
+</pre></div>`,
+
+                            projects: () => '<div class="output-block">' + data.projects.map(p => `
+<div style="margin-bottom:1.5rem;">
+<div class="muted">───────────────────────────────</div>
+<div><span class="highlight">${p.period}</span></div>
+<div><span class="info">${p.name}</span></div>
+<div><span class="purple">${p.client}</span></div>
+<div style="margin-top:4px;"><span class="success">▸ ${p.result}</span></div>
+<div style="margin-top:4px;">${p.details}</div>
+<div style="margin-top:4px;" class="muted">${p.tags.map(t => '#' + t.replace(/\s+/g, '')).join('  ')}</div>
+</div>`).join('') + '</div>',
+
+                            pricing: () => `<div class="output-block"><pre>
+<span class="info">━━━ ENGAGEMENT OPTIONS ━━━</span>
+
+${data.pricing.map(p => `<span class="highlight">${p.model}</span>
+  <span class="json-val">${p.details}</span>
+  <span class="muted">${p.useCase}</span>
+`).join('\n')}
+<span class="muted">${data.pricingNote}</span>
+
+<span class="success">→</span> <a href="${data.meta.bookingLink}" target="_blank">Book a free intro call →</a>
+</pre></div>`,
+
+                            ls: () => `<div class="output-block"><pre>
+<span class="info">drwxr-xr-x</span>  <span class="muted">tom  staff</span>  <span class="highlight">./projects</span>
+<span class="muted">-rw-r--r--</span>  <span class="muted">tom  staff</span>  profile.json
+<span class="muted">-rw-r--r--</span>  <span class="muted">tom  staff</span>  README.md
+<span class="muted">-rw-r--r--</span>  <span class="muted">tom  staff</span>  skills.csv
+<span class="muted">-rw-r--r--</span>  <span class="muted">tom  staff</span>  services.yml
+<span class="muted">-rw-r--r--</span>  <span class="muted">tom  staff</span>  pricing.md
+<span class="muted">-rwx------</span>  <span class="muted">tom  staff</span>  <span class="success">contact.sh</span>
+</pre></div>`,
+
+                            cat: (args) => {
+                                const file = (args || '').trim();
+                                if (!file) return '<div class="output-block"><span class="error">cat: missing operand. Try: cat profile.json</span></div>';
+                                if (file === 'profile.json') {
+                                    return `<div class="output-block"><pre>{
+  <span class="json-key">"name"</span>: <span class="json-str">"${data.meta.name}"</span>,
+  <span class="json-key">"role"</span>: <span class="json-str">"${data.meta.role}"</span>,
+  <span class="json-key">"tagline"</span>: <span class="json-str">"${data.meta.tagline}"</span>,
+  <span class="json-key">"location"</span>: <span class="json-str">"${data.meta.location}"</span>,
+  <span class="json-key">"email"</span>: <span class="json-str">"${data.contact.email}"</span>,
+  <span class="json-key">"languages"</span>: [<span class="json-str">"${data.about.languages.join('", "')}"</span>],
+  <span class="json-key">"booking"</span>: <span class="json-str">"${data.meta.bookingLink}"</span>
+}</pre></div>`;
+                                }
+                                if (file === 'README.md') {
+                                    return `<div class="output-block"><pre>
+<span class="info"># ${data.meta.name}</span>
+<span class="purple">## ${data.about.headline}</span>
+
+${data.about.story}
+
+<span class="muted">---</span>
+<span class="highlight">Email:</span>    ${data.contact.email}
+<span class="highlight">LinkedIn:</span> ${data.contact.linkedin}
+<span class="highlight">Book:</span>     <a href="${data.meta.bookingLink}" target="_blank" style="color:var(--str)">Schedule a free intro call →</a>
+</pre></div>`;
+                                }
+                                if (file === 'skills.csv') {
+                                    return `<div class="output-block"><pre><span class="info">category,skill,proficiency</span>
+${data.skills.ai.map(s => `<span class="json-val">ai</span>,<span class="json-str">${s}</span>,advanced`).join('\n')}
+${data.skills.tools.map(s => `<span class="json-val">tools</span>,<span class="json-str">${s}</span>,advanced`).join('\n')}
+${data.skills.product.map(s => `<span class="json-val">product</span>,<span class="json-str">${s}</span>,expert`).join('\n')}
+${data.skills.tech.map(s => `<span class="json-val">tech</span>,<span class="json-str">${s}</span>,proficient`).join('\n')}
+${data.skills.domains.map(s => `<span class="json-val">domain</span>,<span class="json-str">${s}</span>,experienced`).join('\n')}</pre></div>`;
+                                }
+                                if (file === 'services.yml') {
+                                    return '<div class="output-block"><pre>' + data.services.map(s =>
+`<span class="json-key">- title:</span> <span class="json-str">${s.title}</span>
+<span class="json-key">  offerings:</span>
+${s.items.map(i => `    <span class="muted">-</span> <span class="json-val">${i}</span>`).join('\n')}`
+                                    ).join('\n\n') + '</pre></div>';
+                                }
+                                if (file === 'pricing.md') {
+                                    return `<div class="output-block"><pre>
+<span class="info"># Engagement Options</span>
+
+${data.pricing.map(p => `<span class="highlight">## ${p.model}</span>
+<span class="json-val">${p.details}</span>
+<span class="muted">${p.useCase}</span>`).join('\n\n')}
+
+<span class="muted">---</span>
+<span class="muted">${data.pricingNote}</span>
+
+<a href="${data.meta.bookingLink}" target="_blank" style="color:var(--str)">Book a free intro call →</a>
+</pre></div>`;
+                                }
+                                if (file === 'contact.sh') {
+                                    return `<div class="output-block"><pre><span class="muted">#!/bin/bash</span>
+
+<span class="json-key">EMAIL</span>=<span class="json-str">"${data.contact.email}"</span>
+<span class="json-key">LINKEDIN</span>=<span class="json-str">"${data.contact.linkedin}"</span>
+<span class="json-key">X_TWITTER</span>=<span class="json-str">"${data.contact.x}"</span>
+<span class="json-key">GITHUB</span>=<span class="json-str">"${data.contact.github}"</span>
+<span class="json-key">BOOKING</span>=<span class="json-str">"<a href="${data.meta.bookingLink}" target="_blank" style="color:var(--str)">Schedule a free intro call →</a>"</span>
+<span class="json-key">LOCATION</span>=<span class="json-str">"${data.meta.location}"</span>
+
+<span class="muted"># Open preferred channel</span>
+<span class="purple">echo</span> <span class="json-str">"Reach out anytime — let's build something meaningful."</span></pre></div>`;
+                                }
+                                if (file === './projects' || file === 'projects') {
+                                    return '<div class="output-block"><span class="error">cat: ./projects: Is a directory</span></div>';
+                                }
+                                return '<div class="output-block"><span class="error">cat: ' + esc(file) + ': No such file or directory</span></div>';
+                            },
+
+                            contact: () => {
+                                return `<div class="output-block"><pre>
+<span class="info">━━━ CONTACT CHANNELS ━━━</span>
+
+  <span class="highlight">Book a call:</span>  <a href="${data.meta.bookingLink}" target="_blank" style="color:var(--str)">Schedule a free intro call →</a>
+  <span class="highlight">Email:</span>       <a href="mailto:${data.contact.email}" style="color:var(--str)">${data.contact.email}</a>
+  <span class="highlight">LinkedIn:</span>    <a href="${data.contact.linkedin}" target="_blank" style="color:var(--str)">${data.contact.linkedin}</a>
+  <span class="highlight">X/Twitter:</span>   <a href="${data.contact.x}" target="_blank" style="color:var(--str)">@thomasjansn</a>
+  <span class="highlight">GitHub:</span>      <a href="${data.contact.github}" target="_blank" style="color:var(--str)">github.com/tjansn</a>
+
+  <span class="muted">${data.meta.location}</span>
+</pre></div>`;
+                            },
+
+                            neofetch: () => `<div class="output-block" style="display:flex;gap:2rem;"><pre class="ascii-art" style="margin:0;flex-shrink:0;">  .--------.
+  |  o  o  |
+  |   __   |
+  |  [__]  |
+  '--------'
+</pre><pre>
+<span class="info">tom</span><span class="muted">@</span><span class="info">portfolio</span>
+<span class="muted">──────────────────</span>
+<span class="highlight">OS:</span>      macOS Sequoia 15.4
+<span class="highlight">Shell:</span>   zsh 5.9
+<span class="highlight">Editor:</span>  VS Code + Cursor
+<span class="highlight">Lang:</span>    ${data.skills.tech.join(', ')}
+<span class="highlight">AI:</span>      ${data.skills.ai.join(', ')}
+<span class="highlight">Tools:</span>   ${data.skills.tools.join(', ')}
+<span class="highlight">Domains:</span> ${data.skills.domains.join(', ')}
+<span class="highlight">Uptime:</span>  15+ years in tech
+<span class="highlight">Status:</span>  <span class="success">● ${data.meta.availability}</span>
+</pre></div>`,
+
+                            matrix: () => {
+                                const c = document.getElementById('matrix-bg');
+                                if (c) {
+                                    const cur = parseFloat(c.style.opacity) || 0.07;
+                                    c.style.opacity = cur > 0.15 ? '0.04' : (cur + 0.06).toFixed(2);
+                                    return '<div class="output-block"><span class="success">Matrix intensity: ' + c.style.opacity + '</span></div>';
+                                }
+                                return '';
+                            },
+                            clear: () => { log.innerHTML = ''; bootEl.innerHTML = ''; return null; },
+                            history: () => {
+                                if (cmdHistory.length === 0) return '<div class="output-block muted">No commands in history.</div>';
+                                return '<div class="output-block"><pre>' + cmdHistory.map((c,i) => '<span class="muted">' + (i+1) + '</span>  ' + esc(c)).join('\n') + '</pre></div>';
+                            },
+                            sudo: () => '<div class="output-block"><span class="error">⚠ Nice try. Permission denied. This incident will be reported. 🙃</span></div>',
+                            exit: () => {
+                                document.querySelector('.term-body').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;"><div class="muted" style="text-align:center;font-size:1.2rem;">Connection closed.<br><br><span class="hint-chip" onclick="location.reload()" style="font-size:0.9rem;padding:6px 16px;">Reconnect</span></div></div>';
+                                return null;
+                            },
+                        };
+
+                        // === COMMAND EXECUTION ===
+                        window.runCmd = function(input) {
+                            cmdInput.value = input;
+                            processCommand(input);
+                            cmdInput.value = '';
+                            cmdInput.focus();
+                        };
+                        function processCommand(raw) {
+                            const input = raw.trim();
+                            if (!input) return;
+                            cmdHistory.push(input);
+                            historyIdx = cmdHistory.length;
+                            addPromptLine(input);
+                            const parts = input.split(/\s+/);
+                            const cmd = parts[0].toLowerCase();
+                            const args = parts.slice(1).join(' ');
+                            if (commands[cmd]) {
+                                const result = commands[cmd](args);
+                                if (result) addOutput(result);
+                            } else {
+                                addOutput('<div class="output-block"><span class="error">zsh: command not found: ' + esc(cmd) + '</span><br><span class="muted">Type <span class="info">help</span> for available commands.</span></div>');
+                            }
+                        }
+
+                        // === INPUT HANDLING ===
+                        const allCmds = Object.keys(commands);
+                        cmdInput.addEventListener('keydown', (e) => {
+                            if (e.key === 'Enter') { processCommand(cmdInput.value); cmdInput.value = ''; }
+                            else if (e.key === 'ArrowUp') { e.preventDefault(); if (historyIdx > 0) { historyIdx--; cmdInput.value = cmdHistory[historyIdx]; } }
+                            else if (e.key === 'ArrowDown') { e.preventDefault(); if (historyIdx < cmdHistory.length - 1) { historyIdx++; cmdInput.value = cmdHistory[historyIdx]; } else { historyIdx = cmdHistory.length; cmdInput.value = ''; } }
+                            else if (e.key === 'Tab') { e.preventDefault(); const val = cmdInput.value.trim().toLowerCase(); if (val) { const match = allCmds.find(c => c.startsWith(val)); if (match) cmdInput.value = match; } }
+                            else if (e.key === 'l' && e.ctrlKey) { e.preventDefault(); commands.clear(); }
+                        });
+                        output.addEventListener('click', () => cmdInput.focus());
+                        bootSequence();
+                    },
+                },
+
+                // ======================================
+                //  THEME 3: SPLIT SCREEN
+                // ======================================
+                split: {
+                    css: `
+:root { --accent: #FF6B5A; --bg: #050505; --text: #f0f0f0; --text-light: #aaa; --surface: #0d0d0d; --line: #222; }
+body { background: var(--bg); color: var(--text); font-family: "Roboto", sans-serif; }
+a { color: var(--accent); text-decoration: none; }
+.split-layout { display: flex; min-height: 100vh; }
+.visual-pane { width: 40%; height: 100vh; position: sticky; top: 0; background: #000; overflow: hidden; }
+.visual-pane img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; filter: grayscale(100%) contrast(1.2); }
+.visual-overlay { position: absolute; bottom: 4rem; left: 4rem; z-index: 2; }
+.visual-overlay h1 { font-family: "Oswald", sans-serif; font-size: clamp(3rem, 5vw, 5rem); line-height: 0.9; text-transform: uppercase; margin-bottom: 1rem; }
+.tagline { font-size: 1rem; letter-spacing: 0.2em; text-transform: uppercase; border-left: 3px solid var(--accent); padding-left: 1rem; }
+.content-pane { width: 60%; padding: 4rem 4rem; }
+h2 { font-family: "Oswald", sans-serif; font-size: 2rem; text-transform: uppercase; margin-bottom: 2rem; border-bottom: 2px solid #333; padding-bottom: 0.5rem; display: inline-block; }
+h2 span { color: var(--accent); }
+h3 { font-family: "Oswald", sans-serif; font-size: 1.2rem; margin-bottom: 0.5rem; }
+.split-section { margin-bottom: 4rem; }
+
+/* About */
+.split-story { color: var(--text-light); font-size: 1rem; line-height: 1.7; margin-bottom: 2rem; max-width: 600px; }
+.split-values { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+.split-value { border-left: 1px solid #333; padding-left: 1rem; }
+.split-value:hover { border-color: var(--accent); }
+.split-value strong { color: var(--text); display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem; }
+.split-value strong svg { width: 18px; height: 18px; color: var(--accent); flex-shrink: 0; }
+.split-value span { color: var(--text-light); font-size: 0.85rem; }
+
+/* Services */
+.split-service { margin-bottom: 2rem; border-left: 1px solid #333; padding-left: 1.5rem; transition: border-color 0.3s; }
+.split-service:hover { border-color: var(--accent); }
+.split-service h3 { color: var(--text); }
+.split-service li { color: var(--text-light); font-size: 0.9rem; margin-bottom: 0.3rem; }
+.split-service ul { list-style: none; padding: 0; }
+.split-service li::before { content: '→ '; color: var(--accent); }
+
+/* Problems */
+.split-problems { background: var(--surface); border: 1px solid var(--line); padding: 2rem; margin-bottom: 1rem; }
+.problem-item { display: flex; gap: 0.75rem; padding: 0.5rem 0; color: var(--text-light); font-size: 0.9rem; }
+
+/* Projects */
+.split-project { margin-bottom: 2.5rem; border-left: 1px solid #333; padding-left: 1.5rem; transition: border-color 0.3s; }
+.split-project:hover { border-color: var(--accent); }
+.role-year { font-family: "Oswald", sans-serif; color: var(--accent); display: block; margin-bottom: 0.25rem; }
+.project-result { color: var(--accent); font-size: 0.95rem; margin-bottom: 0.5rem; }
+.project-details { color: var(--text-light); font-size: 0.9rem; }
+.project-tags { margin-top: 0.5rem; }
+.tag-pill { display: inline-block; padding: 0.2rem 0.6rem; border: 1px solid #333; font-size: 0.7rem; color: var(--text-light); margin: 0.2rem 0.3rem 0.2rem 0; }
+.tag-pill:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Pricing */
+.split-pricing { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.split-price-card { border: 1px solid var(--line); padding: 1.5rem; transition: border-color 0.3s; }
+.split-price-card:hover { border-color: var(--accent); }
+.split-price-card h3 { margin-top: 0; }
+.price-detail { color: var(--accent); font-size: 0.95rem; margin-bottom: 0.5rem; }
+.price-use { color: var(--text-light); font-size: 0.8rem; }
+.pricing-note { color: var(--text-light); font-size: 0.8rem; margin-top: 1rem; font-style: italic; }
+
+.btn { display: inline-block; padding: 1rem 2.5rem; border: 1px solid var(--accent); color: var(--accent); text-decoration: none; font-family: "Oswald", sans-serif; text-transform: uppercase; margin-top: 1rem; margin-right: 1rem; transition: all 0.3s; }
+.btn:hover { background: var(--accent); color: #000; }
+.btn.primary { background: var(--accent); color: #000; }
+.btn.primary:hover { background: transparent; color: var(--accent); }
+
+.split-contact-info { color: var(--text-light); font-size: 0.85rem; margin-top: 1.5rem; line-height: 1.8; }
+
+@media(max-width:900px) {
+    .split-layout { flex-direction: column; }
+    .visual-pane { width: 100%; height: 50vh; position: relative; }
+    .content-pane { width: 100%; padding: 3rem 1.5rem; }
+    .split-values, .split-pricing { grid-template-columns: 1fr; }
+}
+                    `,
+                    render: (data) => `
+<div class="split-layout">
+    <div class="visual-pane">
+        <img src="${data.images.hero}" alt="${data.meta.name}">
+        <div class="visual-overlay">
+            <h1>${data.meta.name.replace(' ', '<br>')}</h1>
+            <div class="tagline">${data.meta.subtitle}</div>
+        </div>
+    </div>
+    <div class="content-pane">
+        <div class="split-section">
+            <h2>01. <span>About</span></h2>
+            <p class="split-story">${data.about.story}</p>
+            <div class="split-values">
+                ${data.about.values.map(v => `
+                    <div class="split-value">
+                        <strong>${v.icon} ${v.label}</strong>
+                        <span>${v.text}</span>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+
+        <div class="split-section">
+            <h2>02. <span>Services</span></h2>
+            ${data.services.map(s => `
+                <div class="split-service">
+                    <h3>${s.icon} ${s.title}</h3>
+                    <ul>${s.items.map(i => `<li>${i}</li>`).join('')}</ul>
+                </div>
+            `).join('')}
+        </div>
+
+        <div class="split-section">
+            <h2>03. <span>Your Challenges</span></h2>
+            <div class="split-problems">
+                ${renderProblems(data)}
+            </div>
+            <a href="${data.meta.bookingLink}" class="btn primary" target="_blank">→ Let's Solve This</a>
+        </div>
+
+        <div class="split-section">
+            <h2>04. <span>Track Record</span></h2>
+            ${data.projects.map(p => `
+                <div class="split-project">
+                    <span class="role-year">${p.period}</span>
+                    <h3>${p.name}</h3>
+                    <div style="color:#666;font-size:0.8rem;margin-bottom:0.5rem;">${p.client}</div>
+                    <div class="project-result">▸ ${p.result}</div>
+                    <p class="project-details">${p.details}</p>
+                    <div class="project-tags">${p.tags.map(t => `<span class="tag-pill">${t}</span>`).join('')}</div>
+                </div>
+            `).join('')}
+        </div>
+
+        <div class="split-section">
+            <h2>05. <span>Pricing</span></h2>
+            <div class="split-pricing">
+                ${data.pricing.map(p => `
+                    <div class="split-price-card">
+                        <h3>${p.model}</h3>
+                        <div class="price-detail">${p.details}</div>
+                        <div class="price-use">${p.useCase}</div>
+                    </div>
+                `).join('')}
+            </div>
+            <p class="pricing-note">${data.pricingNote}</p>
+        </div>
+
+        <div class="split-section">
+            <h2>06. <span>Contact</span></h2>
+            <p style="font-size:1.1rem;color:#ccc;">${data.meta.availability}</p>
+            <a href="${data.meta.bookingLink}" class="btn primary" target="_blank">Book a Free Intro Call</a>
+            <a href="${data.contact.linkedin}" class="btn" target="_blank">LinkedIn</a>
+            <a href="${data.contact.x}" class="btn" target="_blank">X / Twitter</a>
+            <a href="${data.contact.github}" class="btn" target="_blank">GitHub</a>
+            <a href="mailto:${data.contact.email}" class="btn">Email</a>
+            <div class="split-contact-info">
+                ${data.contact.email}<br>
+                ${data.meta.location}
+            </div>
+        </div>
+    </div>
+</div>
+                    `,
+                },
+
+                // ======================================
+                //  THEME 4: BOLD TYPE
+                // ======================================
+                bold: {
+                    css: `
+:root { --bg: #111; --text: #EAEAEA; --accent: #FF3B30; --text-light: #888; --surface: #1a1a1a; --line: #333; }
+body { background: var(--bg); color: var(--text); font-family: "Inter", Helvetica, Arial, sans-serif; overflow-x: hidden; }
+a { color: var(--accent); text-decoration: none; transition: opacity 0.3s; }
+a:hover { opacity: 0.8; }
+.bold-container { padding: 4vw; }
+.header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+.logo { font-weight: 900; font-size: 1.5rem; letter-spacing: -0.05em; }
+.meta { text-align: right; font-size: 0.8rem; color: var(--text-light); line-height: 1.4; }
+
+/* Hero */
+.bold-hero { margin-bottom: 4rem; overflow: hidden; }
+.hero-word { font-size: clamp(3rem, 8vw, 7rem); font-weight: 900; text-transform: uppercase; line-height: 0.9; letter-spacing: -0.04em; margin: 0; display: block; position: relative; width: fit-content; cursor: default; color: #333; }
+.hero-word.revealed { transition: transform 0.3s, color 0.3s; }
+.hero-word:hover { color: var(--text); transform: translateX(20px); }
+.hero-word::after { content: attr(data-hover); position: absolute; left: 20px; top: 0; color: var(--accent); opacity: 0; transition: opacity 0.3s; pointer-events: none; white-space: nowrap; z-index: -1; }
+.hero-word:hover::after { opacity: 1; }
+.hero-word.accent { color: var(--accent); }
+.hero-word.accent:hover { color: var(--text); }
+
+/* Hero entrance animation */
+.hero-word { opacity: 0; transform: translateX(-100px) skewX(8deg); }
+.hero-word.revealed { opacity: 1; transform: translateX(0) skewX(0deg); }
+.hero-word .char { display: inline-block; min-width: 0.5ch; }
+.bold-hero .lead { font-size: 1.2rem; color: var(--text-light); max-width: 700px; line-height: 1.6; margin-bottom: 2rem; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.bold-hero .lead.revealed { opacity: 1; transform: translateY(0); }
+.bold-hero .bold-btn { opacity: 0; transform: translateY(15px); transition: opacity 0.4s ease, transform 0.4s ease; }
+.bold-hero .bold-btn.revealed { opacity: 1; transform: translateY(0); }
+.bold-hero .bold-btn.revealed:hover { opacity: 1; transform: translateY(0); }
+
+/* Red line sweep */
+.hero-sweep { position: relative; height: 3px; background: transparent; margin: 1.2rem 0 1.5rem; overflow: hidden; }
+.hero-sweep::after { content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 100%; background: var(--accent); transform: translateX(-101%); }
+.hero-sweep.revealed::after { animation: sweepLine 0.8s cubic-bezier(0.65,0,0.35,1) forwards; }
+@keyframes sweepLine { 0% { transform: translateX(-101%); } 50% { transform: translateX(0); } 100% { transform: translateX(101%); } }
+
+/* Nav */
+.bold-nav { display: flex; gap: 2rem; flex-wrap: wrap; padding: 1.5rem 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-bottom: 4rem; }
+.bold-nav a { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-light); font-weight: 700; }
+.bold-nav a:hover { color: var(--accent); opacity: 1; }
+
+/* Sections */
+.bold-section { margin-bottom: 5rem; }
+.bold-section h2 { font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 900; text-transform: uppercase; letter-spacing: -0.03em; margin-bottom: 2rem; position: relative; display: inline-block; cursor: default; transition: transform 0.3s; }
+.bold-section h2:hover { transform: translateX(12px); }
+.bold-section h2 span { color: var(--accent); }
+.bold-section h2::after { content: attr(data-hover); position: absolute; left: 12px; top: 0; color: var(--accent); opacity: 0; transition: opacity 0.3s; pointer-events: none; white-space: nowrap; z-index: -1; }
+.bold-section h2:hover::after { opacity: 0.3; }
+
+/* About */
+.bold-story { font-size: 1.1rem; color: var(--text-light); line-height: 1.7; max-width: 800px; margin-bottom: 2rem; }
+.bold-values { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
+.bold-value { padding: 1.5rem; background: var(--surface); border-left: 3px solid var(--line); transition: border-color 0.3s; }
+.bold-value:hover { border-color: var(--accent); }
+.bold-value strong { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; font-size: 1rem; }
+.bold-value strong svg { width: 20px; height: 20px; color: var(--accent); flex-shrink: 0; }
+.bold-value p { color: var(--text-light); font-size: 0.85rem; margin: 0; }
+
+/* Services */
+.bold-services { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+.bold-svc { padding: 2rem; background: var(--surface); border-left: 3px solid var(--line); transition: border-color 0.3s; }
+.bold-svc:hover { border-color: var(--accent); }
+.bold-svc h3 { font-size: 1.2rem; font-weight: 700; text-transform: uppercase; margin: 0 0 1rem 0; }
+.bold-svc ul { list-style: none; padding: 0; margin: 0; }
+.bold-svc li { color: var(--text-light); font-size: 0.85rem; padding: 0.3rem 0; }
+.bold-svc li::before { content: '▸ '; color: var(--accent); }
+
+/* Problems */
+.bold-problems { background: var(--surface); padding: 2.5rem; border-left: 3px solid var(--accent); margin-bottom: 2rem; }
+.problem-item { display: flex; gap: 0.75rem; padding: 0.6rem 0; font-size: 0.95rem; color: var(--text-light); }
+
+/* Projects */
+.bold-project { padding: 2rem 0; border-bottom: 1px solid var(--line); }
+.bold-project:first-child { border-top: 1px solid var(--line); }
+.project-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5rem; }
+.project-header h3 { font-size: 1.3rem; font-weight: 700; text-transform: uppercase; margin: 0; }
+.project-period { color: var(--accent); font-size: 0.85rem; font-weight: 700; }
+.project-client { color: var(--text-light); font-size: 0.8rem; margin: 0.5rem 0; }
+.project-result { color: var(--text); font-weight: 600; margin-bottom: 0.5rem; }
+.project-details { color: var(--text-light); font-size: 0.9rem; margin-bottom: 0.75rem; }
+.project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.tag-pill { padding: 0.2rem 0.6rem; border: 1px solid var(--line); font-size: 0.7rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.05em; }
+.tag-pill:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Pricing */
+.bold-pricing { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+.bold-price-card { padding: 2rem; background: var(--surface); border-left: 3px solid var(--line); transition: border-color 0.3s; }
+.bold-price-card:hover { border-color: var(--accent); }
+.bold-price-card h3 { font-size: 1rem; font-weight: 700; text-transform: uppercase; margin: 0 0 0.5rem 0; }
+.bold-price-detail { color: var(--accent); font-weight: 700; margin-bottom: 0.5rem; }
+.bold-price-use { color: var(--text-light); font-size: 0.8rem; }
+.pricing-note { color: var(--text-light); font-size: 0.8rem; margin-top: 1.5rem; font-style: italic; }
+
+/* CTA buttons */
+.bold-btn { display: inline-block; padding: 1rem 2.5rem; border: 2px solid var(--accent); color: var(--accent); font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.85rem; margin-right: 1rem; margin-top: 1rem; transition: all 0.3s; }
+.bold-btn:hover { background: var(--accent); color: #000; opacity: 1; }
+.bold-btn.primary { background: var(--accent); color: #000; }
+.bold-btn.primary:hover { background: transparent; color: var(--accent); }
+
+/* Marquee */
+.marquee { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 1.5rem 0; overflow: hidden; white-space: nowrap; margin-top: 3rem; }
+.marquee span { font-size: 1.5rem; font-weight: 800; text-transform: uppercase; color: #333; margin-right: 4rem; display: inline-block; animation: scroll 25s linear infinite; }
+@keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+
+/* Footer */
+.bold-footer { text-align: center; padding: 4rem 0 2rem; }
+.bold-footer-info { color: var(--text-light); font-size: 0.8rem; margin-top: 1.5rem; line-height: 1.8; }
+.bold-footer-copy { margin-top: 2rem; font-size: 0.7rem; color: #444; }
+
+@media(max-width:768px) {
+    .bold-hero h1 { font-size: 3.5rem; }
+    .bold-values, .bold-services, .bold-pricing { grid-template-columns: 1fr; }
+}
+                    `,
+                    render: (data) => `
+<div class="bold-container">
+    <header class="header">
+        <div class="logo">TOM JANSEN</div>
+        <div class="meta">${data.meta.role}<br>${data.meta.location}</div>
+    </header>
+
+    <div class="bold-hero">
+        <div class="hero-word" data-hover="STRATEGY" data-text="STRATEGY"></div>
+        <div class="hero-word accent" data-hover="AGENTIC AI" data-text="AGENTIC AI"></div>
+        <div class="hero-word" data-hover="PRODUCT" data-text="PRODUCT"></div>
+        <div class="hero-sweep"></div>
+        <p class="lead">${data.about.headline}</p>
+        <a href="${data.meta.bookingLink}" class="bold-btn primary" target="_blank">Book a Free Intro Call</a>
+        <a href="${data.contact.linkedin}" class="bold-btn" target="_blank">LinkedIn</a>
+    </div>
+
+    <nav class="bold-nav">
+        <a href="#bold-about">About</a>
+        <a href="#bold-services">Services</a>
+        <a href="#bold-challenges">Challenges</a>
+        <a href="#bold-projects">Projects</a>
+        <a href="#bold-pricing">Pricing</a>
+        <a href="#bold-contact">Contact</a>
+    </nav>
+
+    <div class="bold-section" id="bold-about">
+        <h2 data-hover="WHO I AM">WHO <span>I AM</span></h2>
+        <p class="bold-story">${data.about.story}</p>
+        <div class="bold-values">
+            ${data.about.values.map(v => `
+                <div class="bold-value">
+                    <strong>${v.icon} ${v.label}</strong>
+                    <p>${v.text}</p>
+                </div>
+            `).join('')}
+        </div>
+    </div>
+
+    <div class="bold-section" id="bold-services">
+        <h2 data-hover="WHAT I DELIVER">WHAT I <span>DELIVER</span></h2>
+        <div class="bold-services">
+            ${data.services.map(s => `
+                <div class="bold-svc">
+                    <h3>${s.icon} ${s.title}</h3>
+                    <ul>${s.items.map(i => `<li>${i}</li>`).join('')}</ul>
+                </div>
+            `).join('')}
+        </div>
+    </div>
+
+    <div class="bold-section" id="bold-challenges">
+        <h2 data-hover="YOUR CHALLENGES">YOUR <span>CHALLENGES</span></h2>
+        <div class="bold-problems">
+            ${renderProblems(data)}
+        </div>
+        <a href="${data.meta.bookingLink}" class="bold-btn primary" target="_blank">→ Let's Solve This Together</a>
+    </div>
+
+    <div class="bold-section" id="bold-projects">
+        <h2 data-hover="TRACK RECORD">TRACK <span>RECORD</span></h2>
+        ${data.projects.map(p => `
+            <div class="bold-project">
+                <div class="project-header">
+                    <h3>${p.name}</h3>
+                    <span class="project-period">${p.period}</span>
+                </div>
+                <div class="project-client">${p.client}</div>
+                <div class="project-result">▸ ${p.result}</div>
+                <p class="project-details">${p.details}</p>
+                <div class="project-tags">${p.tags.map(t => `<span class="tag-pill">${t}</span>`).join('')}</div>
+            </div>
+        `).join('')}
+    </div>
+
+    <div class="bold-section" id="bold-pricing">
+        <h2 data-hover="ENGAGEMENT OPTIONS">ENGAGEMENT <span>OPTIONS</span></h2>
+        <div class="bold-pricing">
+            ${data.pricing.map(p => `
+                <div class="bold-price-card">
+                    <h3>${p.model}</h3>
+                    <div class="bold-price-detail">${p.details}</div>
+                    <div class="bold-price-use">${p.useCase}</div>
+                </div>
+            `).join('')}
+        </div>
+        <p class="pricing-note">${data.pricingNote}</p>
+    </div>
+
+    <div class="marquee">
+        <span>${data.skills.ai.concat(data.skills.tools, data.skills.product, data.skills.domains).join(' — ')} — </span>
+        <span>${data.skills.ai.concat(data.skills.tools, data.skills.product, data.skills.domains).join(' — ')} — </span>
+    </div>
+
+    <div class="bold-footer" id="bold-contact">
+        <a href="${data.meta.bookingLink}" class="bold-btn primary" target="_blank">Book a Free Intro Call</a>
+        <a href="${data.contact.linkedin}" class="bold-btn" target="_blank">LinkedIn</a>
+        <a href="${data.contact.x}" class="bold-btn" target="_blank">X / Twitter</a>
+        <a href="${data.contact.github}" class="bold-btn" target="_blank">GitHub</a>
+        <a href="mailto:${data.contact.email}" class="bold-btn">Email</a>
+        <div class="bold-footer-info">
+            ${data.contact.email}<br>
+            ${data.meta.location}
+        </div>
+        <div class="bold-footer-copy">${data.meta.copyright}</div>
+    </div>
+</div>
+                    `,
+                    init: () => {
+                        const glyphs = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*!?<>{}[]';
+                        const words = document.querySelectorAll('.hero-word[data-text]');
+                        const sweep = document.querySelector('.hero-sweep');
+                        const lead = document.querySelector('.bold-hero .lead');
+                        const btns = document.querySelectorAll('.bold-hero .bold-btn');
+
+                        function scrambleReveal(el, delay) {
+                            const target = el.dataset.text;
+                            const duration = 800;
+                            const chars = target.split('');
+                            const resolved = new Array(chars.length).fill(false);
+                            let started = false;
+
+                            setTimeout(() => {
+                                el.style.transition = 'opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1)';
+                                el.classList.add('revealed');
+                                started = true;
+                                const startTime = performance.now();
+
+                                function tick(now) {
+                                    const elapsed = now - startTime;
+                                    const progress = Math.min(elapsed / duration, 1);
+                                    let html = '';
+                                    for (let i = 0; i < chars.length; i++) {
+                                        const charProgress = Math.max(0, (progress - (i / chars.length) * 0.5)) / (1 - (i / chars.length) * 0.5);
+                                        if (chars[i] === ' ') {
+                                            html += ' ';
+                                        } else if (charProgress >= 1 || resolved[i]) {
+                                            resolved[i] = true;
+                                            html += '<span class="char">' + chars[i] + '</span>';
+                                        } else {
+                                            const g = glyphs[Math.floor(Math.random() * glyphs.length)];
+                                            html += '<span class="char" style="opacity:0.4">' + g + '</span>';
+                                        }
+                                    }
+                                    el.innerHTML = html;
+                                    if (progress < 1) {
+                                        requestAnimationFrame(tick);
+                                    } else {
+                                        el.innerHTML = target;
+                                    }
+                                }
+                                requestAnimationFrame(tick);
+                            }, delay);
+                        }
+
+                        words.forEach((w, i) => scrambleReveal(w, 200 + i * 300));
+
+                        // Sweep line after words
+                        setTimeout(() => { if (sweep) sweep.classList.add('revealed'); }, 200 + words.length * 300);
+
+                        // Lead text
+                        setTimeout(() => { if (lead) lead.classList.add('revealed'); }, 200 + words.length * 300 + 400);
+
+                        // Buttons stagger
+                        btns.forEach((btn, i) => {
+                            setTimeout(() => btn.classList.add('revealed'), 200 + words.length * 300 + 700 + i * 150);
+                        });
+                    },
+                },
+            };
+
+            /**
+             * ==========================================
+             *  CORE LOGIC (THEME SWITCHER ENGINE)
+             * ==========================================
+             */
+            function loadTheme() {
+                const urlParams = new URLSearchParams(window.location.search);
+                let theme = urlParams.get('theme');
+                if (!theme) theme = localStorage.getItem('tjansn_theme');
+                if (!theme || !themes[theme]) theme = 'product';
+                setTheme(theme, false);
+            }
+
+            function setTheme(themeName, updateUrl = true) {
+                const app = document.getElementById('app');
+                const theme = themes[themeName];
+                app.innerHTML = theme.render(portfolioData);
+
+                let styleTag = document.getElementById('theme-style');
+                if (styleTag) styleTag.remove();
+                styleTag = document.createElement('style');
+                styleTag.id = 'theme-style';
+                styleTag.innerHTML = theme.css;
+                document.head.appendChild(styleTag);
+
+                if (theme.init) theme.init(portfolioData);
+                localStorage.setItem('tjansn_theme', themeName);
+
+                document.querySelectorAll('.theme-option').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.innerText.toLowerCase().includes(themeName) ||
+                        (themeName === 'split' && btn.innerText.includes('Split')) ||
+                        (themeName === 'bold' && btn.innerText.includes('Bold'))) {
+                        btn.classList.add('active');
+                    }
+                });
+
+                if (updateUrl) {
+                    const url = new URL(window.location);
+                    url.searchParams.set('theme', themeName);
+                    window.history.pushState({}, '', url);
+                }
+                document.getElementById('theme-menu').classList.remove('visible');
+            }
+
+            function toggleMenu() {
+                document.getElementById('theme-menu').classList.toggle('visible');
+            }
+
+            window.addEventListener('DOMContentLoaded', loadTheme);
+        </script>
+    </body>
+</html>
