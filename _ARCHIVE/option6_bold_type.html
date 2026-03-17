@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOM JANSEN | BOLD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #111111;
+            --text: #EAEAEA;
+            --accent: #FF3B30; /* Swiss Red */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* Noise Overlay */
+        .noise {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        /* Custom Cursor */
+        .cursor-dot {
+            width: 12px; height: 12px; background: var(--text);
+            border-radius: 50%; position: fixed; pointer-events: none;
+            z-index: 200; transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+            transition: width 0.3s, height 0.3s;
+        }
+        
+        .cursor-outline {
+            width: 40px; height: 40px; border: 1px solid var(--text);
+            border-radius: 50%; position: fixed; pointer-events: none;
+            z-index: 200; transform: translate(-50%, -50%);
+            transition: all 0.1s ease-out;
+            mix-blend-mode: difference;
+        }
+
+        .container {
+            padding: 4vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 4rem;
+        }
+
+        .logo { font-weight: 800; font-size: 1.5rem; letter-spacing: -0.05em; }
+        .meta { text-align: right; font-size: 0.875rem; color: #888; line-height: 1.4; }
+
+        /* Main Menu */
+        .menu {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-item {
+            font-size: clamp(3rem, 9vw, 10rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 0.85;
+            letter-spacing: -0.04em;
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s, transform 0.3s;
+            position: relative;
+            mix-blend-mode: screen;
+        }
+
+        .menu-item:hover {
+            color: var(--text);
+            transform: translateX(20px);
+            z-index: 10;
+        }
+
+        .menu-item::after {
+            content: attr(data-hover);
+            position: absolute;
+            left: 20px;
+            top: 0;
+            color: var(--accent);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .menu-item:hover::after {
+            opacity: 1;
+        }
+        
+        /* Floating Image Reveal */
+        .hover-reveal {
+            position: fixed;
+            width: 300px;
+            height: 400px;
+            top: 0; left: 0;
+            pointer-events: none;
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.8);
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 1;
+            object-fit: cover;
+            filter: grayscale(100%);
+        }
+
+        .menu-item:hover ~ .hover-reveal {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* Marquee */
+        .marquee-container {
+            overflow: hidden;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+            padding: 1.5rem 0;
+            margin-top: auto;
+        }
+
+        .marquee-content {
+            display: flex;
+            gap: 4rem;
+            animation: scroll 20s linear infinite;
+            white-space: nowrap;
+        }
+
+        .marquee-item {
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #666;
+        }
+
+        @keyframes scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        @media (max-width: 800px) {
+            .container { padding: 2rem; }
+            .menu-item { font-size: 3.5rem; }
+            .cursor-dot, .cursor-outline { display: none; }
+            * { cursor: auto; }
+            .hover-reveal { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="noise"></div>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Floating Image (hidden by default, updated via JS) -->
+    <img src="IMG_4796.JPG" id="reveal-img" class="hover-reveal" alt="Project Preview">
+
+    <div class="container">
+        <header class="header">
+            <div class="logo">TJANSN&copy;26</div>
+            <div class="meta">
+                FREELANCE CONSULTANT<br>
+                BASED IN GERMANY<br>
+                AVAILABLE Q3
+            </div>
+        </header>
+
+        <nav class="menu">
+            <a href="#" class="menu-item" data-hover="AGENTIC AI" data-img="IMG_4796.JPG">AGENTIC AI</a>
+            <a href="#" class="menu-item" data-hover="PRODUCT LEAD" data-img="Tom_web Kopie.jpg">PRODUCT LEAD</a>
+            <a href="#" class="menu-item" data-hover="STRATEGY" data-img="IMG_5314.jpeg">STRATEGY</a>
+            <a href="https://www.linkedin.com/in/tjansn/" class="menu-item" data-hover="CONTACT" data-img="Hochzeit_831.jpg">CONTACT</a>
+        </nav>
+
+        <div class="marquee-container">
+            <div class="marquee-content">
+                <span class="marquee-item">OpenClaw</span>
+                <span class="marquee-item">LangChain</span>
+                <span class="marquee-item">Telco Automation</span>
+                <span class="marquee-item">Certified PSPO II</span>
+                <span class="marquee-item">E-Commerce Scaling</span>
+                <span class="marquee-item">Squad Leadership</span>
+                <!-- Duplicate for seamless loop -->
+                <span class="marquee-item">OpenClaw</span>
+                <span class="marquee-item">LangChain</span>
+                <span class="marquee-item">Telco Automation</span>
+                <span class="marquee-item">Certified PSPO II</span>
+                <span class="marquee-item">E-Commerce Scaling</span>
+                <span class="marquee-item">Squad Leadership</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Custom Cursor
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        const revealImg = document.getElementById('reveal-img');
+        const menuItems = document.querySelectorAll('.menu-item');
+
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+
+            // Add slight lag to outline
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: "forwards" });
+
+            // Move reveal image
+            revealImg.style.left = `${posX}px`;
+            revealImg.style.top = `${posY}px`;
+        });
+
+        // Hover Effects
+        menuItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                const imgSource = item.getAttribute('data-img');
+                revealImg.src = imgSource;
+                revealImg.style.opacity = '1';
+                revealImg.style.transform = 'translate(-50%, -50%) scale(1) rotate(5deg)';
+                cursorOutline.style.width = '80px';
+                cursorOutline.style.height = '80px';
+                cursorOutline.style.borderColor = '#FF3B30';
+            });
+
+            item.addEventListener('mouseleave', () => {
+                revealImg.style.opacity = '0';
+                revealImg.style.transform = 'translate(-50%, -50%) scale(0.8) rotate(0deg)';
+                cursorOutline.style.width = '40px';
+                cursorOutline.style.height = '40px';
+                cursorOutline.style.borderColor = '#EAEAEA';
+            });
+        });
+    </script>
+</body>
+</html>
+
