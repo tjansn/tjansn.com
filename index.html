@@ -1057,7 +1057,7 @@ a:hover { color: var(--accent); border-color: var(--accent); }
 .hint-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
 .hint-chip { padding: 2px 8px; font-size: 0.75rem; color: var(--comment); border: 1px solid #1a1f29; border-radius: 3px; cursor: pointer; transition: all 0.2s; }
 .hint-chip:hover { color: var(--accent); border-color: var(--accent); }
-@media(max-width:600px) { .term-window { height: 95vh; border-radius: 0; } .term-head { border-radius: 0; } .ascii-art { font-size: 0.45rem; } .ascii-portrait-inline pre { font-size: 1.7px; } }
+@media(max-width:600px) { .term-window { height: 95vh; border-radius: 0; } .term-head { border-radius: 0; } .ascii-art { font-size: 0.45rem; } .ascii-portrait-inline { overflow: hidden; max-width: 100%; } .ascii-portrait-inline pre { font-size: clamp(1px, 0.8vw, 3.06px); } }
                     `,
                     render: (data) => `
 <canvas id="matrix-bg"></canvas>

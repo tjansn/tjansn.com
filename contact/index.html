@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Contact — Tom Jansen</title>
+        <link rel="icon" type="image/png" href="../favicon.png" />
+        <meta name="description" content="Contact details for Tom Jansen — Independent Advisor for AI, Product & Software Systems." />
+        <style>
+            @font-face {
+                font-family: "Inter";
+                font-style: normal;
+                font-weight: 300 900;
+                font-display: swap;
+                src: url(../fonts/inter-latin.woff2) format("woff2");
+            }
+            :root {
+                --accent: #FF3B30;
+                --accent2: #FF6B5A;
+                --bg: #111;
+                --text: #EAEAEA;
+                --text-light: #888;
+                --surface: #1a1a1a;
+                --line: #333;
+            }
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body {
+                background: var(--bg);
+                color: var(--text);
+                font-family: "Inter", Helvetica, Arial, sans-serif;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 2rem;
+            }
+            a { color: var(--accent); text-decoration: none; transition: opacity 0.3s; }
+            a:hover { opacity: 0.8; }
+
+            .card {
+                width: 100%;
+                max-width: 480px;
+            }
+            .card-name {
+                font-size: clamp(2rem, 5vw, 3rem);
+                font-weight: 900;
+                text-transform: uppercase;
+                letter-spacing: -0.04em;
+                line-height: 0.9;
+                margin-bottom: 0.5rem;
+            }
+            .card-name span { color: var(--accent); }
+            .card-role {
+                display: inline-block;
+                padding: 0.4rem 1rem;
+                border: 1px solid var(--accent);
+                color: var(--accent);
+                font-size: 0.65rem;
+                text-transform: uppercase;
+                letter-spacing: 0.15em;
+                margin: 1rem 0 2rem;
+            }
+            .divider {
+                height: 1px;
+                background: var(--line);
+                margin-bottom: 2rem;
+            }
+            .detail {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                padding: 0.75rem 0;
+                border-bottom: 1px solid var(--line);
+                font-size: 0.9rem;
+            }
+            .detail:first-of-type { border-top: 1px solid var(--line); }
+            .detail-label {
+                width: 70px;
+                flex-shrink: 0;
+                font-size: 0.65rem;
+                text-transform: uppercase;
+                letter-spacing: 0.15em;
+                color: var(--text-light);
+            }
+            .detail a, .detail span { color: var(--text); }
+            .detail a:hover { color: var(--accent); }
+
+            .actions {
+                margin-top: 2rem;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.75rem;
+            }
+            .btn {
+                display: inline-block;
+                padding: 0.85rem 2rem;
+                border: 1px solid var(--accent);
+                color: var(--accent);
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                font-size: 0.72rem;
+                transition: all 0.3s;
+                cursor: pointer;
+                background: none;
+                font-family: inherit;
+            }
+            .btn:hover { background: var(--accent); color: var(--bg); }
+            .btn.primary { background: var(--accent); color: var(--bg); }
+            .btn.primary:hover { background: transparent; color: var(--accent); }
+
+            .footer {
+                margin-top: 3rem;
+                font-size: 0.7rem;
+                color: #444;
+            }
+            .footer a { color: var(--text-light); }
+            .footer a:hover { color: var(--accent); }
+        </style>
+    </head>
+    <body>
+        <div class="card">
+            <div class="card-name">Tom <span>Jansen</span></div>
+            <div class="card-role">Independent Advisor — AI · Product · Software</div>
+            <div class="divider"></div>
+
+            <div class="detail">
+                <span class="detail-label">Email</span>
+                <a href="mailto:thomas@jansn.de">thomas@jansn.de</a>
+            </div>
+            <div class="detail">
+                <span class="detail-label">Phone</span>
+                <a href="tel:+491729637517">+49 172 963 7517</a>
+            </div>
+            <div class="detail">
+                <span class="detail-label">Web</span>
+                <a href="https://tjansn.com">tjansn.com</a>
+            </div>
+            <div class="detail">
+                <span class="detail-label">LinkedIn</span>
+                <a href="https://www.linkedin.com/in/tjansn/">linkedin.com/in/tjansn</a>
+            </div>
+            <div class="detail">
+                <span class="detail-label">GitHub</span>
+                <a href="https://github.com/tjansn">github.com/tjansn</a>
+            </div>
+            <div class="detail">
+                <span class="detail-label">Location</span>
+                <span>Aachen, Germany</span>
+            </div>
+
+            <div class="actions">
+                <button class="btn primary" onclick="downloadVCard()">Download vCard</button>
+                <a class="btn" href="https://calendar.notion.so/meet/thomasjansen/ncnaw4pbl">Book a Call</a>
+                <a class="btn" href="https://tjansn.com">Visit Website</a>
+            </div>
+
+            <div class="footer">© 2026 Tom Jansen</div>
+        </div>
+
+        <script>
+            function downloadVCard() {
+                const vcard = [
+                    'BEGIN:VCARD',
+                    'VERSION:3.0',
+                    'N:Jansen;Tom;;;',
+                    'FN:Tom Jansen',
+                    'ORG:Independent Advisor',
+                    'TITLE:Independent Advisor — AI, Product & Software Systems',
+                    'TEL;TYPE=CELL:+491729637517',
+                    'EMAIL;TYPE=WORK:thomas@jansn.de',
+                    'URL:https://tjansn.com',
+                    'URL:https://www.linkedin.com/in/tjansn/',
+                    'ADR;TYPE=WORK:;;Aachen;;;Germany',
+                    'END:VCARD'
+                ].join('\r\n');
+
+                const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'Tom_Jansen.vcf';
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+        </script>
+    </body>
+</html>
