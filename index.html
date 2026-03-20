@@ -297,7 +297,7 @@
                 </button>
 
                 <button class="theme-option" onclick="setTheme('analytical')">
-                    Analytical
+                    Web
                 </button>
             </div>
             <button
@@ -2303,7 +2303,7 @@ a:hover { opacity: 0.8; }
                 const urlParams = new URLSearchParams(window.location.search);
                 let theme = urlParams.get("theme");
                 if (!theme) theme = localStorage.getItem("tjansn_theme");
-                if (!theme || !themes[theme]) theme = "product";
+                if (!theme || !themes[theme]) theme = "analytical";
                 setTheme(theme, false);
             }
 
@@ -2330,7 +2330,7 @@ a:hover { opacity: 0.8; }
                     if (
                         btn.innerText.toLowerCase().includes(themeName) ||
                         (themeName === "analytical" &&
-                            btn.innerText.includes("Analytical"))
+                            btn.innerText.includes("Web"))
                     ) {
                         btn.classList.add("active");
                     }
@@ -2358,7 +2358,7 @@ a:hover { opacity: 0.8; }
                 document.getElementById("lang-label").textContent =
                     currentLang.toUpperCase();
                 const currentTheme =
-                    localStorage.getItem("tjansn_theme") || "product";
+                    localStorage.getItem("tjansn_theme") || "analytical";
                 setTheme(currentTheme, false);
             }
 
