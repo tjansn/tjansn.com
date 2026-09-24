@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="de" class="h-full no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-i18n="meta.title">Tom Jansen | Notes</title>
+    <meta name="description" content="Artikel zu KI, Softwareentwicklung und Open-Source-Projekten von Tom Jansen. Neueste Beiträge zuerst." data-i18n-attr="content:meta.description" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Tom Jansen | Notes" />
+    <meta property="og:description" content="Artikel zu KI, Softwareentwicklung und Open-Source-Projekten. Neueste Beiträge zuerst." data-i18n-attr="content:meta.ogDescription" />
+    <meta name="theme-color" content="#f5f3f0" />
+    <link rel="icon" href="../tj-logo.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../gl-v2.css" />
+    <link rel="stylesheet" href="../tj.css" />
+    <script>
+      document.documentElement.classList.remove("no-js");
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "dark") document.documentElement.classList.add("dark");
+      function toggleTheme() {
+        const dark = document.documentElement.classList.toggle("dark");
+        localStorage.setItem("theme", dark ? "dark" : "light");
+      }
+    </script>
+    <script defer data-domain="tjansn.com" src="https://stats.gammalabs.cc/js/script.tagged-events.outbound-links.js"></script>
+    <script>window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) };</script>
+  </head>
+  <body>
+    <div class="gl-scroll-progress" data-scroll-progress aria-hidden="true"></div>
+    <header class="gl-site-header tj-header flex items-center justify-between py-4" data-site-header>
+      <a href="../index.html" class="flex items-center gap-2 font-semibold" aria-label="Tom Jansen, Startseite">
+        <span class="gl-site-title" style="font-family: var(--gl-font-sans); font-weight: 600; font-size: 1.15rem; letter-spacing: -0.02em;">Tom Jansen</span>
+      </a>
+      <nav class="tj-nav" aria-label="Hauptnavigation">
+        <a href="../index.html" data-i18n="nav.profile">Profil</a>
+        <a href="../projekte.html" data-i18n="nav.projects">Projekte</a>
+        <a href="../notes/index.html" aria-current="page" data-i18n="nav.notes">Notizen</a>
+      </nav>
+      <button type="button" onclick="toggleTheme()" class="gl-theme-toggle js-theme-toggle" aria-pressed="false" aria-label="Toggle theme">
+        <span class="gl-theme-toggle__icons" aria-hidden="true">
+          <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z" /></svg>
+        </span>
+        <span class="gl-theme-toggle__thumb" aria-hidden="true"></span>
+      </button>
+    </header>
+
+    <main class="tj-wrap tj-notes">
+      <section class="tj-hero" aria-labelledby="notes-title">
+        <h1 id="notes-title" data-i18n="notes.heading" data-i18n-html>Notizen<span class="gl-dot">.</span></h1>
+        <ol class="tj-notes-list" aria-label="Artikel, neueste zuerst" data-i18n-attr="aria-label:notes.listLabel">
+          <li><a class="tj-notes-row" href="warum-lokale-ki.html">
+            <div class="tj-notes-row__meta"><time datetime="2026-07-14">14.07.2026</time><span data-i18n="notes.read10">10 Min. Lesezeit</span></div>
+            <h2 data-i18n="notes.1.title">Why local: Wem gehört die Lernschleife?</h2>
+            <div class="tj-tags"><span class="tj-tag" data-i18n="notes.1.tag1">Lokale KI</span><span class="tj-tag" data-i18n="notes.1.tag2">Strategie</span></div>
+          </a></li>
+          <li><a class="tj-notes-row" href="frontier-vs-lokal-deepresearch-benchmark.html">
+            <div class="tj-notes-row__meta"><time datetime="2026-07-10">10.07.2026</time><span data-i18n="notes.read18">18 Min. Lesezeit</span></div>
+            <h2 data-i18n="notes.2.title">Lokal vs. Frontier bei Deep Research</h2>
+            <div class="tj-tags"><span class="tj-tag" data-i18n="notes.2.tag1">Deep Research</span><span class="tj-tag" data-i18n="notes.2.tag2">Lokale KI</span><span class="tj-tag" data-i18n="notes.2.tag3">Benchmark</span></div>
+          </a></li>
+          <li><a class="tj-notes-row" href="es-gibt-keinen-review-agenten.html">
+            <div class="tj-notes-row__meta"><time datetime="2026-07-08">08.07.2026</time><span data-i18n="notes.read12">12 Min. Lesezeit</span></div>
+            <h2 data-i18n="notes.3.title">Es gibt keinen Review-Agenten</h2>
+            <div class="tj-tags"><span class="tj-tag" data-i18n="notes.3.tag1">KI &amp; Agenten</span><span class="tj-tag" data-i18n="notes.3.tag2">Ontologie</span></div>
+          </a></li>
+          <li><a class="tj-notes-row" href="newfilecreator.html">
+            <div class="tj-notes-row__meta"><time datetime="2026-06-22">22.06.2026</time><span data-i18n="notes.read4">4 Min. Lesezeit</span></div>
+            <h2 data-i18n="notes.4.title">NewFileCreator: Die Neue-Datei-Funktion, die macOS fehlt</h2>
+            <div class="tj-tags"><span class="tj-tag" data-i18n="notes.4.tag1">Open Source</span><span class="tj-tag" data-i18n="notes.4.tag2">macOS</span></div>
+          </a></li>
+          <li><a class="tj-notes-row" href="pi-fusion.html">
+            <div class="tj-notes-row__meta"><time datetime="2026-06-22">22.06.2026</time><span data-i18n="notes.read6">6 Min. Lesezeit</span></div>
+            <h2 data-i18n="notes.5.title">pi-fusion: Wenn mehrere Modelle gemeinsam recherchieren</h2>
+            <div class="tj-tags"><span class="tj-tag" data-i18n="notes.5.tag1">Open Source</span><span class="tj-tag" data-i18n="notes.5.tag2">KI-Tooling</span></div>
+          </a></li>
+          <li><a class="tj-notes-row" href="buddy.html">
+            <div class="tj-notes-row__meta"><time datetime="2026-06-22">22.06.2026</time><span data-i18n="notes.read6">6 Min. Lesezeit</span></div>
+            <h2 data-i18n="notes.6.title">Buddy: ein physisches Statuslicht für lokale KI-Agenten</h2>
+            <div class="tj-tags"><span class="tj-tag" data-i18n="notes.6.tag1">Open Source</span><span class="tj-tag" data-i18n="notes.6.tag2">Hardware</span></div>
+          </a></li>
+          <li><a class="tj-notes-row" href="phoneclaw.html">
+            <div class="tj-notes-row__meta"><time datetime="2026-02-18">18.02.2026</time><span data-i18n="notes.read4">4 Min. Lesezeit</span></div>
+            <h2 data-i18n="notes.7.title">OpenClaw auf einem alten Android-Handy</h2>
+            <div class="tj-tags"><span class="tj-tag" data-i18n="notes.7.tag1">Experiment</span><span class="tj-tag" data-i18n="notes.7.tag2">Android &amp; Termux</span></div>
+          </a></li>
+        </ol>
+      </section>
+    </main>
+
+    <footer class="gl-site-footer tj-footer">
+      <div class="tj-wrap py-10 text-sm">
+        <div class="flex flex-col gap-2">
+          <span style="font-family: var(--gl-font-sans); font-weight: 600; font-size: 1.05rem;">Tom Jansen</span>
+          <span class="gl-meta">Aachen · <span data-live-clock="">09:59</span> CET</span>
+          <div class="tj-footer__links-row">
+            <div class="commercial-footer-links">
+              <a href="https://www.linkedin.com/in/tjansn/" target="_blank" rel="noopener">LinkedIn</a>
+              <a href="https://github.com/tjansn" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://x.com/thomasjansn" target="_blank" rel="noopener">X</a>
+              <a href="../projekte.html" data-i18n="nav.projects">Projekte</a>
+              <a href="../notes/index.html" data-i18n="nav.notes">Notizen</a>
+              <a href="../impressum.html">Impressum</a>
+              <a href="../datenschutz.html" data-i18n="footer.privacyLink">Datenschutz</a>
+            </div>
+            <div class="gl-language-switcher" role="group" aria-labelledby="footer-language">
+              <span id="footer-language" data-i18n="footer.languageLabel" hidden>Sprache</span>
+              <div class="gl-language-switcher__controls">
+                <button type="button" class="gl-language-switcher__option" data-language-option="de" lang="de" aria-pressed="true">Deutsch</button>
+                <button type="button" class="gl-language-switcher__option" data-language-option="en" lang="en" aria-pressed="false">English</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script>
+      window.GL_DEFAULT_LANGUAGE = "de";
+      // German ships in the markup; commercial-pages.js reads it back as the "de" dictionary.
+      window.GL_PAGE_COPY = {
+        en: {
+          "nav.profile": "Profile",
+          "nav.projects": "Projects",
+          "nav.notes": "Notes",
+          "footer.privacyLink": "Privacy",
+          "footer.languageLabel": "Language",
+          "meta.title": "Tom Jansen | Notes",
+          "meta.description": "Articles on AI, software development and open source projects by Tom Jansen. Newest first.",
+          "meta.ogDescription": "Articles on AI, software development and open source projects. Newest first.",
+          "notes.heading": "Notes<span class=\"gl-dot\">.</span>",
+          "notes.listLabel": "Articles, newest first",
+          "notes.read4": "4 min read",
+          "notes.read6": "6 min read",
+          "notes.read10": "10 min read",
+          "notes.read12": "12 min read",
+          "notes.read18": "18 min read",
+          "notes.1.title": "Why local: who owns the learning loop?",
+          "notes.1.tag1": "Local AI",
+          "notes.1.tag2": "Strategy",
+          "notes.2.title": "Local vs. frontier on deep research",
+          "notes.2.tag1": "Deep research",
+          "notes.2.tag2": "Local AI",
+          "notes.2.tag3": "Benchmark",
+          "notes.3.title": "There is no review agent",
+          "notes.3.tag1": "AI & agents",
+          "notes.3.tag2": "Ontology",
+          "notes.4.title": "NewFileCreator: the new-file function macOS is missing",
+          "notes.4.tag1": "Open source",
+          "notes.4.tag2": "macOS",
+          "notes.5.title": "pi-fusion: when several models research together",
+          "notes.5.tag1": "Open source",
+          "notes.5.tag2": "AI tooling",
+          "notes.6.title": "Buddy: a physical status light for local AI agents",
+          "notes.6.tag1": "Open source",
+          "notes.6.tag2": "Hardware",
+          "notes.7.title": "OpenClaw on an old Android phone",
+          "notes.7.tag1": "Experiment",
+          "notes.7.tag2": "Android & Termux"
+        }
+      };
+    </script>
+    <script src="../commercial-pages.js"></script>
+    <script src="../archetype-pages.js"></script>
+  </body>
+</html>

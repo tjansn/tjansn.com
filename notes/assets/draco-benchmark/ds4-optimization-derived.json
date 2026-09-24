@@ -1,0 +1,3632 @@
+{
+ "domains": {
+  "7e9fa201-6bbd-4e77-a8ed-c62b8f551cab": "General Knowledge",
+  "71e3456f-e1df-4108-872f-f00f8a44acc6": "Finance",
+  "72e81ce6-8d1f-4143-90d5-d25d7a212c85": "Finance",
+  "79224558-75f7-4e51-bc24-51f1e3ede921": "Technology",
+  "ebac60ea-ea67-4b8f-986e-1e0aebed2b89": "Technology",
+  "8cf941c5-3ac1-4801-929b-8f5bab8691c7": "Technology",
+  "78bfa372-ba7a-46e9-9c10-c3e80366afeb": "Shopping/Product Comparison",
+  "6b3233e6-9b05-465a-a872-724af25df719": "Shopping/Product Comparison",
+  "cd680e2e-c0b9-4b54-948c-fd824d804a52": "UX Design",
+  "b8ff32b6-967c-41bf-8277-69afe025293e": "Medicine",
+  "3b5505fb-dab6-44cb-9a14-746b1cd82d25": "Law",
+  "ab17484f-fa6e-4e72-a970-e7cd6c5856d3": "Law",
+  "e3734e91-e2d1-4696-bdee-81c8bfa3127e": "Academic",
+  "1070e6eb-7a8f-4ce9-8818-1931bcfdb2dd": "Needle in a Haystack",
+  "10e75d21-9e92-4878-b691-02fc87ae5d54": "Finance",
+  "2aac5ef3-f127-4582-a8a6-8f02bda5681e": "Finance",
+  "342b15b8-0ae1-43ce-9ebe-c7318179f156": "Finance",
+  "34e9b780-7fb6-426a-bc39-c340baa578e8": "Shopping/Product Comparison",
+  "49d841f1-0c95-4a87-9b62-5e2a54e8e1a8": "General Knowledge",
+  "4b089235-06e7-4f1f-a815-96bb146cbbde": "Shopping/Product Comparison"
+ },
+ "june_baselines": {
+  "gpt55_xhigh_direct": {
+   "run_dir": "results/draco-gpt55-xhigh-codex-full",
+   "profile": "direct_gpt55_xhigh",
+   "benchmark_summary_json": {
+    "tasks": 100,
+    "completed": 98,
+    "score_pct_avg": 61.774290280396556,
+    "score_pct_sd_avg": 0.8100123208438097,
+    "generation_cost_usd": 612.602278,
+    "judge_cost_usd": 12.0703028,
+    "total_cost_usd": 624.6725808,
+    "input_tokens": 42801690,
+    "output_tokens": 1759182,
+    "cache_read_tokens": 691636736,
+    "elapsed_s_total": 88596.1483514309,
+    "elapsed_s_avg": 885.961483514309,
+    "note": "benchmark_summary.json score row is the gpt-4.1-mini judge pass"
+   },
+   "score_variants_from_notes": [
+    {
+     "score_file": "scores.jsonl",
+     "judge": "OpenAI gpt-4.1-mini",
+     "mode": "criterion",
+     "judge_runs": 3,
+     "score_avg_pct": 61.7743,
+     "median_pct": 65.655,
+     "min_pct": 0.0,
+     "max_pct": 100.0,
+     "judge_cost_usd": 12.0703028,
+     "source": "notes/draco-pi-fusion-research-notes-2026-06-23.md (GPT-5.5 scoring table)"
+    },
+    {
+     "score_file": "scores.pi-gpt54-low-criterion-3.jsonl",
+     "judge": "Pi openai-codex/gpt-5.4:low",
+     "mode": "criterion",
+     "judge_runs": 3,
+     "score_avg_pct": 47.9827,
+     "median_pct": 49.3972,
+     "min_pct": 0.0,
+     "max_pct": 82.7451,
+     "judge_cost_usd": 61.6330905,
+     "source": "notes/draco-pi-fusion-research-notes-2026-06-23.md (GPT-5.5 scoring table)"
+    },
+    {
+     "score_file": "scores.pi-gpt55-xhigh-strict-criterion-3.jsonl",
+     "judge": "Pi openai-codex/gpt-5.5:xhigh strict",
+     "mode": "criterion",
+     "judge_runs": 3,
+     "score_avg_pct": 49.3656,
+     "median_pct": 49.6544,
+     "min_pct": 0.0,
+     "max_pct": 86.6667,
+     "judge_cost_usd": 200.374604,
+     "source": "notes/draco-pi-fusion-research-notes-2026-06-23.md (GPT-5.5 scoring table)"
+    }
+   ],
+   "generation_notes": {
+    "tasks": 100,
+    "completed_per_benchmark_summary": 98,
+    "strict_valid_meta_answer": 64,
+    "errors": 32,
+    "returncode_problems": 2,
+    "missing_or_empty_answer": 2,
+    "generation_cost_usd": 612.602278,
+    "input_tokens": 42801690,
+    "output_tokens": 1759182,
+    "cache_read_tokens": 691636736,
+    "elapsed_total_s": 88596.15,
+    "elapsed_avg_s": 885.96,
+    "source": "notes/draco-pi-fusion-research-notes-2026-06-23.md (Generation-Summary table)"
+   }
+  },
+  "ds4_256k_direct_unrepaired": {
+   "run_dir": "results/draco-ds4-256k-gpt55-xhigh-full-20260622-210104",
+   "profile": "direct_ds4_256k_high",
+   "judge": "Pi openai-codex/gpt-5.5:xhigh strict",
+   "mode": "criterion",
+   "judge_runs": 1,
+   "score_rows": 100,
+   "score_pct_avg": 43.04523406944695,
+   "score_pct_weighted": 41.924879572972266,
+   "score_pct_min": 0.0,
+   "score_pct_max": 89.01515151515152,
+   "judge_cost_usd": 96.939936,
+   "judge_input_tokens": 12497286,
+   "judge_output_tokens": 1129007,
+   "notes_rounded": {
+    "score_pct_avg": 43.05,
+    "score_pct_weighted": 41.92,
+    "judge_cost_usd": 96.9399,
+    "source": "notes/draco-pi-fusion-research-notes-2026-06-23.md (Finales Scoring table)"
+   },
+   "generation_notes": {
+    "meta_files": 100,
+    "answer_files": 100,
+    "nonempty_answers": 88,
+    "empty_answers": 12,
+    "returncode_0_no_error": 94,
+    "timeouts": 6,
+    "empty_answer_classes": {
+     "timeout": 6,
+     "pi_ds4_error_stop": 6
+    },
+    "output_tokens": 961606,
+    "context_token_sum": 9877960,
+    "cache_read_tokens": 208233288,
+    "cache_write_tokens": 14735827,
+    "elapsed_sum_s": 137426.7,
+    "timeout_per_task_s": 7200,
+    "source": "notes/draco-pi-fusion-research-notes-2026-06-23.md (Finale Generationsmetriken)"
+   },
+   "stale_benchmark_summary_json_warning": {
+    "tasks": 55,
+    "completed": 53,
+    "elapsed_s_total": 68245.91513371468,
+    "note": "benchmark_summary.json in this run root is STALE (covers 55 tasks, pre-resume); authoritative source is direct_ds4_256k_high/scores.jsonl per the June notes"
+   },
+   "domain_breakdown_notes": {
+    "Academic": {
+     "n": 12,
+     "score_pct": 59.14
+    },
+    "Finance": {
+     "n": 20,
+     "score_pct": 42.85
+    },
+    "General Knowledge": {
+     "n": 9,
+     "score_pct": 37.54
+    },
+    "Law": {
+     "n": 6,
+     "score_pct": 61.09
+    },
+    "Medicine": {
+     "n": 6,
+     "score_pct": 48.31
+    },
+    "Needle in a Haystack": {
+     "n": 6,
+     "score_pct": 41.56
+    },
+    "Personalized Assistant": {
+     "n": 6,
+     "score_pct": 47.56
+    },
+    "Shopping/Product Comparison": {
+     "n": 16,
+     "score_pct": 30.35
+    },
+    "Technology": {
+     "n": 10,
+     "score_pct": 39.32
+    },
+    "UX Design": {
+     "n": 9,
+     "score_pct": 36.68
+    },
+    "source": "notes/draco-pi-fusion-research-notes-2026-06-23.md (Domain-Breakdown table)"
+   }
+  },
+  "ds4_256k_empty12_retry_only": {
+   "run_dirs": [
+    "results/draco-ds4-256k-empty12-retry-gpt55-xhigh-20260626-102828",
+    "results/draco-ds4-256k-empty12-retry-batch2-gpt55-xhigh-20260626-135619",
+    "results/draco-ds4-256k-empty12-retry-batch3-gpt55-xhigh-20260626-remaining-a",
+    "results/draco-ds4-256k-empty12-retry-batch4-gpt55-xhigh-20260626-remaining-b"
+   ],
+   "score_rows": 12,
+   "score_pct_avg": 43.56117832741041,
+   "score_pct_weighted": 40.49748462828396,
+   "judge_cost_usd": 9.940886,
+   "generation": {
+    "requested_ids": 12,
+    "nonempty_answers": 11,
+    "empty_answers": 1,
+    "status": {
+     "ok": 11,
+     "returncode_timeout": 1
+    },
+    "totals": {
+     "output_tokens": 199127.0,
+     "context_tokens": 1256351.0,
+     "cache_read_tokens": 45777836.0,
+     "cache_write_tokens": 2043345.0,
+     "elapsed_s": 19929.29207253456
+    }
+   },
+   "remaining_empty_id": "71e3456f-e1df-4108-872f-f00f8a44acc6",
+   "source": "results/draco-ds4-256k-empty12-retry-batch4-gpt55-xhigh-20260626-remaining-b/direct_ds4_256k_high/empty12-retry-summary.json"
+  },
+  "ds4_256k_merged_original_plus_retry": {
+   "merged_scores_path": "results/draco-ds4-256k-empty12-retry-batch4-gpt55-xhigh-20260626-remaining-b/direct_ds4_256k_high/scores.merged-original-plus-empty12-retry.jsonl",
+   "score_rows": 100,
+   "score_pct_avg": 48.179982876143605,
+   "score_pct_weighted": 46.608514516339014,
+   "score_pct_min": 0.0,
+   "score_pct_max": 89.01515151515152,
+   "judge_cost_usd": 103.90204200000001,
+   "replaced_ids": [
+    "35bc9c48-0853-469d-8bf7-8f6947ec4fb7",
+    "3b5505fb-dab6-44cb-9a14-746b1cd82d25",
+    "4b089235-06e7-4f1f-a815-96bb146cbbde",
+    "614a5d4c-5387-4f42-a319-61486bbcde0f",
+    "6c59b2a0-c097-4c69-ad03-2c4ea2ec579b",
+    "71e3456f-e1df-4108-872f-f00f8a44acc6",
+    "72e81ce6-8d1f-4143-90d5-d25d7a212c85",
+    "7e9fa201-6bbd-4e77-a8ed-c62b8f551cab",
+    "8e8b1864-6075-4d3b-8c4c-d427a5e3fc9f",
+    "b3d9ac35-7d3f-4fd5-925e-bbaa40c0de51",
+    "e179559d-08fd-4ca7-9f1b-5637d956b3d4",
+    "e303d1aa-0b0c-4fe1-9806-e46058d6b3f3"
+   ],
+   "notes_rounded": {
+    "score_pct_avg": 48.18,
+    "score_pct_weighted": 46.61,
+    "judge_cost_usd": 103.902,
+    "source": "notes/draco-pi-fusion-research-notes-2026-06-23.md (Score-Vergleich table)"
+   },
+   "merged_domain_breakdown": [
+    {
+     "domain": "Academic",
+     "n": 12,
+     "score_pct_avg": 63.9143338447636
+    },
+    {
+     "domain": "Finance",
+     "n": 20,
+     "score_pct_avg": 46.78148105380926
+    },
+    {
+     "domain": "General Knowledge",
+     "n": 9,
+     "score_pct_avg": 45.4241991317609
+    },
+    {
+     "domain": "Law",
+     "n": 6,
+     "score_pct_avg": 73.43590911034966
+    },
+    {
+     "domain": "Medicine",
+     "n": 6,
+     "score_pct_avg": 48.31234686886322
+    },
+    {
+     "domain": "Needle in a Haystack",
+     "n": 6,
+     "score_pct_avg": 62.37437921971512
+    },
+    {
+     "domain": "Personalized Assistant",
+     "n": 6,
+     "score_pct_avg": 47.555062739082416
+    },
+    {
+     "domain": "Shopping/Product Comparison",
+     "n": 16,
+     "score_pct_avg": 34.40650486369421
+    },
+    {
+     "domain": "Technology",
+     "n": 10,
+     "score_pct_avg": 43.58561873864138
+    },
+    {
+     "domain": "UX Design",
+     "n": 9,
+     "score_pct_avg": 36.683601709064504
+    }
+   ]
+  },
+  "fusion_ds4_gemma4_qwen36_full_unrepaired": {
+   "run_dir": "results/draco-fusion-ds4-gemma4-qwen36-gpt55-xhigh-full",
+   "profile": "fusion_ds4_gemma4_qwen36_gpt55_xhigh",
+   "tasks": 100,
+   "completed": 100,
+   "generation_cost_usd": 92.133768,
+   "input_tokens": 7207886,
+   "output_tokens": 2240761,
+   "cache_read_tokens": 199049045,
+   "cache_write_tokens": 7141299,
+   "elapsed_s_total": 136321.73935699463,
+   "elapsed_s_avg": 1363.2173935699464,
+   "fusion_status_notes": {
+    "ok": 49,
+    "partial": 51,
+    "source": "notes/draco-pi-fusion-research-notes-2026-06-23.md"
+   },
+   "stage_status_notes": {
+    "panel_ds4": {
+     "ok": 52,
+     "error": 48
+    },
+    "panel_gemma4": {
+     "ok": 99,
+     "error": 1
+    },
+    "panel_qwen36": {
+     "ok": 99,
+     "error": 1
+    },
+    "judge_gpt55_xhigh": {
+     "ok": 97,
+     "error": 3
+    },
+    "synthesis_gpt55_xhigh": {
+     "ok": 100,
+     "error": 0
+    },
+    "source": "notes/draco-pi-fusion-research-notes-2026-06-23.md (Stage-Status table)"
+   },
+   "stage_costs_notes": {
+    "judge_gpt55_xhigh_usd": 68.300603,
+    "synthesis_gpt55_xhigh_usd": 23.833165,
+    "source": "notes/draco-pi-fusion-research-notes-2026-06-23.md (Stage-Kosten und Tokens table)"
+   },
+   "no_full_fusion_score_claimed": true
+  },
+  "ds4_panel_salvage": {
+   "summary_file": "results/draco-fusion-ds4-gemma4-qwen36-gpt55-xhigh-full/benchmark_summary.ds4-panel.json",
+   "scored_tasks": 52,
+   "score_pct_avg": 48.20670250812056,
+   "score_pct_median": 43.31240587533493,
+   "score_pct_min": 1.6597510373443984,
+   "score_pct_max": 95.21531100478471,
+   "judge_cost_usd": 153.66385400000001,
+   "judge_input_tokens": 18525460,
+   "judge_output_tokens": 1915115,
+   "manifest_rows": 100,
+   "included": 52,
+   "skipped": 48,
+   "judge": "Pi openai-codex/gpt-5.5:xhigh",
+   "mode": "criterion",
+   "judge_runs": 3,
+   "hard_floor_all48_errors_as_zero_pct": 25.0675,
+   "hard_floor_source": "notes/draco-pi-fusion-research-notes-2026-06-23.md (sum(score_pct successful DS4 answers)/100 = 25.0675%)"
+  },
+  "fusion_final_repaired": {
+   "run_dir": "results/draco-fusion-ds4-manual-repair13-toolless-completed-gpt55-xhigh",
+   "profile": "fusion_ds4_manual_repair13_to_xhigh_completed",
+   "tasks": 100,
+   "completed": 100,
+   "score_pct_avg": 48.29073592552315,
+   "score_pct_sd_avg": 1.9198212347124761,
+   "generation_cost_usd": 93.528002,
+   "judge_cost_usd": 255.41810200000003,
+   "total_cost_usd": 348.94610400000005,
+   "input_tokens": 7156614,
+   "output_tokens": 2161999,
+   "elapsed_s_total": 122594.21321320534,
+   "elapsed_s_avg": 1225.9421321320533,
+   "judge": "Pi openai-codex/gpt-5.5:xhigh strict",
+   "mode": "criterion",
+   "judge_runs": 3,
+   "composition_notes": {
+    "source_rows": 100,
+    "repair_rows": 51,
+    "replaced_with_repair": 51,
+    "retained_from_source": 49,
+    "copied_base_repair_rows": 35,
+    "manual_toolless_reconstructions": 16,
+    "score_split": {
+     "source_original_49_pct": 50.1541,
+     "source_original_49_judge_cost_usd": 144.4416,
+     "repair_rescored_51_pct": 46.5004,
+     "repair_rescored_51_judge_cost_usd": 110.9766,
+     "total_100_pct": 48.2907,
+     "total_judge_cost_usd": 255.4181
+    },
+    "repair13_generation_cost_usd": 5.9111,
+    "repair13_elapsed_h": 0.87,
+    "avg_13_originally_open_ids_pct": 44.9273,
+    "avg_3_additional_partial_repairs_pct": 36.0217,
+    "source": "notes/draco-pi-fusion-research-notes-2026-06-23.md (Finaler DS4/Gemma/Qwen-Fusion-Repair vom 2026-06-28)"
+   }
+  },
+  "openrouter_reference_notes": {
+   "fusion_fable5_gpt55_by_opus48_pct": 69.0,
+   "fusion_opus48_gpt55_gemini31pro_by_opus48_pct": 68.3,
+   "fusion_opus48_gpt55_by_opus48_pct": 67.6,
+   "fusion_gemini3flash_kimik26_dsv4pro_by_opus48_pct": 64.7,
+   "solo_deepseek_v4_pro_pct": 60.3,
+   "solo_gpt55_pct": 60.0,
+   "solo_claude_opus_48_pct": 58.8,
+   "source": "notes/draco-pi-fusion-research-notes-2026-06-23.md (OpenRouter Fusion Article table; external reference, not local measurement)"
+  }
+ },
+ "subset20": {
+  "source_file": "config/draco_validation_subset.txt",
+  "task_ids": [
+   "7e9fa201-6bbd-4e77-a8ed-c62b8f551cab",
+   "71e3456f-e1df-4108-872f-f00f8a44acc6",
+   "72e81ce6-8d1f-4143-90d5-d25d7a212c85",
+   "79224558-75f7-4e51-bc24-51f1e3ede921",
+   "ebac60ea-ea67-4b8f-986e-1e0aebed2b89",
+   "8cf941c5-3ac1-4801-929b-8f5bab8691c7",
+   "78bfa372-ba7a-46e9-9c10-c3e80366afeb",
+   "6b3233e6-9b05-465a-a872-724af25df719",
+   "cd680e2e-c0b9-4b54-948c-fd824d804a52",
+   "b8ff32b6-967c-41bf-8277-69afe025293e",
+   "3b5505fb-dab6-44cb-9a14-746b1cd82d25",
+   "ab17484f-fa6e-4e72-a970-e7cd6c5856d3",
+   "e3734e91-e2d1-4696-bdee-81c8bfa3127e",
+   "1070e6eb-7a8f-4ce9-8818-1931bcfdb2dd",
+   "10e75d21-9e92-4878-b691-02fc87ae5d54",
+   "2aac5ef3-f127-4582-a8a6-8f02bda5681e",
+   "342b15b8-0ae1-43ce-9ebe-c7318179f156",
+   "34e9b780-7fb6-426a-bc39-c340baa578e8",
+   "49d841f1-0c95-4a87-9b62-5e2a54e8e1a8",
+   "4b089235-06e7-4f1f-a815-96bb146cbbde"
+  ],
+  "composition": {
+   "known_pathological": 6,
+   "weak_domain": 4,
+   "strong_domain": 4,
+   "median_40_55pct": 6,
+   "weak_domain_detail": "2 Shopping, 1 UX, 1 Medicine",
+   "strong_domain_detail": "2 Law, 1 Academic, 1 NIAH",
+   "pathological_ids_notes": [
+    "7e9fa201 (GenKnowledge)",
+    "71e3456f (Finance double-empty tool-looper)",
+    "72e81ce6 (Finance)",
+    "79224558 (Technology)",
+    "ebac60ea (Technology)",
+    "8cf941c5 (Technology)"
+   ],
+   "source": "notes/ds4-validation-runs-2026-07.md (Validation subset section) + notes/ds4-optimization-study-2026-07-02.md (frozen subset entry)"
+  },
+  "june_scores_per_task": {
+   "7e9fa201-6bbd-4e77-a8ed-c62b8f551cab": 29.41176470588235,
+   "71e3456f-e1df-4108-872f-f00f8a44acc6": 0.0,
+   "72e81ce6-8d1f-4143-90d5-d25d7a212c85": 58.8235294117647,
+   "79224558-75f7-4e51-bc24-51f1e3ede921": 15.333333333333334,
+   "ebac60ea-ea67-4b8f-986e-1e0aebed2b89": 11.05121293800539,
+   "8cf941c5-3ac1-4801-929b-8f5bab8691c7": 21.597633136094675,
+   "78bfa372-ba7a-46e9-9c10-c3e80366afeb": 23.323615160349853,
+   "6b3233e6-9b05-465a-a872-724af25df719": 23.487544483985765,
+   "cd680e2e-c0b9-4b54-948c-fd824d804a52": 40.08097165991903,
+   "b8ff32b6-967c-41bf-8277-69afe025293e": 55.75757575757576,
+   "3b5505fb-dab6-44cb-9a14-746b1cd82d25": 74.09638554216868,
+   "ab17484f-fa6e-4e72-a970-e7cd6c5856d3": 76.86274509803921,
+   "e3734e91-e2d1-4696-bdee-81c8bfa3127e": 66.66666666666667,
+   "1070e6eb-7a8f-4ce9-8818-1931bcfdb2dd": 68.61702127659575,
+   "10e75d21-9e92-4878-b691-02fc87ae5d54": 47.15447154471545,
+   "2aac5ef3-f127-4582-a8a6-8f02bda5681e": 50.0,
+   "342b15b8-0ae1-43ce-9ebe-c7318179f156": 51.056338028169016,
+   "34e9b780-7fb6-426a-bc39-c340baa578e8": 42.857142857142854,
+   "49d841f1-0c95-4a87-9b62-5e2a54e8e1a8": 49.21259842519685,
+   "4b089235-06e7-4f1f-a815-96bb146cbbde": 47.36842105263158
+  },
+  "june_scores_missing_from_merged_file": [],
+  "june_subset_mean_computed_from_merged_file_pct": 42.63794855391185,
+  "june_subset_mean_notes_conflict": [
+   {
+    "value_pct": 43.65,
+    "source": "notes/ds4-validation-runs-2026-07.md: 'June DS4 merged average over these 20: 43.65% (mean of per-task scores listed by the generator)'"
+   },
+   {
+    "value_pct": 42.64,
+    "source": "notes/ds4-validation-runs-2026-07.md: arm ffn=-0.75 scored entry 'vs June same-20-tasks 42.64% = +6.80pp'"
+   }
+  ]
+ },
+ "arms": {
+  "draco-ds4-steering-ffnm0.75-20260702": {
+   "label": "steering ffn=-0.75 (87 GB IQ2XXS, cap 2100s) - baseline arm / default steering",
+   "profile": "direct_ds4_400k_thinkmax",
+   "task_timeout_s_config_used": 2100,
+   "per_task": {
+    "7e9fa201-6bbd-4e77-a8ed-c62b8f551cab": {
+     "domain": "General Knowledge",
+     "score_pct": 24.444444444444443,
+     "score_pct_sd": 5.9902950260860655,
+     "elapsed_s": 2100.0529837608337,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 20,
+     "output_tokens": 5119.0,
+     "turns": 11.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "extracted_from_session",
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "71e3456f-e1df-4108-872f-f00f8a44acc6": {
+     "domain": "Finance",
+     "score_pct": 34.832451499118164,
+     "score_pct_sd": 1.700820240034032,
+     "elapsed_s": 2100.081455230713,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 22,
+     "output_tokens": 9469.0,
+     "turns": 12.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "extracted_from_session",
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "72e81ce6-8d1f-4143-90d5-d25d7a212c85": {
+     "domain": "Finance",
+     "score_pct": 53.921568627450974,
+     "score_pct_sd": 1.3584712216226482,
+     "elapsed_s": 2100.107841730118,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 1,
+     "output_tokens": 9690.0,
+     "turns": 19.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 444.95641016960144,
+      "timed_out": false
+     }
+    },
+    "79224558-75f7-4e51-bc24-51f1e3ede921": {
+     "domain": "Technology",
+     "score_pct": 17.333333333333332,
+     "score_pct_sd": 3.333333333333334,
+     "elapsed_s": 685.8341999053955,
+     "timed_out": false,
+     "returncode": 0,
+     "answer_url_count": 70,
+     "output_tokens": 9252.0,
+     "turns": 8.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "ebac60ea-ea67-4b8f-986e-1e0aebed2b89": {
+     "domain": "Technology",
+     "score_pct": 22.371967654986523,
+     "score_pct_sd": 1.426281030223498,
+     "elapsed_s": 1732.080137014389,
+     "timed_out": false,
+     "returncode": 0,
+     "answer_url_count": 40,
+     "output_tokens": 20811.0,
+     "turns": 11.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "8cf941c5-3ac1-4801-929b-8f5bab8691c7": {
+     "domain": "Technology",
+     "score_pct": 47.73175542406312,
+     "score_pct_sd": 2.7489861666205826,
+     "elapsed_s": 2100.4752037525177,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 82,
+     "output_tokens": 15459.0,
+     "turns": 12.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "78bfa372-ba7a-46e9-9c10-c3e80366afeb": {
+     "domain": "Shopping/Product Comparison",
+     "score_pct": 43.73177842565597,
+     "score_pct_sd": 0.0,
+     "elapsed_s": 2100.067491054535,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 89,
+     "output_tokens": 4690.0,
+     "turns": 14.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 811.1567647457123,
+      "timed_out": false
+     }
+    },
+    "6b3233e6-9b05-465a-a872-724af25df719": {
+     "domain": "Shopping/Product Comparison",
+     "score_pct": 41.04389086595492,
+     "score_pct_sd": 1.481612811007924,
+     "elapsed_s": 2100.0452768802643,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 66,
+     "output_tokens": 5607.0,
+     "turns": 14.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 634.9332339763641,
+      "timed_out": false
+     }
+    },
+    "cd680e2e-c0b9-4b54-948c-fd824d804a52": {
+     "domain": "UX Design",
+     "score_pct": 68.69095816464237,
+     "score_pct_sd": 2.337450482549086,
+     "elapsed_s": 2100.8178429603577,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 68,
+     "output_tokens": 13885.0,
+     "turns": 22.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "b8ff32b6-967c-41bf-8277-69afe025293e": {
+     "domain": "Medicine",
+     "score_pct": 76.56565656565657,
+     "score_pct_sd": 2.799274032434555,
+     "elapsed_s": 1428.203233242035,
+     "timed_out": false,
+     "returncode": 0,
+     "answer_url_count": 24,
+     "output_tokens": 11332.0,
+     "turns": 13.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "3b5505fb-dab6-44cb-9a14-746b1cd82d25": {
+     "domain": "Law",
+     "score_pct": 76.70682730923694,
+     "score_pct_sd": 1.7390068349085064,
+     "elapsed_s": 1654.9133570194244,
+     "timed_out": false,
+     "returncode": 0,
+     "answer_url_count": 23,
+     "output_tokens": 14987.0,
+     "turns": 22.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "ab17484f-fa6e-4e72-a970-e7cd6c5856d3": {
+     "domain": "Law",
+     "score_pct": 54.90196078431372,
+     "score_pct_sd": 0.0,
+     "elapsed_s": 1348.377807855606,
+     "timed_out": false,
+     "returncode": 0,
+     "answer_url_count": 14,
+     "output_tokens": 13360.0,
+     "turns": 20.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "e3734e91-e2d1-4696-bdee-81c8bfa3127e": {
+     "domain": "Academic",
+     "score_pct": 80.95238095238095,
+     "score_pct_sd": 0.0,
+     "elapsed_s": 1845.4788229465485,
+     "timed_out": false,
+     "returncode": 0,
+     "answer_url_count": 22,
+     "output_tokens": 10627.0,
+     "turns": 11.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "1070e6eb-7a8f-4ce9-8818-1931bcfdb2dd": {
+     "domain": "Needle in a Haystack",
+     "score_pct": 80.67375886524822,
+     "score_pct_sd": 0.3071012070157622,
+     "elapsed_s": 1894.6624131202698,
+     "timed_out": false,
+     "returncode": 0,
+     "answer_url_count": 21,
+     "output_tokens": 16510.0,
+     "turns": 15.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "10e75d21-9e92-4878-b691-02fc87ae5d54": {
+     "domain": "Finance",
+     "score_pct": 0.0,
+     "score_pct_sd": 0.0,
+     "elapsed_s": 2100.1365082263947,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 0,
+     "output_tokens": 8397.0,
+     "turns": 16.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": false,
+      "method": "session_resume",
+      "elapsed_s": 1800.0432052612305,
+      "timed_out": true
+     }
+    },
+    "2aac5ef3-f127-4582-a8a6-8f02bda5681e": {
+     "domain": "Finance",
+     "score_pct": 39.66244725738397,
+     "score_pct_sd": 1.8270578138912204,
+     "elapsed_s": 2100.107518196106,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 4,
+     "output_tokens": 10103.0,
+     "turns": 21.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 425.1710147857666,
+      "timed_out": false
+     }
+    },
+    "342b15b8-0ae1-43ce-9ebe-c7318179f156": {
+     "domain": "Finance",
+     "score_pct": 35.739436619718305,
+     "score_pct_sd": 1.5246926122965474,
+     "elapsed_s": 2100.079509973526,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 6,
+     "output_tokens": 16119.0,
+     "turns": 29.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 690.9621660709381,
+      "timed_out": false
+     }
+    },
+    "34e9b780-7fb6-426a-bc39-c340baa578e8": {
+     "domain": "Shopping/Product Comparison",
+     "score_pct": 51.27353266888151,
+     "score_pct_sd": 4.219835854542116,
+     "elapsed_s": 379.87310218811035,
+     "timed_out": false,
+     "returncode": 0,
+     "answer_url_count": 42,
+     "output_tokens": 8683.0,
+     "turns": 1.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "49d841f1-0c95-4a87-9b62-5e2a54e8e1a8": {
+     "domain": "General Knowledge",
+     "score_pct": 59.84251968503937,
+     "score_pct_sd": 2.0832687488697568,
+     "elapsed_s": 1906.3381831645966,
+     "timed_out": false,
+     "returncode": 0,
+     "answer_url_count": 37,
+     "output_tokens": 17433.0,
+     "turns": 28.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "4b089235-06e7-4f1f-a815-96bb146cbbde": {
+     "domain": "Shopping/Product Comparison",
+     "score_pct": 78.40755735492577,
+     "score_pct_sd": 2.337450482549086,
+     "elapsed_s": 2100.044137239456,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 37,
+     "output_tokens": 5986.0,
+     "turns": 14.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 890.9947240352631,
+      "timed_out": false
+     }
+    }
+   },
+   "score_summary": {
+    "scored_tasks": 20,
+    "mean_pct": 49.441411325121756,
+    "median_pct": 49.50264404647231,
+    "min_pct": 0.0,
+    "max_pct": 80.95238095238095,
+    "sd_avg": 1.8607468948992358,
+    "judge_cost_usd": 76.493568,
+    "judge_input_tokens": 10766244,
+    "judge_output_tokens": 734074,
+    "judge_elapsed_s_total": 4834.724808931351
+   },
+   "generation_totals_benchmark_summary": {
+    "tasks": 20,
+    "completed_returncode0": 9,
+    "output_tokens": 227519,
+    "cache_read_tokens": 4718028,
+    "cache_write_tokens": 6022576,
+    "elapsed_s_total": 35977.7770254612,
+    "elapsed_s_avg": 1798.8888512730598
+   },
+   "gen_wall_hours_from_elapsed_total": 9.994,
+   "gen_wall_hours_notes": 10.0,
+   "aggregates_computed_from_per_task": {
+    "timed_out_count": 11,
+    "salvage_attempted": 9,
+    "salvage_recovered": 8,
+    "salvage_recovered_methods": {
+     "extracted_from_session": 2,
+     "session_resume": 6
+    }
+   },
+   "notes_generation_claims": {
+    "claim": "20/20, 10.0h wall; 19/20 non-empty answers, 11/20 hit the 2100s cap, salvage 8/9 recovered (7 session-resume, 2 extraction; 1 failure: 10e75d21), URLs median 24, mean elapsed 1799s",
+    "source": "notes/ds4-validation-runs-2026-07.md",
+    "discrepancy_vs_meta": "meta files show salvage attempted=9 recovered=8 with methods {session_resume: 6, extracted_from_session: 2}; the notes' '(7 session-resume, 2 extraction)' does not sum to the stated 8 recovered and overcounts session-resume by 1"
+   }
+  },
+  "draco-ds4-steering-ffn0-20260702": {
+   "label": "steering ffn=0 (87 GB IQ2XXS, cap 2100s) - steering off",
+   "profile": "direct_ds4_400k_thinkmax",
+   "task_timeout_s_config_used": 2100,
+   "per_task": {
+    "7e9fa201-6bbd-4e77-a8ed-c62b8f551cab": {
+     "domain": "General Knowledge",
+     "score_pct": 35.947712418300654,
+     "score_pct_sd": 2.264118702704415,
+     "elapsed_s": 2100.066499233246,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 60,
+     "output_tokens": 5885.0,
+     "turns": 19.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 572.9513049125671,
+      "timed_out": false
+     }
+    },
+    "71e3456f-e1df-4108-872f-f00f8a44acc6": {
+     "domain": "Finance",
+     "score_pct": 53.086419753086425,
+     "score_pct_sd": 0.30547633290456144,
+     "elapsed_s": 2100.075236082077,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 67,
+     "output_tokens": 8207.0,
+     "turns": 20.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 636.3984987735748,
+      "timed_out": false
+     }
+    },
+    "72e81ce6-8d1f-4143-90d5-d25d7a212c85": {
+     "domain": "Finance",
+     "score_pct": 48.529411764705884,
+     "score_pct_sd": 1.5563243006262324,
+     "elapsed_s": 2100.0487928390503,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 5,
+     "output_tokens": 7955.0,
+     "turns": 16.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 387.9892621040344,
+      "timed_out": false
+     }
+    },
+    "79224558-75f7-4e51-bc24-51f1e3ede921": {
+     "domain": "Technology",
+     "score_pct": 19.88888888888889,
+     "score_pct_sd": 3.09719108105919,
+     "elapsed_s": 719.8385181427002,
+     "timed_out": false,
+     "returncode": 0,
+     "answer_url_count": 37,
+     "output_tokens": 7184.0,
+     "turns": 11.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "ebac60ea-ea67-4b8f-986e-1e0aebed2b89": {
+     "domain": "Technology",
+     "score_pct": 23.53998203054807,
+     "score_pct_sd": 1.2449601491959597,
+     "elapsed_s": 2021.0590422153473,
+     "timed_out": false,
+     "returncode": 0,
+     "answer_url_count": 71,
+     "output_tokens": 10807.0,
+     "turns": 11.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "8cf941c5-3ac1-4801-929b-8f5bab8691c7": {
+     "domain": "Technology",
+     "score_pct": 40.532544378698226,
+     "score_pct_sd": 4.110190529423019,
+     "elapsed_s": 2100.026125907898,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 0,
+     "output_tokens": 6086.0,
+     "turns": 14.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 619.8993430137634,
+      "timed_out": false
+     }
+    },
+    "78bfa372-ba7a-46e9-9c10-c3e80366afeb": {
+     "domain": "Shopping/Product Comparison",
+     "score_pct": 34.88824101068999,
+     "score_pct_sd": 1.3465895491303228,
+     "elapsed_s": 2101.125907897949,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 40,
+     "output_tokens": 12961.0,
+     "turns": 12.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "6b3233e6-9b05-465a-a872-724af25df719": {
+     "domain": "Shopping/Product Comparison",
+     "score_pct": 35.11269276393832,
+     "score_pct_sd": 2.71801642642695,
+     "elapsed_s": 2100.061942100525,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 0,
+     "output_tokens": 5974.0,
+     "turns": 22.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 412.14274191856384,
+      "timed_out": false
+     }
+    },
+    "cd680e2e-c0b9-4b54-948c-fd824d804a52": {
+     "domain": "UX Design",
+     "score_pct": 70.31039136302294,
+     "score_pct_sd": 2.337450482549094,
+     "elapsed_s": 1967.435133934021,
+     "timed_out": false,
+     "returncode": 0,
+     "answer_url_count": 25,
+     "output_tokens": 12235.0,
+     "turns": 15.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "b8ff32b6-967c-41bf-8277-69afe025293e": {
+     "domain": "Medicine",
+     "score_pct": 41.81818181818182,
+     "score_pct_sd": 1.049727762162953,
+     "elapsed_s": 2100.0989468097687,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 7,
+     "output_tokens": 12136.0,
+     "turns": 24.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 342.77494502067566,
+      "timed_out": false
+     }
+    },
+    "3b5505fb-dab6-44cb-9a14-746b1cd82d25": {
+     "domain": "Law",
+     "score_pct": 72.38955823293173,
+     "score_pct_sd": 1.39120546792681,
+     "elapsed_s": 790.1462073326111,
+     "timed_out": false,
+     "returncode": 0,
+     "answer_url_count": 20,
+     "output_tokens": 5258.0,
+     "turns": 8.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "ab17484f-fa6e-4e72-a970-e7cd6c5856d3": {
+     "domain": "Law",
+     "score_pct": 68.8888888888889,
+     "score_pct_sd": 1.8112949621635335,
+     "elapsed_s": 2100.102077960968,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 6,
+     "output_tokens": 10695.0,
+     "turns": 23.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 570.2810459136963,
+      "timed_out": false
+     }
+    },
+    "e3734e91-e2d1-4696-bdee-81c8bfa3127e": {
+     "domain": "Academic",
+     "score_pct": 79.13832199546486,
+     "score_pct_sd": 1.5710211406520385,
+     "elapsed_s": 2100.229875802994,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 32,
+     "output_tokens": 10511.0,
+     "turns": 9.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "1070e6eb-7a8f-4ce9-8818-1931bcfdb2dd": {
+     "domain": "Needle in a Haystack",
+     "score_pct": 76.41843971631205,
+     "score_pct_sd": 1.5355060350787866,
+     "elapsed_s": 1277.0017349720001,
+     "timed_out": false,
+     "returncode": 0,
+     "answer_url_count": 8,
+     "output_tokens": 12388.0,
+     "turns": 15.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "10e75d21-9e92-4878-b691-02fc87ae5d54": {
+     "domain": "Finance",
+     "score_pct": 46.27371273712737,
+     "score_pct_sd": 1.1734761568894827,
+     "elapsed_s": 2100.1314220428467,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 4,
+     "output_tokens": 6520.0,
+     "turns": 18.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 1675.5713300704956,
+      "timed_out": false
+     }
+    },
+    "2aac5ef3-f127-4582-a8a6-8f02bda5681e": {
+     "domain": "Finance",
+     "score_pct": 0.0,
+     "score_pct_sd": 0.0,
+     "elapsed_s": 2099.996600151062,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 0,
+     "output_tokens": 4005.0,
+     "turns": 18.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": false,
+      "method": "session_resume",
+      "elapsed_s": 1800.0100588798523,
+      "timed_out": true
+     }
+    },
+    "342b15b8-0ae1-43ce-9ebe-c7318179f156": {
+     "domain": "Finance",
+     "score_pct": 51.34976525821596,
+     "score_pct_sd": 2.5411543538275776,
+     "elapsed_s": 2100.064857006073,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 7,
+     "output_tokens": 8751.0,
+     "turns": 21.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 378.23589968681335,
+      "timed_out": false
+     }
+    },
+    "34e9b780-7fb6-426a-bc39-c340baa578e8": {
+     "domain": "Shopping/Product Comparison",
+     "score_pct": 47.72978959025471,
+     "score_pct_sd": 2.002562715395918,
+     "elapsed_s": 1706.048649072647,
+     "timed_out": false,
+     "returncode": 0,
+     "answer_url_count": 69,
+     "output_tokens": 12230.0,
+     "turns": 12.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "49d841f1-0c95-4a87-9b62-5e2a54e8e1a8": {
+     "domain": "General Knowledge",
+     "score_pct": 54.59317585301837,
+     "score_pct_sd": 3.5505903565534607,
+     "elapsed_s": 2100.0717470645905,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 8,
+     "output_tokens": 10004.0,
+     "turns": 23.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 340.72311782836914,
+      "timed_out": false
+     }
+    },
+    "4b089235-06e7-4f1f-a815-96bb146cbbde": {
+     "domain": "Shopping/Product Comparison",
+     "score_pct": 59.2442645074224,
+     "score_pct_sd": 4.459571293349067,
+     "elapsed_s": 2100.126732826233,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 88,
+     "output_tokens": 13635.0,
+     "turns": 26.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    }
+   },
+   "score_summary": {
+    "scored_tasks": 20,
+    "mean_pct": 47.984019148484876,
+    "median_pct": 48.1296006774803,
+    "min_pct": 0.0,
+    "max_pct": 79.13832199546486,
+    "sd_avg": 2.003321389900969,
+    "judge_cost_usd": 63.88018099999999,
+    "judge_input_tokens": 7905207,
+    "judge_output_tokens": 759359,
+    "judge_elapsed_s_total": 5216.8672342300415
+   },
+   "generation_totals_benchmark_summary": {
+    "tasks": 20,
+    "completed_returncode0": 6,
+    "output_tokens": 183427,
+    "cache_read_tokens": 3915697,
+    "cache_write_tokens": 6806067,
+    "elapsed_s_total": 37883.75604939461,
+    "elapsed_s_avg": 1894.1878024697303
+   },
+   "gen_wall_hours_from_elapsed_total": 10.523,
+   "gen_wall_hours_notes": 10.5,
+   "aggregates_computed_from_per_task": {
+    "timed_out_count": 14,
+    "salvage_attempted": 11,
+    "salvage_recovered": 10,
+    "salvage_recovered_methods": {
+     "session_resume": 10
+    }
+   },
+   "notes_generation_claims": {
+    "claim": "20/20, 10.5h wall; 19/20 non-empty, 14/20 capped at 2100s, salvage 10/11 recovered ({'session_resume': 11}), urls median 14, mean elapsed 1894s",
+    "source": "notes/ds4-validation-runs-2026-07.md",
+    "discrepancy_vs_meta": "meta files show salvage attempted=11 recovered=10 with methods {session_resume: 10}; the notes' '{session_resume: 11}' apparently counts attempts, not recoveries"
+   }
+  },
+  "draco-ds4-quant91-subset20-20260707": {
+   "label": "91 GB Q4K-spliced quant, cap 2100s",
+   "profile": "direct_ds4_400k_thinkmax",
+   "task_timeout_s_config_used": 2100,
+   "per_task": {
+    "7e9fa201-6bbd-4e77-a8ed-c62b8f551cab": {
+     "domain": "General Knowledge",
+     "score_pct": 51.89542483660131,
+     "score_pct_sd": 2.264118702704415,
+     "elapsed_s": 2099.9919381141663,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 41,
+     "output_tokens": 3274.0,
+     "turns": 11.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 633.1246130466461,
+      "timed_out": false
+     }
+    },
+    "71e3456f-e1df-4108-872f-f00f8a44acc6": {
+     "domain": "Finance",
+     "score_pct": 32.89241622574956,
+     "score_pct_sd": 1.221905331618254,
+     "elapsed_s": 2100.1495690345764,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 52,
+     "output_tokens": 7251.0,
+     "turns": 11.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 605.1560249328613,
+      "timed_out": false
+     }
+    },
+    "72e81ce6-8d1f-4143-90d5-d25d7a212c85": {
+     "domain": "Finance",
+     "score_pct": 0.0,
+     "score_pct_sd": 0.0,
+     "elapsed_s": 2100.2916259765625,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 0,
+     "output_tokens": 11558.0,
+     "turns": 30.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": false,
+      "method": "session_resume",
+      "elapsed_s": 1800.1627991199493,
+      "timed_out": true
+     }
+    },
+    "79224558-75f7-4e51-bc24-51f1e3ede921": {
+     "domain": "Technology",
+     "score_pct": 30.222222222222218,
+     "score_pct_sd": 3.8490017945975037,
+     "elapsed_s": 1711.4731612205505,
+     "timed_out": false,
+     "returncode": 0,
+     "answer_url_count": 53,
+     "output_tokens": 15446.0,
+     "turns": 13.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "ebac60ea-ea67-4b8f-986e-1e0aebed2b89": {
+     "domain": "Technology",
+     "score_pct": 20.035938903863432,
+     "score_pct_sd": 2.430862400443609,
+     "elapsed_s": 2100.1274840831757,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 57,
+     "output_tokens": 4380.0,
+     "turns": 17.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 733.7636370658875,
+      "timed_out": false
+     }
+    },
+    "8cf941c5-3ac1-4801-929b-8f5bab8691c7": {
+     "domain": "Technology",
+     "score_pct": 52.16962524654832,
+     "score_pct_sd": 2.2596527095442984,
+     "elapsed_s": 2099.9679770469666,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 34,
+     "output_tokens": 4706.0,
+     "turns": 9.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 667.8255488872528,
+      "timed_out": false
+     }
+    },
+    "78bfa372-ba7a-46e9-9c10-c3e80366afeb": {
+     "domain": "Shopping/Product Comparison",
+     "score_pct": 36.929057337220605,
+     "score_pct_sd": 1.6832369364129025,
+     "elapsed_s": 2099.98979306221,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 26,
+     "output_tokens": 5161.0,
+     "turns": 13.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 620.0634770393372,
+      "timed_out": false
+     }
+    },
+    "6b3233e6-9b05-465a-a872-724af25df719": {
+     "domain": "Shopping/Product Comparison",
+     "score_pct": 69.86951364175565,
+     "score_pct_sd": 1.0273136462448869,
+     "elapsed_s": 2100.111597061157,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 23,
+     "output_tokens": 5282.0,
+     "turns": 18.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 491.36817598342896,
+      "timed_out": false
+     }
+    },
+    "cd680e2e-c0b9-4b54-948c-fd824d804a52": {
+     "domain": "UX Design",
+     "score_pct": 76.78812415654521,
+     "score_pct_sd": 3.6512143747553774,
+     "elapsed_s": 2100.0372402668,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 38,
+     "output_tokens": 4436.0,
+     "turns": 11.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 679.3384599685669,
+      "timed_out": false
+     }
+    },
+    "b8ff32b6-967c-41bf-8277-69afe025293e": {
+     "domain": "Medicine",
+     "score_pct": 50.303030303030305,
+     "score_pct_sd": 0.0,
+     "elapsed_s": 2100.1821200847626,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 6,
+     "output_tokens": 8061.0,
+     "turns": 16.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 394.31695103645325,
+      "timed_out": false
+     }
+    },
+    "3b5505fb-dab6-44cb-9a14-746b1cd82d25": {
+     "domain": "Law",
+     "score_pct": 80.72289156626506,
+     "score_pct_sd": 0.0,
+     "elapsed_s": 1294.1433129310608,
+     "timed_out": false,
+     "returncode": 0,
+     "answer_url_count": 21,
+     "output_tokens": 6196.0,
+     "turns": 11.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "ab17484f-fa6e-4e72-a970-e7cd6c5856d3": {
+     "domain": "Law",
+     "score_pct": 85.09803921568627,
+     "score_pct_sd": 0.0,
+     "elapsed_s": 1880.0894429683685,
+     "timed_out": false,
+     "returncode": 0,
+     "answer_url_count": 14,
+     "output_tokens": 12823.0,
+     "turns": 12.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "e3734e91-e2d1-4696-bdee-81c8bfa3127e": {
+     "domain": "Academic",
+     "score_pct": 84.35374149659864,
+     "score_pct_sd": 0.0,
+     "elapsed_s": 2100.014472961426,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 15,
+     "output_tokens": 3974.0,
+     "turns": 9.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 850.9425611495972,
+      "timed_out": false
+     }
+    },
+    "1070e6eb-7a8f-4ce9-8818-1931bcfdb2dd": {
+     "domain": "Needle in a Haystack",
+     "score_pct": 71.27659574468085,
+     "score_pct_sd": 0.0,
+     "elapsed_s": 1079.1564819812775,
+     "timed_out": false,
+     "returncode": 0,
+     "answer_url_count": 30,
+     "output_tokens": 13916.0,
+     "turns": 15.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "10e75d21-9e92-4878-b691-02fc87ae5d54": {
+     "domain": "Finance",
+     "score_pct": 0.0,
+     "score_pct_sd": 0.0,
+     "elapsed_s": 2099.9754178524017,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 0,
+     "output_tokens": 4560.0,
+     "turns": 15.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": false,
+      "method": "session_resume",
+      "elapsed_s": 1800.0447280406952,
+      "timed_out": true
+     }
+    },
+    "2aac5ef3-f127-4582-a8a6-8f02bda5681e": {
+     "domain": "Finance",
+     "score_pct": 71.94092827004219,
+     "score_pct_sd": 1.8270578138912204,
+     "elapsed_s": 2100.0433089733124,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 8,
+     "output_tokens": 6155.0,
+     "turns": 18.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 724.8356449604034,
+      "timed_out": false
+     }
+    },
+    "342b15b8-0ae1-43ce-9ebe-c7318179f156": {
+     "domain": "Finance",
+     "score_pct": 0.0,
+     "score_pct_sd": 0.0,
+     "elapsed_s": 2100.0661540031433,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 0,
+     "output_tokens": 5216.0,
+     "turns": 15.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": false,
+      "method": "session_resume",
+      "elapsed_s": 1800.0287573337555,
+      "timed_out": true
+     }
+    },
+    "34e9b780-7fb6-426a-bc39-c340baa578e8": {
+     "domain": "Shopping/Product Comparison",
+     "score_pct": 48.28349944629014,
+     "score_pct_sd": 2.9961792377560745,
+     "elapsed_s": 1968.5996050834656,
+     "timed_out": false,
+     "returncode": 0,
+     "answer_url_count": 154,
+     "output_tokens": 16494.0,
+     "turns": 12.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "49d841f1-0c95-4a87-9b62-5e2a54e8e1a8": {
+     "domain": "General Knowledge",
+     "score_pct": 58.79265091863517,
+     "score_pct_sd": 1.6391070861938053,
+     "elapsed_s": 2100.1665642261505,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 28,
+     "output_tokens": 8586.0,
+     "turns": 17.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 1664.3614521026611,
+      "timed_out": false
+     }
+    },
+    "4b089235-06e7-4f1f-a815-96bb146cbbde": {
+     "domain": "Shopping/Product Comparison",
+     "score_pct": 52.49662618083671,
+     "score_pct_sd": 2.337450482549094,
+     "elapsed_s": 2100.0667157173157,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 62,
+     "output_tokens": 6171.0,
+     "turns": 39.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 542.8705689907074,
+      "timed_out": false
+     }
+    }
+   },
+   "score_summary": {
+    "scored_tasks": 20,
+    "mean_pct": 48.70351628562858,
+    "median_pct": 52.032525041574814,
+    "min_pct": 0.0,
+    "max_pct": 85.09803921568627,
+    "sd_avg": 1.359355025835572,
+    "judge_cost_usd": 67.08552800000001,
+    "judge_input_tokens": 8847082,
+    "judge_output_tokens": 703661,
+    "judge_elapsed_s_total": 3443.879673242569
+   },
+   "generation_totals_benchmark_summary": {
+    "tasks": 20,
+    "completed_returncode0": 5,
+    "output_tokens": 153646,
+    "cache_read_tokens": 3453282,
+    "cache_write_tokens": 4458432,
+    "elapsed_s_total": 39434.64398264885,
+    "elapsed_s_avg": 1971.7321991324425
+   },
+   "gen_wall_hours_from_elapsed_total": 10.954,
+   "gen_wall_hours_notes": null,
+   "aggregates_computed_from_per_task": {
+    "timed_out_count": 15,
+    "salvage_attempted": 15,
+    "salvage_recovered": 12,
+    "salvage_recovered_methods": {
+     "session_resume": 12
+    }
+   },
+   "notes_generation_claims": {
+    "claim": "capped tasks emitted fewer tokens (5918 vs 9502 mean); two Finance tasks (342b15b8, 72e81ce6) ran empty into the cap AND had their 1800s salvage-resume also time out (recovered=false) -> scored 0.0",
+    "source": "notes/ds4-validation-runs-2026-07.md",
+    "meta_aggregate": "meta files: 15/20 timed out, salvage attempted=15 recovered=12"
+   }
+  },
+  "draco-ds4-quant91-cap2500-subset20-20260708": {
+   "label": "91 GB Q4K-spliced quant, cap 2500s (confirmation run)",
+   "profile": "direct_ds4_400k_thinkmax",
+   "task_timeout_s_config_used": 2500,
+   "per_task": {
+    "7e9fa201-6bbd-4e77-a8ed-c62b8f551cab": {
+     "domain": "General Knowledge",
+     "score_pct": 52.15686274509804,
+     "score_pct_sd": 2.075099067501639,
+     "elapsed_s": 2500.2568650245667,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 60,
+     "output_tokens": 13935.0,
+     "turns": 12.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "71e3456f-e1df-4108-872f-f00f8a44acc6": {
+     "domain": "Finance",
+     "score_pct": 44.444444444444436,
+     "score_pct_sd": 2.6455026455026456,
+     "elapsed_s": 2500.11771607399,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 35,
+     "output_tokens": 10829.0,
+     "turns": 25.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 546.8070161342621,
+      "timed_out": false
+     }
+    },
+    "72e81ce6-8d1f-4143-90d5-d25d7a212c85": {
+     "domain": "Finance",
+     "score_pct": 52.45098039215686,
+     "score_pct_sd": 2.652499854601704,
+     "elapsed_s": 2500.1014671325684,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 6,
+     "output_tokens": 10067.0,
+     "turns": 25.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 482.0195300579071,
+      "timed_out": false
+     }
+    },
+    "79224558-75f7-4e51-bc24-51f1e3ede921": {
+     "domain": "Technology",
+     "score_pct": 34.333333333333336,
+     "score_pct_sd": 1.7638342073763915,
+     "elapsed_s": 1374.546970129013,
+     "timed_out": false,
+     "returncode": 0,
+     "answer_url_count": 89,
+     "output_tokens": 16677.0,
+     "turns": 8.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "ebac60ea-ea67-4b8f-986e-1e0aebed2b89": {
+     "domain": "Technology",
+     "score_pct": 24.258760107816713,
+     "score_pct_sd": 2.6954177897574123,
+     "elapsed_s": 2129.8764231204987,
+     "timed_out": false,
+     "returncode": 0,
+     "answer_url_count": 65,
+     "output_tokens": 21288.0,
+     "turns": 11.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "8cf941c5-3ac1-4801-929b-8f5bab8691c7": {
+     "domain": "Technology",
+     "score_pct": 43.293885601577905,
+     "score_pct_sd": 1.7081368910935664,
+     "elapsed_s": 2425.9706239700317,
+     "timed_out": false,
+     "returncode": 0,
+     "answer_url_count": 40,
+     "output_tokens": 14458.0,
+     "turns": 17.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "78bfa372-ba7a-46e9-9c10-c3e80366afeb": {
+     "domain": "Shopping/Product Comparison",
+     "score_pct": 33.7220602526725,
+     "score_pct_sd": 0.3366473872825797,
+     "elapsed_s": 1778.3855550289154,
+     "timed_out": false,
+     "returncode": 0,
+     "answer_url_count": 82,
+     "output_tokens": 13894.0,
+     "turns": 13.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "no_urls",
+      "recovered": true,
+      "method": "extracted_from_session",
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "6b3233e6-9b05-465a-a872-724af25df719": {
+     "domain": "Shopping/Product Comparison",
+     "score_pct": 52.194543297746144,
+     "score_pct_sd": 2.71801642642695,
+     "elapsed_s": 1967.0029048919678,
+     "timed_out": false,
+     "returncode": 0,
+     "answer_url_count": 30,
+     "output_tokens": 14136.0,
+     "turns": 24.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "cd680e2e-c0b9-4b54-948c-fd824d804a52": {
+     "domain": "UX Design",
+     "score_pct": 77.05802968960863,
+     "score_pct_sd": 3.651214374755378,
+     "elapsed_s": 2500.076943874359,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 28,
+     "output_tokens": 10082.0,
+     "turns": 26.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 673.3536729812622,
+      "timed_out": false
+     }
+    },
+    "b8ff32b6-967c-41bf-8277-69afe025293e": {
+     "domain": "Medicine",
+     "score_pct": 25.050505050505052,
+     "score_pct_sd": 1.7495462702715938,
+     "elapsed_s": 2500.0317661762238,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 8,
+     "output_tokens": 6373.0,
+     "turns": 26.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 390.9702160358429,
+      "timed_out": false
+     }
+    },
+    "3b5505fb-dab6-44cb-9a14-746b1cd82d25": {
+     "domain": "Law",
+     "score_pct": 72.08835341365462,
+     "score_pct_sd": 1.7390068349085146,
+     "elapsed_s": 1003.7063000202179,
+     "timed_out": false,
+     "returncode": 0,
+     "answer_url_count": 24,
+     "output_tokens": 6466.0,
+     "turns": 13.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "no_urls",
+      "recovered": true,
+      "method": "extracted_from_session",
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "ab17484f-fa6e-4e72-a970-e7cd6c5856d3": {
+     "domain": "Law",
+     "score_pct": 81.69934640522877,
+     "score_pct_sd": 1.8112949621635335,
+     "elapsed_s": 2500.052992105484,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 11,
+     "output_tokens": 10614.0,
+     "turns": 44.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 495.45616388320923,
+      "timed_out": false
+     }
+    },
+    "e3734e91-e2d1-4696-bdee-81c8bfa3127e": {
+     "domain": "Academic",
+     "score_pct": 84.12698412698414,
+     "score_pct_sd": 1.5710211406520467,
+     "elapsed_s": 2500.056473016739,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 18,
+     "output_tokens": 3448.0,
+     "turns": 11.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 640.0363867282867,
+      "timed_out": false
+     }
+    },
+    "1070e6eb-7a8f-4ce9-8818-1931bcfdb2dd": {
+     "domain": "Needle in a Haystack",
+     "score_pct": 80.85106382978724,
+     "score_pct_sd": 0.0,
+     "elapsed_s": 1008.5314419269562,
+     "timed_out": false,
+     "returncode": 0,
+     "answer_url_count": 24,
+     "output_tokens": 10313.0,
+     "turns": 13.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "10e75d21-9e92-4878-b691-02fc87ae5d54": {
+     "domain": "Finance",
+     "score_pct": 0.0,
+     "score_pct_sd": 0.0,
+     "elapsed_s": 2500.068183898926,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 0,
+     "output_tokens": 8950.0,
+     "turns": 26.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": false,
+      "method": "session_resume",
+      "elapsed_s": 2400.055680990219,
+      "timed_out": true
+     }
+    },
+    "2aac5ef3-f127-4582-a8a6-8f02bda5681e": {
+     "domain": "Finance",
+     "score_pct": 71.51898734177215,
+     "score_pct_sd": 0.0,
+     "elapsed_s": 2137.701022386551,
+     "timed_out": false,
+     "returncode": 0,
+     "answer_url_count": 10,
+     "output_tokens": 13019.0,
+     "turns": 26.0,
+     "salvage": {
+      "attempted": false,
+      "reason": null,
+      "recovered": null,
+      "method": null,
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "342b15b8-0ae1-43ce-9ebe-c7318179f156": {
+     "domain": "Finance",
+     "score_pct": 45.24647887323943,
+     "score_pct_sd": 0.9316025743185171,
+     "elapsed_s": 2500.1177332401276,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 10,
+     "output_tokens": 5604.0,
+     "turns": 23.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 1547.9002492427826,
+      "timed_out": false
+     }
+    },
+    "34e9b780-7fb6-426a-bc39-c340baa578e8": {
+     "domain": "Shopping/Product Comparison",
+     "score_pct": 57.807308970099676,
+     "score_pct_sd": 0.0,
+     "elapsed_s": 2217.574553966522,
+     "timed_out": false,
+     "returncode": 0,
+     "answer_url_count": 118,
+     "output_tokens": 14385.0,
+     "turns": 19.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "no_urls",
+      "recovered": true,
+      "method": "extracted_from_session",
+      "elapsed_s": null,
+      "timed_out": null
+     }
+    },
+    "49d841f1-0c95-4a87-9b62-5e2a54e8e1a8": {
+     "domain": "General Knowledge",
+     "score_pct": 66.53543307086615,
+     "score_pct_sd": 0.0,
+     "elapsed_s": 2500.1085340976715,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 7,
+     "output_tokens": 8372.0,
+     "turns": 19.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 2400.0229687690735,
+      "timed_out": true
+     }
+    },
+    "4b089235-06e7-4f1f-a815-96bb146cbbde": {
+     "domain": "Shopping/Product Comparison",
+     "score_pct": 48.448043184885286,
+     "score_pct_sd": 2.33745048254909,
+     "elapsed_s": 2500.0509219169617,
+     "timed_out": true,
+     "returncode": "timeout",
+     "answer_url_count": 200,
+     "output_tokens": 5469.0,
+     "turns": 14.0,
+     "salvage": {
+      "attempted": true,
+      "reason": "empty_answer",
+      "recovered": true,
+      "method": "session_resume",
+      "elapsed_s": 872.77952003479,
+      "timed_out": false
+     }
+    }
+   },
+   "score_summary": {
+    "scored_tasks": 20,
+    "mean_pct": 52.36427020657385,
+    "median_pct": 52.175703021422095,
+    "min_pct": 0.0,
+    "max_pct": 84.12698412698414,
+    "sd_avg": 1.519314545458078,
+    "judge_cost_usd": 65.218266,
+    "judge_input_tokens": 7978566,
+    "judge_output_tokens": 755234,
+    "judge_elapsed_s_total": 3123.959332704544
+   },
+   "generation_totals_benchmark_summary": {
+    "tasks": 20,
+    "completed_returncode0": 9,
+    "output_tokens": 218379,
+    "cache_read_tokens": 5485584,
+    "cache_write_tokens": 6805316,
+    "elapsed_s_total": 43544.33539199829,
+    "elapsed_s_avg": 2177.2167695999146
+   },
+   "gen_wall_hours_from_elapsed_total": 12.096,
+   "gen_wall_hours_notes": null,
+   "aggregates_computed_from_per_task": {
+    "timed_out_count": 11,
+    "salvage_attempted": 13,
+    "salvage_recovered": 12,
+    "salvage_recovered_methods": {
+     "session_resume": 9,
+     "extracted_from_session": 3
+    }
+   },
+   "notes_generation_claims": {
+    "claim": "raising cap 2100->2500s (+salvage 1800->2400s); both former salvage-failure zeros recovered (342b15b8 0.0->45.2, 72e81ce6 0.0->52.5)",
+    "source": "notes/ds4-validation-runs-2026-07.md",
+    "meta_aggregate": "meta files: 11/20 timed out, salvage attempted=13 recovered=12"
+   }
+  },
+  "_verdicts_from_notes": {
+   "steering_ab_2026_07_04": {
+    "ffn_m0.75": {
+     "mean_pct": 49.44,
+     "median_pct": 49.5,
+     "judge_cost_usd": 76.49
+    },
+    "ffn_0": {
+     "mean_pct": 47.98,
+     "median_pct": 48.13,
+     "judge_cost_usd": 63.88
+    },
+    "paired_delta_on_minus_off_pp": 1.46,
+    "paired_sd": 18.41,
+    "t": 0.35,
+    "n": 20,
+    "wins": "12/20",
+    "delta_excluding_two_salvage_outliers_pp": 1.99,
+    "total_ab_generation_wall_hours": 20.5,
+    "total_ab_judge_cost_usd": 140.37,
+    "decision": "keep ffn=-0.75 as default; steering has no measurable net effect",
+    "vs_june_same_20_tasks": {
+     "arm_pct": 49.44,
+     "june_pct": 42.64,
+     "delta_pp": 6.8,
+     "tasks_improved": "14/20",
+     "paired_sd": 20.1
+    },
+    "source": "notes/ds4-validation-runs-2026-07.md (STEERING A/B VERDICT)"
+   },
+   "quant_ab_2026_07_08": {
+    "raw_all20": {
+     "gb87_pct": 49.44,
+     "gb91_pct": 48.7,
+     "delta_pp": -0.74,
+     "verdict": "noise / cap-starvation artifact"
+    },
+    "comparable_17_tasks_delta_pp": 4.41,
+    "comparable_17_wins": "9/17",
+    "clean_5_tasks_delta_pp": 6.94,
+    "capped_mean_output_tokens": {
+     "gb91": 5918,
+     "gb87": 9502
+    },
+    "gb91_decode_slowdown_pct_notes": "~15% slower decode; ~10% slower prefill (~228 vs ~250 t/s; ~18 t/s @50k vs ~21-22)",
+    "two_infra_failure_zeros": {
+     "ids": [
+      "342b15b8",
+      "72e81ce6"
+     ],
+     "gb87_scores_pct": [
+      35.7,
+      53.9
+     ],
+     "cost_of_raw_mean_pp": -4.48
+    },
+    "source": "notes/ds4-validation-runs-2026-07.md (QUANT A/B VERDICT: 91 GB mixed build)"
+   },
+   "quant_cap2500_confirmation_2026_07_09": {
+    "gb87_cap2100_pct": 49.44,
+    "gb91_cap2100_pct": 48.7,
+    "gb91_cap2500_pct": 52.36,
+    "delta_vs_87gb_pp": 2.92,
+    "wins": "13/20",
+    "sd": 18.9,
+    "recovered_zeros": {
+     "342b15b8": [
+      0.0,
+      45.2
+     ],
+     "72e81ce6": [
+      0.0,
+      52.5
+     ]
+    },
+    "regressions": {
+     "b8ff32b6_medicine": [
+      76.6,
+      25.1
+     ],
+     "4b089235_shopping": [
+      78.4,
+      48.4
+     ]
+    },
+    "persistent_zero": "10e75d21 stayed 0.0 in all three runs",
+    "decision": "91 GB + cap2500 is now the standard config",
+    "source": "notes/ds4-validation-runs-2026-07.md (QUANT VERDICT CONFIRMED at cap2500)"
+   }
+  }
+ },
+ "bench": {
+  "m5max_quality": {
+   "file": "~/.pi/ds4/support/speed-bench/local-runs/m5max-baseline-20260706-metal-tensor-bench/m5max-baseline-20260706_gen128_ds4_bench_quality.csv",
+   "rows": [
+    {
+     "ctx": 512,
+     "prefill_tps": 197.56,
+     "gen_tps": 35.54
+    },
+    {
+     "ctx": 1024,
+     "prefill_tps": 253.74,
+     "gen_tps": 35.26
+    },
+    {
+     "ctx": 2048,
+     "prefill_tps": 290.61,
+     "gen_tps": 34.77
+    },
+    {
+     "ctx": 4096,
+     "prefill_tps": 306.66,
+     "gen_tps": 29.59
+    },
+    {
+     "ctx": 8192,
+     "prefill_tps": 323.74,
+     "gen_tps": 27.77
+    },
+    {
+     "ctx": 16384,
+     "prefill_tps": 247.58,
+     "gen_tps": 22.94
+    },
+    {
+     "ctx": 32768,
+     "prefill_tps": 174.27,
+     "gen_tps": 20.56
+    },
+    {
+     "ctx": 65536,
+     "prefill_tps": 161.01,
+     "gen_tps": 19.27
+    }
+   ],
+   "note": "quality mode (exact kernels), pinned binary 97319db8, 2026-07-06"
+  },
+  "m5max_standard": {
+   "file": "~/.pi/ds4/support/speed-bench/local-runs/m5max-baseline-20260706-metal-tensor-bench/m5max_standard.csv",
+   "rows": [
+    {
+     "ctx": 512,
+     "prefill_tps": 253.52,
+     "gen_tps": 37.91
+    },
+    {
+     "ctx": 1024,
+     "prefill_tps": 301.28,
+     "gen_tps": 37.54
+    },
+    {
+     "ctx": 2048,
+     "prefill_tps": 355.04,
+     "gen_tps": 37.18
+    },
+    {
+     "ctx": 4096,
+     "prefill_tps": 390.06,
+     "gen_tps": 31.47
+    },
+    {
+     "ctx": 8192,
+     "prefill_tps": 417.89,
+     "gen_tps": 30.8
+    },
+    {
+     "ctx": 16384,
+     "prefill_tps": 366.59,
+     "gen_tps": 27.63
+    },
+    {
+     "ctx": 32768,
+     "prefill_tps": 226.57,
+     "gen_tps": 19.78
+    },
+    {
+     "ctx": 65536,
+     "prefill_tps": 199.13,
+     "gen_tps": 18.95
+    }
+   ],
+   "note": "standard Metal path = production, pin 97319db8, morning 2026-07-06"
+  },
+  "m5max_mppfast": {
+   "file": "~/.pi/ds4/support/speed-bench/local-runs/m5max-baseline-20260706-metal-tensor-bench/m5max_mppfast.csv",
+   "rows": [
+    {
+     "ctx": 512,
+     "prefill_tps": 195.3,
+     "gen_tps": 24.25
+    },
+    {
+     "ctx": 1024,
+     "prefill_tps": 164.53,
+     "gen_tps": 24.78
+    },
+    {
+     "ctx": 2048,
+     "prefill_tps": 218.7,
+     "gen_tps": 23.71
+    },
+    {
+     "ctx": 4096,
+     "prefill_tps": 235.38,
+     "gen_tps": 21.57
+    },
+    {
+     "ctx": 8192,
+     "prefill_tps": 238.33,
+     "gen_tps": 21.05
+    },
+    {
+     "ctx": 16384,
+     "prefill_tps": 230.79,
+     "gen_tps": 20.29
+    },
+    {
+     "ctx": 32768,
+     "prefill_tps": 214.76,
+     "gen_tps": 20.21
+    },
+    {
+     "ctx": 65536,
+     "prefill_tps": 186.97,
+     "gen_tps": 18.47
+    }
+   ],
+   "note": "DS4_METAL_MPP_FAST=1 + MOE_DOWN_FILTER=26,29,30 - measured regression, preset KILLED"
+  },
+  "m5max_standard_c1f4aa22": {
+   "file": "~/.pi/ds4/support/speed-bench/local-runs/m5max-baseline-20260706-metal-tensor-bench/m5max_standard_c1f4aa22.csv",
+   "rows": [
+    {
+     "ctx": 512,
+     "prefill_tps": 154.75,
+     "gen_tps": 24.86
+    },
+    {
+     "ctx": 1024,
+     "prefill_tps": 169.07,
+     "gen_tps": 26.13
+    },
+    {
+     "ctx": 2048,
+     "prefill_tps": 239.33,
+     "gen_tps": 27.3
+    },
+    {
+     "ctx": 4096,
+     "prefill_tps": 282.75,
+     "gen_tps": 25.21
+    },
+    {
+     "ctx": 8192,
+     "prefill_tps": 309.82,
+     "gen_tps": 24.93
+    },
+    {
+     "ctx": 16384,
+     "prefill_tps": 289.83,
+     "gen_tps": 23.48
+    },
+    {
+     "ctx": 32768,
+     "prefill_tps": 255.58,
+     "gen_tps": 21.43
+    },
+    {
+     "ctx": 65536,
+     "prefill_tps": 212.17,
+     "gen_tps": 19.33
+    }
+   ],
+   "note": "new pin c1f4aa22, evening interleaved run"
+  },
+  "m5max_standard_c1f4aa22_warm": {
+   "file": "~/.pi/ds4/support/speed-bench/local-runs/m5max-baseline-20260706-metal-tensor-bench/m5max_standard_c1f4aa22_warm.csv",
+   "rows": [
+    {
+     "ctx": 512,
+     "prefill_tps": 132.88,
+     "gen_tps": 19.77
+    },
+    {
+     "ctx": 1024,
+     "prefill_tps": 153.06,
+     "gen_tps": 22.85
+    },
+    {
+     "ctx": 2048,
+     "prefill_tps": 228.21,
+     "gen_tps": 24.26
+    },
+    {
+     "ctx": 4096,
+     "prefill_tps": 246.67,
+     "gen_tps": 21.73
+    },
+    {
+     "ctx": 8192,
+     "prefill_tps": 266.63,
+     "gen_tps": 21.85
+    },
+    {
+     "ctx": 16384,
+     "prefill_tps": 258.24,
+     "gen_tps": 21.31
+    },
+    {
+     "ctx": 32768,
+     "prefill_tps": 237.99,
+     "gen_tps": 20.29
+    },
+    {
+     "ctx": 65536,
+     "prefill_tps": 208.51,
+     "gen_tps": 18.43
+    }
+   ],
+   "note": "new pin c1f4aa22 warm repeat, evening"
+  },
+  "m5max_oldpin_tonight": {
+   "file": "~/.pi/ds4/support/speed-bench/local-runs/m5max-baseline-20260706-metal-tensor-bench/m5max_oldpin_tonight.csv",
+   "rows": [
+    {
+     "ctx": 512,
+     "prefill_tps": 143.16,
+     "gen_tps": 19.31
+    },
+    {
+     "ctx": 1024,
+     "prefill_tps": 154.97,
+     "gen_tps": 22.37
+    },
+    {
+     "ctx": 2048,
+     "prefill_tps": 225.19,
+     "gen_tps": 23.93
+    },
+    {
+     "ctx": 4096,
+     "prefill_tps": 252.59,
+     "gen_tps": 21.89
+    },
+    {
+     "ctx": 8192,
+     "prefill_tps": 267.11,
+     "gen_tps": 21.97
+    },
+    {
+     "ctx": 16384,
+     "prefill_tps": 256.1,
+     "gen_tps": 21.31
+    },
+    {
+     "ctx": 32768,
+     "prefill_tps": 236.03,
+     "gen_tps": 19.71
+    },
+    {
+     "ctx": 65536,
+     "prefill_tps": 204.49,
+     "gen_tps": 18.87
+    }
+   ],
+   "note": "old pin 97319db8 re-run same evening (thermal-drift control arm)"
+  },
+  "dspark_20260709_baseline": {
+   "file": "~/.pi/ds4/support/speed-bench/local-runs/dspark-20260709-053436/baseline.csv",
+   "rows": [
+    {
+     "ctx": 2048,
+     "prefill_tps": 461.52,
+     "gen_tps": 36.59
+    },
+    {
+     "ctx": 4096,
+     "prefill_tps": 394.71,
+     "gen_tps": 31.09
+    },
+    {
+     "ctx": 8192,
+     "prefill_tps": 420.23,
+     "gen_tps": 30.58
+    },
+    {
+     "ctx": 16384,
+     "prefill_tps": 382.3,
+     "gen_tps": 28.19
+    },
+    {
+     "ctx": 32768,
+     "prefill_tps": 274.24,
+     "gen_tps": 21.08
+    }
+   ],
+   "note": "91 GB build fresh baseline, gen 256 tokens, 2026-07-09"
+  },
+  "reference_m2_ultra": {
+   "file": "~/.pi/ds4/support/speed-bench/m2_ultra.csv",
+   "rows": [
+    {
+     "ctx": 2048,
+     "prefill_tps": 410.62,
+     "gen_tps": 23.22
+    },
+    {
+     "ctx": 4096,
+     "prefill_tps": 389.21,
+     "gen_tps": 23.19
+    },
+    {
+     "ctx": 6144,
+     "prefill_tps": 380.6,
+     "gen_tps": 22.95
+    },
+    {
+     "ctx": 8192,
+     "prefill_tps": 382.57,
+     "gen_tps": 22.72
+    },
+    {
+     "ctx": 10240,
+     "prefill_tps": 373.97,
+     "gen_tps": 22.92
+    },
+    {
+     "ctx": 12288,
+     "prefill_tps": 370.0,
+     "gen_tps": 22.84
+    },
+    {
+     "ctx": 14336,
+     "prefill_tps": 361.94,
+     "gen_tps": 22.73
+    },
+    {
+     "ctx": 16384,
+     "prefill_tps": 362.43,
+     "gen_tps": 22.72
+    },
+    {
+     "ctx": 18432,
+     "prefill_tps": 352.75,
+     "gen_tps": 22.35
+    },
+    {
+     "ctx": 20480,
+     "prefill_tps": 349.08,
+     "gen_tps": 22.55
+    },
+    {
+     "ctx": 22528,
+     "prefill_tps": 345.03,
+     "gen_tps": 22.29
+    },
+    {
+     "ctx": 24576,
+     "prefill_tps": 344.59,
+     "gen_tps": 22.41
+    },
+    {
+     "ctx": 26624,
+     "prefill_tps": 333.6,
+     "gen_tps": 22.19
+    },
+    {
+     "ctx": 28672,
+     "prefill_tps": 330.43,
+     "gen_tps": 22.3
+    },
+    {
+     "ctx": 30720,
+     "prefill_tps": 326.14,
+     "gen_tps": 22.07
+    },
+    {
+     "ctx": 32768,
+     "prefill_tps": 325.77,
+     "gen_tps": 21.92
+    },
+    {
+     "ctx": 34816,
+     "prefill_tps": 316.26,
+     "gen_tps": 21.66
+    },
+    {
+     "ctx": 36864,
+     "prefill_tps": 313.02,
+     "gen_tps": 21.65
+    },
+    {
+     "ctx": 38912,
+     "prefill_tps": 309.92,
+     "gen_tps": 21.36
+    },
+    {
+     "ctx": 40960,
+     "prefill_tps": 309.89,
+     "gen_tps": 21.53
+    },
+    {
+     "ctx": 43008,
+     "prefill_tps": 300.73,
+     "gen_tps": 21.3
+    },
+    {
+     "ctx": 45056,
+     "prefill_tps": 298.4,
+     "gen_tps": 21.37
+    },
+    {
+     "ctx": 47104,
+     "prefill_tps": 294.72,
+     "gen_tps": 21.17
+    },
+    {
+     "ctx": 49152,
+     "prefill_tps": 294.76,
+     "gen_tps": 21.27
+    },
+    {
+     "ctx": 51200,
+     "prefill_tps": 287.54,
+     "gen_tps": 21.07
+    },
+    {
+     "ctx": 53248,
+     "prefill_tps": 284.8,
+     "gen_tps": 21.17
+    },
+    {
+     "ctx": 55296,
+     "prefill_tps": 281.71,
+     "gen_tps": 20.77
+    },
+    {
+     "ctx": 57344,
+     "prefill_tps": 281.73,
+     "gen_tps": 21.0
+    },
+    {
+     "ctx": 59392,
+     "prefill_tps": 273.83,
+     "gen_tps": 20.77
+    },
+    {
+     "ctx": 61440,
+     "prefill_tps": 271.99,
+     "gen_tps": 20.85
+    },
+    {
+     "ctx": 63488,
+     "prefill_tps": 269.16,
+     "gen_tps": 20.61
+    },
+    {
+     "ctx": 65536,
+     "prefill_tps": 269.75,
+     "gen_tps": 20.43
+    }
+   ],
+   "note": "upstream reference CSV shipped with ds4 speed-bench"
+  },
+  "reference_m4_max": {
+   "file": "~/.pi/ds4/support/speed-bench/m4_max.csv",
+   "rows": [
+    {
+     "ctx": 2048,
+     "prefill_tps": 343.76,
+     "gen_tps": 26.76
+    },
+    {
+     "ctx": 4096,
+     "prefill_tps": 303.46,
+     "gen_tps": 26.52
+    },
+    {
+     "ctx": 6144,
+     "prefill_tps": 298.19,
+     "gen_tps": 26.16
+    },
+    {
+     "ctx": 8192,
+     "prefill_tps": 294.6,
+     "gen_tps": 26.12
+    },
+    {
+     "ctx": 10240,
+     "prefill_tps": 288.12,
+     "gen_tps": 25.94
+    },
+    {
+     "ctx": 12288,
+     "prefill_tps": 284.62,
+     "gen_tps": 25.94
+    },
+    {
+     "ctx": 14336,
+     "prefill_tps": 280.46,
+     "gen_tps": 25.64
+    },
+    {
+     "ctx": 16384,
+     "prefill_tps": 277.04,
+     "gen_tps": 25.57
+    },
+    {
+     "ctx": 18432,
+     "prefill_tps": 271.81,
+     "gen_tps": 25.32
+    },
+    {
+     "ctx": 20480,
+     "prefill_tps": 268.24,
+     "gen_tps": 25.39
+    },
+    {
+     "ctx": 22528,
+     "prefill_tps": 264.31,
+     "gen_tps": 25.07
+    },
+    {
+     "ctx": 24576,
+     "prefill_tps": 261.99,
+     "gen_tps": 25.1
+    },
+    {
+     "ctx": 26624,
+     "prefill_tps": 256.64,
+     "gen_tps": 24.82
+    },
+    {
+     "ctx": 28672,
+     "prefill_tps": 253.66,
+     "gen_tps": 24.86
+    },
+    {
+     "ctx": 30720,
+     "prefill_tps": 250.56,
+     "gen_tps": 24.59
+    },
+    {
+     "ctx": 32768,
+     "prefill_tps": 247.91,
+     "gen_tps": 24.52
+    },
+    {
+     "ctx": 34816,
+     "prefill_tps": 242.7,
+     "gen_tps": 24.28
+    },
+    {
+     "ctx": 36864,
+     "prefill_tps": 240.65,
+     "gen_tps": 24.29
+    },
+    {
+     "ctx": 38912,
+     "prefill_tps": 237.77,
+     "gen_tps": 24.08
+    },
+    {
+     "ctx": 40960,
+     "prefill_tps": 235.58,
+     "gen_tps": 24.06
+    },
+    {
+     "ctx": 43008,
+     "prefill_tps": 231.38,
+     "gen_tps": 23.95
+    },
+    {
+     "ctx": 45056,
+     "prefill_tps": 228.75,
+     "gen_tps": 23.96
+    },
+    {
+     "ctx": 47104,
+     "prefill_tps": 225.97,
+     "gen_tps": 23.73
+    },
+    {
+     "ctx": 49152,
+     "prefill_tps": 224.31,
+     "gen_tps": 23.78
+    },
+    {
+     "ctx": 51200,
+     "prefill_tps": 220.48,
+     "gen_tps": 23.48
+    },
+    {
+     "ctx": 53248,
+     "prefill_tps": 218.8,
+     "gen_tps": 23.55
+    },
+    {
+     "ctx": 55296,
+     "prefill_tps": 215.93,
+     "gen_tps": 23.27
+    },
+    {
+     "ctx": 57344,
+     "prefill_tps": 214.19,
+     "gen_tps": 23.34
+    },
+    {
+     "ctx": 59392,
+     "prefill_tps": 210.63,
+     "gen_tps": 23.13
+    },
+    {
+     "ctx": 61440,
+     "prefill_tps": 208.69,
+     "gen_tps": 23.14
+    },
+    {
+     "ctx": 63488,
+     "prefill_tps": 206.3,
+     "gen_tps": 22.98
+    },
+    {
+     "ctx": 65536,
+     "prefill_tps": 204.96,
+     "gen_tps": 22.92
+    }
+   ],
+   "note": "upstream reference CSV shipped with ds4 speed-bench"
+  },
+  "reference_pro_model_m3_ultra": {
+   "file": "~/.pi/ds4/support/speed-bench/pro_model_m3_ultra.csv",
+   "rows": [
+    {
+     "ctx": 2048,
+     "prefill_tps": 183.06,
+     "gen_tps": 12.42
+    },
+    {
+     "ctx": 4096,
+     "prefill_tps": 176.23,
+     "gen_tps": 9.98
+    },
+    {
+     "ctx": 6144,
+     "prefill_tps": 151.52,
+     "gen_tps": 9.85
+    },
+    {
+     "ctx": 8192,
+     "prefill_tps": 150.88,
+     "gen_tps": 9.88
+    },
+    {
+     "ctx": 10240,
+     "prefill_tps": 148.95,
+     "gen_tps": 9.79
+    },
+    {
+     "ctx": 12288,
+     "prefill_tps": 148.29,
+     "gen_tps": 9.83
+    },
+    {
+     "ctx": 14336,
+     "prefill_tps": 147.32,
+     "gen_tps": 9.76
+    },
+    {
+     "ctx": 16384,
+     "prefill_tps": 146.74,
+     "gen_tps": 9.77
+    },
+    {
+     "ctx": 18432,
+     "prefill_tps": 145.05,
+     "gen_tps": 9.69
+    },
+    {
+     "ctx": 20480,
+     "prefill_tps": 144.17,
+     "gen_tps": 9.71
+    },
+    {
+     "ctx": 22528,
+     "prefill_tps": 143.45,
+     "gen_tps": 9.64
+    },
+    {
+     "ctx": 24576,
+     "prefill_tps": 142.72,
+     "gen_tps": 9.68
+    },
+    {
+     "ctx": 26624,
+     "prefill_tps": 141.22,
+     "gen_tps": 9.6
+    },
+    {
+     "ctx": 28672,
+     "prefill_tps": 140.45,
+     "gen_tps": 9.63
+    },
+    {
+     "ctx": 30720,
+     "prefill_tps": 139.65,
+     "gen_tps": 9.57
+    },
+    {
+     "ctx": 32768,
+     "prefill_tps": 138.82,
+     "gen_tps": 9.56
+    }
+   ],
+   "note": "NO m3_max.csv exists (only m3_max_ts.svg); this is the PRO-model M3 Ultra reference CSV, closest available M3 file"
+  },
+  "reference_gb10": {
+   "file": "~/.pi/ds4/support/speed-bench/gb10.csv",
+   "rows": [
+    {
+     "ctx": 2048,
+     "prefill_tps": 402.88,
+     "gen_tps": 14.2
+    },
+    {
+     "ctx": 4096,
+     "prefill_tps": 402.77,
+     "gen_tps": 14.23
+    },
+    {
+     "ctx": 6144,
+     "prefill_tps": 396.59,
+     "gen_tps": 14.19
+    },
+    {
+     "ctx": 8192,
+     "prefill_tps": 391.85,
+     "gen_tps": 13.98
+    },
+    {
+     "ctx": 10240,
+     "prefill_tps": 385.54,
+     "gen_tps": 13.92
+    },
+    {
+     "ctx": 12288,
+     "prefill_tps": 381.55,
+     "gen_tps": 13.86
+    },
+    {
+     "ctx": 14336,
+     "prefill_tps": 377.31,
+     "gen_tps": 13.8
+    },
+    {
+     "ctx": 16384,
+     "prefill_tps": 375.45,
+     "gen_tps": 13.84
+    },
+    {
+     "ctx": 18432,
+     "prefill_tps": 365.36,
+     "gen_tps": 13.82
+    },
+    {
+     "ctx": 20480,
+     "prefill_tps": 361.46,
+     "gen_tps": 13.76
+    },
+    {
+     "ctx": 22528,
+     "prefill_tps": 361.99,
+     "gen_tps": 13.69
+    },
+    {
+     "ctx": 24576,
+     "prefill_tps": 362.02,
+     "gen_tps": 13.61
+    },
+    {
+     "ctx": 26624,
+     "prefill_tps": 359.57,
+     "gen_tps": 13.52
+    },
+    {
+     "ctx": 28672,
+     "prefill_tps": 356.55,
+     "gen_tps": 13.45
+    },
+    {
+     "ctx": 30720,
+     "prefill_tps": 352.89,
+     "gen_tps": 13.35
+    },
+    {
+     "ctx": 32768,
+     "prefill_tps": 346.36,
+     "gen_tps": 12.98
+    },
+    {
+     "ctx": 34816,
+     "prefill_tps": 334.93,
+     "gen_tps": 12.89
+    },
+    {
+     "ctx": 36864,
+     "prefill_tps": 332.58,
+     "gen_tps": 12.84
+    },
+    {
+     "ctx": 38912,
+     "prefill_tps": 329.11,
+     "gen_tps": 12.8
+    },
+    {
+     "ctx": 40960,
+     "prefill_tps": 328.58,
+     "gen_tps": 12.78
+    },
+    {
+     "ctx": 43008,
+     "prefill_tps": 321.02,
+     "gen_tps": 12.74
+    },
+    {
+     "ctx": 45056,
+     "prefill_tps": 317.48,
+     "gen_tps": 12.67
+    },
+    {
+     "ctx": 47104,
+     "prefill_tps": 312.93,
+     "gen_tps": 12.62
+    },
+    {
+     "ctx": 49152,
+     "prefill_tps": 311.34,
+     "gen_tps": 12.6
+    },
+    {
+     "ctx": 51200,
+     "prefill_tps": 312.38,
+     "gen_tps": 12.49
+    },
+    {
+     "ctx": 53248,
+     "prefill_tps": 309.78,
+     "gen_tps": 12.41
+    },
+    {
+     "ctx": 55296,
+     "prefill_tps": 308.06,
+     "gen_tps": 12.35
+    },
+    {
+     "ctx": 57344,
+     "prefill_tps": 303.39,
+     "gen_tps": 12.31
+    },
+    {
+     "ctx": 59392,
+     "prefill_tps": 299.5,
+     "gen_tps": 12.25
+    },
+    {
+     "ctx": 61440,
+     "prefill_tps": 296.29,
+     "gen_tps": 12.17
+    },
+    {
+     "ctx": 63488,
+     "prefill_tps": 291.85,
+     "gen_tps": 12.12
+    },
+    {
+     "ctx": 65536,
+     "prefill_tps": 287.44,
+     "gen_tps": 12.08
+    }
+   ],
+   "note": "extra upstream reference CSV present in the same dir (not requested, included for completeness)"
+  }
+ },
+ "dspark_probe": {
+  "source": "results/dspark-greedy-probe.log",
+  "baseline_decode_tps": 37.62,
+  "dspark_decode_tps": 36.37,
+  "completion_tokens": 500,
+  "draft": "~/.pi/ds4/support/gguf/dspark-draft.gguf (kind=dspark, draft=4, runtime_mtp=yes)",
+  "log_lines_verbatim": [
+   "baseline: decode avg=37.62 t/s, completion_tokens=500",
+   "ds4: draft model loaded: ~/.pi/ds4/support/gguf/dspark-draft.gguf (kind=dspark, draft=4, runtime_mtp=yes)",
+   "dspark: decode avg=36.37 t/s, completion_tokens=500",
+   "=== done; compare the two decode avg t/s (dspark higher => draft accepts) ==="
+  ],
+  "verified_in_log": true,
+  "delta_pct_notes": -3.3,
+  "verdict_notes": "INCOMPATIBLE: base-model DSpark draft vs abliterated quant -> near-zero acceptance (notes/ds4-speed-vectors-2026-07-06.md)"
+ },
+ "kv_cache": {
+  "evictions": 3102,
+  "hits": 76,
+  "budget_gb_old": 8,
+  "budget_gb_new": 64,
+  "budget_mb_new_env": "DS4_KV_DISK_SPACE_MB=65536",
+  "hit_latency_ms_range": [
+   35,
+   55
+  ],
+  "re_prefill_61k_cold_s": 236,
+  "checkpoint_sizes_notes": [
+   {
+    "claim": "one 61k-token checkpoint is ~830 MB",
+    "source": "notes/ds4-optimization-report-2026-07-draft.md (Where the points actually went table)"
+   },
+   {
+    "claim": "checkpoints at 394k ctx can hit 3+GB each",
+    "source": "notes/ds4-optimization-study-2026-07-02.md (contradiction #7)"
+   }
+  ],
+  "kv_dir_cleanup": {
+   "before_gb": 8.8,
+   "after_gb": 1.1,
+   "source": "notes/ds4-optimization-study-2026-07-02.md (QW2 row / system state changes)"
+  },
+  "log_rotated_mb_conflict": [
+   {
+    "value_mb": 178,
+    "source": "notes/ds4-optimization-study-2026-07-02.md (QW2 implemented row + system state changes table: '178 MB log rotated')"
+   },
+   {
+    "value_mb": 194,
+    "source": "notes/ds4-optimization-study-2026-07-02.md (QW2 plan section: 'mv ~/.pi/ds4/log ... # 194 MB, no rotation')"
+   }
+  ],
+  "ds4_dir_total_gb_june": {
+   "value_gb": 97,
+   "source": "notes/ds4 optimization.md: '~/.pi/ds4 lag bei ca. 97 GB'"
+  },
+  "server_starts_stops": {
+   "starts": 259,
+   "stops": 258,
+   "source": "notes/ds4-optimization-study-2026-07-02.md (QW10; draft says 'stopped/started the server 259 times')"
+  },
+  "verification": "evictions/hits/budget from notes only; underlying ~/.pi/ds4/log was rotated to log.20260702 and is not re-checkable",
+  "sources": [
+   "notes/ds4-optimization-study-2026-07-02.md (Empirical baseline + QW2)",
+   "notes/ds4-optimization-report-2026-07-draft.md"
+  ]
+ },
+ "costs": {
+  "judge_costs_usd": [
+   {
+    "run": "draco-gpt55-xhigh-codex-full",
+    "score_file": "scores.jsonl",
+    "judge": "openai gpt-4.1-mini criterion x3",
+    "usd": 12.0703028,
+    "source": "benchmark_summary.json + June notes"
+   },
+   {
+    "run": "draco-gpt55-xhigh-codex-full",
+    "score_file": "scores.pi-gpt54-low-criterion-3.jsonl",
+    "judge": "pi gpt-5.4:low criterion x3",
+    "usd": 61.6330905,
+    "source": "notes/draco-pi-fusion-research-notes-2026-06-23.md"
+   },
+   {
+    "run": "draco-gpt55-xhigh-codex-full",
+    "score_file": "scores.pi-gpt55-xhigh-strict-criterion-3.jsonl",
+    "judge": "pi gpt-5.5:xhigh strict criterion x3",
+    "usd": 200.374604,
+    "source": "notes/draco-pi-fusion-research-notes-2026-06-23.md"
+   },
+   {
+    "run": "draco-ds4-256k-gpt55-xhigh-full-20260622-210104 (original 100)",
+    "judge": "pi gpt-5.5:xhigh strict criterion x1",
+    "usd": 96.939936,
+    "source": "empty12-retry-summary.json original_summary (notes round to $96.9399)"
+   },
+   {
+    "run": "empty12 retry-only (12 ids)",
+    "judge": "pi gpt-5.5:xhigh strict criterion x1",
+    "usd": 9.940886,
+    "source": "empty12-retry-summary.json retry_score_summary (notes: $9.9409)"
+   },
+   {
+    "run": "merged original+retry (100)",
+    "judge": "pi gpt-5.5:xhigh strict criterion x1",
+    "usd": 103.902042,
+    "source": "empty12-retry-summary.json merged_summary (notes: $103.9020)"
+   },
+   {
+    "run": "draco-fusion-ds4-gemma4-qwen36-gpt55-xhigh-full (ds4-panel salvage, 52 tasks)",
+    "judge": "pi gpt-5.5:xhigh criterion x3",
+    "usd": 153.663854,
+    "source": "benchmark_summary.ds4-panel.json"
+   },
+   {
+    "run": "draco-fusion-ds4-manual-repair13-toolless-completed-gpt55-xhigh (100)",
+    "judge": "pi gpt-5.5:xhigh strict criterion x3",
+    "usd": 255.418102,
+    "source": "benchmark_summary.json (notes: $255.4181; split $144.4416 source-49 + $110.9766 repair-51)"
+   },
+   {
+    "run": "draco-ds4-steering-ffnm0.75-20260702 (20)",
+    "judge": "pi gpt-5.5:xhigh strict criterion x3",
+    "usd": 76.493568,
+    "source": "score_summary.json (notes: $76.49)"
+   },
+   {
+    "run": "draco-ds4-steering-ffn0-20260702 (20)",
+    "judge": "pi gpt-5.5:xhigh strict criterion x3",
+    "usd": 63.880181,
+    "source": "score_summary.json (notes: $63.88)"
+   },
+   {
+    "run": "draco-ds4-quant91-subset20-20260707 (20)",
+    "judge": "pi gpt-5.5:xhigh strict criterion x3",
+    "usd": 67.085528,
+    "source": "score_summary.json"
+   },
+   {
+    "run": "draco-ds4-quant91-cap2500-subset20-20260708 (20)",
+    "judge": "pi gpt-5.5:xhigh strict criterion x3",
+    "usd": 65.218266,
+    "source": "score_summary.json"
+   },
+   {
+    "run": "steering A/B both arms total",
+    "judge": "pi gpt-5.5:xhigh strict criterion x3",
+    "usd": 140.37,
+    "source": "notes/ds4-validation-runs-2026-07.md: 'Total A/B cost: ~20.5h generation wall time ..., $140.37 judge'"
+   }
+  ],
+  "generation_costs_usd": [
+   {
+    "run": "draco-gpt55-xhigh-codex-full",
+    "usd": 612.602278,
+    "source": "benchmark_summary.json"
+   },
+   {
+    "run": "draco-fusion-ds4-gemma4-qwen36-gpt55-xhigh-full",
+    "usd": 92.133768,
+    "breakdown": {
+     "panel_local_models_usd": 0.0,
+     "judge_stage_gpt55_usd": 68.300603,
+     "synthesis_stage_gpt55_usd": 23.833165
+    },
+    "source": "benchmark_summary.json + June notes stage table"
+   },
+   {
+    "run": "draco-fusion-ds4-manual-repair13-toolless-completed-gpt55-xhigh",
+    "usd": 93.528002,
+    "source": "benchmark_summary.json (notes: $93.5280)"
+   },
+   {
+    "run": "repair13 manual reconstructions only",
+    "usd": 5.9111,
+    "source": "notes/draco-pi-fusion-research-notes-2026-06-23.md"
+   },
+   {
+    "run": "DS4 local runs (all)",
+    "usd": 0.0,
+    "source": "local models report $0 API cost (benchmark_summary.json generation_cost_usd=0.0 for all DS4 arms)"
+   }
+  ],
+  "total_costs_usd": [
+   {
+    "run": "draco-gpt55-xhigh-codex-full",
+    "usd": 624.6725808,
+    "source": "benchmark_summary.json total_cost_usd"
+   },
+   {
+    "run": "draco-fusion-ds4-manual-repair13-toolless-completed-gpt55-xhigh",
+    "usd": 348.946104,
+    "source": "benchmark_summary.json total_cost_usd (notes: $348.9461)"
+   }
+  ],
+  "study_cost_notes": {
+   "claim": "one afternoon, ~688k agent tokens for the 8-agent analysis",
+   "source": "notes/ds4-optimization-report-2026-07-draft.md"
+  }
+ },
+ "dataset_stats": {
+  "rows": 100,
+  "criteria_total": 3934,
+  "criteria_positive": 3519,
+  "criteria_negative": 415,
+  "criteria_per_task": {
+   "min": 16,
+   "max": 77,
+   "avg": 39.34
+  },
+  "domain_distribution": {
+   "Finance": 20,
+   "Shopping/Product Comparison": 16,
+   "Academic": 12,
+   "Technology": 10,
+   "General Knowledge": 9,
+   "UX Design": 9,
+   "Law": 6,
+   "Medicine": 6,
+   "Needle in a Haystack": 6,
+   "Personalized Assistant": 6
+  },
+  "source": "notes/draco-pi-fusion-research-notes-2026-06-23.md (Lokale Datensatzpruefung / Domaenenverteilung tables)"
+ },
+ "misc_measurements": {
+  "june_forensics": {
+   "one_tool_call_mb": 15.7,
+   "tasks_with_gt31k_char_tool_result": "48/100",
+   "gt180k_context_bucket_avg_pct": 10.2,
+   "system_wide_cost_pp": "~8pp",
+   "duplicate_refetches_one_url_task_71e3456f": 875,
+   "empty_answers": "12/100 (~5pp)",
+   "corr_elapsed_score": -0.53,
+   "every_task_gt3600s_scored_lt_pct": 27,
+   "six_timeouts_burned_h": 12,
+   "top10_slowest_share": "44.7% of 38.2h wall time at avg 5.3%",
+   "zero_url_bare_domain_answers": {
+    "n": 8,
+    "avg_pct": 10.6
+   },
+   "presentation_miss_rate_delta_pp": 12.8,
+   "restates_penalty_count": 7,
+   "last_message_extraction_bug": {
+    "saved_chars": 486,
+    "real_report_chars": "24k",
+    "real_report_urls": 27,
+    "judged_pct": 7.5
+   },
+   "source": "notes/ds4-optimization-report-2026-07-draft.md (Where the points actually went) + notes/ds4-optimization-study-2026-07-02.md"
+  },
+  "june_speed_baseline_from_log": {
+   "decode_tps_11k_ctx": 29,
+   "decode_tps_64k_ctx": 22,
+   "prefill_tps_fresh": 315,
+   "prefill_tps_deep_61k": 185,
+   "cold_prefill_61k_s": 236,
+   "source": "notes/ds4-optimization-study-2026-07-02.md (Empirical baseline measured today, ~/.pi/ds4/log now rotated)"
+  },
+  "smoke2_full_pipeline_2026_07_02": {
+   "ctx": 400000,
+   "kv_budget_gib": 64,
+   "context_buffers_gib": 6.6,
+   "decode_fresh_tps": 37,
+   "decode_mid_session_tps": "29-30 at 23-40k",
+   "elapsed_s": 2416,
+   "turns": 22,
+   "output_tokens": 19400,
+   "report_chars": 24000,
+   "urls": 27,
+   "source": "notes/ds4-optimization-study-2026-07-02.md (Addendum smoke run 2) + notes/ds4-optimization-report-2026-07-draft.md"
+  },
+  "first_ab_task_79224558": {
+   "june_score_pct": 15.3,
+   "new_elapsed_s": 685.8,
+   "turns": 8,
+   "answer_chars": 27400,
+   "answer_url_count": 70,
+   "context_tokens": 40100,
+   "june_class_runtime_s": "1240-3255",
+   "source": "notes/ds4-validation-runs-2026-07.md + notes/ds4-optimization-report-2026-07-draft.md"
+  },
+  "decode_ceiling_math": {
+   "bytes_per_decoded_token_gb": 10.4,
+   "active_routed_experts_gb": 1.81,
+   "dense_nonexpert_gb": 8.6,
+   "kv_at_64k_up_to_gb": 0.93,
+   "bandwidth_gbs": 546,
+   "ceiling_tps": 52,
+   "measured_fresh_tps": 37,
+   "pct_of_roof": 71,
+   "nonexpert_share_of_decode_bytes_pct": 83,
+   "source": "notes/ds4-speed-vectors-2026-07-06.md (Decode-speed theoretical ceiling)"
+  },
+  "mpp_fast_verdict": {
+   "measured_prefill_mean_pct": -26,
+   "measured_prefill_range_pct": "-5..-43",
+   "measured_decode_pct": -18,
+   "quality_mode_prefill_pct": -32,
+   "claimed_prefill_pct_other_silicon": "+6-19",
+   "verdict": "KILLED on M5 Max",
+   "source": "notes/ds4-speed-vectors-2026-07-06.md (Verdict changes from measurement)"
+  },
+  "pin_bump_c1f4aa22": {
+   "like_for_like_prefill_pct": "+5..+10",
+   "like_for_like_decode_pct": "+5..+10",
+   "old_pin": "97319db8",
+   "new_pin": "c1f4aa22",
+   "thermal_drift_control": "old-pin tonight vs old-pin morning: -28% prefill",
+   "source": "notes/ds4-speed-vectors-2026-07-06.md (Post-bump regression bench RESOLVED)"
+  },
+  "think_max_model_card_deltas": {
+   "HLE": [
+    29.4,
+    34.8
+   ],
+   "SimpleQA": [
+    28.9,
+    34.1
+   ],
+   "Toolathlon": [
+    43.5,
+    47.8
+   ],
+   "gate": "reasoning_effort=max + --ctx >= 393216",
+   "source": "notes/ds4-optimization-study-2026-07-02.md (QW3)"
+  },
+  "dspark_prep": {
+   "hf_repo_shards": 48,
+   "hf_repo_total_gb": "~170",
+   "draft_tensors": 4705,
+   "download_needed_gb": "~12 (shards 45-48) / ~16 total incl. MTP template",
+   "feared_download_gb": 167,
+   "draft_gguf_gb": 11,
+   "draft_gguf_tensors": 81,
+   "mtp_template_gb": 3.5,
+   "source": "notes/ds4-speed-vectors-2026-07-06.md (Execution: quant A/B + DSpark prep; DSpark prerequisites complete)"
+  },
+  "model_files": {
+   "gb87": "87 GB IQ2XXS-w2Q2K GGUF (cyberneurova abliterated imatrix build)",
+   "gb91": "91 GB cyberneurova-...Layers37-42Q4KExperts-mixed.gguf (v0.4 default for 128 GB+ Macs)",
+   "source": "notes/ds4-validation-runs-2026-07.md + notes/ds4-speed-vectors-2026-07-06.md"
+  },
+  "judge_sensitivity_by_domain_gpt55_answers": {
+   "Academic": [
+    69.39,
+    59.93
+   ],
+   "Finance": [
+    61.53,
+    51.33
+   ],
+   "General Knowledge": [
+    46.66,
+    37.77
+   ],
+   "Law": [
+    84.37,
+    66.09
+   ],
+   "Medicine": [
+    74.83,
+    61.97
+   ],
+   "Needle in a Haystack": [
+    53.72,
+    46.91
+   ],
+   "Personalized Assistant": [
+    50.92,
+    37.09
+   ],
+   "Shopping/Product Comparison": [
+    54.83,
+    38.48
+   ],
+   "Technology": [
+    61.88,
+    49.92
+   ],
+   "UX Design": [
+    68.33,
+    51.5
+   ],
+   "columns": [
+    "gpt-4.1-mini judge",
+    "gpt-5.5 xhigh strict judge"
+   ],
+   "source": "notes/draco-pi-fusion-research-notes-2026-06-23.md (Judge-Sensitivitaet nach Domaene)"
+  },
+  "ds4_salvage_by_domain_june": {
+   "Academic": {
+    "n": 10,
+    "pct": 59.46
+   },
+   "Finance": {
+    "n": 6,
+    "pct": 40.04
+   },
+   "General Knowledge": {
+    "n": 4,
+    "pct": 51.18
+   },
+   "Law": {
+    "n": 5,
+    "pct": 75.66
+   },
+   "Medicine": {
+    "n": 4,
+    "pct": 57.21
+   },
+   "Needle in a Haystack": {
+    "n": 1,
+    "pct": 82.72
+   },
+   "Personalized Assistant": {
+    "n": 1,
+    "pct": 43.57
+   },
+   "Shopping/Product Comparison": {
+    "n": 8,
+    "pct": 30.92
+   },
+   "Technology": {
+    "n": 7,
+    "pct": 40.2
+   },
+   "UX Design": {
+    "n": 6,
+    "pct": 34.17
+   },
+   "source": "notes/draco-pi-fusion-research-notes-2026-06-23.md (DS4-Salvage nach Domaene)"
+  },
+  "head_to_head_notes": {
+   "claim": "DS4 won 52/100 tasks head-to-head vs GPT-5.5 under the same strict judge (DS4 judged 1 run vs GPT 3 runs)",
+   "source": "notes/ds4-optimization-study-2026-07-02.md (section 0) + notes/ds4-optimization-report-2026-07-draft.md"
+  },
+  "environment": {
+   "june": {
+    "pi": "0.79.4",
+    "node": "v24.14.1",
+    "python": "3.13.12",
+    "ollama": "0.30.8",
+    "onepassword_cli": "2.34.0",
+    "macos": "26.4 build 25E246",
+    "cpu": "Apple M5 Max",
+    "ram_bytes": 137438953472,
+    "cpus": 18,
+    "source": "notes/draco-pi-fusion-research-notes-2026-06-23.md"
+   },
+   "july_validation": {
+    "pi": "0.80.2",
+    "ds4_server_pin_start": "97319db8",
+    "ds4_server_pin_after_bump_2026_07_06": "c1f4aa22",
+    "adapter": "pi-ds4 v0.4 with 5 local patches re-applied",
+    "source": "notes/ds4-validation-runs-2026-07.md + notes/ds4-speed-vectors-2026-07-06.md"
+   }
+  }
+ },
+ "_meta": {
+  "generated": "2026-07-10",
+  "source": "pi-draco-benchmark local runs June-July 2026",
+  "judge": "Pi openai-codex/gpt-5.5:xhigh, strict system prompt, criterion mode",
+  "note": "Internal harness values. Not official DRACO leaderboard scores."
+ }
+}

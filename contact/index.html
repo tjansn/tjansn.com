@@ -1,188 +1,168 @@
 <!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Contact — Tom Jansen</title>
-        <link rel="icon" type="image/png" href="../favicon.png" />
-        <meta name="description" content="Contact details for Tom Jansen — Independent Advisor for AI, Product & Software Systems." />
-        <style>
-            @font-face {
-                font-family: "Inter";
-                font-style: normal;
-                font-weight: 300 900;
-                font-display: swap;
-                src: url(../fonts/inter-latin.woff2) format("woff2");
-            }
-            :root {
-                --accent: #FF3B30;
-                --accent2: #FF6B5A;
-                --bg: #111;
-                --text: #EAEAEA;
-                --text-light: #888;
-                --surface: #1a1a1a;
-                --line: #333;
-            }
-            * { margin: 0; padding: 0; box-sizing: border-box; }
-            body {
-                background: var(--bg);
-                color: var(--text);
-                font-family: "Inter", Helvetica, Arial, sans-serif;
-                min-height: 100vh;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 2rem;
-            }
-            a { color: var(--accent); text-decoration: none; transition: opacity 0.3s; }
-            a:hover { opacity: 0.8; }
+<html lang="de" class="h-full no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-i18n="contact.title">Kontakt | Thomas Jansen</title>
+    <meta name="description" content="Kontaktdaten von Thomas Jansen, Aachen: E-Mail, Telefon, LinkedIn, GitHub und vCard." data-i18n-attr="content:contact.description" />
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content="Kontakt | Thomas Jansen" />
+    <meta property="og:description" content="E-Mail, Telefon, LinkedIn, GitHub und vCard." />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#f5f3f0" />
+    <link rel="icon" href="../tj-logo.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../gl-v2.css" />
+    <link rel="stylesheet" href="../tj.css" />
+    <script>
+      document.documentElement.classList.remove("no-js");
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "dark") document.documentElement.classList.add("dark");
+      function toggleTheme() {
+        const dark = document.documentElement.classList.toggle("dark");
+        localStorage.setItem("theme", dark ? "dark" : "light");
+      }
+    </script>
+    <!-- Plausible Analytics: self-hosted (Mac mini, Cloudflare Tunnel), cookieless, kein Banner nötig -->
+    <script defer data-domain="tjansn.com" src="https://stats.gammalabs.cc/js/script.tagged-events.outbound-links.js"></script>
+    <script>window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) };</script>
+    <style>
+      /* Contact card: the target of the QR code on the printed business cards. */
+      .tj-card { max-width: 34rem; }
+      .tj-card h1 { font-size: clamp(2rem, 5vw, 2.8rem); margin-top: 0.9rem; }
+      .tj-card__role { margin-top: 0.75rem; color: var(--tj-muted); font-size: 1.05rem; line-height: 1.5; }
+      .tj-card__list { list-style: none; margin: 2rem 0 0; padding: 0; border-top: 1px solid var(--tj-rule); }
+      .tj-card__list li { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1rem; align-items: baseline; padding: 0.85rem 0; border-bottom: 1px solid var(--tj-rule); }
+      .tj-card__list dt, .tj-card__label { font-family: var(--gl-font-mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--tj-muted); }
+      .tj-card__list a { color: var(--tj-ink); text-decoration: none; border-bottom: 1px solid var(--tj-rule); overflow-wrap: anywhere; }
+      .tj-card__list a:hover { border-color: var(--tj-mark); }
+      .tj-card__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.75rem; }
+      @media (max-width: 480px) {
+        .tj-card__list li { grid-template-columns: 1fr; gap: 0.2rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="gl-scroll-progress" data-scroll-progress aria-hidden="true"></div>
 
-            .card {
-                width: 100%;
-                max-width: 480px;
-            }
-            .card-name {
-                font-size: clamp(2rem, 5vw, 3rem);
-                font-weight: 900;
-                text-transform: uppercase;
-                letter-spacing: -0.04em;
-                line-height: 0.9;
-                margin-bottom: 0.5rem;
-            }
-            .card-name span { color: var(--accent); }
-            .card-role {
-                display: inline-block;
-                padding: 0.4rem 1rem;
-                border: 1px solid var(--accent);
-                color: var(--accent);
-                font-size: 0.65rem;
-                text-transform: uppercase;
-                letter-spacing: 0.15em;
-                margin: 1rem 0 2rem;
-            }
-            .divider {
-                height: 1px;
-                background: var(--line);
-                margin-bottom: 2rem;
-            }
-            .detail {
-                display: flex;
-                align-items: center;
-                gap: 1rem;
-                padding: 0.75rem 0;
-                border-bottom: 1px solid var(--line);
-                font-size: 0.9rem;
-            }
-            .detail:first-of-type { border-top: 1px solid var(--line); }
-            .detail-label {
-                width: 70px;
-                flex-shrink: 0;
-                font-size: 0.65rem;
-                text-transform: uppercase;
-                letter-spacing: 0.15em;
-                color: var(--text-light);
-            }
-            .detail a, .detail span { color: var(--text); }
-            .detail a:hover { color: var(--accent); }
+    <!-- HEADER: replaced by the shared master header at splice time -->
+    <header class="gl-site-header tj-header flex items-center justify-between py-4" data-site-header>
+      <a href="../index.html" class="flex items-center gap-2 font-semibold" aria-label="Tom Jansen, Startseite">
+        <span class="gl-site-title" style="font-family: var(--gl-font-sans); font-weight: 600; font-size: 1.15rem; letter-spacing: -0.02em;">Tom Jansen</span>
+      </a>
+      <nav class="tj-nav" aria-label="Hauptnavigation">
+        <a href="../index.html" data-i18n="nav.profile">Profil</a>
+        <a href="../projekte.html" data-i18n="nav.projects">Projekte</a>
+        <a href="../notes/index.html" data-i18n="nav.notes">Notizen</a>
+      </nav>
+      <button type="button" onclick="toggleTheme()" class="gl-theme-toggle js-theme-toggle" aria-pressed="false" aria-label="Toggle theme">
+        <span class="gl-theme-toggle__icons" aria-hidden="true">
+          <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z" /></svg>
+        </span>
+        <span class="gl-theme-toggle__thumb" aria-hidden="true"></span>
+      </button>
+    </header>
+    <!-- /HEADER -->
 
-            .actions {
-                margin-top: 2rem;
-                display: flex;
-                flex-wrap: wrap;
-                gap: 0.75rem;
-            }
-            .btn {
-                display: inline-block;
-                padding: 0.85rem 2rem;
-                border: 1px solid var(--accent);
-                color: var(--accent);
-                font-weight: 700;
-                text-transform: uppercase;
-                letter-spacing: 0.1em;
-                font-size: 0.72rem;
-                transition: all 0.3s;
-                cursor: pointer;
-                background: none;
-                font-family: inherit;
-            }
-            .btn:hover { background: var(--accent); color: var(--bg); }
-            .btn.primary { background: var(--accent); color: var(--bg); }
-            .btn.primary:hover { background: transparent; color: var(--accent); }
+    <main class="tj-wrap" style="padding-bottom: var(--tj-section-gap);">
+      <section class="tj-hero tj-card">
+        <span class="tj-kicker" data-i18n="contact.kicker">Kontakt</span>
+        <h1>Thomas Jansen<span class="gl-dot">.</span></h1>
+        <p class="tj-card__role" data-i18n="contact.role">Product Owner, Business Analyst und AI Delivery. Aachen.</p>
 
-            .footer {
-                margin-top: 3rem;
-                font-size: 0.7rem;
-                color: #444;
-            }
-            .footer a { color: var(--text-light); }
-            .footer a:hover { color: var(--accent); }
-        </style>
-    </head>
-    <body>
-        <div class="card">
-            <div class="card-name">Tom <span>Jansen</span></div>
-            <div class="card-role">Independent Advisor — AI · Product · Software</div>
-            <div class="divider"></div>
+        <ul class="tj-card__list">
+          <li><span class="tj-card__label" data-i18n="contact.email">E-Mail</span><a class="plausible-event-name=E-Mail+Kontakt" href="mailto:tom@jansn.de">tom@jansn.de</a></li>
+          <li><span class="tj-card__label" data-i18n="contact.phone">Telefon</span><a href="tel:+491729637517">+49 172 963 7517</a></li>
+          <li><span class="tj-card__label">Web</span><a href="../index.html">tjansn.com</a></li>
+          <li><span class="tj-card__label">LinkedIn</span><a href="https://www.linkedin.com/in/tjansn/" target="_blank" rel="noopener">linkedin.com/in/tjansn</a></li>
+          <li><span class="tj-card__label">GitHub</span><a href="https://github.com/tjansn" target="_blank" rel="noopener">github.com/tjansn</a></li>
+          <li><span class="tj-card__label" data-i18n="contact.location">Ort</span><span data-i18n="contact.locationValue">Aachen, Deutschland</span></li>
+        </ul>
 
-            <div class="detail">
-                <span class="detail-label">Email</span>
-                <a href="mailto:thomas@jansn.de">thomas@jansn.de</a>
-            </div>
-            <div class="detail">
-                <span class="detail-label">Phone</span>
-                <a href="tel:+491729637517">+49 172 963 7517</a>
-            </div>
-            <div class="detail">
-                <span class="detail-label">Web</span>
-                <a href="https://tjansn.com">tjansn.com</a>
-            </div>
-            <div class="detail">
-                <span class="detail-label">LinkedIn</span>
-                <a href="https://www.linkedin.com/in/tjansn/">linkedin.com/in/tjansn</a>
-            </div>
-            <div class="detail">
-                <span class="detail-label">GitHub</span>
-                <a href="https://github.com/tjansn">github.com/tjansn</a>
-            </div>
-            <div class="detail">
-                <span class="detail-label">Location</span>
-                <span>Aachen, Germany</span>
-            </div>
-
-            <div class="actions">
-                <button class="btn primary" onclick="downloadVCard()">Download vCard</button>
-                <a class="btn" href="https://calendar.notion.so/meet/thomasjansen/ncnaw4pbl">Book a Call</a>
-                <a class="btn" href="https://tjansn.com">Visit Website</a>
-            </div>
-
-            <div class="footer">© 2026 Tom Jansen</div>
+        <div class="tj-card__actions">
+          <button type="button" class="gl-button gl-button--full" onclick="downloadVCard()" data-i18n="contact.vcard">vCard speichern</button>
+          <a class="gl-button gl-button--outline" href="../index.html" data-i18n="contact.site">Zur Website</a>
         </div>
+      </section>
+    </main>
 
-        <script>
-            function downloadVCard() {
-                const vcard = [
-                    'BEGIN:VCARD',
-                    'VERSION:3.0',
-                    'N:Jansen;Tom;;;',
-                    'FN:Tom Jansen',
-                    'ORG:Independent Advisor',
-                    'TITLE:Independent Advisor — AI, Product & Software Systems',
-                    'TEL;TYPE=CELL:+491729637517',
-                    'EMAIL;TYPE=WORK:thomas@jansn.de',
-                    'URL:https://tjansn.com',
-                    'URL:https://www.linkedin.com/in/tjansn/',
-                    'ADR;TYPE=WORK:;;Aachen;;;Germany',
-                    'END:VCARD'
-                ].join('\r\n');
+    <!-- FOOTER: replaced by the shared master footer at splice time -->
+    <footer class="gl-site-footer tj-footer">
+      <div class="tj-wrap py-10 text-sm">
+        <div class="flex flex-col gap-2">
+          <span style="font-family: var(--gl-font-sans); font-weight: 600; font-size: 1.05rem;">Tom Jansen</span>
+          <span class="gl-meta">Aachen · <span data-live-clock="">09:59</span> CET</span>
+          <div class="tj-footer__links-row">
+            <div class="commercial-footer-links">
+              <a href="https://www.linkedin.com/in/tjansn/" target="_blank" rel="noopener">LinkedIn</a>
+              <a href="https://github.com/tjansn" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://x.com/thomasjansn" target="_blank" rel="noopener">X</a>
+              <a href="../projekte.html" data-i18n="nav.projects">Projekte</a>
+              <a href="../notes/index.html" data-i18n="nav.notes">Notizen</a>
+              <a href="../impressum.html">Impressum</a>
+              <a href="../datenschutz.html" data-i18n="footer.privacyLink">Datenschutz</a>
+            </div>
+            <div class="gl-language-switcher" role="group" aria-labelledby="footer-language">
+              <span id="footer-language" data-i18n="footer.languageLabel" hidden>Sprache</span>
+              <div class="gl-language-switcher__controls">
+                <button type="button" class="gl-language-switcher__option" data-language-option="de" lang="de" aria-pressed="true">Deutsch</button>
+                <button type="button" class="gl-language-switcher__option" data-language-option="en" lang="en" aria-pressed="false">English</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- /FOOTER -->
 
-                const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'Tom_Jansen.vcf';
-                a.click();
-                URL.revokeObjectURL(url);
-            }
-        </script>
-    </body>
+    <script>
+      function downloadVCard() {
+        const vcard = [
+          "BEGIN:VCARD",
+          "VERSION:3.0",
+          "N:Jansen;Thomas;;;",
+          "FN:Thomas Jansen",
+          "NICKNAME:Tom",
+          "TITLE:Product Owner, Business Analyst, AI Delivery",
+          "TEL;TYPE=CELL:+491729637517",
+          "EMAIL;TYPE=WORK:tom@jansn.de",
+          "URL:https://tjansn.com",
+          "URL:https://www.linkedin.com/in/tjansn/",
+          "ADR;TYPE=WORK:;;Aachen;;;Germany",
+          "END:VCARD"
+        ].join("\r\n");
+        const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "Thomas_Jansen.vcf";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+      }
+      window.GL_DEFAULT_LANGUAGE = "de";
+      window.GL_PAGE_COPY = {
+        en: {
+          "nav.profile": "Profile",
+          "nav.projects": "Projects",
+          "nav.notes": "Notes",
+          "footer.privacyLink": "Privacy",
+          "footer.languageLabel": "Language",
+          "contact.title": "Contact | Thomas Jansen",
+          "contact.description": "Contact details for Thomas Jansen, Aachen: email, phone, LinkedIn, GitHub and vCard.",
+          "contact.kicker": "Contact",
+          "contact.role": "Product Owner, Business Analyst and AI Delivery. Aachen, Germany.",
+          "contact.email": "Email",
+          "contact.phone": "Phone",
+          "contact.location": "Location",
+          "contact.locationValue": "Aachen, Germany",
+          "contact.vcard": "Save vCard",
+          "contact.site": "Go to the website"
+        }
+      };
+    </script>
+    <script src="../commercial-pages.js"></script>
+    <script src="../archetype-pages.js"></script>
+  </body>
 </html>

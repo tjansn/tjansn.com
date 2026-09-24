@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="de" class="h-full no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Buddy: ein physisches Statuslicht für lokale KI-Agenten | Tom Jansen Notes</title>
+    <meta name="description" content="Buddy verwandelt ein kleines ESP32-S3-Touch-Display in ein physisches Statuslicht für lokale Coding-Agenten wie Codex, Claude und Pi – per USB oder Bluetooth LE. Ein ehrlicher Blick auf Hardware, Firmware und Tooling." />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Buddy: ein physisches Statuslicht für lokale KI-Agenten" />
+    <meta property="og:description" content="Ein ESP32-S3-Touchscreen, der anzeigt, ob dein Coding-Agent arbeitet, fertig ist oder eine Freigabe braucht – per USB oder BLE. Tippen holt die richtige Mac-Session in den Vordergrund." />
+    <meta name="theme-color" content="#f5f3f0" />
+    <link rel="icon" href="../tj-logo.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../gl-v2.css" />
+    <link rel="stylesheet" href="../tj.css" />
+    <style>
+      .gl-prose pre { font-family: var(--gl-font-mono); font-size: 0.8rem; line-height: 1.6; background: var(--gl-color-oat); border: 1px solid var(--gl-border-tone); border-radius: 8px; padding: var(--gl-space-4); overflow-x: auto; margin: var(--gl-space-5) 0; }
+      .dark .gl-prose pre { background: rgba(245, 243, 240, 0.04); }
+      .gl-prose pre code { font-family: inherit; font-size: inherit; background: none; padding: 0; white-space: pre; }
+      .buddy-figure { margin: var(--gl-space-8) 0; }
+      .buddy-figure img, .buddy-figure video { width: 100%; height: auto; display: block; border: 1px solid var(--gl-border-tone); border-radius: var(--gl-radius-card); background: #0c0d0d; }
+      .buddy-figure figcaption { margin-top: var(--gl-space-3); color: var(--gl-text-secondary); font-size: 0.88rem; line-height: 1.5; }
+      .buddy-figure--hero img { box-shadow: 0 24px 60px -28px rgba(0, 0, 0, 0.45); }
+      .buddy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gl-space-4); }
+      .buddy-grid img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; border: 1px solid var(--gl-border-tone); border-radius: var(--gl-radius-card); background: #0c0d0d; }
+      @media (max-width: 560px) { .buddy-grid { grid-template-columns: 1fr; } }
+      .buddy-update { margin: var(--gl-space-6) 0; padding: var(--gl-space-4) var(--gl-space-5); border-left: 3px solid var(--gl-color-accent-600); border-radius: 8px; background: var(--gl-color-oat); }
+      .dark .buddy-update { background: rgba(245, 243, 240, 0.04); }
+      .buddy-update p { margin: 0; }
+      .buddy-update .gl-eyebrow { margin-bottom: var(--gl-space-2); }
+    </style>
+    <script>
+      document.documentElement.classList.remove("no-js");
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "dark") document.documentElement.classList.add("dark");
+      function toggleTheme() {
+        const dark = document.documentElement.classList.toggle("dark");
+        localStorage.setItem("theme", dark ? "dark" : "light");
+      }
+    </script>
+    <!-- Plausible Analytics — self-hosted (Mac mini, Cloudflare Tunnel), cookieless -->
+    <script defer data-domain="tjansn.com" src="https://stats.gammalabs.cc/js/script.tagged-events.outbound-links.js"></script>
+    <script>window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) };</script>
+  </head>
+  <body class="commercial-shell">
+    <div class="gl-scroll-progress" data-scroll-progress aria-hidden="true"></div>
+
+    <header class="gl-site-header tj-header flex items-center justify-between py-4" data-site-header>
+      <a href="../index.html" class="flex items-center gap-2 font-semibold" aria-label="Tom Jansen, Startseite">
+        <span class="gl-site-title" style="font-family: var(--gl-font-sans); font-weight: 600; font-size: 1.15rem; letter-spacing: -0.02em;">Tom Jansen</span>
+      </a>
+      <nav class="tj-nav" aria-label="Hauptnavigation">
+        <a href="../index.html" data-i18n="nav.profile">Profil</a>
+        <a href="../projekte.html" data-i18n="nav.projects">Projekte</a>
+        <a href="../notes/index.html" aria-current="page" data-i18n="nav.notes">Notizen</a>
+      </nav>
+      <button type="button" onclick="toggleTheme()" class="gl-theme-toggle js-theme-toggle" aria-pressed="false" aria-label="Toggle theme">
+        <span class="gl-theme-toggle__icons" aria-hidden="true">
+          <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z" /></svg>
+        </span>
+        <span class="gl-theme-toggle__thumb" aria-hidden="true"></span>
+      </button>
+    </header>
+
+    <main class="px-6" style="padding-block: clamp(5rem, 10vw, 8rem) clamp(4rem, 8vw, 6rem);">
+      <article class="gl-prose">
+        <p class="gl-eyebrow">Open Source · Hardware</p>
+        <h1>Buddy: ein physisches <em>Statuslicht</em> für lokale KI-Agenten</h1>
+        <p class="gl-meta">Tom Jansen · 22.06.2026 · 6 Min. Lesezeit</p>
+        <div class="gl-rule-accent is-visible" style="margin-top: var(--gl-space-6);"></div>
+
+
+
+        <div class="gl-cta-group" style="justify-content: flex-start;"><a class="gl-button gl-button--outline" href="https://github.com/tjansn/Buddy" target="_blank" rel="noopener">Auf GitHub ansehen →</a></div>
+
+        <p>
+          Wer mehrere Coding-Agenten parallel auf dem Mac laufen lässt – Codex, Claude, vielleicht noch eine
+          Pi-Session – kennt das Problem: Man weiß nie genau, welche Session gerade arbeitet, welche fertig ist und
+          welche seit zehn Minuten auf eine Freigabe wartet. Ständig zwischen Terminal-Tabs zu wechseln, um nachzusehen,
+          kostet Aufmerksamkeit. Buddy ist mein Versuch, diesen Status aus den Tabs herauszuholen: nicht noch ein Fenster
+          auf dem Bildschirm, sondern ein kleines physisches Display auf dem Schreibtisch.
+        </p>
+        <p>
+          Buddy verwandelt ein angeschlossenes
+          <a href="https://www.amazon.de/Waveshare-ESP32-S3-Development-Accelerometer-Gyroscope/dp/B0D3GDH7VD/" target="_blank" rel="noopener"><strong>Waveshare ESP32-S3-Touch-LCD-1.69</strong></a> in ein USB- oder
+          Bluetooth-LE-gesteuertes Signal für lokale Agenten und Skripte. Das Display zeigt für jede Session einen
+          Zustand an: <code>WORKING</code>, <code>DONE</code>, <code>APPROVAL</code>, <code>QUESTION</code> oder
+          <code>ERROR</code>. Ein Blick zur Seite genügt, statt den Fokus zu unterbrechen.
+        </p>
+
+        <figure class="buddy-figure buddy-figure--hero">
+          <img src="assets/buddy/buddy-working.webp" width="1400" height="1050" alt="Buddy auf dem Schreibtisch: Das kleine Touch-Display zeigt den Zustand WORKING für eine Codex-Session am Projekt _FIRMA auf dem Branch main, daneben das angeschlossene OpenAI-Logo und Pfeile zum Blättern." loading="lazy" decoding="async" />
+          <figcaption>Status auf einen Blick: Hier arbeitet eine Codex-Session am Projekt <code>_FIRMA</code> auf dem Branch <code>main</code> – Zustand <code>WORKING</code>, ohne in den Terminal-Tab zu wechseln.</figcaption>
+        </figure>
+
+        <div class="buddy-update">
+          <p class="gl-eyebrow">Update</p>
+          <p>
+            Buddy läuft jetzt auch <strong>mobil</strong>: Mit einem kleinen LiPo-Akku braucht das Gerät kein dauerhaftes
+            USB-Kabel mehr und kann frei auf dem Schreibtisch stehen. Die <code>STATUS</code>-Seite zeigt Ladezustand und
+            Spannung an, neue Firmware lässt sich danach drahtlos per BLE einspielen. Passt direkt:
+            <a href="https://www.amazon.de/dp/B0F18ST3K5" target="_blank" rel="noopener">dieser 3,7-V-LiPo-Akku auf amazon.de ↗</a>.
+          </p>
+        </div>
+
+        <h2>Worauf Buddy aufsetzt</h2>
+        <p>
+          Der eigentliche Code in diesem Projekt ist überschaubar – das Interessante ist die Kombination.
+          Buddy besteht aus zwei Teilen. Auf dem Mikrocontroller läuft eine eigene Firmware, geschrieben in nativem
+          Arduino/PlatformIO. Diesen Weg hat das Projekt bewusst gewählt, weil das Waveshare-Board einen
+          Power-Latch (<code>SYS_EN</code>) früh im Boot-Prozess setzen muss – ein älteres MicroPython-Experiment liegt
+          noch im Repo unter <code>device/main.py</code>, aber die native Firmware in <code>src/main.cpp</code> ist der
+          verlässliche Pfad für dieses Board.
+        </p>
+        <figure class="buddy-figure">
+          <img src="assets/buddy/buddy-board.webp" width="1400" height="1050" alt="Nahaufnahme des unverbauten Waveshare ESP32-S3-Touch-LCD-1.69-Boards mit beschrifteten Pins, ESP32-S3-Chip und angeschlossenem USB-C-Kabel." loading="lazy" decoding="async" />
+          <figcaption>Das ganze Gerät: ein Waveshare <strong>ESP32-S3-Touch-LCD-1.69</strong> – hier noch ohne Gehäuse, direkt am USB-C. <a href="https://www.amazon.de/Waveshare-ESP32-S3-Development-Accelerometer-Gyroscope/dp/B0D3GDH7VD/" target="_blank" rel="noopener">Auf amazon.de ansehen ↗</a></figcaption>
+        </figure>
+        <p>
+          Der zweite Teil sind Python-Werkzeuge auf dem Mac, die den Zustand der Agenten beobachten und über die passende
+          Verbindung an Buddy schicken. Das Board meldet sich als native USB-Serial-Schnittstelle und stellt zusätzlich
+          einen BLE-Dienst namens <code>Buddy</code> bereit. Die BLE-Brücke nutzt die Bibliothek <code>bleak</code> –
+          eine der wenigen echten externen Abhängigkeiten.
+        </p>
+
+        <h2>Wie es technisch funktioniert</h2>
+        <p>
+          Der Kern ist ein einfaches Kommando-Tool. Man sagt Buddy von der Kommandozeile aus, in welchem Zustand eine
+          benannte Agenten-Session ist:
+        </p>
+        <pre><code>python3 tools/buddy_signal.py busy codex
+python3 tools/buddy_signal.py done codex
+python3 tools/buddy_signal.py approval codex
+python3 tools/buddy_signal.py question claude
+python3 tools/buddy_signal.py error pi
+python3 tools/buddy_signal.py idle</code></pre>
+        <p>
+          Für echte Benachrichtigungen mit Projektkontext gibt es <code>buddy_notify.py</code>. Es schickt einen
+          strukturierten Payload aus Zustand, Projektordner, Branch und einem stabilen Fokus-Schlüssel – damit mehrere
+          Sessions im selben Projekt und Branch auf dem Display getrennt bleiben. Interessant wird es durch die
+          Automatisierung: Drei LaunchAgents auf dem Mac beobachten die lokalen Session-Logs von Codex, Claude und Pi
+          und senden vollautomatisch <code>busy</code>, <code>done</code>, <code>approval</code>, <code>question</code>
+          oder <code>error</code>, je nachdem, was der Agent gerade tut. Die Standard-Verbindung ist
+          <code>auto</code>: Existiert der BLE-Brücken-Socket, wird zuerst BLE versucht, sonst USB-Serial.
+        </p>
+        <p>
+          Buddy ist nicht nur Anzeige, sondern auch Eingabe. Zeigt das Display <code>DONE</code>, holt ein Tippen auf
+          den Touchscreen die passende Mac-App in den Vordergrund – Codex-Desktop-Sessions aktivieren Codex,
+          Ghostty-gestartete Terminal-Agenten holen den exakten Ghostty-Tab nach vorn. Das Display behält die letzten
+          25 Sessions, zwei große Touch-Flächen unten blättern nach links und rechts. Damit man auf einen Blick sieht,
+          welcher Runner gemeint ist, nutzt die Oberfläche anbieter-typische Farbpaletten: warmes Elfenbein und
+          Terrakotta für Claude/Anthropic, ein helles Neutralgrau mit grünen Akzenten für Codex/OpenAI, eine dunkle
+          Terminal-Optik mit Cyan für Pi.
+        </p>
+        <figure class="buddy-figure">
+          <video src="assets/buddy/buddy-demo.mp4" poster="assets/buddy/buddy-demo-poster.webp" width="1280" height="720" controls muted loop playsinline preload="none"></video>
+          <figcaption>Buddy in Aktion neben dem Mac: Der Zustand folgt automatisch der laufenden Agenten-Session – ein Tippen auf den Touchscreen holt anschließend den passenden Tab nach vorn.</figcaption>
+        </figure>
+
+        <aside class="gl-pull">„Ein Blick zur Seite statt zehn Tab-Wechsel – der Status der Agenten wandert vom Bildschirm auf den Schreibtisch."</aside>
+
+        <h2>Selbst ausprobieren</h2>
+        <p>
+          Man braucht das passende
+          <a href="https://www.amazon.de/Waveshare-ESP32-S3-Development-Accelerometer-Gyroscope/dp/B0D3GDH7VD/" target="_blank" rel="noopener">Waveshare-Board</a> und einen Mac. Die Firmware wird mit einem virtuellen Environment und
+          PlatformIO gebaut und geflasht:
+        </p>
+        <pre><code>python3 -m venv .venv
+. .venv/bin/activate
+python3 -m pip install -r requirements.txt
+
+make PIO=.venv/bin/platformio build
+make PIO=.venv/bin/platformio PORT=/dev/cu.usbmodem101 flash</code></pre>
+        <p>
+          Danach steuern die Python-Tools das Gerät. Wer drahtlos arbeiten will, startet zusätzlich die BLE-Brücke, die
+          eine dauerhafte Verbindung hält und einen lokalen Unix-Socket bereitstellt. Das gesamte Projekt steht unter der
+          MIT-Lizenz frei zur Verfügung.
+        </p>
+        <figure class="buddy-figure">
+          <div class="buddy-grid">
+            <img src="assets/buddy/buddy-status.webp" width="1400" height="1050" alt="Buddy im Akkubetrieb auf einem LiPo-Akku liegend, das Display zeigt die STATUS-Ansicht mit 76 Prozent Akkustand und 3,97 Volt." loading="lazy" decoding="async" />
+            <img src="assets/buddy/buddy-ota-angle.webp" width="1400" height="1050" alt="Buddy auf einem LiPo-Akku, das Display zeigt ein laufendes Firmware-Update über die OTA-Ansicht mit Fortschrittsbalken." loading="lazy" decoding="async" />
+          </div>
+          <figcaption>Auch mobil nutzbar: links die <code>STATUS</code>-Ansicht mit Akkustand im Batteriebetrieb (hier mit <a href="https://www.amazon.de/dp/B0F18ST3K5" target="_blank" rel="noopener">diesem LiPo-Akku</a>), rechts ein Firmware-Update direkt auf dem Gerät (OTA) – ganz ohne Kabel-Reflash.</figcaption>
+        </figure>
+
+        <h2>Eine ehrliche Einschränkung</h2>
+        <p>
+          Buddy ist kein poliertes Produkt, sondern ein persönliches Werkzeug für mein lokales Setup. Es ist eng auf
+          macOS zugeschnitten: Die LaunchAgents, das Aktivieren der richtigen App und die
+          Touch-to-Focus-Funktion setzen macOS voraus, das exakte Ansteuern eines Codex-Fensters braucht zudem die
+          Accessibility-Berechtigung für <code>osascript</code>. Unter macOS verlangt CoreBluetooth außerdem einen
+          kleinen App-Wrapper mit Bluetooth-Beschreibung, sonst kann der reine Kommandozeilen-Python-Prozess abbrechen,
+          bevor überhaupt der Berechtigungsdialog erscheint. Wer kein Waveshare-Board und keinen Mac hat, kann Buddy
+          also nicht ohne Weiteres so übernehmen – aber als Vorlage für eigene physische Signale ist das Konzept gut
+          übertragbar.
+        </p>
+        <p>
+          Der gesamte Code liegt offen auf
+          <a href="https://github.com/tjansn/Buddy" target="_blank" rel="noopener">github.com/tjansn/Buddy</a> –
+          inklusive Firmware, Python-Tools und den LaunchAgent-Definitionen.
+        </p>
+      </article>
+
+      <nav class="tj-post-nav" aria-label="Weitere Notizen">
+        <a href="draco-pi-fusion-benchmark.html" rel="prev"><span class="gl-meta">← Älterer Artikel</span><strong>DRACO mit pi und pi-fusion: was unser Lauf wirklich zeigt</strong></a>
+        <a href="pi-fusion.html" rel="next"><span class="gl-meta">Neuerer Artikel →</span><strong>pi-fusion: Wenn mehrere Modelle gemeinsam recherchieren</strong></a>
+      </nav>
+    </main>
+
+    <footer class="gl-site-footer tj-footer">
+      <div class="tj-wrap py-10 text-sm">
+        <div class="flex flex-col gap-2">
+          <span style="font-family: var(--gl-font-sans); font-weight: 600; font-size: 1.05rem;">Tom Jansen</span>
+          <span class="gl-meta">Aachen · <span data-live-clock="">09:59</span> CET</span>
+          <div class="tj-footer__links-row">
+            <div class="commercial-footer-links">
+              <a href="https://www.linkedin.com/in/tjansn/" target="_blank" rel="noopener">LinkedIn</a>
+              <a href="https://github.com/tjansn" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://x.com/thomasjansn" target="_blank" rel="noopener">X</a>
+              <a href="../projekte.html" data-i18n="nav.projects">Projekte</a>
+              <a href="../notes/index.html" data-i18n="nav.notes">Notizen</a>
+              <a href="../impressum.html">Impressum</a>
+              <a href="../datenschutz.html" data-i18n="footer.privacyLink">Datenschutz</a>
+            </div>
+            <div class="gl-language-switcher" role="group" aria-labelledby="footer-language">
+              <span id="footer-language" data-i18n="footer.languageLabel" hidden>Sprache</span>
+              <div class="gl-language-switcher__controls">
+                <button type="button" class="gl-language-switcher__option" data-language-option="de" lang="de" aria-pressed="true">Deutsch</button>
+                <button type="button" class="gl-language-switcher__option" data-language-option="en" lang="en" aria-pressed="false">English</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="../commercial-pages.js"></script>
+    <script src="../archetype-pages.js"></script>
+  </body>
+</html>

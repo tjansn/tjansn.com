@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="de" class="h-full no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lokal vs. Frontier bei Deep Research im DRACO-Test | Tom Jansen Notes</title>
+    <meta name="description" content="Lokal vs. Frontier bei Deep Research: Ein 87-GB-Quant von DeepSeek-V4-Flash gegen GPT-5.5 xhigh auf 100 DRACO-Aufgaben. Stack, Ergebnis und Grenzen." />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Lokal vs. Frontier bei Deep Research: DeepSeek-V4-Flash gegen GPT-5.5 xhigh" />
+    <meta property="og:description" content="Wie groß ist im DRACO-Test der Abstand zwischen einem lokalen 87-GB-Quant und GPT-5.5 xhigh? Stack, Ergebnis und Grenzen auf 100 Aufgaben." />
+    <meta name="theme-color" content="#f5f3f0" />
+    <link rel="icon" href="../tj-logo.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../gl-v2.css" />
+    <link rel="stylesheet" href="../tj.css" />
+    <style>
+      .gl-prose pre { font-family: var(--gl-font-mono); font-size: 0.8rem; line-height: 1.6; background: var(--gl-color-oat); border: 1px solid var(--gl-border-tone); border-radius: 8px; padding: var(--gl-space-4); overflow-x: auto; margin: var(--gl-space-5) 0; }
+      .dark .gl-prose pre { background: rgba(245, 243, 240, 0.04); }
+      .gl-prose pre code { font-family: inherit; font-size: inherit; background: none; padding: 0; white-space: pre; }
+      .quick-answer { margin: var(--gl-space-8) 0; padding: var(--gl-space-6); border: 1px solid var(--gl-card-border-color); border-radius: var(--gl-radius-card); background: var(--gl-card-bg); box-shadow: var(--gl-shadow-card); }
+      .quick-answer h2 { margin-top: 0; }
+      .quick-answer__lede { font-size: 1.05rem; line-height: 1.65; color: var(--gl-text-primary); margin-bottom: var(--gl-space-4); }
+      .quick-answer ul { margin-bottom: 0; }
+      .benchmark-table-wrap { overflow-x: visible; border: 1px solid var(--gl-card-border-color); border-radius: var(--gl-radius-card); margin: var(--gl-space-6) 0; }
+      .benchmark-table-wrap table { width: 100%; min-width: 0; margin: 0; table-layout: auto; }
+      .benchmark-table-wrap caption { caption-side: top; padding: 0.8rem 1rem; text-align: left; color: var(--gl-text-secondary); font-size: 0.82rem; line-height: 1.45; border-bottom: 1px solid var(--gl-card-border-color); }
+      .benchmark-table-wrap .gl-data-table th, .benchmark-table-wrap .gl-data-table td { vertical-align: top; overflow-wrap: break-word; word-break: normal; hyphens: auto; }
+      .benchmark-table-wrap .gl-data-table code { white-space: normal; overflow-wrap: anywhere; }
+      .benchmark-table-wrap--timeline .gl-data-table th:first-child,
+      .benchmark-table-wrap--timeline .gl-data-table td:first-child { width: 7rem; white-space: nowrap; }
+      .benchmark-table-wrap--timeline .gl-data-table th:nth-child(2),
+      .benchmark-table-wrap--timeline .gl-data-table td:nth-child(2) { width: 38%; }
+      .benchmark-note { border-left: 3px solid var(--gl-color-accent-600); padding-left: var(--gl-space-4); color: var(--gl-text-secondary); }
+      .dark .benchmark-note { border-left-color: var(--gl-color-accent-100); }
+    </style>
+    <script>
+      document.documentElement.classList.remove("no-js");
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "dark") document.documentElement.classList.add("dark");
+      function toggleTheme() {
+        const dark = document.documentElement.classList.toggle("dark");
+        localStorage.setItem("theme", dark ? "dark" : "light");
+      }
+    </script>
+    <!-- Plausible Analytics - self-hosted (Mac mini, Cloudflare Tunnel), cookieless -->
+    <script defer data-domain="tjansn.com" src="https://stats.gammalabs.cc/js/script.tagged-events.outbound-links.js"></script>
+    <script>window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) };</script>
+  </head>
+  <body class="commercial-shell">
+    <div class="gl-scroll-progress" data-scroll-progress aria-hidden="true"></div>
+
+    <header class="gl-site-header tj-header flex items-center justify-between py-4" data-site-header>
+      <a href="../index.html" class="flex items-center gap-2 font-semibold" aria-label="Tom Jansen, Startseite">
+        <span class="gl-site-title" style="font-family: var(--gl-font-sans); font-weight: 600; font-size: 1.15rem; letter-spacing: -0.02em;">Tom Jansen</span>
+      </a>
+      <nav class="tj-nav" aria-label="Hauptnavigation">
+        <a href="../index.html" data-i18n="nav.profile">Profil</a>
+        <a href="../projekte.html" data-i18n="nav.projects">Projekte</a>
+        <a href="../notes/index.html" aria-current="page" data-i18n="nav.notes">Notizen</a>
+      </nav>
+      <button type="button" onclick="toggleTheme()" class="gl-theme-toggle js-theme-toggle" aria-pressed="false" aria-label="Toggle theme">
+        <span class="gl-theme-toggle__icons" aria-hidden="true">
+          <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z" /></svg>
+        </span>
+        <span class="gl-theme-toggle__thumb" aria-hidden="true"></span>
+      </button>
+    </header>
+
+    <main class="px-6" style="padding-block: clamp(5rem, 10vw, 8rem) clamp(4rem, 8vw, 6rem);">
+      <article class="gl-prose">
+        <p class="gl-eyebrow">Deep Research · Lokale KI · Benchmark</p>
+        <h1>Lokal vs. Frontier bei Deep Research: DeepSeek-V4-Flash gegen <em>GPT-5.5 xhigh</em></h1>
+        <p class="gl-meta">Tom Jansen · 10.07.2026 · 18 Min. Lesezeit</p>
+        <div class="gl-rule-accent is-visible" style="margin-top: var(--gl-space-6);"></div>
+
+
+
+        <section class="quick-answer" aria-labelledby="quick-answer-title">
+          <p class="gl-eyebrow">TLDR / Quick answer</p>
+          <h2 id="quick-answer-title">Lokal vs. Frontier: 48,18 zu 49,37&nbsp;%</h2>
+          <p class="quick-answer__lede">
+            Bei Deep Research ist „lokal vs. Frontier“ die eigentliche Frage: Kann die gehostete
+            Frontier-Generierung weit genug durch ein leistungsfähiges lokales Modell ersetzt werden, um Kosten und
+            Abhängigkeiten zu senken und zugleich Inhalte in der eigenen Infrastruktur zu halten, die Kanzleien,
+            Steuerberater, Arztpraxen oder Psychologen keinem Cloudanbieter geben würden, etwa Mandatsakten,
+            Steuerunterlagen, Patientendaten oder Gesprächstranskripte aus psychologischen Sitzungen? Für den lokalen
+            Arm ist auf einem MacBook Pro mit M5 Max und 128&nbsp;GB RAM ein auf 87&nbsp;GB komprimierter
+            DeepSeek-V4-Flash-Quant eingesetzt worden; die Inferenz ist mit DwarfStar durchgeführt worden, die Runtime
+            ist über pi-ds4 mit Pi verbunden worden, und die Recherche ist über Pi als Agent-Harness gesteuert worden.
+            Als Frontier-Referenz
+            ist ausschließlich das gehostete <code>GPT-5.5 xhigh</code> verwendet worden, und für die Aufgabenbasis
+            sind 100 Deep-Research-Aufgaben aus zehn DRACO-Domänen herangezogen worden.
+          </p>
+          <p>
+            Nach einem Retry liegt der zusammengeführte lokale Score bei <strong>48,18&nbsp;%</strong> und damit
+            1,19 Prozentpunkte unter der Frontier-Referenz von <strong>49,37&nbsp;%</strong>. Dieser Abstand ist noch kein
+            Nachweis gleicher Leistung, weil Retry-Regeln und Judge-Wiederholungen nicht identisch sind; außerdem
+            bleiben Web-Tools und Judge cloudbasiert, weshalb der Test noch keine vollständig lokale oder vertrauliche
+            Recherchepipeline abbildet.
+          </p>
+        </section>
+
+        <h2>Lokal vs. Frontier ist bei Deep Research mehr als ein Modellvergleich</h2>
+        <p>
+          Bei einer einzelnen Chat-Antwort kann ein lokales Modell schon sehr überzeugend wirken, aber Deep Research
+          umfasst zusätzlich Suchanfragen, Quellenabrufe, wachsende Kontexte und am Ende einen Bericht, der nicht nur
+          gut klingt, sondern die eigentliche Rechercheaufgabe erfüllt. Im Test ist genau dieser vollständige Weg
+          untersucht worden: Wie weit lässt sich Deep Research lokal abbilden, wenn GPT-5.5 xhigh als gehostete
+          Frontier-Referenz danebensteht?
+        </p>
+        <p>
+          Dahinter stehen zwei Motive, die sich eigentlich kaum trennen lassen: Wissensarbeit soll nicht dauerhaft von
+          den Preisen und Zugriffsregeln weniger Cloudanbieter abhängen, und gleichzeitig gibt es Akten, Verträge oder
+          interne Bewertungen, die eine kontrollierte Umgebung nicht verlassen sollen. Gerade für Kanzleien,
+          Steuerberater, Arztpraxen und Psychologen ist ein lokales Modell deshalb mehr als eine günstigere API, weil
+          sich damit Mandatsakten, Steuerunterlagen, Patientendaten oder Gesprächstranskripte aus psychologischen
+          Sitzungen bearbeiten lassen, die keinem Cloudanbieter überlassen werden sollen. Aber lokal ist die
+          Verarbeitung erst dann wirklich, wenn neben der Modellinferenz auch Tools, Logs, Speicher und Bewertung unter
+          derselben Kontrolle stehen.
+        </p>
+
+        <h2>Vom X-Post zum DRACO-Test: Audrey Tangs One-Line-Installation</h2>
+        <p>
+          Der Weg zu diesem Setup beginnt mit mehreren Posts auf X. Zuerst ist mit <a
+          href="https://github.com/antirez/ds4" target="_blank" rel="noopener">DwarfStar</a> eine native
+          Inferenz-Engine von <a href="https://redis.io/blog/welcome-back-to-redis-antirez/" target="_blank"
+          rel="noopener">Salvatore Sanfilippo</a> vorgestellt worden, der online als <code>antirez</code> bekannt und
+          ursprünglicher Entwickler von Redis ist; die erste Version ist speziell für DeepSeek-V4-Flash und Apple
+          Metal optimiert. DwarfStar, im Repository <code>antirez/ds4</code>, ist dabei die Runtime und nicht das Modell.
+        </p>
+        <p>
+          Kurz danach ist die erste Version von <a href="https://github.com/mitsuhiko/pi-ds4" target="_blank"
+          rel="noopener">pi-ds4</a> durch <a href="https://lucumr.pocoo.org/about/" target="_blank"
+          rel="noopener">Armin Ronacher</a> veröffentlicht worden, der auf GitHub als <code>mitsuhiko</code> bekannt
+          und unter anderem Schöpfer von Flask und Jinja ist. Damit ist die Verbindung zu Pi hinzugekommen: Über die
+          Extension erfolgt die Kommunikation mit DwarfStar, und DeepSeek-V4-Flash wird in Pi wie ein normaler
+          Modellprovider registriert.
+        </p>
+        <p>
+          <a href="https://pi.dev/" target="_blank" rel="noopener">Pi</a> ist der minimale Agent-Harness für das
+          Terminal und von <a href="https://rfc.earendil.com/0015/" target="_blank" rel="noopener">Mario
+          Zechner</a> geschaffen worden. Über Pi erfolgen die Modellsteuerung, die Bereitstellung der Werkzeuge und die
+          Verwaltung der laufenden Konversation, und <a href="https://rfc.earendil.com/0015/" target="_blank"
+          rel="noopener">nach dem späteren Übergang zu Earendil wird das Projekt von Zechner weitergeführt</a>. In der
+          Arbeitsumgebung ist Pi schon ungefähr seit März im Einsatz; Mario Zechners Entwicklung und Armin Ronachers
+          Beiträge in diesem Umfeld sind also bereits bekannt, neu ist hier die lokale Anbindung über DwarfStar.
+        </p>
+        <p>
+          Ausschlaggebend für den Test ist schließlich ein Post von <a href="https://audreyt.org/" target="_blank"
+          rel="noopener">Audrey Tang</a>, Civic Hacker und Taiwans erste Digitalministerin. In ihrem Fork von pi-ds4
+          sind DwarfStar, Modellkonfiguration und Installation in einem <a href="https://pi.audreyt.org/"
+          target="_blank" rel="noopener">One-Line-Setup</a> gebündelt worden, und damit liegt erstmals ein Stack vor,
+          der sich einfach genug installieren lässt, um ihn nicht nur zu beobachten, sondern wirklich zu testen.
+        </p>
+        <p>
+          Ursprünglich ist für den lokalen Stack ein Coding-Benchmark vorgesehen gewesen. Im dafür ausgewählten <a
+          href="https://cognition.com/blog/frontier-code" target="_blank" rel="noopener">FrontierCode-Benchmark</a>
+          werden Agenten anhand von Aufgaben aus 36 realen Open-Source-Repositories bewertet, die von deren Maintainern
+          entworfen worden sind, zum Schutz vor Kontamination aber nicht öffentlich zugänglich sind. Damit ist ein
+          unabhängiger Lauf nicht möglich, und der Schwerpunkt ist vom geplanten Coding-Vergleich auf die Frage
+          verlagert worden, wie gut derselbe Stack bei Deep Research funktioniert. Mit DRACO ist dafür ein öffentlicher
+          und ausreichend anspruchsvoller Datensatz gefunden worden.
+        </p>
+
+        <h2>Mit DRACO wird der gesamte Rechercheprozess bewertet, nicht nur die Einzelantwort</h2>
+        <p>
+          DRACO steht für <em>Deep Research Accuracy, Completeness, and Objectivity</em>. Der öffentliche Benchmark
+          enthält 100 Aufgaben aus zehn Domänen, die aus realen Rechercheanfragen abgeleitet sind, und zu jeder
+          Aufgabe gehört eine gewichtete Rubrik. Erfüllte positive Kriterien bringen Punkte für erwartete Inhalte,
+          während negative Kriterien Punkte abziehen, sobald eine Antwort den beschriebenen Fehler tatsächlich begeht;
+          bewertet werden dabei unter anderem Recherche, Quellenarbeit, Vollständigkeit, Faktentreue und Darstellung.
+        </p>
+        <p>
+          Dadurch zählt nicht nur die schönste Antwort, sondern der vollständige Pfad bis zu einem bewertbaren Bericht,
+          und eine starke Modellgeneration hilft wenig, wenn in einer Fetch-Schleife kein Fortschritt mehr erzielt
+          wird, das Kontextfenster überläuft oder am Ende durch den Harness die falsche Nachricht gespeichert wird. Modell, Runtime,
+          Agent, Tools, Extraktion und Judge bilden deshalb gemeinsam das Messsystem.
+        </p>
+
+        <h2>Vom Modell bis zum Score greifen mehrere Schichten ineinander</h2>
+        <p>
+          DwarfStar, Pi und pi-ds4 stehen in diesem Setup für völlig verschiedene Schichten, und genau diese Trennung
+          wird später bei der Fehleranalyse wichtig: Trotz starker Modellgeneration können Punkte verloren gehen, wenn
+          die Inferenz in der Runtime scheitert, durch ein Tool zu viel Inhalt zurückgegeben oder am Ende durch den
+          Harness die falsche Nachricht als Antwort gespeichert wird.
+        </p>
+        <div class="benchmark-table-wrap">
+          <table class="gl-data-table">
+            <caption>Reihenfolge: vom Aufgabensatz bis zur externen Bewertung.</caption>
+            <thead>
+              <tr><th>Schicht</th><th>Aufgabe im Test</th><th>Ort</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>DRACO</td><td>100 Rechercheaufgaben und Bewertungsrubriken</td><td>lokale Benchmark-Daten</td></tr>
+              <tr><td>Pi</td><td>Ausführung des Agenten, Nachrichtenverwaltung und Werkzeugaufrufe</td><td>lokal</td></tr>
+              <tr><td>pi-ds4</td><td>Verbindung zwischen Pi und DwarfStar sowie Modellkonfiguration</td><td>lokal</td></tr>
+              <tr><td>DwarfStar</td><td>Laden und Berechnung von DeepSeek-V4-Flash auf Apple Metal</td><td>lokal</td></tr>
+              <tr><td>DeepSeek-V4-Flash</td><td>Erzeugung von Suchschritten, Zwischenergebnissen und Abschlussbericht</td><td>lokal</td></tr>
+              <tr><td>Web-Tools</td><td>Suche und Abruf externer Quellen</td><td>externe Dienste</td></tr>
+              <tr><td>GPT-5.5-xhigh-Judge</td><td>Kriteriumsweise Bewertung des fertigen Berichts anhand der DRACO-Rubrik</td><td>Cloud</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Im Hauptlauf ist die Aufgabe über pi-ds4 und DwarfStar an das lokale DeepSeek-Modell übermittelt worden, und
+          bei Anforderung einer Suche oder eines Seitenabrufs sind Anfrage beziehungsweise URL an einen externen
+          Webdienst weitergegeben und dessen Antwort an das Modell zurückgegeben worden. Diese Schleife ist bis zum
+          Abschlussbericht fortgesetzt worden, und erst danach ist der Bericht an den externen GPT-5.5-xhigh-Judge
+          übermittelt worden.
+          Suchbegriffe, URLs und gegebenenfalls Inhalte aus der Aufgabe können den Rechner also schon während der
+          Recherche verlassen.
+        </p>
+        <p>
+          Für einen zusätzlichen Fusion-Lauf ist das Setup um die Mehrmodell-Erweiterung <code>pi-fusion</code> ergänzt
+          worden; DeepSeek, Gemma und Qwen sind damit zu einem lokalen Panel verbunden und Gemma sowie Qwen über Ollama
+          ausgeführt worden. Die Modellantworten sind lokal entstanden, aber Panelbewertung und Synthese sind in der
+          Cloud mit GPT-5.5 xhigh durchgeführt worden.
+        </p>
+
+        <h2>Lokaler Lauf des komprimierten 87-GB-Quants auf dem M5 Max</h2>
+        <p>
+          <a href="https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash" target="_blank" rel="noopener">DeepSeek-V4-Flash</a>
+          ist ein Open-Weight-Mixture-of-Experts-Modell mit 284 Milliarden Parametern, von denen pro Token rund 13
+          Milliarden aktiv sind, und das offizielle Modell unterstützt bis zu eine Million Token Kontext. Auf dem
+          vorhandenen MacBook Pro mit M5 Max und 128&nbsp;GB RAM ist die 87-GB-Version unter den geprüften lokalen
+          Modellen die stärkste Konfiguration, die sich noch praktisch betreiben lässt.
+        </p>
+        <p>
+          Allerdings ist auf dem Mac nicht der unveränderte offizielle Checkpoint eingesetzt worden, sondern ein quantisierter
+          GGUF-Ableger der
+          <a href="https://huggingface.co/audreyt/CyberNeurova-DeepSeek-V4-Flash-abliterated-GGUF" target="_blank"
+          rel="noopener">CyberNeurova-Modelllinie</a>, der in <a href="https://pi.audreyt.org/" target="_blank"
+          rel="noopener">Audrey Tangs pi-ds4-Guide</a> vorgesehen ist. Bei einem Quant werden die Gewichte mit
+          geringerer numerischer Präzision gespeichert, damit sie in weniger Arbeitsspeicher passen, und „abliterated“
+          bedeutet hier, dass erlernte Ablehnungsmuster in den Gewichten abgeschwächt sind. Im direkten Lauf über alle
+          100 Aufgaben ist dieser 87-GB-Quant mit 256.000 Token Laufzeitkontext eingesetzt worden, während in späteren
+          Kontrollläufen zusätzlich ein 91-GB-Quant und 400.000 Token Kontext geprüft worden sind. Offizielle
+          Modellgrenze, Quantisierung und tatsächlich
+          konfiguriertes Kontextfenster bezeichnen also drei verschiedene Dinge.
+        </p>
+
+        <h2>Drei getrennte Auswertungsarme: Frontier, lokal und Fusion</h2>
+        <p>
+          „Frontier“ bedeutet in diesem Artikel ganz konkret <code>GPT-5.5 xhigh</code> als gehostete Referenz und nicht
+          eine allgemeine Modellklasse, die sich mit jedem neuen Leaderboard verschiebt. Daneben ist
+          mit DeepSeek-V4-Flash auf demselben DRACO-Aufgabensatz ein lokaler Lauf durchgeführt worden, und in einem
+          zusätzlichen Fusion-Lauf ist die Zusammenarbeit mehrerer lokaler Modelle mit einem externen Judge und
+          Synthesizer geprüft worden.
+        </p>
+        <div class="benchmark-table-wrap">
+          <table class="gl-data-table">
+            <caption>Reihenfolge: gehosteter Hauptlauf, lokaler Hauptlauf, diagnostischer Nebenlauf.</caption>
+            <thead>
+              <tr><th>Arm</th><th>Generation</th><th>Bewertung</th><th>Zweck</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Frontier direkt</td><td>GPT-5.5 xhigh, 100 Aufgaben; 98 Generationen abgeschlossen</td><td>3 Judge-Läufe je Konfiguration</td><td>gehostete Referenz und Judge-Sensitivität</td></tr>
+              <tr><td>Lokal direkt</td><td>DeepSeek-V4-Flash, 100 Aufgaben; 12 zunächst leer</td><td>1 strenger Judge-Lauf</td><td>Leistung und Fehler des lokalen Gesamtstacks</td></tr>
+              <tr><td>Fusion</td><td>DeepSeek, Gemma und Qwen als Panel</td><td>GPT-5.5 xhigh für Panelbewertung und Synthese</td><td>diagnostischer Nebenlauf, kein sauberer Direktvergleich</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Für jede Aufgabe werden die Rubrikkriterien einzeln geprüft, und während erfüllte positive Kriterien ihr
+          Gewicht einbringen, wird bei erfüllten negativen Kriterien das jeweilige Gewicht als Strafe wieder abgezogen.
+          Anschließend wird diese Bilanz im Harness durch die Summe aller positiven Gewichte geteilt und auf 0
+          bis 100&nbsp;% begrenzt; leere Antworten werden mit 0&nbsp;% bewertet, und bei mehreren Judge-Läufen wird der
+          Mittelwert als Aufgabenscore verwendet.
+        </p>
+        <p>
+          Über alle 100 Aufgaben wird hier der ungewichtete Mittelwert der Aufgabenscores verwendet. Bei einer
+          alternativen Aggregation werden zunächst erreichte und mögliche Rubrikgewichte summiert, wodurch Aufgaben mit größerem
+          Gesamtgewicht stärker zählen und der zusammengeführte DeepSeek-Lauf auf 46,61&nbsp;% käme. Für den hier
+          berichteten Wert sind dagegen nur leere lokale Ausgaben erneut erzeugt und anschließend anstelle ihrer leeren
+          Originalausgabe eingesetzt worden; für GPT-5.5 ist kein entsprechender Retry durchgeführt worden, der
+          vollständige lokale Lauf ist einmal bewertet worden und jeder GPT-5.5-Wert dreimal.
+        </p>
+
+        <h2>48,18&nbsp;% und 49,37&nbsp;% liegen nah, aber nicht unter demselben Protokoll</h2>
+        <div class="benchmark-table-wrap">
+          <table class="gl-data-table">
+            <caption>Referenz zuerst, danach lokaler Rohstand und nachträglicher Retry-Stand.</caption>
+            <thead>
+              <tr><th>100-Aufgaben-Lauf</th><th>Score</th><th>Wichtige Einschränkung</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>GPT-5.5 xhigh mit strengem GPT-5.5-xhigh-Judge</td><td>49,37&nbsp;%</td><td>98/100 Generationen abgeschlossen, 3 Judge-Läufe</td></tr>
+              <tr><td>DeepSeek-V4-Flash, Rohstand</td><td>43,05&nbsp;%</td><td>12 leere Antworten, 1 Judge-Lauf</td></tr>
+              <tr><td>DeepSeek-V4-Flash, Original und Empty-Retry nachträglich zusammengeführt</td><td>48,18&nbsp;%</td><td>11/12 leere Antworten wiederhergestellt, 1 Judge-Lauf</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Mit dem strengen Judge liegen zwischen dem lokalen Lauf nach Retry und der Frontier-Referenz 1,19
+          Prozentpunkte, was einen kontrollierten Wiederholungslauf rechtfertigt, aber noch keinen
+          Gleichwertigkeitsnachweis. Für leere DeepSeek-Antworten ist nachträglich ein Retry durchgeführt worden, für
+          GPT-5.5 nicht, außerdem unterscheiden sich die Zahl der Judge-Läufe und einzelne Generationserfolge. Für
+          Gleichwertigkeit reicht es nicht.
+        </p>
+
+        <h2>12,4 Prozentpunkte Unterschied durch den Judge-Wechsel</h2>
+        <p>
+          Unter zwei Judge-Konfigurationen liegen für dieselben gespeicherten GPT-5.5-Antworten deutlich verschiedene
+          Scores vor, obwohl die zugrunde liegende Recherche unverändert ist und sich ausschließlich die
+          Judge-Konfiguration unterscheidet.
+        </p>
+        <div class="benchmark-table-wrap">
+          <table class="gl-data-table">
+            <caption>Dieselben Antworten, nach Judge-Kosten aufsteigend.</caption>
+            <thead>
+              <tr><th>Judge auf denselben Antworten</th><th>Score</th><th>Läufe</th><th>Kosten</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>GPT-4.1 mini</td><td>61,77&nbsp;%</td><td>3</td><td>12,07&nbsp;$</td></tr>
+              <tr><td>GPT-5.5 xhigh strict</td><td>49,37&nbsp;%</td><td>3</td><td>200,37&nbsp;$</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Allein durch diesen Wechsel ist der Score um 12,4 Prozentpunkte verschoben worden und damit um mehr als den gemessenen
+          Abstand zwischen lokalem Modell und Frontier-Referenz. Der Judge steht also nicht am Rand der Auswertung,
+          sondern ist ein fester Teil des Benchmarks, und veröffentlichte DRACO-Werte mit anderem Judge oder anderem
+          Tooling gehören nicht einfach in dieselbe Rangliste.
+        </p>
+        <p>
+          Als Ausgangspunkt für den Fusion-Versuch dient die öffentliche <a
+          href="https://openrouter.ai/blog/announcements/fusion-beats-frontier/" target="_blank"
+          rel="noopener">OpenRouter-Auswertung</a>, aber wegen eines anderen Judges, anderer Tools und sieben
+          gefilterter Aufgaben lässt sie sich nicht direkt mit den beiden Werten vergleichen.
+        </p>
+
+        <h2>Zwölf fehlende Antworten bereits vor der Bewertung</h2>
+        <p>
+          Der Rohstand der 100 lokalen Aufgaben umfasst 12 leere Antworten, jeweils sechs nach einem Timeout oder einem
+          Stopp in pi-ds4. Zur Diagnose sind in acht getrennten Läufen Server, Adapter, Ergebnisse, Fusion und Harness
+          untersucht worden, und dadurch sind mehrere Nullen technischen Fehlern zugeordnet worden, die schon vor
+          der inhaltlichen Bewertung aufgetreten sind. Von besonderer Bedeutung ist dabei der KV-Cache, in dem bereits
+          berechnete Kontextzustände vorgehalten werden; sobald seine Checkpoints verdrängt werden, müssen lange Teile
+          des bisherigen Kontexts erneut durch die Runtime eingelesen werden.
+        </p>
+        <div class="benchmark-table-wrap">
+          <table class="gl-data-table">
+            <caption>Fehlerklassen entlang von Tool-Aufruf, Kontextverwaltung und Ausgabe.</caption>
+            <thead>
+              <tr><th>Befund</th><th>Messwert</th><th>Auswirkung</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Unbegrenzte Tool-Ausgaben</td><td>15,7&nbsp;MB Kontext aus einem <code>get_search_content</code>-Aufruf</td><td>Score-Mittelwert von 10,2&nbsp;% im Kontext-Bucket über 180k</td></tr>
+              <tr><td>Kontextüberläufe nicht erkannt</td><td>die Laufnotizen ordnen 42 von 48 lokalen Panel-Fehlern dem Kontextlimit zu</td><td>Klassifikation als generische Provider-Fehler; kein Auto-Compaction-Retry</td></tr>
+              <tr><td>Tool-/Fetch-Schleifen</td><td>875 Abrufe derselben URL in einer Aufgabe</td><td>Timeouts, leere Antworten, 0&nbsp;%</td></tr>
+              <tr><td>KV-Cache-Thrashing</td><td>3.102 Verdrängungen gegenüber 76 Treffern beim 8-GB-Default</td><td>separate Messungen: Cache-Treffer 35-55&nbsp;ms, kalter 61k-Prefill 236&nbsp;s</td></tr>
+              <tr><td>Instabiler KV-Prefix nach dem Trimming</td><td>alte Nachrichten sind in jeder Runde neu geschrieben worden</td><td>57-75k Token sind wiederholt neu eingelesen worden</td></tr>
+              <tr><td>Höchste Denkstufe nicht erreichbar</td><td>„Think Max“ erst mit <code>max</code> und großem <code>--ctx</code> verfügbar</td><td>im 100-Aufgaben-Lauf ist die maximale Denkstufe nicht verwendet worden</td></tr>
+              <tr><td>Auswahl der falschen Nachricht bei der Antwort-Extraktion</td><td>der echte 24k-Bericht liegt eine Nachricht vor der finalen Statusnotiz</td><td>gespeichert: 486 Zeichen Kommentar, Judge: 7,5&nbsp;%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="benchmark-note">
+          Aus den Laufnotizen stammen sowohl die Zuordnung von 42 der 48 Fusion-Fehler zum Kontextlimit als auch die
+          3.102 KV-Verdrängungen und 76 Treffer. Weil das rotierte Server-Rohlog nicht mehr vorhanden ist, lassen sich
+          diese Zähler heute nicht noch einmal unabhängig aus dem Log rekonstruieren.
+        </p>
+        <p>
+          Die Gegenmaßnahmen ergeben sich daraus ziemlich direkt: In der neuen Konfiguration sind Tool-Ausgaben
+          auf 30.000 Zeichen begrenzt, Paging ergänzt, Kontextüberläufe korrekt klassifiziert, das KV-Budget erhöht und
+          Think Max freigeschaltet worden. Alte Nachrichten sind beim Trimming nur noch so verändert worden, dass der
+          stabile Prefix erhalten geblieben ist, und bei weiterhin fehlender Abschlussantwort ist der letzte
+          substantielle Bericht per „Salvage“ gesichert worden. Die Verbesserungen betreffen damit den
+          Agentenlauf und nicht die Modellgewichte.
+        </p>
+
+        <h2>Bestätigung des Coverage-Problems im Fusion-Lauf</h2>
+        <p>
+          Im diagnostischen Fusion-Lauf ist mit DeepSeek über pi-ds4 und DwarfStar sowie mit Gemma und Qwen über Ollama
+          ein lokales Panel betrieben worden, während Panelbewertung und Synthese des finalen Berichts in der Cloud mit
+          GPT-5.5 xhigh durchgeführt worden sind.
+        </p>
+        <p>
+          Das Gesamtergebnis wirkt mit 100 von 100 abgeschlossenen Aufgaben zunächst vollständig, darunter stehen aber
+          nur 49 auf <code>fusion_status=ok</code> und 51 auf <code>partial</code>. Für DeepSeek liegen 52 gültige
+          Panelantworten vor, während 48 Panelstufen einen Fehler aufweisen und in den Laufnotizen 42 davon dem
+          Kontextlimit zugeordnet werden. Wertet man nur die 52 gültigen Antworten aus, ergeben sich 48,21&nbsp;% bei
+          52&nbsp;% Coverage; zählen alle 48 Fehler als null, bleiben 25,07&nbsp;%.
+        </p>
+        <p>
+          Beide Werte beantworten also unterschiedliche Fragen: 48,21&nbsp;% beschreiben nur die erfolgreichen lokalen
+          DeepSeek-Stufen, während 25,07&nbsp;% den vollständigen Lauf abbilden, sobald jeder technische Ausfall mit null
+          eingeht. Ohne die Angabe 52/100 sehen sie wie zwei konkurrierende Scores aus, obwohl eigentlich die Coverage
+          ihre unterschiedliche Aussage erklärt.
+        </p>
+
+        <h2>Änderungen in Pi und pi-ds4 infolge der Fehler</h2>
+        <p>
+          Für die nicht erkannten Kontextfehler ist ein
+          <a href="https://github.com/earendil-works/pi/issues/6262#issuecomment-4869036600" target="_blank"
+          rel="noopener">Bug-Ticket im Pi-Repository</a> entstanden, denn die Überläufe sind von DwarfStar in einer
+          Form gemeldet worden, die zu keinem der vorhandenen Erkennungsmuster passt:
+        </p>
+        <pre><code>Prompt has 256468 tokens, but the configured context size is 256000 tokens</code></pre>
+        <p>
+          Die Meldung ist deshalb als allgemeiner Provider-Fehler behandelt und der Turn ohne Kompaktierung beendet
+          worden. Mit einem zusätzlichen Erkennungsmuster ist die Meldung der richtigen Fehlerklasse zugeordnet worden,
+          und im späteren Empty-Retry sind 11 der 12 leeren Antworten wiederhergestellt worden; eine ist leer geblieben.
+        </p>
+        <p>
+          Beim KV-Cache ist ein zweites Problem sichtbar geworden, weil das pauschale 8-GB-Disk-Budget für 400k-Kontexte auf
+          einer Maschine mit 128&nbsp;GB RAM einfach zu klein dimensioniert ist. <a
+          href="https://github.com/audreyt/pi-ds4/commit/c7a8336" target="_blank" rel="noopener">Mit Version 0.4.1 ist
+          deshalb ein RAM-abhängiger Standard eingeführt worden</a>: 64&nbsp;GB ab 128&nbsp;GB Arbeitsspeicher, 32&nbsp;GB
+          zwischen 96 und 127&nbsp;GB und sonst weiterhin 8&nbsp;GB. Audrey Tangs <a
+          href="https://pi.audreyt.org/index#whatsnew" target="_blank" rel="noopener">Release-Notiz</a> nennt den
+          Beitrag mit <code>@tjansn</code>, und durch das größere Budget bleiben bei langen Sitzungen mehr
+          Prefix-Checkpoints auf Disk, sodass teure Neueinlesungen seltener werden.
+        </p>
+        <p>
+          Öffentlich nachprüfbar sind der spätere Commit und die Release-Notiz mit <code>@tjansn</code>; zum
+          ursprünglichen X-Post liegt in den Artefakten dagegen kein direkter Link mehr vor. Laut Arbeitsnotiz ist Audrey
+          Tang dort markiert worden; anschließend ist der Beitrag von ihr gelikt und die Übernahme der Änderung in das
+          nächste Release öffentlich angekündigt worden. Ein privater oder vorab abgestimmter
+          Maintainer-Kontakt ist nicht erfolgt; als Kommunikationswege sind das öffentliche GitHub-Ticket zum
+          Kontextfehler und der öffentliche X-Post zum KV-Befund dokumentiert.
+        </p>
+
+        <h2>Prüfung der Reparaturen im 20er-Subset, nicht der Rangliste</h2>
+        <p>
+          Ein neuer Lauf über alle 100 Aufgaben ist für jede technische Hypothese zu langsam und zu teuer, deshalb
+          besteht das Entwicklungsset aus 20 festen Aufgaben: sechs pathologischen Fällen aus den Juni-Totalausfällen,
+          jeweils vier aus schwachen und starken Domänen und sechs aus dem Mittelfeld. Die Auswahl ist darauf ausgelegt,
+          bekannte Fehler möglichst zuverlässig zu provozieren, und ist dadurch weder ein zufälliges Sample noch ein
+          Holdout; mit dem 100-Aufgaben-Schnitt lässt sie sich nicht vergleichen.
+        </p>
+        <p>
+          In der Tabelle stehen die Konfigurationen in ihrer zeitlichen Entwicklungsreihenfolge, wobei „Think Max“ die
+          höchste Denkstufe bezeichnet und bei fehlendem Abschluss über „Salvage“ der letzte substantielle Bericht gesichert wird;
+          Aufgaben- und Rettungslimit begrenzen jeweils die Laufzeit. Zusätzlich ist im Adapter ein Steering-Vektor
+          gegen ausweichende Formulierungen und für stabilere Tool-Syntax aktiv, der sich mit
+          <code>ffn=0</code> abschalten lässt.
+        </p>
+        <div class="benchmark-table-wrap">
+          <table class="gl-data-table">
+            <caption>Konfigurationen in zeitlicher Entwicklungsreihenfolge.</caption>
+            <thead>
+              <tr><th>Arm auf dem 20er-Subset</th><th>Score</th><th>Befund</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Juni-Stand, dieselben 20 Aufgaben</td><td>42,64&nbsp;%</td><td>Ausgangswert, 1 Judge-Lauf</td></tr>
+              <tr><td>Juli-Konfiguration, 87-GB-Quant</td><td>49,44&nbsp;%</td><td>Tool-Caps, prefix-stabiles Trimming, Salvage und Think Max; 3 Judge-Läufe</td></tr>
+              <tr><td>Steering aus, <code>ffn=0</code></td><td>47,98&nbsp;%</td><td>kein belastbarer Nettoeffekt in diesem n=20-Einzellauf</td></tr>
+              <tr><td>91-GB-Quant, Aufgabenlimit 2100&nbsp;s</td><td>48,70&nbsp;%</td><td>2 Aufgaben sind auch nach Salvage leer geblieben</td></tr>
+              <tr><td>91-GB-Quant, Aufgabenlimit 2500&nbsp;s</td><td>52,36&nbsp;%</td><td>zusätzlich Rettungslimit von 1800 auf 2400&nbsp;s erhöht</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Mit deaktiviertem Vektor ist die vermutete Verschlechterung im A/B-Test nicht bestätigt worden, denn der einzelne
+          20-Aufgaben-Lauf ist vollständig mit Rauschen vereinbar und belegt weder einen Nettoeffekt noch dessen
+          Abwesenheit. Das Steering bleibt deshalb aktiv.
+        </p>
+        <p>
+          Auch die 52,36&nbsp;% aus dem letzten Arm sind kein isolierter Modellvergleich, weil Aufgaben- und
+          Rettungszeitlimit gleichzeitig erhöht worden sind. Dadurch sind beide zuvor leeren Aufgaben wiederhergestellt
+          worden, während eine andere in allen Läufen bei null geblieben ist, und bei den ausgewählten Problemfällen
+          zeigen die Reparaturen Wirkung. Der Wert ist aber weder ein offizieller DRACO-Score noch ein
+          Beleg für eine Überlegenheit gegenüber dem 100-Aufgaben-Lauf.
+        </p>
+
+        <h2>Lokale Inferenz verlagert Kosten und Abhängigkeiten</h2>
+        <p>
+          Für die lokale DeepSeek-Inferenz fallen 0&nbsp;$ Modell-API-Kosten an, aber natürlich ist der Lauf deshalb
+          nicht kostenlos: Für das Setup sind ein MacBook Pro <code>Mac17,6</code> mit M5 Max, 18 CPU-Kernen und
+          128&nbsp;GB RAM sowie Strom, Laufzeit und Arbeit am Harness erforderlich. Auch Web-Recherche, Fusion-Judge,
+          Synthese und DRACO-Bewertung bleiben externe Dienste.
+        </p>
+        <div class="benchmark-table-wrap">
+          <table class="gl-data-table">
+            <caption>Kosten nach Laufphase und Auswertungszweck gruppiert.</caption>
+            <thead>
+              <tr><th>Teil</th><th>Gemessene Kosten</th><th>Einordnung</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Lokale DeepSeek-Generation</td><td>0&nbsp;$ Modell-API-Kosten</td><td>Hardware, Strom, Laufzeit und Entwicklungsarbeit nicht als Dollarwert umgelegt</td></tr>
+              <tr><td>Direkter GPT-5.5-Lauf</td><td>612,60&nbsp;$ Generation</td><td>42,80M Input, 1,76M Output und 691,64M Cache-Read</td></tr>
+              <tr><td>GPT-4.1-mini-Judge</td><td>12,07&nbsp;$</td><td>3 Läufe, Ergebnis 61,77&nbsp;%</td></tr>
+              <tr><td>GPT-5.5-xhigh-strict-Judge</td><td>200,37&nbsp;$</td><td>3 Läufe auf denselben Antworten, Ergebnis 49,37&nbsp;%</td></tr>
+              <tr><td>Fusion mit lokalem Panel</td><td>92,13&nbsp;$ externe Modellstufen</td><td>68,30&nbsp;$ Panel-Judge und 23,83&nbsp;$ Synthese</td></tr>
+              <tr><td>DeepSeek-Salvage-Judging für 52 Fusion-Aufgaben</td><td>153,66&nbsp;$</td><td>GPT-5.5 xhigh, Kriterium-für-Kriterium-Modus, 3 Judge-Läufe</td></tr>
+              <tr><td>Juli-Subset mit 20 Aufgaben</td><td>272,68&nbsp;$ Judge-Kosten</td><td>vier Entwicklungsarme, kein Leaderboard-Lauf</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Die gemessene Decodierrate der 87- und 91-GB-Quants liegt je nach Kontext und Zustand der Maschine auf dem M5
+          Max grob zwischen 18 und 37 Token pro Sekunde, sodass Speicherbandbreite, KV-Cache und Zeitlimits weiterhin ganz praktische
+          Grenzen setzen. Die Kostenstruktur verschiebt sich damit weg von der Modell-API und hin zu Hardware, Energie,
+          Zeit und eigener Betriebsarbeit, und die lokale Pipeline wird dadurch weder unendlich schnell noch
+          wartungsfrei.
+        </p>
+
+        <h2>Nächster Schritt: kontrollierter 100-Aufgaben-Lauf unter identischen Regeln</h2>
+        <p>
+          Nach dem Empty-Retry liegt für 99 von 100 Aufgaben eine nicht-leere lokale DeepSeek-Antwort vor, und der
+          zusammengeführte Score beträgt 48,18&nbsp;%, womit er genau 1,19 Prozentpunkte unter dem direkten
+          GPT-5.5-xhigh-Lauf liegt. Das ist nah genug für einen neuen kontrollierten Lauf, aber wegen unterschiedlicher Retry-Regeln
+          und Judge-Wiederholungen noch kein Gleichwertigkeits- oder Produktionsnachweis.
+        </p>
+        <p>
+          Bevor der nächste vollständige Lauf mit der neuen Standardkonfiguration startet, müssen deshalb
+          Tool-Blocklisten, Output-Caps sowie Retry- und Salvage-Regeln feststehen, und für Frontier wie lokal braucht es
+          denselben Judge, gleich viele Judge-Läufe und dieselbe Behandlung leerer Antworten. Neben dem Score gehören
+          außerdem Coverage, Kosten, Tokens und Fehlerklassen, denn erst dann lässt sich sagen, wie viel von den 1,19
+          Prozentpunkten unter identischen Regeln noch übrig bleibt.
+        </p>
+        <p>
+          Und für die eigentlich wichtigere Frage nach vertraulicher Deep Research reicht auch dieser Vergleich noch
+          nicht, weil Suchdienste, Seitenabrufe, Telemetrie, Protokolle, Bewertung und Ablage ebenfalls kontrolliert
+          werden müssen. In den beschriebenen Läufen befinden sich Webdienste und Judge weiterhin außerhalb der lokalen
+          Umgebung, weshalb Mandatsakten, Steuerunterlagen, Patientendaten oder Gesprächstranskripte aus psychologischen
+          Sitzungen erst infrage kommen, wenn auch diese Teile lokal laufen oder vertraglich kontrolliert sind.
+        </p>
+
+        <h2>Quellen und Artefakte</h2>
+        <ul>
+          <li><a href="https://pi.dev/" target="_blank" rel="noopener">Pi: minimaler Agent-Harness</a> · <a href="https://rfc.earendil.com/0015/" target="_blank" rel="noopener">Herkunft und Übergang zu Earendil</a></li>
+          <li><a href="https://github.com/antirez/ds4" target="_blank" rel="noopener">antirez: DwarfStar Runtime</a></li>
+          <li><a href="https://github.com/mitsuhiko/pi-ds4" target="_blank" rel="noopener">Armin Ronacher: ursprüngliche pi-ds4-Extension</a></li>
+          <li><a href="https://github.com/audreyt/pi-ds4" target="_blank" rel="noopener">Audrey Tang: pi-ds4 Fork</a> · <a href="https://pi.audreyt.org/" target="_blank" rel="noopener">Installations- und Release-Guide</a> · <a href="https://github.com/audreyt/pi-ds4/commit/c7a8336" target="_blank" rel="noopener">RAM-tiered-KV-Commit mit @tjansn</a></li>
+          <li><a href="https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash" target="_blank" rel="noopener">DeepSeek-V4-Flash: offizielles Modell</a> · <a href="https://huggingface.co/audreyt/CyberNeurova-DeepSeek-V4-Flash-abliterated-GGUF" target="_blank" rel="noopener">getestete quantisierte Modelllinie</a></li>
+          <li><a href="https://cognition.com/blog/frontier-code" target="_blank" rel="noopener">Cognition: FrontierCode und Zugangsmodell</a></li>
+          <li><a href="https://arxiv.org/abs/2602.11685" target="_blank" rel="noopener">DRACO Paper: A Cross-Domain Benchmark for Deep Research Accuracy, Completeness, and Objectivity</a></li>
+          <li><a href="https://research.perplexity.ai/articles/evaluating-deep-research-performance-in-the-wild-with-the-draco-benchmark" target="_blank" rel="noopener">Perplexity Research: Evaluating Deep Research Performance in the Wild with the DRACO Benchmark</a></li>
+          <li><a href="https://huggingface.co/datasets/perplexity-ai/draco" target="_blank" rel="noopener">DRACO Dataset auf Hugging Face</a></li>
+          <li><a href="https://openrouter.ai/blog/announcements/fusion-beats-frontier/" target="_blank" rel="noopener">OpenRouter: Surpassing Frontier Performance with Fusion</a></li>
+          <li><a href="https://github.com/earendil-works/pi/issues/6262#issuecomment-4869036600" target="_blank" rel="noopener">pi Issue #6262: DS4 context overflow errors not detected by auto-compaction</a></li>
+          <li><a href="assets/draco-benchmark/draco-derived-summary.json">Abgeleitete lokale Kennzahlen des Juni-Runs</a></li>
+          <li><a href="assets/draco-benchmark/ds4-optimization-derived.json">Abgeleitete Daten der Juli-Optimierung</a></li>
+        </ul>
+      </article>
+
+      <nav class="tj-post-nav" aria-label="Weitere Notizen">
+        <a href="ds4-draco-optimierung.html" rel="prev"><span class="gl-meta">← Älterer Artikel</span><strong>DS4 auf DRACO: von 42,64 auf 52,36 %</strong></a>
+        <a href="warum-lokale-ki.html" rel="next"><span class="gl-meta">Neuerer Artikel →</span><strong>Why local: Die Lernschleife gehört ins eigene Unternehmen</strong></a>
+      </nav>
+    </main>
+
+    <footer class="gl-site-footer tj-footer">
+      <div class="tj-wrap py-10 text-sm">
+        <div class="flex flex-col gap-2">
+          <span style="font-family: var(--gl-font-sans); font-weight: 600; font-size: 1.05rem;">Tom Jansen</span>
+          <span class="gl-meta">Aachen · <span data-live-clock="">09:59</span> CET</span>
+          <div class="tj-footer__links-row">
+            <div class="commercial-footer-links">
+              <a href="https://www.linkedin.com/in/tjansn/" target="_blank" rel="noopener">LinkedIn</a>
+              <a href="https://github.com/tjansn" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://x.com/thomasjansn" target="_blank" rel="noopener">X</a>
+              <a href="../projekte.html" data-i18n="nav.projects">Projekte</a>
+              <a href="../notes/index.html" data-i18n="nav.notes">Notizen</a>
+              <a href="../impressum.html">Impressum</a>
+              <a href="../datenschutz.html" data-i18n="footer.privacyLink">Datenschutz</a>
+            </div>
+            <div class="gl-language-switcher" role="group" aria-labelledby="footer-language">
+              <span id="footer-language" data-i18n="footer.languageLabel" hidden>Sprache</span>
+              <div class="gl-language-switcher__controls">
+                <button type="button" class="gl-language-switcher__option" data-language-option="de" lang="de" aria-pressed="true">Deutsch</button>
+                <button type="button" class="gl-language-switcher__option" data-language-option="en" lang="en" aria-pressed="false">English</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="../commercial-pages.js"></script>
+    <script src="../archetype-pages.js"></script>
+  </body>
+</html>

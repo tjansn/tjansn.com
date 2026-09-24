@@ -1,0 +1,286 @@
+{
+  "score_files": {
+    "direct_gpt41mini_judge": "/Users/tom/dev/Projects/pi-draco-benchmark/results/draco-gpt55-xhigh-codex-full/direct_gpt55_xhigh/scores.jsonl",
+    "direct_gpt55_judge": "/Users/tom/dev/Projects/pi-draco-benchmark/results/draco-gpt55-xhigh-codex-full/direct_gpt55_xhigh/scores.pi-gpt55-xhigh-strict-criterion-3.jsonl",
+    "ds4_salvage": "/Users/tom/dev/Projects/pi-draco-benchmark/results/draco-fusion-ds4-gemma4-qwen36-gpt55-xhigh-full/fusion_ds4_gemma4_qwen36_gpt55_xhigh/scores.ds4-panel.jsonl"
+  },
+  "scores": {
+    "direct_gpt41mini_judge": {
+      "scored_tasks": 100,
+      "score_pct_avg": 61.774290280396556,
+      "score_pct_median": 65.65496739547373,
+      "score_pct_min": 0.0,
+      "score_pct_max": 100.0,
+      "score_pct_sd_avg": 0.8100123208438097,
+      "judge_cost_usd": 12.0703028,
+      "judge_input_tokens": 22758417,
+      "judge_output_tokens": 828911,
+      "judge_cache_read_tokens": 16406784,
+      "judge_cache_write_tokens": 0,
+      "judge_elapsed_s_total": 20748.138311624527,
+      "judge_provider": "openai",
+      "judge_model": "gpt-4.1-mini",
+      "judge_runs": 3,
+      "mode": "criterion"
+    },
+    "direct_gpt55_judge": {
+      "scored_tasks": 100,
+      "score_pct_avg": 49.365553744568935,
+      "score_pct_median": 49.654449061755706,
+      "score_pct_min": 0.0,
+      "score_pct_max": 86.66666666666667,
+      "score_pct_sd_avg": 1.5273061527012153,
+      "judge_cost_usd": 200.374604,
+      "judge_input_tokens": 20430556,
+      "judge_output_tokens": 3230144,
+      "judge_cache_read_tokens": 2635008,
+      "judge_cache_write_tokens": 0,
+      "judge_elapsed_s_total": 17315.220602035522,
+      "judge_provider": "pi",
+      "judge_model": "openai-codex/gpt-5.5:xhigh",
+      "judge_runs": 3,
+      "mode": "criterion"
+    },
+    "ds4_salvage": {
+      "scored_tasks": 52,
+      "score_pct_avg": 48.20670250812056,
+      "score_pct_median": 43.31240587533493,
+      "score_pct_min": 1.6597510373443984,
+      "score_pct_max": 95.21531100478471,
+      "score_pct_sd_avg": 2.4165459410948436,
+      "judge_cost_usd": 153.66385400000001,
+      "judge_input_tokens": 18525460,
+      "judge_output_tokens": 1915115,
+      "judge_cache_read_tokens": 7166208,
+      "judge_cache_write_tokens": 0,
+      "judge_elapsed_s_total": 10390.215080976486,
+      "judge_provider": "pi",
+      "judge_model": "openai-codex/gpt-5.5:xhigh",
+      "judge_runs": 3,
+      "mode": "criterion",
+      "score_pct_avg_all_tasks_zero_fail": 25.067485304222693
+    }
+  },
+  "generation": {
+    "direct_gpt55_xhigh": {
+      "tasks": 100,
+      "returncode_0": 98,
+      "timeouts": 2,
+      "error_messages": 34,
+      "generation_cost_usd": 612.602278,
+      "input_tokens": 42801690,
+      "output_tokens": 1759182,
+      "cache_read_tokens": 691636736,
+      "cache_write_tokens": 0,
+      "elapsed_s_total": 88596.1483514309,
+      "fusion_status": {
+        "null": 100
+      }
+    },
+    "fusion_ds4_gemma4_qwen36": {
+      "tasks": 100,
+      "returncode_0": 100,
+      "timeouts": 0,
+      "error_messages": 0,
+      "generation_cost_usd": 92.133768,
+      "input_tokens": 7207886,
+      "output_tokens": 2240761,
+      "cache_read_tokens": 199049045,
+      "cache_write_tokens": 7141299,
+      "elapsed_s_total": 136321.73935699463,
+      "fusion_status": {
+        "ok": 49,
+        "partial": 51
+      }
+    }
+  },
+  "domains": {
+    "Academic": {
+      "tasks": 12,
+      "direct_gpt41mini_judge": {
+        "scored": 12,
+        "score_pct_avg_valid": 69.39478441480928,
+        "score_pct_avg_all_tasks_zero_fail": 69.39478441480928
+      },
+      "direct_gpt55_judge": {
+        "scored": 12,
+        "score_pct_avg_valid": 59.92949853356787,
+        "score_pct_avg_all_tasks_zero_fail": 59.92949853356787
+      },
+      "ds4_salvage": {
+        "scored": 10,
+        "score_pct_avg_valid": 59.46366573060085,
+        "score_pct_avg_all_tasks_zero_fail": 49.553054775500705
+      }
+    },
+    "Finance": {
+      "tasks": 20,
+      "direct_gpt41mini_judge": {
+        "scored": 20,
+        "score_pct_avg_valid": 61.53497442893644,
+        "score_pct_avg_all_tasks_zero_fail": 61.53497442893644
+      },
+      "direct_gpt55_judge": {
+        "scored": 20,
+        "score_pct_avg_valid": 51.33426865672599,
+        "score_pct_avg_all_tasks_zero_fail": 51.33426865672599
+      },
+      "ds4_salvage": {
+        "scored": 6,
+        "score_pct_avg_valid": 40.04268393428884,
+        "score_pct_avg_all_tasks_zero_fail": 12.012805180286652
+      }
+    },
+    "General Knowledge": {
+      "tasks": 9,
+      "direct_gpt41mini_judge": {
+        "scored": 9,
+        "score_pct_avg_valid": 46.661753381000906,
+        "score_pct_avg_all_tasks_zero_fail": 46.661753381000906
+      },
+      "direct_gpt55_judge": {
+        "scored": 9,
+        "score_pct_avg_valid": 37.7726489858767,
+        "score_pct_avg_all_tasks_zero_fail": 37.7726489858767
+      },
+      "ds4_salvage": {
+        "scored": 4,
+        "score_pct_avg_valid": 51.17774857882521,
+        "score_pct_avg_all_tasks_zero_fail": 22.745666035033427
+      }
+    },
+    "Law": {
+      "tasks": 6,
+      "direct_gpt41mini_judge": {
+        "scored": 6,
+        "score_pct_avg_valid": 84.37016579296993,
+        "score_pct_avg_all_tasks_zero_fail": 84.37016579296993
+      },
+      "direct_gpt55_judge": {
+        "scored": 6,
+        "score_pct_avg_valid": 66.09431209831952,
+        "score_pct_avg_all_tasks_zero_fail": 66.09431209831952
+      },
+      "ds4_salvage": {
+        "scored": 5,
+        "score_pct_avg_valid": 75.65835387328174,
+        "score_pct_avg_all_tasks_zero_fail": 63.04862822773478
+      }
+    },
+    "Medicine": {
+      "tasks": 6,
+      "direct_gpt41mini_judge": {
+        "scored": 6,
+        "score_pct_avg_valid": 74.82514831892215,
+        "score_pct_avg_all_tasks_zero_fail": 74.82514831892215
+      },
+      "direct_gpt55_judge": {
+        "scored": 6,
+        "score_pct_avg_valid": 61.970461141238246,
+        "score_pct_avg_all_tasks_zero_fail": 61.970461141238246
+      },
+      "ds4_salvage": {
+        "scored": 4,
+        "score_pct_avg_valid": 57.20882626559531,
+        "score_pct_avg_all_tasks_zero_fail": 38.139217510396875
+      }
+    },
+    "Needle in a Haystack": {
+      "tasks": 6,
+      "direct_gpt41mini_judge": {
+        "scored": 6,
+        "score_pct_avg_valid": 53.71768189031127,
+        "score_pct_avg_all_tasks_zero_fail": 53.71768189031127
+      },
+      "direct_gpt55_judge": {
+        "scored": 6,
+        "score_pct_avg_valid": 46.912565821717585,
+        "score_pct_avg_all_tasks_zero_fail": 46.912565821717585
+      },
+      "ds4_salvage": {
+        "scored": 1,
+        "score_pct_avg_valid": 82.71604938271605,
+        "score_pct_avg_all_tasks_zero_fail": 13.786008230452675
+      }
+    },
+    "Personalized Assistant": {
+      "tasks": 6,
+      "direct_gpt41mini_judge": {
+        "scored": 6,
+        "score_pct_avg_valid": 50.924048289289345,
+        "score_pct_avg_all_tasks_zero_fail": 50.924048289289345
+      },
+      "direct_gpt55_judge": {
+        "scored": 6,
+        "score_pct_avg_valid": 37.08557235072852,
+        "score_pct_avg_all_tasks_zero_fail": 37.08557235072852
+      },
+      "ds4_salvage": {
+        "scored": 1,
+        "score_pct_avg_valid": 43.574879227053145,
+        "score_pct_avg_all_tasks_zero_fail": 7.2624798711755245
+      }
+    },
+    "Shopping/Product Comparison": {
+      "tasks": 16,
+      "direct_gpt41mini_judge": {
+        "scored": 16,
+        "score_pct_avg_valid": 54.82629545315275,
+        "score_pct_avg_all_tasks_zero_fail": 54.82629545315275
+      },
+      "direct_gpt55_judge": {
+        "scored": 16,
+        "score_pct_avg_valid": 38.4801789669903,
+        "score_pct_avg_all_tasks_zero_fail": 38.4801789669903
+      },
+      "ds4_salvage": {
+        "scored": 8,
+        "score_pct_avg_valid": 30.916021526619073,
+        "score_pct_avg_all_tasks_zero_fail": 15.458010763309536
+      }
+    },
+    "Technology": {
+      "tasks": 10,
+      "direct_gpt41mini_judge": {
+        "scored": 10,
+        "score_pct_avg_valid": 61.882592496060774,
+        "score_pct_avg_all_tasks_zero_fail": 61.882592496060774
+      },
+      "direct_gpt55_judge": {
+        "scored": 10,
+        "score_pct_avg_valid": 49.91850691262134,
+        "score_pct_avg_all_tasks_zero_fail": 49.91850691262134
+      },
+      "ds4_salvage": {
+        "scored": 7,
+        "score_pct_avg_valid": 40.20000931535781,
+        "score_pct_avg_all_tasks_zero_fail": 28.140006520750468
+      }
+    },
+    "UX Design": {
+      "tasks": 9,
+      "direct_gpt41mini_judge": {
+        "scored": 9,
+        "score_pct_avg_valid": 68.32971423268881,
+        "score_pct_avg_all_tasks_zero_fail": 68.32971423268881
+      },
+      "direct_gpt55_judge": {
+        "scored": 9,
+        "score_pct_avg_valid": 51.50186410850971,
+        "score_pct_avg_all_tasks_zero_fail": 51.50186410850971
+      },
+      "ds4_salvage": {
+        "scored": 6,
+        "score_pct_avg_valid": 34.166422456035065,
+        "score_pct_avg_all_tasks_zero_fail": 22.777614970690042
+      }
+    }
+  },
+  "openrouter_reference": {
+    "Fusion Fable 5 + GPT-5.5, synthesized by Opus 4.8": 69.0,
+    "Fusion Gemini 3 Flash + Kimi K2.6 + DeepSeek V4 Pro": 64.7,
+    "Solo DeepSeek V4 Pro": 60.3,
+    "Solo GPT-5.5": 60.0,
+    "Solo Claude Opus 4.8": 58.8
+  }
+}

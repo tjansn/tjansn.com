@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="de" class="h-full no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-i18n="meta.title">NewFileCreator: Die Neue-Datei-Funktion, die macOS fehlt | Tom Jansen Notes</title>
+    <meta name="description" data-i18n-attr="content:meta.description" content="NewFileCreator bringt eine Neue-Datei-Funktion in den macOS Finder: per Rechtsklick oder Shortcut Text- und Markdown-Dateien anlegen, ohne Editor oder Terminal zu öffnen." />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" data-i18n-attr="content:meta.ogTitle" content="NewFileCreator: Die Neue-Datei-Funktion, die macOS fehlt" />
+    <meta property="og:description" data-i18n-attr="content:meta.ogDescription" content="Ein Rechtsklick im Finder kann neue Ordner anlegen, aber keine leere Datei. NewFileCreator ergänzt genau diese Funktion, inklusive Shortcuts für Text- und Markdown-Dateien." />
+    <meta name="theme-color" content="#f5f3f0" />
+    <link rel="icon" href="../tj-logo.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../gl-v2.css" />
+    <link rel="stylesheet" href="../tj.css" />
+    <style>
+      .gl-prose pre { font-family: var(--gl-font-mono); font-size: 0.8rem; line-height: 1.6; background: var(--gl-color-oat); border: 1px solid var(--gl-border-tone); border-radius: 8px; padding: var(--gl-space-4); overflow-x: auto; margin: var(--gl-space-5) 0; }
+      .dark .gl-prose pre { background: rgba(245, 243, 240, 0.04); }
+      .gl-prose pre code { font-family: inherit; font-size: inherit; background: none; padding: 0; white-space: pre; }
+    </style>
+    <script>
+      document.documentElement.classList.remove("no-js");
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "dark") document.documentElement.classList.add("dark");
+      function toggleTheme() {
+        const dark = document.documentElement.classList.toggle("dark");
+        localStorage.setItem("theme", dark ? "dark" : "light");
+      }
+    </script>
+    <!-- Plausible Analytics - self-hosted (Mac mini, Cloudflare Tunnel), cookieless -->
+    <script defer data-domain="tjansn.com" src="https://stats.gammalabs.cc/js/script.tagged-events.outbound-links.js"></script>
+    <script>window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) };</script>
+  </head>
+  <body class="commercial-shell">
+    <div class="gl-scroll-progress" data-scroll-progress aria-hidden="true"></div>
+
+    <header class="gl-site-header tj-header flex items-center justify-between py-4" data-site-header>
+      <a href="../index.html" class="flex items-center gap-2 font-semibold" aria-label="Tom Jansen, Startseite">
+        <span class="gl-site-title" style="font-family: var(--gl-font-sans); font-weight: 600; font-size: 1.15rem; letter-spacing: -0.02em;">Tom Jansen</span>
+      </a>
+      <nav class="tj-nav" aria-label="Hauptnavigation">
+        <a href="../index.html" data-i18n="nav.profile">Profil</a>
+        <a href="../projekte.html" data-i18n="nav.projects">Projekte</a>
+        <a href="../notes/index.html" aria-current="page" data-i18n="nav.notes">Notizen</a>
+      </nav>
+      <button type="button" onclick="toggleTheme()" class="gl-theme-toggle js-theme-toggle" aria-pressed="false" aria-label="Toggle theme">
+        <span class="gl-theme-toggle__icons" aria-hidden="true">
+          <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z" /></svg>
+        </span>
+        <span class="gl-theme-toggle__thumb" aria-hidden="true"></span>
+      </button>
+    </header>
+
+    <main class="px-6" style="padding-block: clamp(5rem, 10vw, 8rem) clamp(4rem, 8vw, 6rem);">
+      <article class="gl-prose">
+        <p class="gl-eyebrow" data-i18n="article.eyebrow">Open Source · macOS</p>
+        <h1 data-i18n="article.title" data-i18n-html>NewFileCreator: Die <em>Neue-Datei-Funktion</em>, die macOS fehlt</h1>
+        <p class="gl-meta" data-i18n="article.meta">Tom Jansen · 22.06.2026 · 4 Min. Lesezeit</p>
+        <div class="gl-rule-accent is-visible" style="margin-top: var(--gl-space-6);"></div>
+
+
+
+        <div class="gl-cta-group" style="justify-content: flex-start;"><a class="gl-button gl-button--outline" href="https://github.com/tjansn/NewFileCreator" target="_blank" rel="noopener" data-i18n="article.github">Auf GitHub ansehen →</a></div>
+
+        <p data-i18n="intro.1" data-i18n-html>
+          Es gibt im Finder eine Lücke, die mich seit Jahren nervt: Per Rechtsklick kann ich einen neuen Ordner anlegen,
+          aber keine leere Datei. Für eine schnelle Notiz, eine <code>todo.md</code> oder eine kleine Konfigurationsdatei
+          öffnet man dann irgendeinen Editor, speichert die Datei und sucht den richtigen Ordner. Oder man nimmt das
+          Terminal. Beides geht natürlich, aber für so einen normalen Arbeitsschritt ist es einfach zu umständlich.
+        </p>
+        <p data-i18n="intro.2" data-i18n-html>
+          <strong>NewFileCreator</strong> macht genau diesen Schritt direkt im Finder. Das Tool ergänzt einen
+          <strong>„New File“</strong>-Eintrag im Kontextmenü. Darunter liegen aktuell zwei Dateitypen, die ich ständig
+          brauche: Text und Markdown. Wenn <code>Untitled.txt</code> schon existiert, wird automatisch
+          <code>Untitled 1.txt</code> daraus. Nicht spektakulär. Aber es ist eine Unterbrechung weniger.
+        </p>
+
+        <h2 data-i18n="users.h">Was man als Nutzer merkt</h2>
+        <p data-i18n="users.1" data-i18n-html>
+          Der Ablauf soll möglichst banal sein: In einen Ordner rechtsklicken, <code>New File</code> wählen,
+          Dateityp auswählen, fertig. Die Datei liegt direkt dort und ist im Finder ausgewählt. Man kann sie also sofort
+          umbenennen oder öffnen, statt erst in einem Editor einen Speicherdialog zu bedienen.
+        </p>
+        <p data-i18n="users.2">
+          Für mich sind die globalen Tastenkürzel fast noch wichtiger. Sie funktionieren auch dort, wo der
+          Kontextmenüeintrag nicht greift, zum Beispiel auf dem Schreibtisch. Ich drücke den Shortcut, und die neue
+          Datei landet in dem Ordner, den der Finder gerade als Ziel hat.
+        </p>
+
+        <aside class="gl-pull" data-i18n="pull.1">Eine Datei anlegen, direkt dort, wo der Finder gerade ist. Mehr muss NewFileCreator nicht können.</aside>
+
+        <h2 data-i18n="why.h">Warum dafür überhaupt ein Tool nötig ist</h2>
+        <p data-i18n="why.1">
+          Eigentlich klingt das nach einer Finder-Einstellung, die Apple einfach vergessen hat. Technisch ist es etwas
+          weniger direkt. Der Finder lässt sich nicht beliebig erweitern, und macOS begrenzt, wo Apps schreiben dürfen.
+          Deshalb braucht NewFileCreator eine Finder-Erweiterung und eine App, die den
+          eigentlichen Schritt erledigt.
+        </p>
+        <p data-i18n="why.2" data-i18n-html>
+          Für den Nutzer soll diese Aufteilung aber möglichst unsichtbar bleiben. Man klickt im Finder auf
+          <code>New File</code>, wählt Text oder Markdown, und die Datei ist da.
+        </p>
+
+        <h2 data-i18n="install.h">Installation</h2>
+        <p data-i18n="install.1">
+          Für die lokale Nutzung braucht man macOS 14.0 oder neuer und Xcode 15 oder neuer. Danach reichen zwei Befehle:
+        </p>
+        <pre><code>make build
+make install-local</code></pre>
+        <p data-i18n="install.2" data-i18n-html>
+          Das Makefile baut die App und richtet sie lokal so ein, dass der Eintrag im Finder auftaucht. Die einzelnen
+          Schritte sind im Repo dokumentiert. Nach der
+          Installation sollte es reichen, ein Finder-Fenster zu öffnen, in einen Ordner rechtszuklicken und
+          <code>New File</code> auszuwählen.
+        </p>
+
+        <h2 data-i18n="limits.h">Was macOS trotzdem vorgibt</h2>
+        <p data-i18n="limits.1">
+          Zwei Dinge bleiben sichtbar. Erstens muss man die Finder-Erweiterung einmal in den Systemeinstellungen
+          aktivieren. Das kann die App nicht heimlich für den Nutzer setzen, und das ist auch okay so. NewFileCreator
+          führt durch den Schritt, aber der letzte Klick muss vom Nutzer kommen.
+        </p>
+        <p data-i18n="limits.2" data-i18n-html>
+          Zweitens entscheidet der Finder selbst, wo Erweiterungseinträge im Kontextmenü landen. Der
+          <code>New File</code>-Eintrag steht deshalb nicht beim eingebauten Eintrag „Neuer Ordner“, sondern bei den
+          anderen Erweiterungen. Das gibt macOS hier vor.
+        </p>
+        <p data-i18n="limits.3">
+          Für globale Shortcuts fragt macOS beim ersten Mal außerdem nach Automationsrechten für den Finder. Das muss
+          man einmal erlauben. Danach sollten die Tastenkürzel ohne weiteres Nachfragen laufen.
+        </p>
+
+        <h2 data-i18n="build.h">Warum ich so etwas baue</h2>
+        <p data-i18n="build.1">
+          Ich mag solche Projekte, weil der Umfang klar ist: ein störender Arbeitsschritt, eine Einschränkung in macOS und ein
+          überschaubarer Weg darum herum. Kein großes Produkt, eher ein Werkzeug für genau diesen Moment.
+        </p>
+        <p data-i18n="build.2">
+          Sowas spart natürlich keine Stunde am Stück. Es nimmt eher diese kurzen Unterbrechungen raus, die man
+          irgendwann einfach akzeptiert. Genau das finde ich an KI-gestützter Softwareentwicklung praktisch: Das eigene
+          System wird formbarer. Wenn mich ein Ablauf stört, muss ich ihn nicht immer nur hinnehmen. Ich kann ihn oft
+          einfach ändern.
+        </p>
+        <p data-i18n="build.3" data-i18n-html>
+          Der Code liegt <a href="https://github.com/tjansn/NewFileCreator" target="_blank" rel="noopener">auf GitHub</a>,
+          MIT-lizenziert, falls jemand das Tool selbst nutzen oder in den Code schauen möchte.
+        </p>
+      </article>
+
+      <nav class="tj-post-nav" aria-label="Weitere Notizen" data-i18n-attr="aria-label:postnav.label">
+        <a href="pi-fusion.html" rel="prev"><span class="gl-meta" data-i18n="postnav.prev.meta">← Älterer Artikel</span><strong data-i18n="postnav.prev.title">pi-fusion: Wenn mehrere Modelle gemeinsam recherchieren</strong></a>
+        <a href="es-gibt-keinen-review-agenten.html" rel="next"><span class="gl-meta" data-i18n="postnav.next.meta">Neuerer Artikel →</span><strong data-i18n="postnav.next.title">Es gibt keinen Review-Agenten</strong></a>
+      </nav>
+    </main>
+
+    <footer class="gl-site-footer tj-footer">
+      <div class="tj-wrap py-10 text-sm">
+        <div class="flex flex-col gap-2">
+          <span style="font-family: var(--gl-font-sans); font-weight: 600; font-size: 1.05rem;">Tom Jansen</span>
+          <span class="gl-meta">Aachen · <span data-live-clock="">09:59</span> CET</span>
+          <div class="tj-footer__links-row">
+            <div class="commercial-footer-links">
+              <a href="https://www.linkedin.com/in/tjansn/" target="_blank" rel="noopener">LinkedIn</a>
+              <a href="https://github.com/tjansn" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://x.com/thomasjansn" target="_blank" rel="noopener">X</a>
+              <a href="../projekte.html" data-i18n="nav.projects">Projekte</a>
+              <a href="../notes/index.html" data-i18n="nav.notes">Notizen</a>
+              <a href="../impressum.html">Impressum</a>
+              <a href="../datenschutz.html" data-i18n="footer.privacyLink">Datenschutz</a>
+            </div>
+            <div class="gl-language-switcher" role="group" aria-labelledby="footer-language">
+              <span id="footer-language" data-i18n="footer.languageLabel" hidden>Sprache</span>
+              <div class="gl-language-switcher__controls">
+                <button type="button" class="gl-language-switcher__option" data-language-option="de" lang="de" aria-pressed="true">Deutsch</button>
+                <button type="button" class="gl-language-switcher__option" data-language-option="en" lang="en" aria-pressed="false">English</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script>
+      window.GL_DEFAULT_LANGUAGE = "de";
+      // German ships in the markup; commercial-pages.js reads it back as the "de" dictionary.
+      window.GL_PAGE_COPY = {
+        en: {
+          "nav.profile": "Profile",
+          "nav.projects": "Projects",
+          "nav.notes": "Notes",
+          "meta.title": "NewFileCreator: the new-file function macOS is missing | Tom Jansen Notes",
+          "meta.description": "NewFileCreator adds a new-file function to the macOS Finder: create text and Markdown files by right-click or shortcut without opening an editor or the Terminal.",
+          "meta.ogTitle": "NewFileCreator: the new-file function macOS is missing",
+          "meta.ogDescription": "A right-click in the Finder can create a new folder but not an empty file. NewFileCreator adds exactly that, including shortcuts for text and Markdown files.",
+          "article.eyebrow": "Open Source · macOS",
+          "article.title": "NewFileCreator: the <em>new-file function</em> macOS is missing",
+          "article.meta": "Tom Jansen · 22.06.2026 · 4 min read",
+          "article.github": "View on GitHub →",
+          "intro.1": "There is a gap in the Finder that has annoyed me for years: a right-click can create a new folder but not an empty file. For a quick note, a <code>todo.md</code> or a small config file you open some editor, save the file and hunt for the right folder. Or you use the Terminal. Both work, but for such an ordinary step it is just too much hassle.",
+          "intro.2": "<strong>NewFileCreator</strong> does exactly this step right in the Finder. The tool adds a <strong>“New File”</strong> entry to the context menu. Under it are currently the two file types I need all the time: text and Markdown. If <code>Untitled.txt</code> already exists, it becomes <code>Untitled 1.txt</code>. Nothing spectacular. But it is one interruption less.",
+          "users.h": "What you notice as a user",
+          "users.1": "The flow is meant to be as mundane as possible: right-click in a folder, pick <code>New File</code> and the file type, done. The file sits right there and is selected in the Finder. So you can rename or open it straight away instead of first working through a save dialog in an editor.",
+          "users.2": "For me the global keyboard shortcuts matter almost more. They also work where the context menu entry does not, the desktop for example. I press the shortcut and the new file lands in the folder the Finder currently has open.",
+          "pull.1": "Create a file right where the Finder is. That is all NewFileCreator needs to do.",
+          "why.h": "Why this needs a tool at all",
+          "why.1": "It sounds like a Finder setting Apple simply forgot. Technically it is a bit less direct. The Finder cannot be extended at will and macOS limits where apps may write. So NewFileCreator needs a Finder extension plus an app that does the actual work.",
+          "why.2": "For the user this split should stay as invisible as possible. You click <code>New File</code> in the Finder, choose text or Markdown and the file is there.",
+          "install.h": "Installation",
+          "install.1": "For local use you need macOS 14.0 or newer and Xcode 15 or newer. After that two commands are enough:",
+          "install.2": "The Makefile builds the app and sets it up locally so the entry shows up in the Finder. The individual steps are documented in the repo. After installing it should be enough to open a Finder window, right-click in a folder and pick <code>New File</code>.",
+          "limits.h": "What macOS still dictates",
+          "limits.1": "Two things stay visible. First, you have to enable the Finder extension once in System Settings. The app cannot quietly set that for the user, and that is fine. NewFileCreator walks you through the step, but the final click has to come from the user.",
+          "limits.2": "Second, the Finder itself decides where extension entries land in the context menu. So the <code>New File</code> entry does not sit next to the built-in “New Folder” but with the other extensions. macOS dictates that.",
+          "limits.3": "For global shortcuts macOS also asks for automation permission for the Finder the first time. You have to allow that once. After that the shortcuts should run without further prompts.",
+          "build.h": "Why I build things like this",
+          "build.1": "I like projects like this because the scope is clear: one annoying step, one limitation in macOS and a manageable way around it. Not a big product, more a tool for exactly this moment.",
+          "build.2": "Something like this does not save an hour at a stretch, of course. It removes those short interruptions you eventually just accept. That is what I find practical about AI-assisted software development: your own system becomes easier to shape. If a workflow bothers me I do not always have to put up with it. Often I can just change it.",
+          "build.3": "The code is <a href=\"https://github.com/tjansn/NewFileCreator\" target=\"_blank\" rel=\"noopener\">on GitHub</a> under the MIT license, in case someone wants to use the tool or look at the code.",
+          "postnav.label": "More notes",
+          "postnav.prev.meta": "← Older article",
+          "postnav.prev.title": "pi-fusion: when several models research together",
+          "postnav.next.meta": "Newer article →",
+          "postnav.next.title": "There is no review agent",
+          "footer.privacyLink": "Privacy",
+          "footer.languageLabel": "Language"
+        }
+      };
+    </script>
+    <script src="../commercial-pages.js"></script>
+    <script src="../archetype-pages.js"></script>
+  </body>
+</html>

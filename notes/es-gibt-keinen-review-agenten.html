@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="de" class="h-full no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Es gibt keinen Review-Agenten | Tom Jansen Notes</title>
+    <meta name="description" content="Warum Coding-Agent und Review-Agent meist nicht zwei Entitäten sind, sondern zwei Runs mit unterschiedlichen Kontexten – und warum das Wort Agent bei LLM-Systemen oft in die Irre führt." />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Es gibt keinen Review-Agenten" />
+    <meta property="og:description" content="Ein Ontologie-Versuch für KI-Agenten: Modell, Harness, Rolle, Kontext, Spec, Run, Session – und warum der saubere Kontext wichtiger ist als die Agenten-Persona." />
+    <meta name="theme-color" content="#f5f3f0" />
+    <link rel="icon" href="../tj-logo.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../gl-v2.css" />
+    <link rel="stylesheet" href="../tj.css" />
+    <script>
+      document.documentElement.classList.remove("no-js");
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "dark") document.documentElement.classList.add("dark");
+      function toggleTheme() {
+        const dark = document.documentElement.classList.toggle("dark");
+        localStorage.setItem("theme", dark ? "dark" : "light");
+      }
+    </script>
+    <!-- Plausible Analytics — self-hosted (Mac mini, Cloudflare Tunnel), cookieless -->
+    <script defer data-domain="tjansn.com" src="https://stats.gammalabs.cc/js/script.tagged-events.outbound-links.js"></script>
+    <script>window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) };</script>
+  </head>
+  <body class="commercial-shell">
+    <div class="gl-scroll-progress" data-scroll-progress aria-hidden="true"></div>
+
+    <header class="gl-site-header tj-header flex items-center justify-between py-4" data-site-header>
+      <a href="../index.html" class="flex items-center gap-2 font-semibold" aria-label="Tom Jansen, Startseite">
+        <span class="gl-site-title" style="font-family: var(--gl-font-sans); font-weight: 600; font-size: 1.15rem; letter-spacing: -0.02em;">Tom Jansen</span>
+      </a>
+      <nav class="tj-nav" aria-label="Hauptnavigation">
+        <a href="../index.html" data-i18n="nav.profile">Profil</a>
+        <a href="../projekte.html" data-i18n="nav.projects">Projekte</a>
+        <a href="../notes/index.html" aria-current="page" data-i18n="nav.notes">Notizen</a>
+      </nav>
+      <button type="button" onclick="toggleTheme()" class="gl-theme-toggle js-theme-toggle" aria-pressed="false" aria-label="Toggle theme">
+        <span class="gl-theme-toggle__icons" aria-hidden="true">
+          <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z" /></svg>
+        </span>
+        <span class="gl-theme-toggle__thumb" aria-hidden="true"></span>
+      </button>
+    </header>
+
+    <main class="px-6" style="padding-block: clamp(5rem, 10vw, 8rem) clamp(4rem, 8vw, 6rem);">
+      <article class="gl-prose">
+        <p class="gl-eyebrow">KI &amp; Agenten · Ontologie</p>
+        <h1>Es gibt keinen <em>Review-Agenten</em></h1>
+        <p class="gl-meta">Tom Jansen · 08.07.2026 · 12 Min. Lesezeit</p>
+        <div class="gl-rule-accent is-visible" style="margin-top: var(--gl-space-6);"></div>
+
+
+
+        <p>
+          Neulich habe ich die „Kent Beck“-Folge von Gergely Orosz’ Podcast <em>The Pragmatic Engineer</em> gehört,
+          übrigens ein großartiger Podcast. Kent erzählt darin, wie er beim Programmieren mit einem Thesaurus am
+          Schreibtisch saß und sehr ernsthaft darüber nachgedacht hat, die richtigen Wörter und Namen für die Dinge zu
+          finden, die er gerade programmiert.
+        </p>
+        <p>
+          So hat das hier angefangen: als Vokabelübung. Ich wollte endlich saubere Definitionen für die Wörter haben,
+          die alle rund um KI-Agenten benutzen: Goal, Task, Tool, Harness, Agent.
+        </p>
+        <p>
+          Aufschreiben, schärfen, fertig. Stattdessen endete die Reise damit, dass ich jetzt glaube, dass das Wort
+          „Agent“ selbst ein Problem ist, und dass wir für LLMs, oder breiter für agentische GenAI-Systeme, das falsche
+          Identitätskonzept übernommen haben.
+        </p>
+        <p>
+          Der Auslöser war das hier: Leute sprechen vom „Coding-Agenten“ und vom „Review-Agenten“, als wären das zwei
+          verschiedene Entitäten. Zwei Spezialisten, wie Kollegen. Aber schau dir an, was tatsächlich läuft: dasselbe
+          Modell, dasselbe Harness, oft buchstäblich derselbe Code. Der einzige Unterschied sind ein paar Absätze Prompt
+          und ein frisches Kontextfenster, wenn überhaupt. Wenn ein Kollege morgens Code schreibt und nachmittags Code
+          reviewt, sagen wir nicht, dass die Firma zwei Mitarbeiter hat. Wir sagen, eine Person hat zwei Jobs gemacht.
+          Warum zählen wir bei Agenten also anders?
+        </p>
+        <p>
+          <strong>Meine erste Antwort war:</strong> Was sie trennt, ist die Session, der angesammelte Kontext und so
+          etwas wie eine Motivation. Coding will Output produzieren, Review will Probleme finden. Das fühlte sich richtig
+          an, aber ich hatte es trotzdem noch nicht ganz richtig.
+        </p>
+
+        <h2>Das Modell ist ein Typ</h2>
+        <p>
+          Die menschliche Analogie funktioniert so: Ein kontinuierliches Selbst setzt verschiedene Hüte auf. Ich als
+          Entwickler und ich als Reviewer sind Rollen über einem einzigen Körper und Geist, einem einzigen
+          Gedächtnisstrom, einer einzigen Geschichte.
+        </p>
+        <p>
+          Jetzt such das entsprechende kontinuierliche Selbst unter dem Coding-Agenten und dem Review-Agenten. Da ist
+          nichts. Das Modell ist zustandslos. Jeder Aufruf startet bei denselben eingefrorenen Gewichten. Nimm den
+          Kontext weg und du bekommst keinen Agenten mit Amnesie. Du bekommst gar keinen Agenten, nur ein Modell.
+        </p>
+        <p><strong>Die Session trennt also nicht einfach zwei Individuen. Sie konstituiert das Individuum.</strong></p>
+        <p>
+          Niemand glaubt, dass zwei Prozesse, die dasselbe Binary ausführen, heimlich eine Entität sind. Und niemand
+          glaubt, dass das Binary selbst jemand ist. „Der Coding-Agent“ und „der Review-Agent“ sind dasselbe Ding, nur
+          mit anderen Argumenten gestartet.
+        </p>
+        <p>
+          Interessant ist: Es scheitert auch anders herum als normale Anthropomorphisierung. Menschliche Identität setzt
+          einen Körper, einen Geist, eine Geschichte voraus. Ein Modell bricht alle drei Verhältnisse: ein Modell, N
+          parallele Instanzen, null intrinsische Geschichte. Ein Modell ist weniger wie eine Person, die Rollen spielt,
+          und mehr wie eine Population, die man bei Bedarf instanziieren kann. Das wird noch klarer, wenn „Agent A“ für
+          Research-Arbeit oder Ähnliches eine Armee vage definierter Sub-Agenten aufruft.
+        </p>
+
+        <h2>Motivation ist nur Text</h2>
+        <p>
+          Ich dachte zuerst, der Unterschied zwischen Coder und Reviewer seien unterschiedliche Reward Functions. Das
+          ist zwar falsch, hat mich aber in die richtige Richtung geschoben und macht den Punkt noch stärker.
+        </p>
+        <p>
+          Bei der Inferenz gibt es keinen Reward. Nichts wird optimiert, nichts wird als Anreiz empfunden. Was wie
+          Motivation aussieht, ist Text im Kontext: „Schreibe Code, der die Tests besteht“ versus „Finde alles, was an
+          diesem Code falsch ist“. Der ganze Unterschied zwischen den zwei „Agenten“ sind ein paar Absätze Prompt. Welche
+          echten Dispositionen es auch gibt, Hilfsbereitschaft, Vorsicht, Stil, sie leben in den gemeinsamen Gewichten,
+          im Modell- oder Systemprompt, die zumindest über eine gewisse Zeit stabil bleiben, und sind damit zwischen
+          beiden identisch. Die Teile, die sich unterscheiden, sind genau die Teile mit dem schwächsten Anspruch darauf,
+          eine Entität zu sein: Wörter.
+        </p>
+
+        <h2>Wo die menschliche Analogie scheitert</h2>
+        <p>
+          Eine Person, die ihren eigenen Code reviewt, trägt ihre frühere Argumentation mit sich herum, ihre Commitments,
+          ihren Druck zur Selbstkonsistenz, ihren Schmerz und ihr Leiden und dadurch auch ihre Liebe zur eigenen Arbeit.
+        </p>
+        <p>
+          Eine Coding-Session, die ihren eigenen Output reviewen soll, hat ein sehr ähnliches Problem: Die Rechtfertigung
+          für jeden Shortcut steht direkt im Kontext, und der Review erbt sie. Eine frische Session hat das nicht. Sie
+          ist eine Zweitmeinung von einem Arzt, der die erste Diagnose nie gesehen hat.
+        </p>
+        <p><strong>Coder und Reviewer in getrennte Sessions zu splitten, ist Informationshygiene.</strong></p>
+        <p>
+          Bei Menschen kann man diese Unvoreingenommenheit nicht auf Knopfdruck herstellen. Bei Modellen kann man es,
+          kostenlos, in Millisekunden. Das Multi-Agent-Pattern ist also operativ richtig und ontologisch aufgeblasen
+          zugleich. Der Wert lag nie darin, dass es zwei Entitäten gibt. Der Wert liegt darin, dass es zwei Kontexte gibt
+          und einer davon sauber ist.
+        </p>
+        <p>
+          Man sieht den gegenteiligen Fehler draußen in der Praxis skalieren. Ich habe neulich einen Post von jemandem
+          gelesen, der 2024 25 Agenten gebaut hatte, jeweils mit Namen, Gesicht und Rollenprofil, wie Mitarbeiter: einer
+          für Marketing, einer für Support, einer für Reporting. Berater verkaufen genau das als „AI employees“, und es
+          resoniert, weil es vertraut wirkt. Ein Jahr später hatte er alles davon weggeworfen und betreibt jetzt einen
+          Agenten, der über hundert Prozesse ausführt.
+        </p>
+        <p>
+          Seine Diagnose: Wenn du KI als Mitarbeiter denkst, baust du ein Organigramm. Und mit vielen Agenten baust du
+          genau das wieder auf, was du eigentlich vermeiden wolltest. Silos, Wissensinseln, Koordinationsaufwand, bis du
+          den Überblick verlierst wie eine Firma, die zu schnell tausend Leute eingestellt hat.
+        </p>
+        <p>
+          Worauf er stattdessen gekommen ist, ist die Spec/Run-Unterscheidung, operativ entdeckt: ein Executor, der mit
+          Zugriff auf Daten, Prozesse, Tools und Regeln jede digitale Arbeit erledigen kann, beliebig oft, parallel. Lies
+          diese Liste nochmal. Daten, Prozesse, Tools, Regeln. Das sind Kontext, Workflows, Tools und Guardrails. Er hat
+          die 25 Arbeiter gelöscht und die vier Komponenten behalten, weil die 25 Agenten nie 25 Entitäten waren. Sie
+          waren ein Programm mit 25 Stellenbeschreibungen, und das Organigramm war der laufende Preis dafür, so zu tun,
+          als wäre es anders.
+        </p>
+        <p>
+          Wichtig ist aber, was die Löschung überlebt: Du spawnst trotzdem einen separaten Run, wenn du einen sauberen
+          Kontext brauchst, wie beim Reviewer oben. Die Lektion ist nicht „niemals splitten“. Die Lektion ist: Splitten
+          heißt Prozesse spawnen, nicht Personal einstellen. Und Prozesse brauchen keine Namen und Gesichter.
+        </p>
+
+        <h2>Der Modellwechsel-Test</h2>
+        <p>
+          Ein guter Testfall dafür, wo Identität eigentlich sitzt: Tausche mitten in einer Session das Modell aus, sagen
+          wir ein Upgrade von einer Modellgeneration auf die nächste, aber behalte den vollständigen Kontext.
+          <strong>Derselbe Agent oder nicht?</strong>
+        </p>
+        <p>
+          Mein Session-Kontinuitäts-Instinkt sagte ja: dasselbe Transkript, dieselben angesammelten Commitments,
+          dieselbe Trajektorie. Der offensichtliche Einwand sagt nein: Modelle unterscheiden sich in Grundfähigkeit,
+          Denktiefe und darin, wie sie sich bei derselben Temperature verhalten. Wenn der Agent die Ansammlung von allem
+          ist, was ihn definiert, dann ist das Modell klar ein Teil davon.
+        </p>
+        <p>Beide Antworten sind richtig, weil sie unterschiedliche Dinge tracken.</p>
+        <p>
+          Die eine verfolgt numerische Identität: „Ist es dasselbe fortdauernde Ding?“<br />
+          Die andere verfolgt qualitative Identität: „Hat es dieselben Eigenschaften?“
+        </p>
+        <p>
+          Bei Menschen fallen diese Dinge ständig auseinander. Ein Schlaganfall oder zwanzig Jahre Altern verändern
+          Fähigkeiten drastisch, und trotzdem sagen wir „dieselbe Person“, weil wir glauben, dass darunter eine Tatsache
+          liegt.
+        </p>
+        <p>
+          Bei Agenten gibt es diese Tatsache nicht. Identität wird nicht entdeckt, sie wird festgelegt. Eine
+          Buchhaltungskonvention, die wir danach wählen, was wir tracken müssen: Abrechnung, Caching,
+          Reproduzierbarkeit. Die eigentliche Frage ist also nicht „ändert ein Modellwechsel den Agenten“, sondern
+          „welche Konvention ist nützlich“.
+        </p>
+
+        <h2>Sortiere alles nach Lebensdauer</h2>
+        <p>Um diese Konvention zu finden, nimm jede Komponente und sortiere sie danach, wie lange sie lebt:</p>
+        <ol>
+          <li><strong>Gewichte und Architektur.</strong> Beim Training eingefroren. Ein neuer Trainingslauf ist ein neues Modell. Punkt.</li>
+          <li><strong>Harness-Code.</strong> Stabile, versionierte Software.</li>
+          <li><strong>Rollen, Skills, Prompts.</strong> Editierbare Artefakte, ändern sich durch menschliche Entscheidung.</li>
+          <li><strong>Memory Store.</strong> Wächst über Sessions hinweg an.</li>
+          <li><strong>Sampling-Konfiguration.</strong> Temperature, Thinking Budget. Pro Request gesetzt.</li>
+          <li><strong>Session-Kontext.</strong> Lebt für einen Run.</li>
+          <li><strong>Der Forward Pass.</strong> Aktivierungen, nach Millisekunden weg.</li>
+        </ol>
+
+        <h2>Ein Ding auf dieser Leiter</h2>
+        <p>
+          Das erklärt auch genauer, warum „Agent“ in die Irre führt. Es ist nicht nur, dass das Wort Kontinuität
+          voraussetzt, während diese Systeme ephemer sind. Personen-Nomen setzen voraus, dass Fähigkeit, Erinnerung und
+          Kontinuität in einem Substrat verschmolzen sind. Die Skills, Erinnerungen und Persistenz eines Menschen leben
+          im selben Gehirn und verändern sich zusammen. In einem KI-System sind sie auseinandergezogen: Fähigkeit ist in
+          Gewichten eingefroren, Verhalten wird durch Request-Konfiguration moduliert, Kontinuität wird durch Kontext
+          getragen, Memory wächst in Dateien an. Vier Dinge, vier verschiedene Lebensdauern. Kein Nomen, das sich
+          Personen-Semantik leiht, kann das beschreiben.
+        </p>
+
+        <h2>Lesen vs. Werden</h2>
+        <p>
+          Damit kommen wir zu den Memory-Features, mit denen jedes Agentenprodukt gerade wirbt. Sind sie Teil der
+          Identität des Agenten, so wie menschliche Erinnerung Teil unserer Identität ist?
+        </p>
+        <p>
+          Die wichtige Unterscheidung ist Lesen versus Werden. Wenn du dich an etwas erinnerst, verdrahtet der Abruf die
+          Gedächtnisspur physisch neu. Menschliches Gedächtnis aktualisiert dasselbe Substrat, das auch denkt. Das heißt:
+          Erinnerungen verändern sich beim Erinnern. Du wirst durch Erinnern verändert. Wenn ein Modell seine
+          Memory-Datei liest, ändert sich der Kontext, nicht der Leser. Die Gewichte nach dem Lesen sind bitidentisch mit
+          den Gewichten davor.
+        </p>
+        <p>
+          Diese Systeme haben also kein Gedächtnis im konstitutiven Sinn. Sie haben eine Prothese. Die ehrliche Analogie
+          ist Leonard aus <em>Memento</em>: keine Fähigkeit, neue Langzeiterinnerungen zu bilden, funktioniert komplett
+          über Notizen und Tattoos. Agenten-Memory ist wie Tattoos für einen zustandslosen Leser. Eine gut sortierte
+          Bibliothek neben dem Modell, keine Veränderung im Modell.
+        </p>
+        <p>
+          Aber daraus zu schließen, dass Memory außerhalb von Identität liegt, wäre falsch. In der Spec-Sicht passt es
+          sauber hinein: Der Memory Store ist Teil der Spec und individualisiert sie damit. Zwei Instanzen desselben
+          Modells mit unterschiedlichen Memory Stores verhalten sich unterschiedlich und sind unterschiedliche Specs.
+          Memory ist auf Spec-Ebene identitätskonstituierend, auf Modellebene aber nicht.
+        </p>
+        <p>
+          Die Ausnahme bestätigt die Regel: Fine-Tuning wäre echtes Werden, Erfahrung, die die Gewichte erreicht. Und
+          achte darauf, wie wir das Ergebnis nennen. Ein neues Modell. Wir geben still zu, dass eine Änderung am Substrat
+          Identität auf eine Weise verändert, wie das Anhängen an eine Bibliothek es nicht tut.
+        </p>
+
+        <h2>Hör auf zu fragen, was der Agent ist</h2>
+        <p>
+          Ein letzter Gedanke. Selbst eine vollständig fixierte Spec erzeugt kein identisches Verhalten. Bei Temperature
+          &gt; 0 gibt dir dieselbe Spec jedes Mal einen anderen Run, und in der Praxis ist selbst Temperature 0 nicht
+          perfekt deterministisch.
+        </p>
+        <p>
+          Meine praktische Regel nach all dem: Hör auf zu fragen, was der Agent ist. Frag stattdessen, was wahr sein
+          müsste, damit zwei Runs als dasselbe Ding zählen, wie dieses Ding von anderen Dingen getrennt ist, und benenne
+          dann genau das. Das ist weniger mystisch als zwei Kollegen. Und ich glaube, es ist deutlich nützlicher.
+        </p>
+
+        <h2>Die vollständige Ontologie</h2>
+        <p>
+          Hier ist, wo die Vokabelübung am Ende gelandet ist. So sortiert, dass jede Definition nur Begriffe verwendet,
+          die über ihr schon definiert sind. Wenn eine Ontologie sich nicht so linearisieren lässt, hat sie versteckte
+          Zirkularität.
+        </p>
+        <ol>
+          <li><strong>Auftraggeber</strong> — die Partei, für die das System arbeitet. Setzt das Ziel, erteilt die Befugnis zu handeln, verantwortet das Ergebnis.</li>
+          <li><strong>Ziel</strong> — eine Beschreibung des Weltzustands, den der Auftraggeber haben will. Das Erfolgskriterium.</li>
+          <li><strong>Umgebung</strong> — alles außerhalb des Systems, das beobachtet oder verändert werden kann. Dort lebt Zustand.</li>
+          <li><strong>Ereignis</strong> — eine unveränderliche Aufzeichnung, dass in der Umgebung etwas passiert ist, egal ob vom System verursacht oder nicht.</li>
+          <li><strong>Tool</strong> — eine Schnittstelle, über die die Umgebung beobachtet oder beeinflusst werden kann.</li>
+          <li><strong>Aktion</strong> — die kleinste Einheit des Tuns. Eine einzelne Nutzung eines Tools.</li>
+          <li><strong>Aufgabe</strong> — eine abgegrenzte Arbeitseinheit mit Done-Bedingung, die das Ziel voranbringt.</li>
+          <li><strong>Workflow</strong> — die Methode: die möglicherweise verzweigte Reihenfolge von Aktionen, durch die eine Aufgabe erledigt wird.</li>
+          <li><strong>Guardrail</strong> — eine vom Auftraggeber autorisierte Einschränkung, die Aktionen mit inakzeptablen Folgen blockiert.</li>
+          <li><strong>Modell</strong> — eingefrorene Gewichte. Der Reasoning-Kern, der Kontext liest und die nächste Aktion auswählt. Ein neuer Trainingslauf ist ein neues Modell.</li>
+          <li><strong>Konfiguration</strong> — die Regler pro Request: Temperature, Thinking Budget, verfügbare Tools. Verhaltensmodifikatoren, keine Substanz.</li>
+          <li><strong>Skill</strong> — paketiertes Know-how, um Tools zu benutzen und Workflows kompetent auszuführen.</li>
+          <li><strong>Kontext</strong> — alles, was zum Entscheidungszeitpunkt bekannt ist: Ziel, beobachteter Zustand, Geschichte von Aktionen und Ereignissen, Einschränkungen.</li>
+          <li><strong>Memory</strong> — eine Bibliothek, auf die das System zeigt. Wächst über Runs hinweg an. Wird gelesen, nie absorbiert.</li>
+          <li><strong>Rolle</strong> — ein Ziel plus eine Perspektive, als Kontext verpackt. „Coder“ und „Reviewer“ sind Rollen. Eine Stellenbeschreibung, kein Arbeiter.</li>
+          <li><strong>Loop</strong> — der Zyklus, der läuft, bis das Ziel erreicht ist oder eine Guardrail ihn stoppt: Ereignisse beobachten, Kontext aktualisieren, das Modell eine Aktion wählen lassen, sie ausführen, wieder beobachten.</li>
+          <li><strong>Harness</strong> — die Maschinerie um das Modell herum, die den Loop ausführt: Kontext einspeisen, Aktionen über Tools ausführen, Guardrails durchsetzen.</li>
+          <li><strong>Spec</strong> — das reproduzierbare Rezept: Modell, Konfiguration, Harness-Version, Rolle, Skills, Memory-Pointer. Das stabile Ding. Änderungen bekommen Versionssemantik.</li>
+          <li><strong>Run</strong> — eine Ausführung einer Spec, die Kontext ansammelt. Das ephemere Ding.</li>
+          <li><strong>Session</strong> — der Kontext, den ein Run ansammelt. Die einzige Kontinuität im ganzen System.</li>
+          <li><strong>Agent</strong> — Kurzform für einen Run einer Spec. Praktische Entitäten-Sprache, nützlich so wie „der Prozess wartet auf einen Lock“ nützlich ist, irreführend so wie „das Binary will etwas“ irreführend wäre.</li>
+        </ol>
+        <p>
+          Zwei strukturelle Notizen zur Liste. Der Workflow ist absichtlich nicht Teil der Agent-Definition. Ein fähiges
+          System generiert seinen Workflow zur Laufzeit, also ist der Workflow Output, nicht Anatomie. Und der Loop lebt
+          im Harness: Das Harness ist der Körper, der Loop ist sein Herzschlag.
+        </p>
+      </article>
+
+      <nav class="tj-post-nav" aria-label="Weitere Notizen">
+        <a href="newfilecreator.html" rel="prev"><span class="gl-meta">← Älterer Artikel</span><strong>NewFileCreator: Die Neue-Datei-Funktion, die macOS fehlt</strong></a>
+        <a href="ds4-draco-optimierung.html" rel="next"><span class="gl-meta">Neuerer Artikel →</span><strong>DS4 auf DRACO: von 42,64 auf 52,36 %</strong></a>
+      </nav>
+    </main>
+
+    <footer class="gl-site-footer tj-footer">
+      <div class="tj-wrap py-10 text-sm">
+        <div class="flex flex-col gap-2">
+          <span style="font-family: var(--gl-font-sans); font-weight: 600; font-size: 1.05rem;">Tom Jansen</span>
+          <span class="gl-meta">Aachen · <span data-live-clock="">09:59</span> CET</span>
+          <div class="tj-footer__links-row">
+            <div class="commercial-footer-links">
+              <a href="https://www.linkedin.com/in/tjansn/" target="_blank" rel="noopener">LinkedIn</a>
+              <a href="https://github.com/tjansn" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://x.com/thomasjansn" target="_blank" rel="noopener">X</a>
+              <a href="../projekte.html" data-i18n="nav.projects">Projekte</a>
+              <a href="../notes/index.html" data-i18n="nav.notes">Notizen</a>
+              <a href="../impressum.html">Impressum</a>
+              <a href="../datenschutz.html" data-i18n="footer.privacyLink">Datenschutz</a>
+            </div>
+            <div class="gl-language-switcher" role="group" aria-labelledby="footer-language">
+              <span id="footer-language" data-i18n="footer.languageLabel" hidden>Sprache</span>
+              <div class="gl-language-switcher__controls">
+                <button type="button" class="gl-language-switcher__option" data-language-option="de" lang="de" aria-pressed="true">Deutsch</button>
+                <button type="button" class="gl-language-switcher__option" data-language-option="en" lang="en" aria-pressed="false">English</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="../commercial-pages.js"></script>
+    <script src="../archetype-pages.js"></script>
+  </body>
+</html>

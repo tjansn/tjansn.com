@@ -1,0 +1,772 @@
+<!doctype html>
+<html lang="de" class="h-full no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DS4 auf DRACO: von 42,64 auf 52,36 % | Tom Jansen</title>
+    <meta name="description" content="Auf demselben 20-Aufgaben-Subset steigt DS4 von 42,64 auf 52,36 %. Der Werkstattbericht zu Cache-Fixes, Quant und Cap, Messdrift und DSpark." />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="DS4 auf DRACO: von 42,64 auf 52,36 %" />
+    <meta property="og:description" content="Was drei Wochen Arbeit am Harness gebracht haben: Cache-Fixes, Quant-A/B, Messdrift und ein gescheiterter DSpark-Test." />
+    <meta name="theme-color" content="#f5f3f0" />
+    <link rel="icon" href="../tj-logo.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../gl-v2.css" />
+    <link rel="stylesheet" href="../tj.css" />
+    <style>
+      .gl-prose pre { font-family: var(--gl-font-mono); font-size: 0.8rem; line-height: 1.6; background: var(--gl-color-oat); border: 1px solid var(--gl-border-tone); border-radius: 8px; padding: var(--gl-space-4); overflow-x: auto; margin: var(--gl-space-5) 0; }
+      .dark .gl-prose pre { background: rgba(245, 243, 240, 0.04); }
+      .gl-prose pre code { font-family: inherit; font-size: inherit; background: none; padding: 0; white-space: pre; }
+      .benchmark-kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gl-space-4); margin: var(--gl-space-8) 0; }
+      .benchmark-kpi { border: 1px solid var(--gl-card-border-color); border-radius: var(--gl-radius-card); background: var(--gl-card-bg); padding: var(--gl-space-5); }
+      .benchmark-kpi strong { display: block; font-family: var(--gl-font-mono); font-size: clamp(1.25rem, 3vw, 1.9rem); line-height: 1.1; color: var(--gl-color-slate); }
+      .dark .benchmark-kpi strong { color: var(--gl-color-porcelain); }
+      .benchmark-kpis--pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .benchmark-kpi span { display: block; margin-top: var(--gl-space-2); color: var(--gl-text-secondary); font-size: 0.88rem; line-height: 1.5; }
+      .benchmark-table-wrap { overflow-x: auto; border: 1px solid var(--gl-card-border-color); border-radius: var(--gl-radius-card); margin: var(--gl-space-6) 0; }
+      .benchmark-table-wrap table { min-width: 720px; margin: 0; }
+      .benchmark-table-wrap .gl-data-table th, .benchmark-table-wrap .gl-data-table td { vertical-align: top; }
+      .benchmark-table-wrap .gl-data-table td:nth-child(n+3), .benchmark-table-wrap .gl-data-table th:nth-child(n+3) { font-variant-numeric: tabular-nums; }
+      .benchmark-figure { margin: var(--gl-space-8) 0; }
+      .benchmark-figure figcaption { margin-top: var(--gl-space-3); color: var(--gl-text-secondary); font-size: 0.88rem; line-height: 1.5; }
+      .benchmark-note { border-left: 3px solid var(--gl-color-accent-600); padding-left: var(--gl-space-4); color: var(--gl-text-secondary); }
+      .dark .benchmark-note { border-left-color: var(--gl-color-accent-100); }
+      .benchmark-tabledetails { margin: calc(-1 * var(--gl-space-5)) 0 var(--gl-space-8); }
+      .benchmark-tabledetails summary { cursor: pointer; font-family: var(--gl-font-mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gl-text-secondary); }
+      .benchmark-tablecaption { color: var(--gl-text-secondary); font-size: 0.82rem; margin-top: var(--gl-space-2); }
+      .bchart { --ink: var(--gl-color-slate); --muted: var(--gl-color-midtone); --accent: var(--gl-color-accent); --accent2: var(--gl-color-accent-600);
+        --track: color-mix(in srgb, var(--gl-color-midtone) 13%, transparent); --grid: color-mix(in srgb, var(--gl-color-midtone) 20%, transparent);
+        --dot-ring: var(--gl-card-bg); border: 1px solid var(--gl-card-border-color); border-radius: var(--gl-radius-card); background: var(--gl-card-bg); padding: var(--gl-space-6) var(--gl-space-6) var(--gl-space-5); }
+      .dark .bchart { --ink: var(--gl-color-porcelain); --muted: var(--gl-text-secondary); --accent: var(--gl-color-accent-100); --accent2: var(--gl-color-accent);
+        --track: color-mix(in srgb, var(--gl-color-porcelain) 12%, transparent); --grid: color-mix(in srgb, var(--gl-color-porcelain) 16%, transparent);
+        --dot-ring: var(--gl-color-midnight); background: rgba(245, 243, 240, 0.02); }
+      .bchart__title { font-family: var(--gl-font-mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: var(--gl-space-5); }
+      .bchart__legend { display: flex; flex-wrap: wrap; gap: var(--gl-space-2) var(--gl-space-5); margin-top: var(--gl-space-5); font-family: var(--gl-font-mono); font-size: 0.7rem; color: var(--muted); }
+      .bchart__legend span { display: inline-flex; align-items: center; gap: 0.5em; }
+      .bchart__sw { width: 0.85em; height: 0.85em; border-radius: 2px; flex: none; }
+      .bchart__sw--ref { background: var(--muted); opacity: 0.5; }
+      .bchart__sw--ours { background: var(--accent); }
+      .bchart__sw--hollow { border: 1.5px solid var(--muted); background: var(--dot-ring); border-radius: 50%; }
+      .bchart__sw--solid { background: var(--accent); border-radius: 50%; }
+      .bbar { display: grid; gap: var(--gl-space-3); }
+      .bbar__group { font-family: var(--gl-font-mono); font-size: 0.64rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: var(--gl-space-4) 0 var(--gl-space-1); }
+      .bbar__group:first-child { margin-top: 0; }
+      .bbar__row { display: grid; grid-template-columns: minmax(8rem, 13rem) 1fr 4.75rem; align-items: center; gap: var(--gl-space-3) var(--gl-space-4); }
+      .bbar__label { font-size: 0.82rem; line-height: 1.25; color: var(--ink); }
+      .bbar__track { position: relative; height: 1.35rem; background: var(--track); border-radius: 3px; overflow: hidden; }
+      .bbar__fill { position: absolute; inset: 0 auto 0 0; border-radius: 3px 0 0 3px; }
+      .bbar__fill--ref { background: var(--muted); opacity: 0.5; }
+      .bbar__fill--ours { background: var(--accent); }
+      .bbar__val { font-family: var(--gl-font-mono); font-size: 0.8rem; color: var(--ink); text-align: right; min-width: 4.5rem; font-variant-numeric: tabular-nums; }
+      .bbar__axis { display: grid; grid-template-columns: minmax(8rem, 13rem) 1fr 4.75rem; gap: var(--gl-space-3) var(--gl-space-4); margin-top: var(--gl-space-3); }
+      .bbar__axis-ticks { grid-column: 2; display: flex; justify-content: space-between; padding-top: var(--gl-space-2); border-top: 1px solid var(--grid); font-family: var(--gl-font-mono); font-size: 0.64rem; color: var(--muted); }
+      .bdumb { display: grid; gap: var(--gl-space-4); }
+      .bdumb__row { display: grid; grid-template-columns: minmax(8rem, 12rem) 1fr auto; align-items: center; gap: var(--gl-space-4); }
+      .bdumb__label { font-size: 0.82rem; line-height: 1.2; color: var(--ink); font-family: var(--gl-font-mono); }
+      .bdumb__cov { display: block; font-family: var(--gl-font-mono); font-size: 0.66rem; color: var(--muted); margin-top: 2px; }
+      .bdumb__track { position: relative; height: 1.1rem; }
+      .bdumb__seg { position: absolute; top: 50%; height: 2px; transform: translateY(-50%); background: var(--grid); }
+      .bdumb__dot { position: absolute; top: 50%; width: 11px; height: 11px; border-radius: 50%; transform: translate(-50%, -50%); }
+      .bdumb__dot--hi { background: var(--dot-ring); border: 1.5px solid var(--muted); }
+      .bdumb__dot--lo { background: var(--accent); }
+      .bdumb__val { font-family: var(--gl-font-mono); font-size: 0.76rem; color: var(--muted); white-space: nowrap; text-align: right; font-variant-numeric: tabular-nums; }
+      .bdumb__val b { color: var(--accent); font-weight: 600; }
+      .bdumb__val .arw { opacity: 0.55; padding: 0 0.15em; }
+      .csvg { width: 100%; height: auto; display: block; }
+      .csvg .cgrid { stroke: var(--grid); stroke-width: 1; }
+      .csvg .cbase { stroke: var(--muted); stroke-width: 1; opacity: 0.6; }
+      .csvg .ctick, .csvg .clbl { font-family: var(--gl-font-mono); font-size: 10.5px; fill: var(--muted); }
+      .csvg .clbl { font-size: 11px; }
+      .csvg .cline { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+      .csvg .cdot { stroke: var(--dot-ring); stroke-width: 2; }
+      .csvg .cs-ink.cline, .csvg .cs-ink.cdot { stroke: var(--ink); } .csvg .cs-ink.cdot { fill: var(--ink); stroke: var(--dot-ring); } .csvg text.cs-ink { fill: var(--ink); }
+      .csvg .cs-mut.cline { stroke: var(--muted); opacity: 0.75; } .csvg .cs-mut.cdot { fill: var(--muted); } .csvg text.cs-mut { fill: var(--muted); }
+      .csvg .cs-acc.cline { stroke: var(--accent); } .csvg .cs-acc.cdot { fill: var(--accent); } .csvg text.cs-acc { fill: var(--accent); }
+      .csvg .cs-acc2.cline { stroke: var(--accent2); } .csvg .cs-acc2.cdot { fill: var(--accent2); } .csvg text.cs-acc2 { fill: var(--accent2); }
+      @media (max-width: 620px) {
+        .bbar__row { grid-template-columns: 1fr auto; } .bbar__row .bbar__label { grid-column: 1 / -1; }
+        .bbar__axis { grid-template-columns: 1fr auto; } .bbar__axis-ticks { grid-column: 1; }
+        .bdumb__row { grid-template-columns: 1fr; } .bdumb__val { text-align: left; }
+      }
+      @media (max-width: 900px) { .benchmark-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+      @media (max-width: 620px) { .benchmark-kpis { grid-template-columns: 1fr; } }
+    </style>
+    <script>
+      document.documentElement.classList.remove("no-js");
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "dark") document.documentElement.classList.add("dark");
+      function toggleTheme() {
+        const dark = document.documentElement.classList.toggle("dark");
+        localStorage.setItem("theme", dark ? "dark" : "light");
+      }
+    </script>
+    <!-- Plausible Analytics — self-hosted (Mac mini, Cloudflare Tunnel), cookieless -->
+    <script defer data-domain="tjansn.com" src="https://stats.gammalabs.cc/js/script.tagged-events.outbound-links.js"></script>
+    <script>window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) };</script>
+  </head>
+  <body class="commercial-shell">
+    <div class="gl-scroll-progress" data-scroll-progress aria-hidden="true"></div>
+
+    <header class="gl-site-header tj-header flex items-center justify-between py-4" data-site-header>
+      <a href="../index.html" class="flex items-center gap-2 font-semibold" aria-label="Tom Jansen, Startseite">
+        <span class="gl-site-title" style="font-family: var(--gl-font-sans); font-weight: 600; font-size: 1.15rem; letter-spacing: -0.02em;">Tom Jansen</span>
+      </a>
+      <nav class="tj-nav" aria-label="Hauptnavigation">
+        <a href="../index.html" data-i18n="nav.profile">Profil</a>
+        <a href="../projekte.html" data-i18n="nav.projects">Projekte</a>
+        <a href="../notes/index.html" aria-current="page" data-i18n="nav.notes">Notizen</a>
+      </nav>
+      <button type="button" onclick="toggleTheme()" class="gl-theme-toggle js-theme-toggle" aria-pressed="false" aria-label="Toggle theme">
+        <span class="gl-theme-toggle__icons" aria-hidden="true">
+          <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z" /></svg>
+        </span>
+        <span class="gl-theme-toggle__thumb" aria-hidden="true"></span>
+      </button>
+    </header>
+
+    <main class="px-6" style="padding-block: clamp(5rem, 10vw, 8rem) clamp(4rem, 8vw, 6rem);">
+      <article class="gl-prose">
+<p class="gl-eyebrow">Benchmark · KI-Tooling · Werkstattbericht</p>
+<h1>DS4 auf DRACO: von 42,64 auf 52,36&nbsp;%</h1>
+<p class="gl-meta">Tom Jansen · <time datetime="2026-07-10">10.07.2026</time> · 25 Min. Lesezeit</p>
+<div class="gl-rule-accent is-visible" style="margin-top: var(--gl-space-6);"></div>
+
+
+
+<div class="gl-cta-group" style="justify-content: flex-start;">
+  <a class="gl-button gl-button--outline" href="draco-pi-fusion-benchmark.html">Teil 1: der Juni-Werkstattbericht →</a>
+</div>
+
+<p>Nach dem <a href="draco-pi-fusion-benchmark.html">Juni-Lauf</a> sah es zuerst so aus, als läge das lokale DS4 deutlich hinter GPT-5.5. Unter demselben strengen Judge blieben davon aber nur 1,19&nbsp;Prozentpunkte übrig: 48,18 gegen 49,37&nbsp;%, allerdings mit einem Judge-Lauf bei DS4 und drei bei GPT-5.5. Damit war für mich die Frage nicht mehr, ob das Modell genug weiß. Ich wollte wissen, wo der Harness die Punkte verliert.</p>
+
+<p>Die Antwort war ziemlich konkret: Ein Tool-Aufruf kippte einmal 15,7&nbsp;MB in den Kontext. Der KV-Cache kam auf 3.102 Verdrängungen bei nur 76 Treffern. Die höchste Denkstufe war gar nicht erreichbar. Und das Zeitlimit produzierte leere Antworten, obwohl im Sitzungsprotokoll teilweise schon ein brauchbarer Bericht lag.</p>
+
+<p>In den folgenden drei Wochen habe ich diese Stellen repariert und in kontrollierten Läufen gemessen. Der neue Stack lag auf denselben 20 Aufgaben rund 6,8&nbsp;pp über dem Juni-Wert. Wegen der anderen Pi-Version, der Harness-Änderungen und einem statt drei Judge-Läufen ist das ein Vorher/Nachher-Wert, keine isolierte Kausalwirkung. Die kombinierte Konfiguration aus präziserem Quant und höherem Cap lag weitere 2,9&nbsp;pp darüber. Insgesamt stieg DS4 auf dem bewusst harten Subset von 42,64 auf 52,36&nbsp;%.</p>
+
+<p class="benchmark-note">Das ist kein offizieller DRACO-Wert und kein Vergleich mit dem OpenRouter-Leaderboard. Es ist ein interner Mess-Harness, mit dem ich meine eigenen Konfigurationen vergleichen kann. Alle direkten Vergleiche unten nutzen denselben strengen Judge (Pi <code>openai-codex/gpt-5.5:xhigh</code>, criterion-Modus). Wo sich die Zahl der Judge-Läufe oder der Harness unterscheiden, schreibe ich es dazu.</p>
+
+<div class="benchmark-kpis">
+  <div class="benchmark-kpi"><strong>+9,73&nbsp;pp</strong><span>aus den ungerundeten Werten auf demselben 20-Aufgaben-Subset: 42,64&nbsp;% (Juni, Judge ×1) → 52,36&nbsp;% (9.7., Judge ×3).</span></div>
+  <div class="benchmark-kpi"><strong>48,18 vs. 49,37</strong><span>DS4-256k mit Empty-Retry (Judge ×1) gegen GPT-5.5 direkt (Judge ×3), 100 Aufgaben und derselbe strenge Judge.</span></div>
+  <div class="benchmark-kpi"><strong>3.102 : 76</strong><span>KV-Cache-Verdrängungen zu Treffern auf dem 8-GB-Default-Budget. Ein Treffer: 35 bis 55&nbsp;ms. Der vermiedene 61k-Re-Prefill: 236&nbsp;s.</span></div>
+  <div class="benchmark-kpi"><strong>&minus;3,3&nbsp;%</strong><span>DSpark mit Basis-Draft gegen das abliterierte Quant: keine Beschleunigung, sondern ein kleiner Verlust.</span></div>
+</div>
+
+<h2>Wie ich die Zahlen vergleiche</h2>
+
+<p>Einige Zahlen sehen ähnlich aus, dürfen aber nicht gegeneinander gerechnet werden. Für die Tabellen gelten deshalb diese Regeln:</p>
+
+<ul>
+  <li><strong>Score:</strong> DRACO bewertet jede Antwort gegen eine versteckte Rubrik, im Schnitt mit 39,34 binären Kriterien pro Aufgabe und positiven wie negativen Gewichten. Der Judge entscheidet je Kriterium MET oder UNMET; das Ergebnis wird auf 0 bis 100&nbsp;% normalisiert. Eine leere Antwort bekommt exakt 0&nbsp;%.</li>
+  <li><strong>Judge:</strong> Dieselben GPT-5.5-Antworten erreichen 61,77&nbsp;% mit gpt-4.1-mini und 49,37&nbsp;% mit dem strengen GPT-5.5-Judge. Nur der Judge wurde ausgetauscht. Absolute Werte über diese Grenze hinweg vergleiche ich nicht. Die Juli-Arme liefen mit dem strengen Judge im criterion-Modus und drei Judge-Läufen. Die DS4-Zahlen aus dem Juni haben nur einen Lauf und sind entsprechend markiert.</li>
+  <li><strong>20-Aufgaben-Subset:</strong> Ich habe es am 2.7. eingefroren: 6 pathologische Aufgaben aus den Juni-Totalausfällen, 4 aus schwachen Domänen, 4 aus starken und 6 aus dem Mittelfeld. Es ist absichtlich härter als der 100er-Schnitt. Ein Subset-Wert ist deshalb nicht mit einem 100-Aufgaben-Wert vergleichbar.</li>
+  <li><strong>Cap:</strong> Das ist das harte Zeitlimit pro Aufgabe: im Juni 7.200&nbsp;s, ab 2.7. 2.100&nbsp;s und ab 8.7. 2.500&nbsp;s. Läuft eine Aufgabe hinein, bricht der Runner ab und versucht Salvage.</li>
+  <li><strong>Salvage:</strong> Der Runner sucht zuerst den letzten brauchbaren Bericht im Sitzungsprotokoll. Wenn dort nichts liegt, setzt er die Session einmal mit einer erzwungenen Finalisierung fort. Ein geretteter Bericht zählt als Antwort. Schlägt auch das fehl, bleiben 0&nbsp;%.</li>
+  <li><strong>Bench-Zahlen:</strong> Prefill und Decode in t/s stammen aus <code>ds4-bench</code> mit identischem Prompt und identischen Parametern. Seit dem 6.7. zählen für mich nur noch verschränkt gemessene Arme, also abwechselnde Läufe im gleichen Messfenster und mit möglichst ähnlichem Warmzustand.</li>
+</ul>
+
+<h2>Im Juni war der Judge größer als der Modellabstand</h2>
+
+<p>Bevor ich am Stack weitergebaut habe, musste ich die Juni-Zahlen erst richtig sortieren:</p>
+
+<figure class="benchmark-figure" id="fig-scoretrail">
+  <div class="bchart" role="img" aria-label="Score-Übersicht: Auf 100 Aufgaben erreichte GPT-5.5 direkt 61,77 Prozent mit gpt-4.1-mini als Judge und 49,37 Prozent mit dem strengen GPT-5.5-Judge. DS4-256k erreichte 43,05 Prozent unrepariert, 48,18 Prozent mit Empty-Retry, die reparierte Fusion 48,29 Prozent. Auf dem 20-Aufgaben-Subset: Juni-Stand 42,64 Prozent, neuer Stack 49,44 Prozent, Steering aus 47,98 Prozent, 91-GB-Quant bei Cap 2100 48,70 Prozent, bei Cap 2500 52,36 Prozent.">
+    <p class="bchart__title">Score-Übersicht &middot; strenger GPT-5.5-Judge, criterion-Modus (Ausnahme markiert)</p>
+    <div class="bbar">
+      <p class="bbar__group">100 Aufgaben &middot; Juni</p>
+<div class="bbar__row">
+  <span class="bbar__label">GPT-5.5 direkt, Judge gpt-4.1-mini</span>
+  <span class="bbar__track"><span class="bbar__fill bbar__fill--ref" style="width: 61.77%;"></span></span>
+  <span class="bbar__val">61,77&nbsp;%</span>
+</div>
+<div class="bbar__row">
+  <span class="bbar__label">GPT-5.5 direkt, strenger Judge</span>
+  <span class="bbar__track"><span class="bbar__fill bbar__fill--ref" style="width: 49.37%;"></span></span>
+  <span class="bbar__val">49,37&nbsp;%</span>
+</div>
+<div class="bbar__row">
+  <span class="bbar__label">DS4-256k unrepariert (Judge ×1)</span>
+  <span class="bbar__track"><span class="bbar__fill bbar__fill--ours" style="width: 43.05%;"></span></span>
+  <span class="bbar__val">43,05&nbsp;%</span>
+</div>
+<div class="bbar__row">
+  <span class="bbar__label">DS4-256k + Empty-Retry (Judge ×1)</span>
+  <span class="bbar__track"><span class="bbar__fill bbar__fill--ours" style="width: 48.18%;"></span></span>
+  <span class="bbar__val">48,18&nbsp;%</span>
+</div>
+<div class="bbar__row">
+  <span class="bbar__label">Fusion DS4/Gemma/Qwen repariert</span>
+  <span class="bbar__track"><span class="bbar__fill bbar__fill--ours" style="width: 48.29%;"></span></span>
+  <span class="bbar__val">48,29&nbsp;%</span>
+</div>
+      <p class="bbar__group">20-Aufgaben-Subset (bewusst hart) &middot; Juli</p>
+<div class="bbar__row">
+  <span class="bbar__label">Juni-Stand, dieselben 20 Aufgaben</span>
+  <span class="bbar__track"><span class="bbar__fill bbar__fill--ref" style="width: 42.64%;"></span></span>
+  <span class="bbar__val">42,64&nbsp;%</span>
+</div>
+<div class="bbar__row">
+  <span class="bbar__label">Neuer Stack, 87-GB-Modell (3.7.)</span>
+  <span class="bbar__track"><span class="bbar__fill bbar__fill--ours" style="width: 49.44%;"></span></span>
+  <span class="bbar__val">49,44&nbsp;%</span>
+</div>
+<div class="bbar__row">
+  <span class="bbar__label">Steering aus (ffn=0, 4.7.)</span>
+  <span class="bbar__track"><span class="bbar__fill bbar__fill--ours" style="width: 47.98%;"></span></span>
+  <span class="bbar__val">47,98&nbsp;%</span>
+</div>
+<div class="bbar__row">
+  <span class="bbar__label">91-GB-Quant, Cap 2100 s (8.7.)</span>
+  <span class="bbar__track"><span class="bbar__fill bbar__fill--ours" style="width: 48.70%;"></span></span>
+  <span class="bbar__val">48,70&nbsp;%</span>
+</div>
+<div class="bbar__row">
+  <span class="bbar__label">91-GB-Quant, Cap 2500 s (9.7.)</span>
+  <span class="bbar__track"><span class="bbar__fill bbar__fill--ours" style="width: 52.36%;"></span></span>
+  <span class="bbar__val">52,36&nbsp;%</span>
+</div>
+      <div class="bbar__axis"><div class="bbar__axis-ticks"><span>0</span><span>25</span><span>50</span><span>75</span><span>100&nbsp;%</span></div></div>
+    </div>
+    <div class="bchart__legend"><span><i class="bchart__sw bchart__sw--ref"></i>Referenz / Judge-Variante</span><span><i class="bchart__sw bchart__sw--ours"></i>DS4-Läufe</span></div>
+  </div>
+  <figcaption>Die 100-Aufgaben-Werte und die Subset-Werte sind nicht direkt vergleichbar. Das Subset ist bewusst hart zusammengestellt und enthält pathologische, schwache, starke und mittlere Aufgaben. Vergleiche gelten nur innerhalb einer Gruppe. DS4-256k-Werte: 1 Judge-Lauf statt 3.</figcaption>
+</figure>
+<details class="benchmark-tabledetails"><summary>Score-Übersicht als Tabelle</summary>
+<div class="benchmark-table-wrap"><table class="gl-data-table" aria-label="Score-Übersicht"><thead><tr><th scope="col">Gruppe</th><th scope="col">Konfiguration</th><th scope="col">Score %</th><th scope="col">Judge-Läufe</th></tr></thead><tbody>
+<tr><td>100 Aufgaben</td><td>GPT-5.5 direkt, Judge gpt-4.1-mini</td><td>61,77</td><td>3</td></tr>
+<tr><td>100 Aufgaben</td><td>GPT-5.5 direkt, strenger Judge</td><td>49,37</td><td>3</td></tr>
+<tr><td>100 Aufgaben</td><td>DS4-256k unrepariert</td><td>43,05</td><td>1</td></tr>
+<tr><td>100 Aufgaben</td><td>DS4-256k + Empty-Retry</td><td>48,18</td><td>1</td></tr>
+<tr><td>100 Aufgaben</td><td>Fusion DS4/Gemma/Qwen repariert</td><td>48,29</td><td>3</td></tr>
+<tr><td>20er-Subset</td><td>Juni-Stand, dieselben 20 Aufgaben</td><td>42,64</td><td>1</td></tr>
+<tr><td>20er-Subset</td><td>Neuer Stack, 87-GB-Modell (3.7.)</td><td>49,44</td><td>3</td></tr>
+<tr><td>20er-Subset</td><td>Steering aus (ffn=0, 4.7.)</td><td>47,98</td><td>3</td></tr>
+<tr><td>20er-Subset</td><td>91-GB-Quant, Cap 2100 s (8.7.)</td><td>48,70</td><td>3</td></tr>
+<tr><td>20er-Subset</td><td>91-GB-Quant, Cap 2500 s (9.7.)</td><td>52,36</td><td>3</td></tr>
+</tbody></table></div><p class="benchmark-tablecaption">Gruppen nicht mischen: 100-Aufgaben-Läufe und Subset-Läufe messen verschiedene Aufgabenmengen. Alle Werte strenger GPT-5.5-Judge außer Zeile 1 (gpt-4.1-mini).</p></details>
+
+<p>Die beiden GPT-5.5-Balken zeigen das eigentliche Problem: dieselben Antworten, 12,4&nbsp;pp Unterschied, nur weil der Judge wechselt. Mit dem gleichen strengen Judge lag DS4-256k nach dem Empty-Retry noch 1,19&nbsp;pp hinter GPT-5.5 direkt und gewann 52 von 100 Aufgaben im direkten Vergleich. Der Vergleich ist wegen eines Judge-Laufs bei DS4 gegen drei bei GPT-5.5 nicht perfekt, aber er war gut genug für die nächste Entscheidung: Der größte sichtbare Verlust lag nicht im Modellwissen. Er lag in 12 leeren Antworten, Tool-Schleifen und Kontextüberläufen.</p>
+
+<h2>Am 2. Juli habe ich den Lauf auseinandergenommen</h2>
+
+<p>Ich habe Server, Adapter, Ergebnisse, Fusion und Harness parallel von acht Agenten untersuchen lassen: fünf lasen Code und Laufartefakte, zwei prüften die Dokumentation und einer führte die Befunde zusammen. Daraus kam diese Fehlerliste, sortiert nach den wahrscheinlich verlorenen Punkten:</p>
+
+<div class="benchmark-table-wrap"><table class="gl-data-table" aria-label="Diagnose der verlorenen Punkte">
+<thead><tr><th scope="col">Befund</th><th scope="col">Beleg</th><th scope="col">Kosten</th></tr></thead>
+<tbody>
+<tr><td>Unbegrenztes <code>get_search_content</code></td><td>ein Aufruf lieferte 15,7&nbsp;MB in den Kontext; 48/100 Aufgaben hatten ein Tool-Ergebnis &gt;31k Zeichen</td><td>Aufgaben im &gt;180k-Kontext-Bereich: im Schnitt 10,2&nbsp;%</td></tr>
+<tr><td>Tool-/Fetch-Schleifen bis zum Timeout</td><td>Aufgabe 71e3456f: 875 doppelte Fetches derselben URL, 2× 7.200&nbsp;s, beide Male 0 Byte</td><td>12/100 leere Antworten à 0&nbsp;%</td></tr>
+<tr><td>Zeit korreliert negativ mit Score</td><td>corr(Dauer, Score) = &minus;0,53; jede Aufgabe &gt;3.600&nbsp;s blieb unter 27&nbsp;%</td><td>6 Timeouts verbrannten 12&nbsp;h für 0 Punkte</td></tr>
+<tr><td>KV-Cache-Thrashing</td><td>3.102 Verdrängungen vs. 76 Treffer (8-GB-Budget; ein 61k-Checkpoint ≈ 830&nbsp;MB)</td><td>Treffer ~50&nbsp;ms statt 236&nbsp;s Re-Prefill</td></tr>
+<tr><td>Trimmer zerstört den KV-Prefix</td><td>gleitendes Trimm-Fenster schrieb alte Nachrichten jede Runde neu</td><td>57-75k-Token-Re-Prefills, ~4&nbsp;min je Runde</td></tr>
+<tr><td>Think Max unerreichbar</td><td>Server bildet low..xhigh auf dieselbe Stufe ab; nur „max“ + <code>--ctx ≥ 393216</code> schaltet die Top-Stufe frei</td><td>alle bisherigen DS4-Zahlen liefen eine Denkstufe unter Maximum</td></tr>
+<tr><td>Falsche Antwort-Extraktion</td><td>Modell endete mit 486-Zeichen-Statusnotiz, der echte 24k-Bericht lag eine Nachricht davor</td><td>diese Antwort: 7,5&nbsp;% beim Judge</td></tr>
+<tr><td>Zitierformat</td><td>8 nicht-leere Antworten zitierten nackte Domains statt URLs</td><td>diese Aufgaben: im Schnitt 10,6&nbsp;%</td></tr>
+</tbody>
+</table></div>
+
+<p>Ein zweiter Befund kam direkt von der Hardware. Beim Decode liest dieses Quant ungefähr 10,4&nbsp;GB pro Token, davon rund 83&nbsp;% aus den Q8-Nicht-Experten-Gewichten. Bei etwa 546&nbsp;GB/s Speicherbandbreite liegt die theoretische Obergrenze um 52&nbsp;t/s; frisch gemessen waren 37&nbsp;t/s. Kleinere Experten-Quants ändern daran kaum etwas. Spekulatives Decoding blieb damit als ein plausibler Weg übrig, mehr als diese 37&nbsp;t/s zu erreichen.</p>
+
+<p>Ich habe am selben Tag zuerst die Stellen repariert, die Antworten direkt zerstörten: Tool-Ausgaben wurden bei 30k Zeichen gedeckelt und bekamen Paging, das KV-Budget stieg von 8 auf 64&nbsp;GB und Think Max wurde überhaupt erst erreichbar. Der Trimmer arbeitet seitdem klebrig: Einmal gekürzte Nachrichten bleiben byte-identisch, damit der KV-Prefix erhalten bleibt.</p>
+
+<p>Im Runner kamen Salvage, ein Cap von 2.100&nbsp;s und ein eigenes Timeout für Fusion-Kinder dazu. Der Systemprompt verlangt klare Struktur, rohe https-URLs, Primärquellen, ein begrenztes Tool-Budget und eine echte Finalisierung. Außerdem blockiert der Harness die Rubrik-Domains. Und dann musste ich noch den Juni-Overflow-Patch wiederherstellen, den das Pi-Update von 0.79.4 auf 0.80.2 still gelöscht hatte. Alle Änderungen stehen mit Datum im Repo.</p>
+
+<h2>Steering: Meine Hypothese ließ sich nicht bestätigen</h2>
+
+<p>Aus der Rubrik-Analyse hatte ich abgeleitet, dass die „Hedging“-Richtung des Steering-Vektors auf der Faktenachse 2 bis 8&nbsp;pp kosten könnte. Also habe ich genau diese eine Variable getestet: <code>uncertainty_ablit_imatrix</code> mit ffn&nbsp;=&nbsp;&minus;0,75, dem Default, gegen ffn&nbsp;=&nbsp;0.</p>
+
+<p>Beide Arme bekamen dieselben 20 Aufgaben, denselben Stack und denselben strengen Judge mit drei Läufen. Zwischen den Armen wurde der Server neu gestartet. Vorher hatte ich festgelegt, dass |&Delta;|&nbsp;&lt;&nbsp;2&nbsp;pp als kein Effekt zählt.</p>
+
+<p>Mit Steering erreichte DS4 49,44&nbsp;%, ohne Steering 47,98&nbsp;%. Das sind gepaart +1,46&nbsp;pp bei einer Streuung von 18,41 und 12 von 20 Siegen. Für die vorhergesagten Hedging-Kosten gab es in diesem Test keinen messbaren Beleg.</p>
+
+<figure class="benchmark-figure" id="fig-steering">
+  <div class="bchart" role="img" aria-label="Steering-A/B je Aufgabe: Steering an gegen Steering aus, sortiert nach Differenz. Mittelwerte: Steering aus (0) 47,98 Prozent, Steering an (&minus;0,75) 49,44 Prozent.">
+    <p class="bchart__title">Steering-A/B &middot; 20 Aufgaben, sortiert nach Differenz (an &minus; aus)</p>
+    <div class="bdumb">
+<div class="bdumb__row">
+  <span class="bdumb__label">2aac5ef3<span class="bdumb__cov">Finance</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 0.0%; width: 39.7%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 0.0%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 39.7%;"></span></span>
+  <span class="bdumb__val">0,0<span class="arw">&rarr;</span><b>39,7</b>&ensp;+39,7</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">b8ff32b6<span class="bdumb__cov">Medizin</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 41.8%; width: 34.7%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 41.8%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 76.6%;"></span></span>
+  <span class="bdumb__val">41,8<span class="arw">&rarr;</span><b>76,6</b>&ensp;+34,7</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">4b089235<span class="bdumb__cov">Shopping</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 59.2%; width: 19.2%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 59.2%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 78.4%;"></span></span>
+  <span class="bdumb__val">59,2<span class="arw">&rarr;</span><b>78,4</b>&ensp;+19,2</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">78bfa372<span class="bdumb__cov">Shopping</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 34.9%; width: 8.8%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 34.9%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 43.7%;"></span></span>
+  <span class="bdumb__val">34,9<span class="arw">&rarr;</span><b>43,7</b>&ensp;+8,8</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">8cf941c5<span class="bdumb__cov">Technologie</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 40.5%; width: 7.2%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 40.5%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 47.7%;"></span></span>
+  <span class="bdumb__val">40,5<span class="arw">&rarr;</span><b>47,7</b>&ensp;+7,2</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">6b3233e6<span class="bdumb__cov">Shopping</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 35.1%; width: 5.9%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 35.1%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 41.0%;"></span></span>
+  <span class="bdumb__val">35,1<span class="arw">&rarr;</span><b>41,0</b>&ensp;+5,9</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">72e81ce6<span class="bdumb__cov">Finance</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 48.5%; width: 5.4%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 48.5%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 53.9%;"></span></span>
+  <span class="bdumb__val">48,5<span class="arw">&rarr;</span><b>53,9</b>&ensp;+5,4</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">49d841f1<span class="bdumb__cov">General Knowledge</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 54.6%; width: 5.2%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 54.6%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 59.8%;"></span></span>
+  <span class="bdumb__val">54,6<span class="arw">&rarr;</span><b>59,8</b>&ensp;+5,2</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">3b5505fb<span class="bdumb__cov">Law</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 72.4%; width: 4.3%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 72.4%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 76.7%;"></span></span>
+  <span class="bdumb__val">72,4<span class="arw">&rarr;</span><b>76,7</b>&ensp;+4,3</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">1070e6eb<span class="bdumb__cov">Needle i. Haystack</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 76.4%; width: 4.3%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 76.4%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 80.7%;"></span></span>
+  <span class="bdumb__val">76,4<span class="arw">&rarr;</span><b>80,7</b>&ensp;+4,3</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">34e9b780<span class="bdumb__cov">Shopping</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 47.7%; width: 3.5%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 47.7%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 51.3%;"></span></span>
+  <span class="bdumb__val">47,7<span class="arw">&rarr;</span><b>51,3</b>&ensp;+3,5</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">e3734e91<span class="bdumb__cov">Academic</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 79.1%; width: 1.8%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 79.1%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 81.0%;"></span></span>
+  <span class="bdumb__val">79,1<span class="arw">&rarr;</span><b>81,0</b>&ensp;+1,8</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">ebac60ea<span class="bdumb__cov">Technologie</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 22.4%; width: 1.2%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 23.5%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 22.4%;"></span></span>
+  <span class="bdumb__val">23,5<span class="arw">&rarr;</span><b>22,4</b>&ensp;&minus;1,2</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">cd680e2e<span class="bdumb__cov">UX Design</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 68.7%; width: 1.6%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 70.3%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 68.7%;"></span></span>
+  <span class="bdumb__val">70,3<span class="arw">&rarr;</span><b>68,7</b>&ensp;&minus;1,6</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">79224558<span class="bdumb__cov">Technologie</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 17.3%; width: 2.6%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 19.9%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 17.3%;"></span></span>
+  <span class="bdumb__val">19,9<span class="arw">&rarr;</span><b>17,3</b>&ensp;&minus;2,6</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">7e9fa201<span class="bdumb__cov">General Knowledge</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 24.4%; width: 11.5%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 35.9%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 24.4%;"></span></span>
+  <span class="bdumb__val">35,9<span class="arw">&rarr;</span><b>24,4</b>&ensp;&minus;11,5</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">ab17484f<span class="bdumb__cov">Law</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 54.9%; width: 14.0%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 68.9%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 54.9%;"></span></span>
+  <span class="bdumb__val">68,9<span class="arw">&rarr;</span><b>54,9</b>&ensp;&minus;14,0</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">342b15b8<span class="bdumb__cov">Finance</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 35.7%; width: 15.6%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 51.3%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 35.7%;"></span></span>
+  <span class="bdumb__val">51,3<span class="arw">&rarr;</span><b>35,7</b>&ensp;&minus;15,6</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">71e3456f<span class="bdumb__cov">Finance</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 34.8%; width: 18.3%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 53.1%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 34.8%;"></span></span>
+  <span class="bdumb__val">53,1<span class="arw">&rarr;</span><b>34,8</b>&ensp;&minus;18,3</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">10e75d21<span class="bdumb__cov">Finance</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 0.0%; width: 46.3%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 46.3%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 0.0%;"></span></span>
+  <span class="bdumb__val">46,3<span class="arw">&rarr;</span><b>0,0</b>&ensp;&minus;46,3</span>
+</div>
+    </div>
+    <div class="bchart__legend"><span><i class="bchart__sw bchart__sw--hollow"></i>Steering aus (0)</span><span><i class="bchart__sw bchart__sw--solid"></i>Steering an (&minus;0,75)</span><span>Skala 0-100&nbsp;%</span></div>
+  </div>
+  <figcaption>Gepaarte Differenz im Mittel +1,46&nbsp;pp bei einer Streuung von 18,41 – innerhalb des vorab festgelegten &plusmn;2-pp-Rauschbands. Die beiden &plusmn;40-pp-Ausreißer sind die zwei nicht geretteten Salvage-Ausfälle (einer je Arm), nicht das Steering.</figcaption>
+</figure>
+<details class="benchmark-tabledetails"><summary>Steering-A/B als Tabelle</summary>
+<div class="benchmark-table-wrap"><table class="gl-data-table" aria-label="Steering-A/B je Aufgabe"><thead><tr><th scope="col">Aufgabe</th><th scope="col">Domäne</th><th scope="col">Steering aus (0) %</th><th scope="col">Steering an (&minus;0,75) %</th><th scope="col">&Delta; pp</th></tr></thead><tbody>
+<tr><td>2aac5ef3</td><td>Finance</td><td>0,0</td><td>39,7</td><td>+39,7</td></tr>
+<tr><td>b8ff32b6</td><td>Medizin</td><td>41,8</td><td>76,6</td><td>+34,7</td></tr>
+<tr><td>4b089235</td><td>Shopping</td><td>59,2</td><td>78,4</td><td>+19,2</td></tr>
+<tr><td>78bfa372</td><td>Shopping</td><td>34,9</td><td>43,7</td><td>+8,8</td></tr>
+<tr><td>8cf941c5</td><td>Technologie</td><td>40,5</td><td>47,7</td><td>+7,2</td></tr>
+<tr><td>6b3233e6</td><td>Shopping</td><td>35,1</td><td>41,0</td><td>+5,9</td></tr>
+<tr><td>72e81ce6</td><td>Finance</td><td>48,5</td><td>53,9</td><td>+5,4</td></tr>
+<tr><td>49d841f1</td><td>General Knowledge</td><td>54,6</td><td>59,8</td><td>+5,2</td></tr>
+<tr><td>3b5505fb</td><td>Law</td><td>72,4</td><td>76,7</td><td>+4,3</td></tr>
+<tr><td>1070e6eb</td><td>Needle i. Haystack</td><td>76,4</td><td>80,7</td><td>+4,3</td></tr>
+<tr><td>34e9b780</td><td>Shopping</td><td>47,7</td><td>51,3</td><td>+3,5</td></tr>
+<tr><td>e3734e91</td><td>Academic</td><td>79,1</td><td>81,0</td><td>+1,8</td></tr>
+<tr><td>ebac60ea</td><td>Technologie</td><td>23,5</td><td>22,4</td><td>&minus;1,2</td></tr>
+<tr><td>cd680e2e</td><td>UX Design</td><td>70,3</td><td>68,7</td><td>&minus;1,6</td></tr>
+<tr><td>79224558</td><td>Technologie</td><td>19,9</td><td>17,3</td><td>&minus;2,6</td></tr>
+<tr><td>7e9fa201</td><td>General Knowledge</td><td>35,9</td><td>24,4</td><td>&minus;11,5</td></tr>
+<tr><td>ab17484f</td><td>Law</td><td>68,9</td><td>54,9</td><td>&minus;14,0</td></tr>
+<tr><td>342b15b8</td><td>Finance</td><td>51,3</td><td>35,7</td><td>&minus;15,6</td></tr>
+<tr><td>71e3456f</td><td>Finance</td><td>53,1</td><td>34,8</td><td>&minus;18,3</td></tr>
+<tr><td>10e75d21</td><td>Finance</td><td>46,3</td><td>0,0</td><td>&minus;46,3</td></tr>
+</tbody></table></div><p class="benchmark-tablecaption">Sortiert nach Differenz (an &minus; aus), größte zuerst. Judge: strenger GPT-5.5, criterion, 3 Läufe je Arm.</p></details>
+
+<p>Die Laufzeit erklärt den kleinen Unterschied nicht: Beide Arme verhalten sich mit 10,0 gegen 10,5&nbsp;Stunden Wall-Zeit und 11 gegen 14 Aufgaben am Cap ähnlich. Die großen Ausreißer sind dagegen klar: je ein Salvage-Totalausfall pro Arm. Ohne diese beiden Aufgaben bleiben +1,99&nbsp;pp, also weiterhin Rauschen.</p>
+
+<p>Ich lasse den Vektor an. Einen messbaren Netto-Schaden sehe ich nicht, und laut Adapter-Dokumentation schützt er die Tool-Grammatik. Wichtiger war etwas anderes: Ein einzelner Salvage-Fehlschlag kostet auf der betroffenen Aufgabe ungefähr 45&nbsp;pp. Das war der nächste Hebel.</p>
+
+<h2>Das 91-GB-Quant brauchte ein anderes Zeitlimit</h2>
+
+<p>Am 3.7. veröffentlichte der pi-ds4-Upstream ein neues Standard-GGUF für Macs mit 128&nbsp;GB RAM. Es nutzt dieselbe abliterierte Modelllinie, quantisiert aber die Routed Experts der Layer 37 bis 42 mit Q4_K statt mit 2&nbsp;Bit. Damit bekommen sechs späte Expertenschichten mehr Präzision. Das Modell wächst von 87 auf 91&nbsp;GB und decodiert ungefähr 15&nbsp;% langsamer. Ich wollte wissen, ob die zusätzliche Präzision diesen Verlust wert ist.</p>
+
+<p>Für den ersten Lauf hielt ich Subset, Stack, Judge und das Cap von 2.100&nbsp;s konstant. Das ist ein fairer Vergleich der beiden Konfigurationen unter demselben Zeitbudget, aber kein reiner Qualitätstest: Das langsamere Modell kann vor dem gleichen Wall-Time-Limit weniger Tokens erzeugen. Diesen Confound habe ich während des Laufs notiert, bevor die Scores da waren. Meine Entscheidungsregel war ebenfalls vorher klar: Verliert das 91-GB-Quant hauptsächlich auf Aufgaben am Cap, erhöhe ich das Cap, statt das Quant zu verwerfen.</p>
+
+<p>Der Rohwert lag zunächst bei 48,70&nbsp;% und damit 0,74&nbsp;pp unter dem 87-GB-Modell. Auf den 17 Aufgaben, in denen beide Arme eine Antwort produzierten, lag das 91-GB-Quant aber 4,41&nbsp;pp vorn. Auf den fünf Aufgaben ganz ohne Cap-Kontakt waren es 6,94&nbsp;pp. Zwei Finance-Aufgaben liefen leer ins Cap und danach auch mit der Salvage-Fortsetzung ins Limit. Sie bekamen 0,0&nbsp;%, wo das 87-GB-Modell 35,7 und 53,9&nbsp;% erreicht hatte. Gegenüber diesen beiden 87-GB-Scores entstand dadurch ein Defizit von 4,48&nbsp;pp im Gesamtmittel.</p>
+
+<p>Daraufhin habe ich das Cap von 2.100 auf 2.500&nbsp;s und das Salvage-Limit von 1.800 auf 2.400&nbsp;s angehoben. Der Lauf vom 8./9.7. vergleicht deshalb zwei vollständige Betriebskonfigurationen, nicht nur zwei Quants:</p>
+
+<figure class="benchmark-figure" id="fig-quant">
+  <div class="bchart" role="img" aria-label="Konfigurationsvergleich je Aufgabe: 91-GB-Modell bei Cap 2500 Sekunden gegen 87-GB-Modell bei Cap 2100 Sekunden, sortiert nach Differenz. Mittelwerte: 87&nbsp;GB, Cap 2100 49,44 Prozent, 91&nbsp;GB, Cap 2500 52,36 Prozent.">
+    <p class="bchart__title">Konfigurationsvergleich &middot; 20 Aufgaben, sortiert nach Differenz (91&nbsp;GB &minus; 87&nbsp;GB)</p>
+    <div class="bdumb">
+<div class="bdumb__row">
+  <span class="bdumb__label">2aac5ef3<span class="bdumb__cov">Finance</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 39.7%; width: 31.9%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 39.7%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 71.5%;"></span></span>
+  <span class="bdumb__val">39,7<span class="arw">&rarr;</span><b>71,5</b>&ensp;+31,9</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">7e9fa201<span class="bdumb__cov">General Knowledge</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 24.4%; width: 27.7%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 24.4%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 52.2%;"></span></span>
+  <span class="bdumb__val">24,4<span class="arw">&rarr;</span><b>52,2</b>&ensp;+27,7</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">ab17484f<span class="bdumb__cov">Law</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 54.9%; width: 26.8%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 54.9%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 81.7%;"></span></span>
+  <span class="bdumb__val">54,9<span class="arw">&rarr;</span><b>81,7</b>&ensp;+26,8</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">79224558<span class="bdumb__cov">Technologie</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 17.3%; width: 17.0%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 17.3%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 34.3%;"></span></span>
+  <span class="bdumb__val">17,3<span class="arw">&rarr;</span><b>34,3</b>&ensp;+17,0</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">6b3233e6<span class="bdumb__cov">Shopping</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 41.0%; width: 11.2%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 41.0%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 52.2%;"></span></span>
+  <span class="bdumb__val">41,0<span class="arw">&rarr;</span><b>52,2</b>&ensp;+11,2</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">71e3456f<span class="bdumb__cov">Finance</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 34.8%; width: 9.6%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 34.8%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 44.4%;"></span></span>
+  <span class="bdumb__val">34,8<span class="arw">&rarr;</span><b>44,4</b>&ensp;+9,6</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">342b15b8<span class="bdumb__cov">Finance</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 35.7%; width: 9.5%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 35.7%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 45.2%;"></span></span>
+  <span class="bdumb__val">35,7<span class="arw">&rarr;</span><b>45,2</b>&ensp;+9,5</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">cd680e2e<span class="bdumb__cov">UX Design</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 68.7%; width: 8.4%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 68.7%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 77.1%;"></span></span>
+  <span class="bdumb__val">68,7<span class="arw">&rarr;</span><b>77,1</b>&ensp;+8,4</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">49d841f1<span class="bdumb__cov">General Knowledge</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 59.8%; width: 6.7%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 59.8%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 66.5%;"></span></span>
+  <span class="bdumb__val">59,8<span class="arw">&rarr;</span><b>66,5</b>&ensp;+6,7</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">34e9b780<span class="bdumb__cov">Shopping</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 51.3%; width: 6.5%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 51.3%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 57.8%;"></span></span>
+  <span class="bdumb__val">51,3<span class="arw">&rarr;</span><b>57,8</b>&ensp;+6,5</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">e3734e91<span class="bdumb__cov">Academic</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 81.0%; width: 3.2%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 81.0%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 84.1%;"></span></span>
+  <span class="bdumb__val">81,0<span class="arw">&rarr;</span><b>84,1</b>&ensp;+3,2</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">ebac60ea<span class="bdumb__cov">Technologie</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 22.4%; width: 1.9%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 22.4%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 24.3%;"></span></span>
+  <span class="bdumb__val">22,4<span class="arw">&rarr;</span><b>24,3</b>&ensp;+1,9</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">1070e6eb<span class="bdumb__cov">Needle i. Haystack</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 80.7%; width: 0.2%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 80.7%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 80.9%;"></span></span>
+  <span class="bdumb__val">80,7<span class="arw">&rarr;</span><b>80,9</b>&ensp;+0,2</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">10e75d21<span class="bdumb__cov">Finance</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 0.0%; width: 0.0%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 0.0%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 0.0%;"></span></span>
+  <span class="bdumb__val">0,0<span class="arw">&rarr;</span><b>0,0</b>&ensp;+0,0</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">72e81ce6<span class="bdumb__cov">Finance</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 52.5%; width: 1.5%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 53.9%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 52.5%;"></span></span>
+  <span class="bdumb__val">53,9<span class="arw">&rarr;</span><b>52,5</b>&ensp;&minus;1,5</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">8cf941c5<span class="bdumb__cov">Technologie</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 43.3%; width: 4.4%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 47.7%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 43.3%;"></span></span>
+  <span class="bdumb__val">47,7<span class="arw">&rarr;</span><b>43,3</b>&ensp;&minus;4,4</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">3b5505fb<span class="bdumb__cov">Law</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 72.1%; width: 4.6%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 76.7%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 72.1%;"></span></span>
+  <span class="bdumb__val">76,7<span class="arw">&rarr;</span><b>72,1</b>&ensp;&minus;4,6</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">78bfa372<span class="bdumb__cov">Shopping</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 33.7%; width: 10.0%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 43.7%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 33.7%;"></span></span>
+  <span class="bdumb__val">43,7<span class="arw">&rarr;</span><b>33,7</b>&ensp;&minus;10,0</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">4b089235<span class="bdumb__cov">Shopping</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 48.4%; width: 30.0%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 78.4%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 48.4%;"></span></span>
+  <span class="bdumb__val">78,4<span class="arw">&rarr;</span><b>48,4</b>&ensp;&minus;30,0</span>
+</div>
+<div class="bdumb__row">
+  <span class="bdumb__label">b8ff32b6<span class="bdumb__cov">Medizin</span></span>
+  <span class="bdumb__track"><span class="bdumb__seg" style="left: 25.1%; width: 51.5%;"></span><span class="bdumb__dot bdumb__dot--hi" style="left: 76.6%;"></span><span class="bdumb__dot bdumb__dot--lo" style="left: 25.1%;"></span></span>
+  <span class="bdumb__val">76,6<span class="arw">&rarr;</span><b>25,1</b>&ensp;&minus;51,5</span>
+</div>
+    </div>
+    <div class="bchart__legend"><span><i class="bchart__sw bchart__sw--hollow"></i>87&nbsp;GB, Cap 2100</span><span><i class="bchart__sw bchart__sw--solid"></i>91&nbsp;GB, Cap 2500</span><span>Skala 0-100&nbsp;%</span></div>
+  </div>
+  <figcaption>Die Kombination aus 91-GB-Quant und höherem Cap liegt im Mittel 2,92&nbsp;pp vorn; 13 von 20 Aufgaben verbessern sich. Zwei große Regressionen und eine kleinere, über beide 91-GB-Läufe gleichgerichtete Regression bleiben. 10e75d21 blieb in allen drei Läufen bei 0,0.</figcaption>
+</figure>
+<details class="benchmark-tabledetails"><summary>Konfigurationsvergleich als Tabelle</summary>
+<div class="benchmark-table-wrap"><table class="gl-data-table" aria-label="Vergleich der Quant- und Cap-Konfigurationen je Aufgabe"><thead><tr><th scope="col">Aufgabe</th><th scope="col">Domäne</th><th scope="col">87&nbsp;GB, Cap 2100 %</th><th scope="col">91&nbsp;GB, Cap 2500 %</th><th scope="col">&Delta; pp</th><th scope="col">91&nbsp;GB, Cap 2100, Score %</th></tr></thead><tbody>
+<tr><td>2aac5ef3</td><td>Finance</td><td>39,7</td><td>71,5</td><td>+31,9</td><td>71,9</td></tr>
+<tr><td>7e9fa201</td><td>General Knowledge</td><td>24,4</td><td>52,2</td><td>+27,7</td><td>51,9</td></tr>
+<tr><td>ab17484f</td><td>Law</td><td>54,9</td><td>81,7</td><td>+26,8</td><td>85,1</td></tr>
+<tr><td>79224558</td><td>Technologie</td><td>17,3</td><td>34,3</td><td>+17,0</td><td>30,2</td></tr>
+<tr><td>6b3233e6</td><td>Shopping</td><td>41,0</td><td>52,2</td><td>+11,2</td><td>69,9</td></tr>
+<tr><td>71e3456f</td><td>Finance</td><td>34,8</td><td>44,4</td><td>+9,6</td><td>32,9</td></tr>
+<tr><td>342b15b8</td><td>Finance</td><td>35,7</td><td>45,2</td><td>+9,5</td><td>0,0</td></tr>
+<tr><td>cd680e2e</td><td>UX Design</td><td>68,7</td><td>77,1</td><td>+8,4</td><td>76,8</td></tr>
+<tr><td>49d841f1</td><td>General Knowledge</td><td>59,8</td><td>66,5</td><td>+6,7</td><td>58,8</td></tr>
+<tr><td>34e9b780</td><td>Shopping</td><td>51,3</td><td>57,8</td><td>+6,5</td><td>48,3</td></tr>
+<tr><td>e3734e91</td><td>Academic</td><td>81,0</td><td>84,1</td><td>+3,2</td><td>84,4</td></tr>
+<tr><td>ebac60ea</td><td>Technologie</td><td>22,4</td><td>24,3</td><td>+1,9</td><td>20,0</td></tr>
+<tr><td>1070e6eb</td><td>Needle i. Haystack</td><td>80,7</td><td>80,9</td><td>+0,2</td><td>71,3</td></tr>
+<tr><td>10e75d21</td><td>Finance</td><td>0,0</td><td>0,0</td><td>+0,0</td><td>0,0</td></tr>
+<tr><td>72e81ce6</td><td>Finance</td><td>53,9</td><td>52,5</td><td>&minus;1,5</td><td>0,0</td></tr>
+<tr><td>8cf941c5</td><td>Technologie</td><td>47,7</td><td>43,3</td><td>&minus;4,4</td><td>52,2</td></tr>
+<tr><td>3b5505fb</td><td>Law</td><td>76,7</td><td>72,1</td><td>&minus;4,6</td><td>80,7</td></tr>
+<tr><td>78bfa372</td><td>Shopping</td><td>43,7</td><td>33,7</td><td>&minus;10,0</td><td>36,9</td></tr>
+<tr><td>4b089235</td><td>Shopping</td><td>78,4</td><td>48,4</td><td>&minus;30,0</td><td>52,5</td></tr>
+<tr><td>b8ff32b6</td><td>Medizin</td><td>76,6</td><td>25,1</td><td>&minus;51,5</td><td>50,3</td></tr>
+</tbody></table></div><p class="benchmark-tablecaption">Sortiert nach Differenz. Die letzte Spalte zeigt den konfundierten Zwischenlauf vom 8.7. mit demselben 91-GB-Quant und dem alten Zeitlimit.</p></details>
+
+<p>Diese kombinierte Konfiguration erreichte 52,36 gegen 49,44&nbsp;%, also +2,92&nbsp;pp, und lag bei 13 von 20 Aufgaben vorn. Die beiden zusätzlichen Nullen aus dem ersten 91-GB-Lauf verschwanden mit den höheren Limits: 342b15b8 stieg von 0,0 auf 45,2&nbsp;% und 72e81ce6 von 0,0 auf 52,5&nbsp;%. Damit waren diese Nullen klar Cap-/Salvage-Artefakte des ersten Laufs. Wie das 91-GB-Modell mit ausreichend Zeit abgeschnitten hätte, lässt sich im Nachhinein aber nicht beobachten. Deshalb kann ich den Anteil des Quants am Endgewinn nicht isolieren.</p>
+
+<p>Mit n&nbsp;=&nbsp;20 und einer Streuung von 18,9 ist das außerdem kein Beweis auf Aufgabenebene. Neben großen Gewinnen in Finance, General Knowledge und Law gibt es drei Aufgaben, die über beide 91-GB-Läufe hinweg fallen: b8ff32b6 in Medizin von 76,6 über 50,3 auf 25,1&nbsp;%, 4b089235 in Shopping von 78,4 über 52,5 auf 48,4&nbsp;% und 78bfa372 ebenfalls in Shopping von 43,7 über 36,9 auf 33,7&nbsp;%. 10e75d21 blieb in allen drei Läufen bei 0,0. Trotzdem ist die Entscheidung für den Betrieb klar genug: Seit dem 9.7. läuft das 91-GB-Modell mit Cap 2.500 als Standardkonfiguration.</p>
+
+<p>Wie stark das Cap in diese Läufe eingreift, zeigt die Salvage-Übersicht:</p>
+
+<div class="benchmark-table-wrap"><table class="gl-data-table" aria-label="Salvage-Übersicht der vier Validierungsarme"><thead><tr><th scope="col">Arm</th><th scope="col">Am Cap</th><th scope="col">Salvage versucht</th><th scope="col">gerettet</th><th scope="col">Resume/Extraktion</th><th scope="col">leer geblieben</th><th scope="col">Wall-Zeit</th></tr></thead><tbody>
+<tr><td>87&nbsp;GB, Cap 2100 (Steering an)</td><td>11/20</td><td>9</td><td>8</td><td>6/2</td><td>1</td><td>10,0&nbsp;h</td></tr>
+<tr><td>87&nbsp;GB, Cap 2100 (Steering aus)</td><td>14/20</td><td>11</td><td>10</td><td>10/0</td><td>1</td><td>10,5&nbsp;h</td></tr>
+<tr><td>91&nbsp;GB, Cap 2100</td><td>15/20</td><td>15</td><td>12</td><td>12/0</td><td>3</td><td>11,0&nbsp;h</td></tr>
+<tr><td>91&nbsp;GB, Cap 2500</td><td>11/20</td><td>13</td><td>12</td><td>9/3</td><td>1</td><td>12,1&nbsp;h</td></tr>
+</tbody></table></div>
+
+<h2>Beim Speed-Benchmark driftete die Maschine</h2>
+
+<p>Am 6.7. habe ich zuerst die drei Metal-Modi auf dem alten Server-Pin vermessen. Für den MPP-Fastpath waren auf anderer Hardware 6 bis 19&nbsp;% mehr Prefill dokumentiert. In meinen drei noch nicht verschränkten Vormittagsläufen war er an jeder der acht Kontexttiefen langsamer. Wegen der später erkannten Messdrift ist das kein sauber isolierter A/B-Beweis.</p>
+
+<figure class="benchmark-figure" id="fig-bench-modes">
+  <div class="bchart" role="img" aria-label="Prefill-Durchsatz über die Kontexttiefe für drei nacheinander gemessene Metal-Modi am Vormittag des 6. Juli: Standard erreicht in der Spitze 417,9 Token pro Sekunde bei 8k Kontext und fällt auf 199,1 bei 64k. Der Quality-Modus liegt durchgehend darunter mit Spitze 323,7. Der MPP-Fastpath, dokumentiert als 6 bis 19 Prozent schneller, ist in diesen nicht verschränkten Läufen an allen acht Kontexttiefen langsamer, im paarweisen Mittel um 29,7 Prozent.">
+    <p class="bchart__title">Prefill-Durchsatz &middot; drei Metal-Modi, alter Pin, Vormittag 6.7. (t/s)</p>
+    <svg viewBox="0 0 680 300" class="csvg" aria-hidden="true">
+      <line x1="46" y1="266.0" x2="570" y2="266.0" class="cgrid"/><text x="40" y="269.0" class="ctick" text-anchor="end">0</text><line x1="46" y1="203.0" x2="570" y2="203.0" class="cgrid"/><text x="40" y="206.0" class="ctick" text-anchor="end">120</text><line x1="46" y1="140.0" x2="570" y2="140.0" class="cgrid"/><text x="40" y="143.0" class="ctick" text-anchor="end">240</text><line x1="46" y1="77.0" x2="570" y2="77.0" class="cgrid"/><text x="40" y="80.0" class="ctick" text-anchor="end">360</text><line x1="46" y1="14.0" x2="570" y2="14.0" class="cgrid"/><text x="40" y="17.0" class="ctick" text-anchor="end">480</text>
+      <line x1="46" y1="266" x2="570" y2="266" class="cbase"/>
+      <path d="M46.0 132.9 L120.9 107.8 L195.7 79.6 L270.6 61.2 L345.4 46.6 L420.3 73.5 L495.1 147.1 L570.0 161.5" class="cline cs-ink"/><circle cx="46.0" cy="132.9" r="3.5" class="cdot cs-ink"/><circle cx="120.9" cy="107.8" r="3.5" class="cdot cs-ink"/><circle cx="195.7" cy="79.6" r="3.5" class="cdot cs-ink"/><circle cx="270.6" cy="61.2" r="3.5" class="cdot cs-ink"/><circle cx="345.4" cy="46.6" r="3.5" class="cdot cs-ink"/><circle cx="420.3" cy="73.5" r="3.5" class="cdot cs-ink"/><circle cx="495.1" cy="147.1" r="3.5" class="cdot cs-ink"/><circle cx="570.0" cy="161.5" r="3.5" class="cdot cs-ink"/><path d="M46.0 162.3 L120.9 132.8 L195.7 113.4 L270.6 105.0 L345.4 96.0 L420.3 136.0 L495.1 174.5 L570.0 181.5" class="cline cs-mut"/><circle cx="46.0" cy="162.3" r="3.5" class="cdot cs-mut"/><circle cx="120.9" cy="132.8" r="3.5" class="cdot cs-mut"/><circle cx="195.7" cy="113.4" r="3.5" class="cdot cs-mut"/><circle cx="270.6" cy="105.0" r="3.5" class="cdot cs-mut"/><circle cx="345.4" cy="96.0" r="3.5" class="cdot cs-mut"/><circle cx="420.3" cy="136.0" r="3.5" class="cdot cs-mut"/><circle cx="495.1" cy="174.5" r="3.5" class="cdot cs-mut"/><circle cx="570.0" cy="181.5" r="3.5" class="cdot cs-mut"/><path d="M46.0 163.5 L120.9 179.6 L195.7 151.2 L270.6 142.4 L345.4 140.9 L420.3 144.8 L495.1 153.3 L570.0 167.8" class="cline cs-acc"/><circle cx="46.0" cy="163.5" r="3.5" class="cdot cs-acc"/><circle cx="120.9" cy="179.6" r="3.5" class="cdot cs-acc"/><circle cx="195.7" cy="151.2" r="3.5" class="cdot cs-acc"/><circle cx="270.6" cy="142.4" r="3.5" class="cdot cs-acc"/><circle cx="345.4" cy="140.9" r="3.5" class="cdot cs-acc"/><circle cx="420.3" cy="144.8" r="3.5" class="cdot cs-acc"/><circle cx="495.1" cy="153.3" r="3.5" class="cdot cs-acc"/><circle cx="570.0" cy="167.8" r="3.5" class="cdot cs-acc"/><text x="578.0" y="164.5" class="clbl cs-ink">Standard</text><text x="578.0" y="184.8" class="clbl cs-acc">MPP-Fastpath</text><text x="578.0" y="212.5" class="clbl cs-mut">Quality-Modus</text>
+      <text x="46.0" y="282" class="ctick" text-anchor="middle">512</text><text x="120.9" y="282" class="ctick" text-anchor="middle">1k</text><text x="195.7" y="282" class="ctick" text-anchor="middle">2k</text><text x="270.6" y="282" class="ctick" text-anchor="middle">4k</text><text x="345.4" y="282" class="ctick" text-anchor="middle">8k</text><text x="420.3" y="282" class="ctick" text-anchor="middle">16k</text><text x="495.1" y="282" class="ctick" text-anchor="middle">32k</text><text x="570.0" y="282" class="ctick" text-anchor="middle">64k</text>
+      <text x="46" y="296" class="ctick">Kontexttiefe (Token, Verdopplungsschritte)</text>
+    </svg>
+  </div>
+  <figcaption>In den drei nacheinander gemessenen Vormittagsläufen ist der dokumentierte „Fastpath“ (MPP) an allen acht Kontexttiefen langsamer, im paarweisen Mittel um 29,7&nbsp;% gegenüber Standard. Die Angabe von +6 bis +19&nbsp;% stammte von anderer Hardware. Wegen der Messreihenfolge ist das kein isolierter kausaler A/B-Nachweis.</figcaption>
+</figure>
+<details class="benchmark-tabledetails"><summary>Metal-Modi als Tabelle</summary>
+<div class="benchmark-table-wrap"><table class="gl-data-table" aria-label="Prefill-Durchsatz der drei Metal-Modi"><thead><tr><th scope="col">ctx</th><th scope="col">Standard</th><th scope="col">Quality-Modus</th><th scope="col">MPP-Fastpath</th></tr></thead><tbody>
+<tr><td>512</td><td>253,5</td><td>197,6</td><td>195,3</td></tr>
+<tr><td>1.024</td><td>301,3</td><td>253,7</td><td>164,5</td></tr>
+<tr><td>2.048</td><td>355,0</td><td>290,6</td><td>218,7</td></tr>
+<tr><td>4.096</td><td>390,1</td><td>306,7</td><td>235,4</td></tr>
+<tr><td>8.192</td><td>417,9</td><td>323,7</td><td>238,3</td></tr>
+<tr><td>16.384</td><td>366,6</td><td>247,6</td><td>230,8</td></tr>
+<tr><td>32.768</td><td>226,6</td><td>174,3</td><td>214,8</td></tr>
+<tr><td>65.536</td><td>199,1</td><td>161,0</td><td>187,0</td></tr>
+</tbody></table></div><p class="benchmark-tablecaption">ds4-bench, Prompt promessi_sposi.txt, gen-tokens 128, Pin 97319db8. Alle drei Sweeps am Vormittag des 6.7. hintereinander.</p></details>
+
+<p>Für den Betrieb habe ich den Modus nach diesem Ergebnis verworfen. Messen schlägt Dokumentation, aber ein sauberer kausaler Nachweis bräuchte hier einen verschränkten Re-Test. Beim anschließenden Server-Update hätte ich die nächste Messung dann fast falsch gelesen.</p>
+
+<figure class="benchmark-figure" id="fig-thermal">
+  <div class="bchart" role="img" aria-label="Prefill-Kurven, die die Drift über den Messtag zeigen: Der alte Pin erreichte vormittags in der Spitze 417,9 Token pro Sekunde, derselbe Code abends nur noch 267,1. Über alle acht Kontexttiefen liegt der Abendlauf im paarweisen Mittel 27,9 Prozent niedriger. Beim neuen Pin liegt der erste Abendlauf 9,6 Prozent über dem alten Abendlauf, die Wiederholung 0,7 Prozent darunter.">
+    <p class="bchart__title">Drift über den Messtag &middot; gleicher Code, im Mittel &minus;27,9&nbsp;% Prefill</p>
+    <svg viewBox="0 0 680 300" class="csvg" aria-hidden="true">
+      <line x1="46" y1="266.0" x2="554" y2="266.0" class="cgrid"/><text x="40" y="269.0" class="ctick" text-anchor="end">0</text><line x1="46" y1="203.0" x2="554" y2="203.0" class="cgrid"/><text x="40" y="206.0" class="ctick" text-anchor="end">120</text><line x1="46" y1="140.0" x2="554" y2="140.0" class="cgrid"/><text x="40" y="143.0" class="ctick" text-anchor="end">240</text><line x1="46" y1="77.0" x2="554" y2="77.0" class="cgrid"/><text x="40" y="80.0" class="ctick" text-anchor="end">360</text><line x1="46" y1="14.0" x2="554" y2="14.0" class="cgrid"/><text x="40" y="17.0" class="ctick" text-anchor="end">480</text>
+      <line x1="46" y1="266" x2="554" y2="266" class="cbase"/>
+      <path d="M46.0 132.9 L118.6 107.8 L191.1 79.6 L263.7 61.2 L336.3 46.6 L408.9 73.5 L481.4 147.1 L554.0 161.5" class="cline cs-mut"/><circle cx="46.0" cy="132.9" r="3.5" class="cdot cs-mut"/><circle cx="118.6" cy="107.8" r="3.5" class="cdot cs-mut"/><circle cx="191.1" cy="79.6" r="3.5" class="cdot cs-mut"/><circle cx="263.7" cy="61.2" r="3.5" class="cdot cs-mut"/><circle cx="336.3" cy="46.6" r="3.5" class="cdot cs-mut"/><circle cx="408.9" cy="73.5" r="3.5" class="cdot cs-mut"/><circle cx="481.4" cy="147.1" r="3.5" class="cdot cs-mut"/><circle cx="554.0" cy="161.5" r="3.5" class="cdot cs-mut"/><path d="M46.0 190.8 L118.6 184.6 L191.1 147.8 L263.7 133.4 L336.3 125.8 L408.9 131.5 L481.4 142.1 L554.0 158.6" class="cline cs-ink"/><circle cx="46.0" cy="190.8" r="3.5" class="cdot cs-ink"/><circle cx="118.6" cy="184.6" r="3.5" class="cdot cs-ink"/><circle cx="191.1" cy="147.8" r="3.5" class="cdot cs-ink"/><circle cx="263.7" cy="133.4" r="3.5" class="cdot cs-ink"/><circle cx="336.3" cy="125.8" r="3.5" class="cdot cs-ink"/><circle cx="408.9" cy="131.5" r="3.5" class="cdot cs-ink"/><circle cx="481.4" cy="142.1" r="3.5" class="cdot cs-ink"/><circle cx="554.0" cy="158.6" r="3.5" class="cdot cs-ink"/><path d="M46.0 184.8 L118.6 177.2 L191.1 140.4 L263.7 117.6 L336.3 103.3 L408.9 113.8 L481.4 131.8 L554.0 154.6" class="cline cs-acc"/><circle cx="46.0" cy="184.8" r="3.5" class="cdot cs-acc"/><circle cx="118.6" cy="177.2" r="3.5" class="cdot cs-acc"/><circle cx="191.1" cy="140.4" r="3.5" class="cdot cs-acc"/><circle cx="263.7" cy="117.6" r="3.5" class="cdot cs-acc"/><circle cx="336.3" cy="103.3" r="3.5" class="cdot cs-acc"/><circle cx="408.9" cy="113.8" r="3.5" class="cdot cs-acc"/><circle cx="481.4" cy="131.8" r="3.5" class="cdot cs-acc"/><circle cx="554.0" cy="154.6" r="3.5" class="cdot cs-acc"/><path d="M46.0 196.2 L118.6 185.6 L191.1 146.2 L263.7 136.5 L336.3 126.0 L408.9 130.4 L481.4 141.1 L554.0 156.5" class="cline cs-acc2"/><circle cx="46.0" cy="196.2" r="3.5" class="cdot cs-acc2"/><circle cx="118.6" cy="185.6" r="3.5" class="cdot cs-acc2"/><circle cx="191.1" cy="146.2" r="3.5" class="cdot cs-acc2"/><circle cx="263.7" cy="136.5" r="3.5" class="cdot cs-acc2"/><circle cx="336.3" cy="126.0" r="3.5" class="cdot cs-acc2"/><circle cx="408.9" cy="130.4" r="3.5" class="cdot cs-acc2"/><circle cx="481.4" cy="141.1" r="3.5" class="cdot cs-acc2"/><circle cx="554.0" cy="156.5" r="3.5" class="cdot cs-acc2"/><text x="562.0" y="157.6" class="clbl cs-acc">Neu, Lauf 1</text><text x="562.0" y="173.5" class="clbl cs-acc2">Neu, Lauf 2</text><text x="562.0" y="189.6" class="clbl cs-ink">Alt, abends</text><text x="562.0" y="206.5" class="clbl cs-mut">Alt, vormittags</text>
+      <text x="46.0" y="282" class="ctick" text-anchor="middle">512</text><text x="118.6" y="282" class="ctick" text-anchor="middle">1k</text><text x="191.1" y="282" class="ctick" text-anchor="middle">2k</text><text x="263.7" y="282" class="ctick" text-anchor="middle">4k</text><text x="336.3" y="282" class="ctick" text-anchor="middle">8k</text><text x="408.9" y="282" class="ctick" text-anchor="middle">16k</text><text x="481.4" y="282" class="ctick" text-anchor="middle">32k</text><text x="554.0" y="282" class="ctick" text-anchor="middle">64k</text>
+      <text x="46" y="296" class="ctick">Kontexttiefe (Token, Verdopplungsschritte)</text>
+    </svg>
+  </div>
+  <figcaption>Der alte Pin verliert zwischen Vormittag und Abend im paarweisen Mittel 27,9&nbsp;% Prefill; die jeweilige Spitze fällt von 417,9 auf 267,1&nbsp;t/s, also um 36,1&nbsp;%. Der neue Pin ist im ersten Abendlauf 9,6&nbsp;% schneller als der alte, in der Wiederholung 0,7&nbsp;% langsamer. Eine stabile Beschleunigung lässt sich daraus nicht ableiten.</figcaption>
+</figure>
+<details class="benchmark-tabledetails"><summary>Messdrift als Tabelle</summary>
+<div class="benchmark-table-wrap"><table class="gl-data-table" aria-label="Prefill-Messdrift über den Messtag"><thead><tr><th scope="col">ctx</th><th scope="col">Alt, vormittags</th><th scope="col">Alt, abends</th><th scope="col">Neu, Lauf 1</th><th scope="col">Neu, Lauf 2</th></tr></thead><tbody>
+<tr><td>512</td><td>253,5</td><td>143,2</td><td>154,8</td><td>132,9</td></tr>
+<tr><td>1.024</td><td>301,3</td><td>155,0</td><td>169,1</td><td>153,1</td></tr>
+<tr><td>2.048</td><td>355,0</td><td>225,2</td><td>239,3</td><td>228,2</td></tr>
+<tr><td>4.096</td><td>390,1</td><td>252,6</td><td>282,8</td><td>246,7</td></tr>
+<tr><td>8.192</td><td>417,9</td><td>267,1</td><td>309,8</td><td>266,6</td></tr>
+<tr><td>16.384</td><td>366,6</td><td>256,1</td><td>289,8</td><td>258,2</td></tr>
+<tr><td>32.768</td><td>226,6</td><td>236,0</td><td>255,6</td><td>238,0</td></tr>
+<tr><td>65.536</td><td>199,1</td><td>204,5</td><td>212,2</td><td>208,5</td></tr>
+</tbody></table></div><p class="benchmark-tablecaption">ds4-bench, identische Parameter in allen vier Läufen. Vormittagslauf 12:36, Abendläufe 17:05-17:19. Alt = Server-Pin 97319db8, Neu = c1f4aa22.</p></details>
+
+<p>Der erste Vergleich nach dem Pin-Bump auf c1f4aa22 sah bei kurzen Kontexten wie eine Regression von 30 bis 48&nbsp;% aus. Der Kontrolllauf mit dem alten Code am selben Abend zeigte aber dieselbe Drift: Im Mittel lag er 27,9&nbsp;% unter seinem eigenen Vormittagslauf. Ich habe keine Temperatur- oder Leistungswerte aufgezeichnet, kann die Ursache also nicht als Thermik beweisen. Gemessen ist nur ein starker Reihenfolge- beziehungsweise Warmzustandseffekt nach mehreren langen GPU-Sweeps.</p>
+
+<p>Verschränkt am selben Abend war der neue Pin im ersten Prefill-Lauf 9,6&nbsp;% schneller als der alte, in der Wiederholung 0,7&nbsp;% langsamer. Beim Decode waren es +13,7 und +0,7&nbsp;%. Das widerlegt die scheinbare 30-bis-48-%-Regression, belegt aber keinen stabilen Speed-Gewinn. Seitdem verschränke ich Bench-Arme und vergleiche sie nicht mehr über mehrere Stunden hinweg.</p>
+
+<p>Das alte KV-Default-Budget von 8&nbsp;GB stammte aus einer Zeit vor Kontextfenstern mit 400k Tokens. Mein Befund von 3.102 Verdrängungen bei 76 Treffern ging als Issue an den Upstream. Am 7.7. wurde die Änderung „Raise KV disk cache default by RAM tier“ übernommen.</p>
+
+<h2>DSpark: Der Basis-Draft brachte keinen Speedup</h2>
+
+<p>Nach dem Bandbreitenbefund war spekulatives Decoding der plausibelste verbleibende Kandidat für mehr Decode-Speed. Im besten Fall hätte es auch die ungefähr 15&nbsp;% Decode-Verlust des 91-GB-Quants zurückgeholt.</p>
+
+<p>Nach dem Pin-Bump war die DSpark-Laufzeit im Server vorhanden und das verlustfreie B2-Rejection-Sampling lag im Engine-Code. Ich habe außerdem das Draft-GGUF aus dem Hugging-Face-Repo gebaut. Praktisch dabei: Alle 4.705 Draft-Tensoren lagen in den letzten 4 von 48 Shards. Damit musste ich ungefähr <strong>16&nbsp;GB statt 167&nbsp;GB</strong> laden. Vor dem vollständigen Server-Patch blieb nur ein Ein-Zeilen-Gate.</p>
+
+<p>Bevor ich dieses Gate patche und den Pin einfriere, habe ich die billigere Greedy-Probe gemacht: isolierter Server auf Port 8077, eigener Scratch-KV, Temperatur 0 und je ein Lauf mit demselben 500-Token-Prompt.</p>
+
+<div class="benchmark-kpis benchmark-kpis--pair">
+  <div class="benchmark-kpi"><strong>37,62&nbsp;t/s</strong><span>Decode ohne Draft (Baseline, 91-GB-Modell, greedy).</span></div>
+  <div class="benchmark-kpi"><strong>36,37&nbsp;t/s</strong><span>Decode mit geladenem DSpark-Draft (<code>--mtp-draft 4</code>): null Beschleunigung, &minus;3,3&nbsp;%.</span></div>
+</div>
+
+<p>Der Draft lud korrekt (<code>kind=dspark, runtime_mtp=yes</code>), trotzdem fiel der Decode von 37,62 auf 36,37&nbsp;t/s. Die Probe enthält keinen eigenen Acceptance-Zähler. Der fehlende Speedup und das beobachtete Fortschreiten um jeweils nur ein Token passen aber zu der naheliegenden Erklärung, dass fast keine Draft-Tokens akzeptiert wurden.</p>
+
+<p>Die naheliegende Erklärung liegt in den Gewichten: Der Draft wurde aus der <em>Basis</em>-Variante von DeepSeek-V4-Flash konvertiert, während der Server das <em>abliterierte</em> Quant ausführt. Abliteration verschiebt genau die Ausgabeverteilung, die ein Draft vorhersagen muss. Die vorhandenen Artefakte liefern deshalb keine brauchbare Kombination. Ein passender Draft wäre ein eigenes Trainingsprojekt.</p>
+
+<p>Damit war der Test für mich beendet, für weniger als einen Dollar Strom und bevor ich den Server gepatcht und den Pin eingefroren hätte. Die Skripte bleiben liegen, falls irgendwann ein Draft für die abliterierten Gewichte existiert.</p>
+
+<h2>Was mir die Messung unterwegs kaputtgemacht hat</h2>
+
+<p>Fast jeder größere Lauf hat noch eine neue Fehlerklasse gefunden. Das waren die wichtigsten:</p>
+
+<ol>
+  <li>17.6.: Billiges Task-Batch-Judging überbewertete dieselbe Antwort um rund 24&nbsp;pp (83,79 gegen 59,35&nbsp;%). Seitdem ist der criterion-Modus Standard.</li>
+  <li>23.6.: Pi erkannte DS4-Kontextüberläufe nicht als solche; dazu ein libmalloc-SIGTRAP nach Aufgabe 55. Patches mitten im Lauf.</li>
+  <li>26.6.: Node/V8-OOM (<code>Killed: 9</code>) beendete den Retry-Lauf nach drei Aufgaben – der Orchestrator starb, nicht das Modell.</li>
+  <li>28.6.: <code>--no-extensions</code> deaktiviert eingebaute Tools nicht: die Fusion-Reparatur recherchierte munter frisch per <code>bash</code>. Methodisch ungültig; Neustart mit <code>--no-tools</code>.</li>
+  <li>2.7.: Pi-Update löschte still den Overflow-Patch. Antwort: Patch-System mit Selbstheilung und Preflight-Guard.</li>
+  <li>2.7.: Die Regel „prüfe dich vor dem Abschluss“ im Systemprompt brachte das Modell dazu, mit einer Statusnotiz zu enden. Der Harness speicherte 486 Zeichen Kommentar statt des 24k-Berichts (Judge: 7,5&nbsp;%). Zwei Fixes: Promptregel und Extraktions-Fallback.</li>
+  <li>6.7.: pi-ds4 v0.4 setzte den Adapter-Checkout hart zurück – alle fünf lokalen Patches weg. Antwort: Patches leben jetzt als idempotenter Applier im eigenen Repo, nicht im fremden Arbeitsverzeichnis.</li>
+  <li>6.7.: Der gleiche Code lag am Abend im paarweisen Mittel 27,9&nbsp;% unter seinem Vormittagslauf. Ohne Sensorwerte bleibt die Ursache offen; die Messreihenfolge war damit als Vergleich unbrauchbar.</li>
+  <li>6.-7.7.: Der Download wurde ohne Anmeldung auf 0,6 bis 3&nbsp;MB/s gedrosselt und brach mehrfach mit EOF ab. Ein Quoting-Fehler machte aus dem Auth-Header eine „URI“ (<code>Unrecognized URI or unsupported protocol: Bearer\</code>), dazu kamen 67 TLS-Handshake-Fehler. Gelöst wurde es mit dem Token in einer 0600-Conf-Datei und Retry-Schleifen.</li>
+  <li>7.7.: Ein fremder Prozess hielt Port 8000. Der Server versuchte 40 Starts in 10 Minuten, mappte jedes Mal 93&nbsp;GB in Metal und scheiterte danach am Bind. Der erste Quant-Arm produzierte nichts Verwertbares. Der Port ist im Adapter hart kodiert.</li>
+  <li>8.7.: Der Cap-Starvation-Confound wurde während des Quant-Laufs notiert, bevor die Scores feststanden.</li>
+  <li>9.7.: <code>ds4-bench</code> kennt kein <code>--mtp</code>. Speculative Decoding ist ein reines Server-Feature; der geplante Bench-Test war damit nicht möglich. Die Server-Probe lieferte keinen Speedup und stützte die Hypothese, dass Basis-Draft und abliteriertes Modell nicht zusammenpassen.</li>
+</ol>
+
+<details class="benchmark-tabledetails" style="margin: var(--gl-space-8) 0;">
+<summary>Vollständige Chronik der drei Wochen</summary>
+<div class="benchmark-table-wrap"><table class="gl-data-table" aria-label="Chronik der Benchmark-Arbeit">
+<thead><tr><th scope="col">Datum</th><th scope="col">Ereignis</th><th scope="col">Zahl des Tages</th></tr></thead>
+<tbody>
+<tr><td>17.6.</td><td>Harness gebaut, Smokes, GPT-5.5-Lauf gestartet</td><td>83,79 → 59,35&nbsp;% (Judge-Methodik)</td></tr>
+<tr><td>18.-19.6.</td><td>GPT-5.5 komplett; Judge-Sensitivität etabliert</td><td>61,77 / 49,37 / 47,98&nbsp;% – gleiche Antworten, drei Judges</td></tr>
+<tr><td>20.-22.6.</td><td>Fusion-Lauf (49 ok / 51 partial); DS4-Panel-Salvage</td><td>48,21&nbsp;% auf 52 gültigen; harte Untergrenze 25,07&nbsp;%</td></tr>
+<tr><td>22.-25.6.</td><td>Reiner DS4-256k-Lauf inkl. Overflow-Patches, SIGTRAP, Resume</td><td>43,05&nbsp;% / 41,92&nbsp;% gewichtet; 12 leere Antworten</td></tr>
+<tr><td>26.6.</td><td>Empty-Retry in 4 Batches, V8-OOM dazwischen</td><td>merged 48,18&nbsp;% / 46,61&nbsp;%</td></tr>
+<tr><td>28.6.</td><td>Fusion-Reparatur (toolless), finaler Fusion-Wert</td><td>48,29&nbsp;%; Gesamtkosten 348,95&nbsp;$</td></tr>
+<tr><td>2.7.</td><td>8-Agenten-Studie; 9 von 11 Sofortmaßnahmen + Salvage + Sticky-Trim implementiert; Subset eingefroren; Steering-A/B gestartet</td><td>15,7&nbsp;MB; 3.102&nbsp;:&nbsp;76; Cap 2.100&nbsp;s</td></tr>
+<tr><td>3.-4.7.</td><td>Steering-A/B beide Arme gemessen</td><td>+1,46&nbsp;pp = Rauschen; beobachteter Stack-Abstand zum Juni-Subset +6,80&nbsp;pp</td></tr>
+<tr><td>6.7.</td><td>Bench-Tag: MPP-Fastpath verworfen, v0.4-Patch-Wipe, Pin-Bump, Messdrift; Downloads gestartet</td><td>MPP &minus;29,7&nbsp;% im paarweisen Mittel; kein stabiler Pin-Gewinn</td></tr>
+<tr><td>7.7.</td><td>Downloads fertig; Port-8000-Kollision zerstört Arm 1; Quant-Arm läuft; DSpark-Draft gebaut</td><td>16&nbsp;GB statt 167&nbsp;GB; 40 Fehlstarts</td></tr>
+<tr><td>8.7.</td><td>91-GB-Quant roh 48,70&nbsp;%; Confound erkannt, Caps angehoben, neuer Lauf gestartet</td><td>+4,41&nbsp;pp auf 17 vergleichbaren Aufgaben</td></tr>
+<tr><td>9.7.</td><td>Kombinierte 91-GB-/Cap-2500-Konfiguration bei 52,36&nbsp;%; DSpark-Probe ohne Speedup</td><td>+2,92&nbsp;pp; 37,62 gegen 36,37&nbsp;t/s</td></tr>
+</tbody>
+</table></div>
+</details>
+
+<h2>Kosten der Juli-Validierung</h2>
+
+<div class="benchmark-table-wrap"><table class="gl-data-table" aria-label="Kosten der Juli-Validierung"><thead><tr><th scope="col">Validierungslauf (je 20 Aufgaben)</th><th scope="col">Score</th><th scope="col">Generierung</th><th scope="col">Judge-Kosten</th></tr></thead><tbody>
+<tr><td>Steering an (3.7.)</td><td>49,44&nbsp;%</td><td>10,0&nbsp;h</td><td>76,49&nbsp;$</td></tr>
+<tr><td>Steering aus (4.7.)</td><td>47,98&nbsp;%</td><td>10,5&nbsp;h</td><td>63,88&nbsp;$</td></tr>
+<tr><td>91&nbsp;GB Cap 2100 (8.7.)</td><td>48,70&nbsp;%</td><td>11,0&nbsp;h</td><td>67,09&nbsp;$</td></tr>
+<tr><td>91&nbsp;GB Cap 2500 (9.7.)</td><td>52,36&nbsp;%</td><td>12,1&nbsp;h</td><td>65,22&nbsp;$</td></tr>
+<tr><td><b>Summe Juli-Validierung</b></td><td></td><td></td><td><b>272,68&nbsp;$</b></td></tr>
+</tbody></table></div>
+
+<p>Die Juni-Läufe waren deutlich teurer: Allein das Judging der Fusion-Reparatur kostete 255,42&nbsp;$, die GPT-5.5-Generierung 612,60&nbsp;$. Mit dem eingefrorenen 20-Aufgaben-Subset konnte ich im Juli vier kontrollierte Arme für zusammen 272,68&nbsp;$ Judge-Kosten ausführen.</p>
+
+<h2>Was diese Zahlen nicht zeigen</h2>
+
+<ul>
+  <li>52,36&nbsp;% ist kein offizieller DRACO-Wert und kein OpenRouter-Vergleich. Judge, Tooling und teilweise auch die Modellvariante unterscheiden sich.</li>
+  <li>Das Subset ist absichtlich hart; 52,36&nbsp;% dort entspricht nicht 52,36&nbsp;% auf allen 100 Aufgaben. Ein voller 100er-Lauf mit der Standardkonfiguration steht aus.</li>
+  <li>Bei n&nbsp;=&nbsp;20 und Streuungen um 18 bis 20 sind einzelne Aufgaben sehr laut. Auch die gepaarten Mittel sind Richtungswerte, kein statistischer Beweis.</li>
+  <li>Der Vergleich von Juni zu Juli kreuzt Pi-Versionen (0.79.4&nbsp;→&nbsp;0.80.2), die Zahl der Judge-Läufe und mehrere Harness-Änderungen. Am saubersten isoliert ist das Steering-A/B. Die Quant-Läufe bleiben durch das effektive Tokenbudget beziehungsweise den Cap-Wechsel konfundiert.</li>
+  <li>Gerettete Antworten haben oft schwächere Zitate. Salvage verhindert 0&nbsp;%, maximiert aber nicht den Score.</li>
+  <li>Eine Medizin-Regression (76,6&nbsp;→&nbsp;25,1, monoton) ist unerklärt und für einen Re-Judge vorgemerkt.</li>
+</ul>
+
+<h2>Die Konfiguration, die jetzt läuft</h2>
+
+<p>Seit dem 9.7. läuft diese Standardkonfiguration: 91-GB-Quant, 400k Kontextfenster mit offenem Think-Max-Gate, 64&nbsp;GB KV-Budget, klebriges Trimmen, gedeckelte Tool-Ausgaben, Salvage, Cap 2.500&nbsp;s und Steering an.</p>
+
+<p>Als Nächstes kommen der volle 100-Aufgaben-Lauf, die hartnäckige 0,0-Aufgabe 10e75d21 und der Re-Judge der Medizin-Regression. Ein abliterierter DSpark-Draft wäre später noch interessant, falls ihn jemand trainiert. Decode bleibt bis dahin bandbreitenlimitiert bei 18 bis 37&nbsp;t/s. Die Physik verhandelt nicht.</p>
+
+<h2>Quellen und Artefakte</h2>
+
+<ul>
+  <li><a href="draco-pi-fusion-benchmark.html">Teil 1: DRACO mit pi und pi-fusion (Juni-Werkstattbericht)</a></li>
+  <li><a href="assets/draco-benchmark/ds4-optimization-derived.json">Abgeleitete Daten dieses Berichts als JSON</a> (Arm-Scores je Aufgabe, Bench-Kurven und weitere ausgewählte Messwerte)</li>
+  <li>DRACO: <a href="https://huggingface.co/datasets/perplexity-ai/draco" rel="noopener" target="_blank">Datensatz</a> · <a href="https://arxiv.org/abs/2602.11685" rel="noopener" target="_blank">Paper</a></li>
+  <li>ds4/pi-ds4: <a href="https://github.com/audreyt/ds4" rel="noopener" target="_blank">Server</a> · <a href="https://github.com/audreyt/pi-ds4" rel="noopener" target="_blank">Pi-Extension</a></li>
+  <li>Projektnotizen (lokal): Studien-, Validierungs- und Speed-Vektoren-Notizen mit Änderungs-Manifest, Fehlerindex, Chronik und den Pfaden zu den Rohdaten.</li>
+</ul>
+
+      </article>
+
+      <nav class="tj-post-nav" aria-label="Weitere Notizen">
+        <a href="es-gibt-keinen-review-agenten.html" rel="prev"><span class="gl-meta">← Älterer Artikel</span><strong>Es gibt keinen Review-Agenten</strong></a>
+        <a href="frontier-vs-lokal-deepresearch-benchmark.html" rel="next"><span class="gl-meta">Neuerer Artikel →</span><strong>Lokal vs. Frontier bei Deep Research</strong></a>
+      </nav>
+    </main>
+
+    <footer class="gl-site-footer tj-footer">
+      <div class="tj-wrap py-10 text-sm">
+        <div class="flex flex-col gap-2">
+          <span style="font-family: var(--gl-font-sans); font-weight: 600; font-size: 1.05rem;">Tom Jansen</span>
+          <span class="gl-meta">Aachen · <span data-live-clock="">09:59</span> CET</span>
+          <div class="tj-footer__links-row">
+            <div class="commercial-footer-links">
+              <a href="https://www.linkedin.com/in/tjansn/" target="_blank" rel="noopener">LinkedIn</a>
+              <a href="https://github.com/tjansn" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://x.com/thomasjansn" target="_blank" rel="noopener">X</a>
+              <a href="../projekte.html" data-i18n="nav.projects">Projekte</a>
+              <a href="../notes/index.html" data-i18n="nav.notes">Notizen</a>
+              <a href="../impressum.html">Impressum</a>
+              <a href="../datenschutz.html" data-i18n="footer.privacyLink">Datenschutz</a>
+            </div>
+            <div class="gl-language-switcher" role="group" aria-labelledby="footer-language">
+              <span id="footer-language" data-i18n="footer.languageLabel" hidden>Sprache</span>
+              <div class="gl-language-switcher__controls">
+                <button type="button" class="gl-language-switcher__option" data-language-option="de" lang="de" aria-pressed="true">Deutsch</button>
+                <button type="button" class="gl-language-switcher__option" data-language-option="en" lang="en" aria-pressed="false">English</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="../commercial-pages.js"></script>
+    <script src="../archetype-pages.js"></script>
+  </body>
+</html>

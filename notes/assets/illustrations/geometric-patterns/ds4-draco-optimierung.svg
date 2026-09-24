@@ -1,0 +1,26 @@
+<svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1000" height="1000" fill="#ebe4d7"/>
+  <rect x="0" y="0" width="1000" height="240" fill="#caede3"/>
+  <rect x="0" y="760" width="1000" height="240" fill="#4b9ab4"/>
+  <!-- rising steps: the score trail -->
+  <rect x="120" y="640" width="120" height="120" rx="10" fill="#f5f3f0"/>
+  <rect x="270" y="560" width="120" height="200" rx="10" fill="#f5f3f0"/>
+  <rect x="420" y="470" width="120" height="290" rx="10" fill="#f5f3f0"/>
+  <rect x="570" y="500" width="120" height="260" rx="10" fill="#d9cfbb"/>
+  <rect x="720" y="380" width="120" height="380" rx="10" fill="#e7350d"/>
+  <!-- dumbbell motif -->
+  <line x1="180" y1="330" x2="780" y2="330" stroke="#131616" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="180" cy="330" r="42" fill="#ebe4d7" stroke="#131616" stroke-width="10"/>
+  <circle cx="780" cy="330" r="42" fill="#e7350d"/>
+  <!-- context-depth dots fading -->
+  <circle cx="120" cy="880" r="26" fill="#f5f3f0"/>
+  <circle cx="260" cy="880" r="22" fill="#f5f3f0" opacity="0.85"/>
+  <circle cx="400" cy="880" r="18" fill="#f5f3f0" opacity="0.7"/>
+  <circle cx="540" cy="880" r="14" fill="#f5f3f0" opacity="0.55"/>
+  <circle cx="680" cy="880" r="10" fill="#f5f3f0" opacity="0.4"/>
+  <circle cx="820" cy="880" r="7" fill="#f5f3f0" opacity="0.3"/>
+  <!-- top band: three judge lenses -->
+  <rect x="120" y="80" width="200" height="80" rx="40" fill="#f5f3f0"/>
+  <rect x="400" y="80" width="200" height="80" rx="40" fill="#4b9ab4"/>
+  <rect x="680" y="80" width="200" height="80" rx="40" fill="#131616"/>
+</svg>

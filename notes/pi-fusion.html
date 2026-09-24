@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="de" class="h-full no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>pi-fusion: Multi-Modell-Research-Panels für pi | Tom Jansen Notes</title>
+    <meta name="description" content="pi-fusion fächert eine Frage auf mehrere KI-Modelle auf, lässt sie unabhängig recherchieren, bewertet die Antworten und synthetisiert eine finale Antwort. Ein ehrlicher Blick auf die pi-Erweiterung – wie sie funktioniert, wie man sie installiert und was sie kostet." />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="pi-fusion: Wenn mehrere Modelle gemeinsam recherchieren" />
+    <meta property="og:description" content="Eine Open-Source-Erweiterung für die KI-CLI pi: parallele Research-Panels aus mehreren Modellen, ein Judge-Pass und eine synthetisierte Antwort. Konkret erklärt." />
+    <meta name="theme-color" content="#f5f3f0" />
+    <link rel="icon" href="../tj-logo.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../gl-v2.css" />
+    <link rel="stylesheet" href="../tj.css" />
+    <style>
+      .gl-prose pre { font-family: var(--gl-font-mono); font-size: 0.8rem; line-height: 1.6; background: var(--gl-color-oat); border: 1px solid var(--gl-border-tone); border-radius: 8px; padding: var(--gl-space-4); overflow-x: auto; margin: var(--gl-space-5) 0; }
+      .dark .gl-prose pre { background: rgba(245, 243, 240, 0.04); }
+      .gl-prose pre code { font-family: inherit; font-size: inherit; background: none; padding: 0; white-space: pre; }
+    </style>
+    <script>
+      document.documentElement.classList.remove("no-js");
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "dark") document.documentElement.classList.add("dark");
+      function toggleTheme() {
+        const dark = document.documentElement.classList.toggle("dark");
+        localStorage.setItem("theme", dark ? "dark" : "light");
+      }
+    </script>
+    <!-- Plausible Analytics — self-hosted (Mac mini, Cloudflare Tunnel), cookieless -->
+    <script defer data-domain="tjansn.com" src="https://stats.gammalabs.cc/js/script.tagged-events.outbound-links.js"></script>
+    <script>window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) };</script>
+  </head>
+  <body class="commercial-shell">
+    <div class="gl-scroll-progress" data-scroll-progress aria-hidden="true"></div>
+
+    <header class="gl-site-header tj-header flex items-center justify-between py-4" data-site-header>
+      <a href="../index.html" class="flex items-center gap-2 font-semibold" aria-label="Tom Jansen, Startseite">
+        <span class="gl-site-title" style="font-family: var(--gl-font-sans); font-weight: 600; font-size: 1.15rem; letter-spacing: -0.02em;">Tom Jansen</span>
+      </a>
+      <nav class="tj-nav" aria-label="Hauptnavigation">
+        <a href="../index.html" data-i18n="nav.profile">Profil</a>
+        <a href="../projekte.html" data-i18n="nav.projects">Projekte</a>
+        <a href="../notes/index.html" aria-current="page" data-i18n="nav.notes">Notizen</a>
+      </nav>
+      <button type="button" onclick="toggleTheme()" class="gl-theme-toggle js-theme-toggle" aria-pressed="false" aria-label="Toggle theme">
+        <span class="gl-theme-toggle__icons" aria-hidden="true">
+          <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z" /></svg>
+        </span>
+        <span class="gl-theme-toggle__thumb" aria-hidden="true"></span>
+      </button>
+    </header>
+
+    <main class="px-6" style="padding-block: clamp(5rem, 10vw, 8rem) clamp(4rem, 8vw, 6rem);">
+      <article class="gl-prose">
+        <p class="gl-eyebrow">Open Source · KI-Tooling</p>
+        <h1>pi-fusion: Wenn mehrere Modelle <em>gemeinsam</em> recherchieren</h1>
+        <p class="gl-meta">Tom Jansen · 22.06.2026 · 6 Min. Lesezeit</p>
+        <div class="gl-rule-accent is-visible" style="margin-top: var(--gl-space-6);"></div>
+
+
+
+        <div class="gl-cta-group" style="justify-content: flex-start;"><a class="gl-button gl-button--outline" href="https://github.com/tjansn/pi-fusion" target="_blank" rel="noopener">Auf GitHub ansehen →</a></div>
+
+        <p>
+          Die meisten KI-Antworten kommen aus genau einem Lauf: eine Frage, ein Modell, eine Antwort. Für schnelle
+          Sachen reicht das. Bei einer Architekturentscheidung, einem Benchmark-Vergleich oder einer gründlichen
+          Recherche ist es riskant: Ein einzelnes Modell hat blinde Flecken, und man sieht sie ihm nicht an.
+          <strong>pi-fusion</strong> ist die Open-Source-Erweiterung, mit der ich diesen Abstand einbaue: dieselbe Frage
+          geht in mehrere getrennte Kontexte, die Antworten werden verglichen, und erst danach entsteht die finale
+          Antwort.
+        </p>
+
+        <h2>Was „pi" ist und was pi-fusion ergänzt</h2>
+        <p>
+          pi-fusion ist eine Erweiterung für <strong>pi</strong> – eine KI-Plattform mit Kommandozeilen- und
+          TUI-Oberfläche, in der man mit Agenten arbeitet, Tools lädt und Erweiterungen installiert. Man kann sich pi
+          als die Umgebung vorstellen, in der die Agenten laufen; pi-fusion bringt eine neue Fähigkeit mit, die sich in
+          diese Umgebung einklinkt. Die README bringt es auf einen Satz:
+        </p>
+        <p>
+          <em>„<code>pi_fusion</code> fans one prompt out to multiple isolated child agents, compares their answers with
+          a judge pass, then asks a synthesizer model to write the final answer."</em>
+        </p>
+        <p>
+          Auf Deutsch: Eine Frage wird in mehrere voneinander isolierte Child-Agent-Runs geschickt. Die Antworten werden
+          in einem Bewertungsdurchlauf verglichen, und am Ende schreibt ein eigenes Synthese-Modell die finale Antwort.
+          Genau das ist mit „Fusion-style multi-model research panels" gemeint: ein Panel aus mehreren Modellen, die
+          parallel an derselben Frage arbeiten und deren Ergebnisse anschließend zusammengeführt werden.
+        </p>
+
+        <h2>Die Idee hinter den Panels</h2>
+        <p>
+          Der Kern ist bewusst einfach. Statt einem Modell blind zu vertrauen, erzeugt man mehrere saubere Kontexte für
+          dieselbe Frage. Nicht, weil dort plötzlich drei kleine Mitarbeiter sitzen. Der Wert liegt darin, dass die
+          Antworten unabhängig voneinander entstehen. Drei Schritte laufen nacheinander ab:
+        </p>
+        <p>
+          <strong>Erstens das Panel:</strong> Die Frage wird auf mehrere Runs verteilt, jeder mit einem eigenen Modell
+          und einer eigenen, isolierten Sitzung. Sie sehen die Antworten der anderen nicht und können sich dadurch auch
+          nicht gegenseitig in dieselbe Richtung ziehen. <strong>Zweitens der Judge:</strong> Ein eigenes Modell
+          vergleicht die Panel-Antworten und bewertet sie. <strong>Drittens die Synthese:</strong> Ein Synthese-Modell
+          schreibt aus den geprüften Antworten die endgültige Antwort. Diese Trennung in Panel, Judge und Synthesizer
+          macht das Ergebnis besser prüfbar als einen einzelnen Durchlauf.
+        </p>
+
+        <aside class="gl-pull">„Drei getrennte Kontexte, ein prüfender Blick darauf, dann eine Synthese. Das ist weniger magisch als ein Agenten-Team, aber nützlicher."</aside>
+
+        <h2>Wie es technisch funktioniert</h2>
+        <p>
+          pi-fusion ist in TypeScript geschrieben und installiert sich als pi-Erweiterung. Es registriert ein Tool namens
+          <code>pi_fusion</code> sowie eine Reihe von Slash-Kommandos. Das Herzstück sind die <em>Subagenten</em>: Die
+          Erweiterung startet für jeden Panelisten einen eigenen Kind-Prozess, also einen getrennten Run mit eigenem
+          Kontext. Welcher „Runner" das übernimmt, richtet sich nach dem Modell-Slug – pi kann eigene Modelle laufen
+          lassen, aber genauso Claude Code für <code>claude/...</code>-Modelle, Codex für <code>codex/...</code> oder ein lokales Ollama-Modell. So lassen sich
+          Modelle aus völlig verschiedenen Quellen in ein und demselben Panel kombinieren.
+        </p>
+        <p>
+          Konfiguriert wird das über eine schlichte JSON-Datei – global unter <code>~/.pi/agent/fusion.json</code> oder
+          projektlokal unter <code>.pi/fusion.json</code>. Die mitgelieferte <code>config.json.example</code> zeigt den
+          Aufbau, hier leicht gekürzt:
+        </p>
+        <pre><code>{
+  "panelModels": [
+    "google/gemini-3-flash-preview",
+    "moonshotai/kimi-k2.6",
+    "deepseek/deepseek-v4-pro"
+  ],
+  "judgeModel": "anthropic/claude-opus-4-5",
+  "synthesizerModel": "anthropic/claude-opus-4-5",
+  "defaultPanelSize": 3,
+  "maxConcurrency": 4,
+  "confirmBeforeRun": true
+}</code></pre>
+        <p>
+          Man sieht direkt das Prinzip: drei verschiedene Panel-Modelle, ein dedizierter Judge, ein dedizierter
+          Synthesizer, drei Panelisten als Standardgröße, höchstens vier parallel – und <code>confirmBeforeRun</code>,
+          das im TUI vor jedem Lauf nachfragt, bevor Kind-Prozesse gestartet werden. Wer Presets sauber als Profile
+          ablegen will, nutzt YAML-Dateien unter <code>~/.pi/agent/fusion-presets/</code>; pi-fusion parst sie übrigens
+          ohne npm-Abhängigkeit, indem es schlicht den Ruby-Standardparser Psych aufruft.
+        </p>
+
+        <h2>Installieren und benutzen</h2>
+        <p>
+          Die Installation läuft direkt aus GitHub. Entweder dauerhaft installieren oder einmalig zum Ausprobieren laden:
+        </p>
+        <pre><code>pi install git:github.com/tjansn/pi-fusion@v0.1.0
+# oder ohne Installation testen
+pi -e git:github.com/tjansn/pi-fusion@v0.1.0</code></pre>
+        <p>
+          Danach stellt man seine Frage über das <code>/fusion</code>-Kommando. Mit einem benannten Preset sieht das so
+          aus:
+        </p>
+        <pre><code>/fusion deep-research What is currently the best benchmark
+for evaluating agentic deep research systems?</code></pre>
+        <p>
+          Während es läuft, zeigt pi-fusion ein Live-Widget im TUI: das gewählte Preset, welcher Runner und welches
+          Modell hinter jedem Panelisten, Judge und Synthesizer steckt, den Status jeder Stufe
+          (<code>pending</code>, <code>running</code>, <code>ok</code>, <code>error</code>), Token, bekannte API-Kosten,
+          die verstrichene Zeit und das Verzeichnis, in dem die Artefakte landen. Man sieht also, wo der Lauf gerade
+          steht, statt nur auf eine fertige Antwort zu warten.
+        </p>
+
+        <h2>Warum mehrere Modelle besser recherchieren</h2>
+        <p>
+          Der Gewinn liegt in der Unabhängigkeit. Jedes Modell hat eigene Trainingsdaten, eigene Stärken und eigene
+          systematische Fehler. Lässt man drei Modelle dieselbe Frage getrennt beantworten, fallen Übereinstimmungen und
+          Widersprüche sofort auf: Wo alle drei dasselbe sagen, kann man sich ziemlich sicher sein; wo sie
+          auseinandergehen, weiß man, dass genau dort genauer hinzusehen ist. Der Judge-Schritt macht diese Bewertung explizit, statt
+          sie dem Leser zu überlassen. Genau deshalb lohnt sich der Aufwand bei „high-stakes"-Fragen – Architektur,
+          Benchmarks, tiefe Recherche – und eben nicht bei jeder kleinen Auskunft.
+        </p>
+
+        <h2>Der ehrliche Haken</h2>
+        <p>
+          Das hat seinen Preis, ganz buchstäblich. Die README sagt es selbst deutlich: Fusion-Läufe können teuer sein.
+          Ein einziger <code>/fusion</code>-Aufruf startet mehrere Panel-Runs, einen Judge und einen Synthesizer. Man
+          bezahlt also nicht eine Antwort, sondern fünf oder mehr Modell-Durchläufe für dieselbe Frage. Dazu kommt die
+          Latenz: mehrere Runs und zwei nachgelagerte Stufen brauchen länger als ein einzelner Aufruf. Und die
+          Kind-Prozesse erben die Umgebung und die Auth des Aufrufenden, weshalb pi-fusion standardmäßig nur Lese- und
+          Web-Tools erlaubt und vor dem Start nachfragt. Kurz: ein Werkzeug für die Fragen, bei denen die richtige
+          Antwort mehr wert ist als die gesparten Token – nicht für den Alltag.
+        </p>
+
+        <h2>Wie das zu meiner Arbeit passt</h2>
+        <p>
+          Genau dieses Muster nutze ich in Kundenprojekten: nicht ein riesiger Agent, der alles gleichzeitig im Kontext
+          hält, sondern getrennte Runs mit klarer Rolle, sauberem Kontext und Review-Schritt. Mal arbeiten sie parallel
+          an getrennten Teilen, mal – wie hier – an derselben Frage, damit man nicht von einer einzelnen Modell-Meinung
+          abhängt. pi-fusion ist dafür ein gutes Anschauungsbeispiel: unabhängige Perspektiven einholen, sie überprüfen
+          lassen, dann sauber zusammenführen – und am Ende gibt ein Mensch frei. Wer den Code im Detail sehen will,
+          findet alles offen auf
+          <a href="https://github.com/tjansn/pi-fusion" target="_blank" rel="noopener">github.com/tjansn/pi-fusion</a>.
+        </p>
+      </article>
+
+      <nav class="tj-post-nav" aria-label="Weitere Notizen">
+        <a href="buddy.html" rel="prev"><span class="gl-meta">← Älterer Artikel</span><strong>Buddy: ein physisches Statuslicht für lokale KI-Agenten</strong></a>
+        <a href="newfilecreator.html" rel="next"><span class="gl-meta">Neuerer Artikel →</span><strong>NewFileCreator: Die Neue-Datei-Funktion, die macOS fehlt</strong></a>
+      </nav>
+    </main>
+
+    <footer class="gl-site-footer tj-footer">
+      <div class="tj-wrap py-10 text-sm">
+        <div class="flex flex-col gap-2">
+          <span style="font-family: var(--gl-font-sans); font-weight: 600; font-size: 1.05rem;">Tom Jansen</span>
+          <span class="gl-meta">Aachen · <span data-live-clock="">09:59</span> CET</span>
+          <div class="tj-footer__links-row">
+            <div class="commercial-footer-links">
+              <a href="https://www.linkedin.com/in/tjansn/" target="_blank" rel="noopener">LinkedIn</a>
+              <a href="https://github.com/tjansn" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://x.com/thomasjansn" target="_blank" rel="noopener">X</a>
+              <a href="../projekte.html" data-i18n="nav.projects">Projekte</a>
+              <a href="../notes/index.html" data-i18n="nav.notes">Notizen</a>
+              <a href="../impressum.html">Impressum</a>
+              <a href="../datenschutz.html" data-i18n="footer.privacyLink">Datenschutz</a>
+            </div>
+            <div class="gl-language-switcher" role="group" aria-labelledby="footer-language">
+              <span id="footer-language" data-i18n="footer.languageLabel" hidden>Sprache</span>
+              <div class="gl-language-switcher__controls">
+                <button type="button" class="gl-language-switcher__option" data-language-option="de" lang="de" aria-pressed="true">Deutsch</button>
+                <button type="button" class="gl-language-switcher__option" data-language-option="en" lang="en" aria-pressed="false">English</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="../commercial-pages.js"></script>
+    <script src="../archetype-pages.js"></script>
+  </body>
+</html>
