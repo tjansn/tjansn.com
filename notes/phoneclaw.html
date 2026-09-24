@@ -8,8 +8,7 @@
     <meta property="og:type" content="article" />
     <meta property="og:title" content="PhoneClaw: Warum ich OpenClaw auf ein altes Android-Handy gelegt habe" data-i18n-attr="content:meta.ogTitle" />
     <meta property="og:description" content="PhoneClaw dokumentiert die Installation von OpenClaw auf Android mit Termux, SSH-Zugriff und den Grenzen des Setups." data-i18n-attr="content:meta.ogDescription" />
-    <meta name="theme-color" content="#f5f3f0" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#131616" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f5f3f0" />
     <link rel="icon" href="../tj-logo.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="../gl-v2.css" />
     <link rel="stylesheet" href="../tj.css" />
@@ -27,7 +26,7 @@
         localStorage.setItem("theme", dark ? "dark" : "light");
       }
     </script>
-    <!-- Plausible Analytics - self-hosted (Mac mini, Cloudflare Tunnel), cookieless -->
+    <!-- Plausible Analytics: self-hosted (Mac mini, Cloudflare Tunnel), cookieless, kein Banner nötig -->
     <script defer data-domain="tjansn.com" src="https://stats.gammalabs.cc/js/script.tagged-events.outbound-links.js"></script>
     <script>window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) };</script>
   </head>
@@ -133,7 +132,7 @@
       </article>
 
       <nav class="tj-post-nav" aria-label="Weitere Notizen" data-i18n-attr="aria-label:postnav.label">
-        <a href="draco-pi-fusion-benchmark.html" rel="next"><span class="gl-meta" data-i18n="postnav.newer">Neuerer Artikel →</span><strong data-i18n="postnav.next">DRACO mit pi und pi-fusion: was unser Lauf wirklich zeigt</strong></a>
+        <a href="tjansn-als-terminal.html" rel="next"><span class="gl-meta" data-i18n="postnav.newer">Neuerer Artikel →</span><strong data-i18n="postnav.next">tjansn.com als Terminal</strong></a>
       </nav>
     </main>
 
@@ -171,32 +170,32 @@
           "nav.profile": "Profile",
           "nav.projects": "Projects",
           "nav.notes": "Notes",
-          "meta.title": "PhoneClaw: Why I put OpenClaw on an old Android phone | Tom Jansen Notes",
+          "meta.title": "PhoneClaw: why I put OpenClaw on an old Android phone | Tom Jansen Notes",
           "meta.description": "PhoneClaw documents installing OpenClaw on Android with Termux. A separate test device, SSH access and the limits of the setup.",
-          "meta.ogTitle": "PhoneClaw: Why I put OpenClaw on an old Android phone",
+          "meta.ogTitle": "PhoneClaw: why I put OpenClaw on an old Android phone",
           "meta.ogDescription": "PhoneClaw documents installing OpenClaw on Android with Termux, SSH access and the limits of the setup.",
           "hero.eyebrow": "Experiment · Android & Termux",
           "hero.title": "OpenClaw on an <em>Android phone</em>",
-          "hero.meta": "Tom Jansen · 18.02.2026 · 4 min read",
+          "hero.meta": "Tom Jansen · 18 February 2026 · 4 min read",
           "hero.github": "PhoneClaw on GitHub",
           "intro.1": "I wanted to try OpenClaw. I did not want to install it on my work machine. That machine holds projects and credentials that have nothing to do with the experiment. A post on X pointed me to a simpler option: run OpenClaw on an old Android phone.",
-          "intro.2": "The phone was sitting unused anyway. Android brings a battery, Wi-Fi and its own computer, and Termux runs a Linux environment on top of it. I had to find out first whether the setup works without root and where Android gets in the way. I used agents for the research and then collected the steps in one repository: <strong>PhoneClaw</strong>.",
+          "intro.2": "The phone was sitting unused anyway. Android brings a battery, Wi-Fi and a computer of its own. Termux runs a Linux environment on top of that. I had to find out first whether the setup works without root and where Android gets in the way. I used agents for the research and then collected the steps in one repository: <strong>PhoneClaw</strong>.",
           "device.title": "A separate device for the test",
-          "device.1": "The old phone was about keeping the experiment away from my work machine. That keeps things manageable but not automatically safe. The phone still has network access and can reach any service I store credentials for. So I treat it as a test device and give it no access it does not need for the job.",
-          "device.2": "An Android phone is not a server replacement for anything that matters. Android can kill processes and restrict apps in the background. For a test where an outage at most means restarting the service, that is fine with me.",
+          "device.1": "The old phone was about keeping the experiment away from my work machine. That makes the experiment more manageable but not automatically safe. The phone still has network access and can reach any service I store credentials for. So I treat it as a test device and give it no access it does not need.",
+          "device.2": "An Android phone is not a server replacement for anything that matters. Android can kill processes and restrict apps in the background. For a test where an outage at most means restarting the service, that is good enough for me.",
           "setup.title": "Termux, SSH and a few scripts",
-          "setup.1": "PhoneClaw documents the installation of Termux and OpenClaw and includes scripts for setup, start, status and maintenance. I type the commands on my computer and run them on the phone over SSH. That way I never have to enter long commands on a touch keyboard.",
-          "setup.2": "The process depends on a few Android-specific details. The Termux version has to match, Android must not keep sending the app to sleep and OpenClaw needs paths that work with Termux. The setup installs the dependencies and prepares the environment for that. The README walks through the individual steps.",
+          "setup.1": "PhoneClaw documents the installation of Termux and OpenClaw and includes scripts for setup, start, status and maintenance. I type the commands on my computer and run them on the phone over SSH. That way I do not have to type long commands on a touch keyboard.",
+          "setup.2": "The process depends on a few Android-specific details. The Termux version has to be the right one, Android must not keep sending the app to sleep and OpenClaw needs paths that work with Termux. The setup installs the dependencies and prepares the environment for that. The README walks through the individual steps.",
           "setup.3": "For access to the dashboard the gateway stays bound to localhost by default. From my computer I can forward the port over SSH. That keeps the service off the local network unless I explicitly configure it otherwise.",
           "limits.title": "Limits of the setup",
-          "limits.1": "After a phone reboot OpenClaw does not start on its own. Android is not an always-on server, and Termux needs the right battery settings so the process keeps running with the display off. For the documented base case I start the service by hand and check with the included scripts whether it is running.",
+          "limits.1": "After a phone reboot OpenClaw does not start on its own. Android is not an always-on server. Termux needs the right battery settings so the process keeps running with the display off. For the documented base case I start the service by hand and check with the included scripts whether it is running.",
           "limits.2": "The installation is also no proof that OpenClaw runs the same on every Android device. Device, Android version and power-saving rules can differ. I built PhoneClaw as a reproducible installation path, not as a promise of maintenance-free operation.",
           "result.title": "The guide is the result",
-          "result.1": "What interested me most about the experiment was whether the path could be written down so that someone else can rebuild it. Agents helped me research installation routes and likely pitfalls. Choosing the steps and checking the setup still remained my job.",
+          "result.1": "What interested me most about the experiment was whether the path could be written down so that someone else can reproduce it. Agents helped me research installation routes and likely pitfalls. Choosing the steps and checking the setup were still my job.",
           "result.2": "The full guide and the scripts are in the <a href=\"https://github.com/tjansn/PhoneClaw\" target=\"_blank\" rel=\"noopener\">PhoneClaw repository</a>. The prerequisites and the notes on access are there too. If you try it, go through the README step by step and treat the phone as a separate test device.",
           "postnav.label": "More notes",
           "postnav.newer": "Newer article →",
-          "postnav.next": "DRACO with pi and pi-fusion: what our run really shows",
+          "postnav.next": "tjansn.com as a terminal",
           "footer.privacyLink": "Privacy",
           "footer.languageLabel": "Language"
         }

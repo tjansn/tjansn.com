@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>pi-fusion: Multi-Modell-Research-Panels für pi | Tom Jansen Notes</title>
-    <meta name="description" content="pi-fusion fächert eine Frage auf mehrere KI-Modelle auf, lässt sie unabhängig recherchieren, bewertet die Antworten und synthetisiert eine finale Antwort. Ein ehrlicher Blick auf die pi-Erweiterung – wie sie funktioniert, wie man sie installiert und was sie kostet." />
+    <title data-i18n="meta.title">pi-fusion: Multi-Modell-Research-Panels für pi | Tom Jansen Notes</title>
+    <meta name="description" data-i18n-attr="content:meta.description" content="pi-fusion fächert eine Frage auf mehrere KI-Modelle auf, lässt sie unabhängig recherchieren, bewertet die Antworten und synthetisiert eine finale Antwort. Ein ehrlicher Blick auf die pi-Erweiterung – wie sie funktioniert, wie man sie installiert und was sie kostet." />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="pi-fusion: Wenn mehrere Modelle gemeinsam recherchieren" />
-    <meta property="og:description" content="Eine Open-Source-Erweiterung für die KI-CLI pi: parallele Research-Panels aus mehreren Modellen, ein Judge-Pass und eine synthetisierte Antwort. Konkret erklärt." />
+    <meta property="og:title" data-i18n-attr="content:meta.ogTitle" content="pi-fusion: Wenn mehrere Modelle gemeinsam recherchieren" />
+    <meta property="og:description" data-i18n-attr="content:meta.ogDescription" content="Eine Open-Source-Erweiterung für die KI-CLI pi: parallele Research-Panels aus mehreren Modellen, ein Judge-Pass und eine synthetisierte Antwort. Konkret erklärt." />
     <meta name="theme-color" content="#f5f3f0" />
     <link rel="icon" href="../tj-logo.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="../gl-v2.css" />
@@ -26,7 +26,7 @@
         localStorage.setItem("theme", dark ? "dark" : "light");
       }
     </script>
-    <!-- Plausible Analytics — self-hosted (Mac mini, Cloudflare Tunnel), cookieless -->
+    <!-- Plausible Analytics: self-hosted (Mac mini, Cloudflare Tunnel), cookieless, kein Banner nötig -->
     <script defer data-domain="tjansn.com" src="https://stats.gammalabs.cc/js/script.tagged-events.outbound-links.js"></script>
     <script>window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) };</script>
   </head>
@@ -53,16 +53,16 @@
 
     <main class="px-6" style="padding-block: clamp(5rem, 10vw, 8rem) clamp(4rem, 8vw, 6rem);">
       <article class="gl-prose">
-        <p class="gl-eyebrow">Open Source · KI-Tooling</p>
-        <h1>pi-fusion: Wenn mehrere Modelle <em>gemeinsam</em> recherchieren</h1>
-        <p class="gl-meta">Tom Jansen · 22.06.2026 · 6 Min. Lesezeit</p>
+        <p class="gl-eyebrow" data-i18n="article.eyebrow">Open Source · KI-Tooling</p>
+        <h1 data-i18n="article.title" data-i18n-html>pi-fusion: Wenn mehrere Modelle <em>gemeinsam</em> recherchieren</h1>
+        <p class="gl-meta" data-i18n="article.meta">Tom Jansen · 22.06.2026 · 6 Min. Lesezeit</p>
         <div class="gl-rule-accent is-visible" style="margin-top: var(--gl-space-6);"></div>
 
 
 
-        <div class="gl-cta-group" style="justify-content: flex-start;"><a class="gl-button gl-button--outline" href="https://github.com/tjansn/pi-fusion" target="_blank" rel="noopener">Auf GitHub ansehen →</a></div>
+        <div class="gl-cta-group" style="justify-content: flex-start;"><a class="gl-button gl-button--outline" href="https://github.com/tjansn/pi-fusion" target="_blank" rel="noopener" data-i18n="article.github">Auf GitHub ansehen →</a></div>
 
-        <p>
+        <p data-i18n="intro.1" data-i18n-html>
           Die meisten KI-Antworten kommen aus genau einem Lauf: eine Frage, ein Modell, eine Antwort. Für schnelle
           Sachen reicht das. Bei einer Architekturentscheidung, einem Benchmark-Vergleich oder einer gründlichen
           Recherche ist es riskant: Ein einzelnes Modell hat blinde Flecken, und man sieht sie ihm nicht an.
@@ -71,31 +71,31 @@
           Antwort.
         </p>
 
-        <h2>Was „pi" ist und was pi-fusion ergänzt</h2>
-        <p>
+        <h2 data-i18n="what.h">Was „pi" ist und was pi-fusion ergänzt</h2>
+        <p data-i18n="what.1" data-i18n-html>
           pi-fusion ist eine Erweiterung für <strong>pi</strong> – eine KI-Plattform mit Kommandozeilen- und
           TUI-Oberfläche, in der man mit Agenten arbeitet, Tools lädt und Erweiterungen installiert. Man kann sich pi
           als die Umgebung vorstellen, in der die Agenten laufen; pi-fusion bringt eine neue Fähigkeit mit, die sich in
           diese Umgebung einklinkt. Die README bringt es auf einen Satz:
         </p>
-        <p>
+        <p data-i18n="what.quote" data-i18n-html>
           <em>„<code>pi_fusion</code> fans one prompt out to multiple isolated child agents, compares their answers with
           a judge pass, then asks a synthesizer model to write the final answer."</em>
         </p>
-        <p>
+        <p data-i18n="what.2">
           Auf Deutsch: Eine Frage wird in mehrere voneinander isolierte Child-Agent-Runs geschickt. Die Antworten werden
           in einem Bewertungsdurchlauf verglichen, und am Ende schreibt ein eigenes Synthese-Modell die finale Antwort.
           Genau das ist mit „Fusion-style multi-model research panels" gemeint: ein Panel aus mehreren Modellen, die
           parallel an derselben Frage arbeiten und deren Ergebnisse anschließend zusammengeführt werden.
         </p>
 
-        <h2>Die Idee hinter den Panels</h2>
-        <p>
+        <h2 data-i18n="idea.h">Die Idee hinter den Panels</h2>
+        <p data-i18n="idea.1">
           Der Kern ist bewusst einfach. Statt einem Modell blind zu vertrauen, erzeugt man mehrere saubere Kontexte für
           dieselbe Frage. Nicht, weil dort plötzlich drei kleine Mitarbeiter sitzen. Der Wert liegt darin, dass die
           Antworten unabhängig voneinander entstehen. Drei Schritte laufen nacheinander ab:
         </p>
-        <p>
+        <p data-i18n="idea.2" data-i18n-html>
           <strong>Erstens das Panel:</strong> Die Frage wird auf mehrere Runs verteilt, jeder mit einem eigenen Modell
           und einer eigenen, isolierten Sitzung. Sie sehen die Antworten der anderen nicht und können sich dadurch auch
           nicht gegenseitig in dieselbe Richtung ziehen. <strong>Zweitens der Judge:</strong> Ein eigenes Modell
@@ -104,10 +104,10 @@
           macht das Ergebnis besser prüfbar als einen einzelnen Durchlauf.
         </p>
 
-        <aside class="gl-pull">„Drei getrennte Kontexte, ein prüfender Blick darauf, dann eine Synthese. Das ist weniger magisch als ein Agenten-Team, aber nützlicher."</aside>
+        <aside class="gl-pull" data-i18n="pull.1">„Drei getrennte Kontexte, ein prüfender Blick darauf, dann eine Synthese. Das ist weniger magisch als ein Agenten-Team, aber nützlicher."</aside>
 
-        <h2>Wie es technisch funktioniert</h2>
-        <p>
+        <h2 data-i18n="tech.h">Wie es technisch funktioniert</h2>
+        <p data-i18n="tech.1" data-i18n-html>
           pi-fusion ist in TypeScript geschrieben und installiert sich als pi-Erweiterung. Es registriert ein Tool namens
           <code>pi_fusion</code> sowie eine Reihe von Slash-Kommandos. Das Herzstück sind die <em>Subagenten</em>: Die
           Erweiterung startet für jeden Panelisten einen eigenen Kind-Prozess, also einen getrennten Run mit eigenem
@@ -115,7 +115,7 @@
           lassen, aber genauso Claude Code für <code>claude/...</code>-Modelle, Codex für <code>codex/...</code> oder ein lokales Ollama-Modell. So lassen sich
           Modelle aus völlig verschiedenen Quellen in ein und demselben Panel kombinieren.
         </p>
-        <p>
+        <p data-i18n="tech.2" data-i18n-html>
           Konfiguriert wird das über eine schlichte JSON-Datei – global unter <code>~/.pi/agent/fusion.json</code> oder
           projektlokal unter <code>.pi/fusion.json</code>. Die mitgelieferte <code>config.json.example</code> zeigt den
           Aufbau, hier leicht gekürzt:
@@ -132,7 +132,7 @@
   "maxConcurrency": 4,
   "confirmBeforeRun": true
 }</code></pre>
-        <p>
+        <p data-i18n="tech.3" data-i18n-html>
           Man sieht direkt das Prinzip: drei verschiedene Panel-Modelle, ein dedizierter Judge, ein dedizierter
           Synthesizer, drei Panelisten als Standardgröße, höchstens vier parallel – und <code>confirmBeforeRun</code>,
           das im TUI vor jedem Lauf nachfragt, bevor Kind-Prozesse gestartet werden. Wer Presets sauber als Profile
@@ -140,20 +140,20 @@
           ohne npm-Abhängigkeit, indem es schlicht den Ruby-Standardparser Psych aufruft.
         </p>
 
-        <h2>Installieren und benutzen</h2>
-        <p>
+        <h2 data-i18n="install.h">Installieren und benutzen</h2>
+        <p data-i18n="install.1">
           Die Installation läuft direkt aus GitHub. Entweder dauerhaft installieren oder einmalig zum Ausprobieren laden:
         </p>
         <pre><code>pi install git:github.com/tjansn/pi-fusion@v0.1.0
 # oder ohne Installation testen
 pi -e git:github.com/tjansn/pi-fusion@v0.1.0</code></pre>
-        <p>
+        <p data-i18n="install.2" data-i18n-html>
           Danach stellt man seine Frage über das <code>/fusion</code>-Kommando. Mit einem benannten Preset sieht das so
           aus:
         </p>
         <pre><code>/fusion deep-research What is currently the best benchmark
 for evaluating agentic deep research systems?</code></pre>
-        <p>
+        <p data-i18n="install.3" data-i18n-html>
           Während es läuft, zeigt pi-fusion ein Live-Widget im TUI: das gewählte Preset, welcher Runner und welches
           Modell hinter jedem Panelisten, Judge und Synthesizer steckt, den Status jeder Stufe
           (<code>pending</code>, <code>running</code>, <code>ok</code>, <code>error</code>), Token, bekannte API-Kosten,
@@ -161,8 +161,8 @@ for evaluating agentic deep research systems?</code></pre>
           steht, statt nur auf eine fertige Antwort zu warten.
         </p>
 
-        <h2>Warum mehrere Modelle besser recherchieren</h2>
-        <p>
+        <h2 data-i18n="why.h">Warum mehrere Modelle besser recherchieren</h2>
+        <p data-i18n="why.1">
           Der Gewinn liegt in der Unabhängigkeit. Jedes Modell hat eigene Trainingsdaten, eigene Stärken und eigene
           systematische Fehler. Lässt man drei Modelle dieselbe Frage getrennt beantworten, fallen Übereinstimmungen und
           Widersprüche sofort auf: Wo alle drei dasselbe sagen, kann man sich ziemlich sicher sein; wo sie
@@ -171,8 +171,8 @@ for evaluating agentic deep research systems?</code></pre>
           Benchmarks, tiefe Recherche – und eben nicht bei jeder kleinen Auskunft.
         </p>
 
-        <h2>Der ehrliche Haken</h2>
-        <p>
+        <h2 data-i18n="catch.h">Der ehrliche Haken</h2>
+        <p data-i18n="catch.1" data-i18n-html>
           Das hat seinen Preis, ganz buchstäblich. Die README sagt es selbst deutlich: Fusion-Läufe können teuer sein.
           Ein einziger <code>/fusion</code>-Aufruf startet mehrere Panel-Runs, einen Judge und einen Synthesizer. Man
           bezahlt also nicht eine Antwort, sondern fünf oder mehr Modell-Durchläufe für dieselbe Frage. Dazu kommt die
@@ -182,8 +182,8 @@ for evaluating agentic deep research systems?</code></pre>
           Antwort mehr wert ist als die gesparten Token – nicht für den Alltag.
         </p>
 
-        <h2>Wie das zu meiner Arbeit passt</h2>
-        <p>
+        <h2 data-i18n="work.h">Wie das zu meiner Arbeit passt</h2>
+        <p data-i18n="work.1" data-i18n-html>
           Genau dieses Muster nutze ich in Kundenprojekten: nicht ein riesiger Agent, der alles gleichzeitig im Kontext
           hält, sondern getrennte Runs mit klarer Rolle, sauberem Kontext und Review-Schritt. Mal arbeiten sie parallel
           an getrennten Teilen, mal – wie hier – an derselben Frage, damit man nicht von einer einzelnen Modell-Meinung
@@ -194,9 +194,9 @@ for evaluating agentic deep research systems?</code></pre>
         </p>
       </article>
 
-      <nav class="tj-post-nav" aria-label="Weitere Notizen">
-        <a href="buddy.html" rel="prev"><span class="gl-meta">← Älterer Artikel</span><strong>Buddy: ein physisches Statuslicht für lokale KI-Agenten</strong></a>
-        <a href="newfilecreator.html" rel="next"><span class="gl-meta">Neuerer Artikel →</span><strong>NewFileCreator: Die Neue-Datei-Funktion, die macOS fehlt</strong></a>
+      <nav class="tj-post-nav" aria-label="Weitere Notizen" data-i18n-attr="aria-label:postnav.label">
+        <a href="buddy.html" rel="prev"><span class="gl-meta" data-i18n="postnav.prev.meta">← Älterer Artikel</span><strong data-i18n="postnav.prev.title">Buddy: ein physisches Statuslicht für lokale KI-Agenten</strong></a>
+        <a href="newfilecreator.html" rel="next"><span class="gl-meta" data-i18n="postnav.next.meta">Neuerer Artikel →</span><strong data-i18n="postnav.next.title">NewFileCreator: Die Neue-Datei-Funktion, die macOS fehlt</strong></a>
       </nav>
     </main>
 
@@ -226,6 +226,55 @@ for evaluating agentic deep research systems?</code></pre>
         </div>
       </div>
     </footer>
+    <script>
+      window.GL_DEFAULT_LANGUAGE = "de";
+      // German ships in the markup; commercial-pages.js reads it back as the "de" dictionary.
+      window.GL_PAGE_COPY = {
+        en: {
+          "nav.profile": "Profile",
+          "nav.projects": "Projects",
+          "nav.notes": "Notes",
+          "meta.title": "pi-fusion: multi-model research panels for pi | Tom Jansen Notes",
+          "meta.description": "pi-fusion fans one question out to several AI models, lets them research independently, scores the answers and synthesizes a final one. A frank look at the pi extension: how it works, how to install it and what it costs.",
+          "meta.ogTitle": "pi-fusion: when several models research together",
+          "meta.ogDescription": "An open source extension for the AI CLI pi: parallel research panels of several models, a judge pass and a synthesized answer. Explained in concrete terms.",
+          "article.eyebrow": "Open source · AI tooling",
+          "article.title": "pi-fusion: when several models research <em>together</em>",
+          "article.meta": "Tom Jansen · 22 June 2026 · 6 min read",
+          "article.github": "View on GitHub →",
+          "intro.1": "Most AI answers come from exactly one run: one question, one model, one answer. For quick things that is enough. For an architecture decision, a benchmark comparison or thorough research it is risky. A single model has blind spots and you cannot see them from the outside. <strong>pi-fusion</strong> is the open source extension I use to build in that separation: the same question goes into several separate contexts, the answers get compared and only then is the final answer written.",
+          "what.h": "What “pi” is and what pi-fusion adds",
+          "what.1": "pi-fusion is an extension for <strong>pi</strong>, an AI platform with a command line and a TUI where you work with agents, load tools and install extensions. Think of pi as the environment the agents run in. pi-fusion adds one capability that hooks into that environment. The README puts it in one sentence:",
+          "what.quote": "<em>“<code>pi_fusion</code> fans one prompt out to multiple isolated child agents, compares their answers with a judge pass, then asks a synthesizer model to write the final answer.”</em>",
+          "what.2": "In plain terms: one question is sent to several child agent runs that are isolated from each other. The answers are compared in a judge pass and at the end a separate synthesizer model writes the final answer. That is what “Fusion-style multi-model research panels” means: a panel of several models working on the same question in parallel, with their results merged afterwards.",
+          "idea.h": "The idea behind the panels",
+          "idea.1": "The core is deliberately simple. Instead of trusting one model blindly you create several clean contexts for the same question. Not because there are suddenly three little coworkers in there. The value is that the answers are produced independently of each other. Three steps run one after the other:",
+          "idea.2": "<strong>First the panel:</strong> the question is spread across several runs, each with its own model and its own isolated session. They do not see each other's answers, so they cannot pull each other in the same direction. <strong>Second the judge:</strong> a separate model compares the panel answers and scores them. <strong>Third the synthesis:</strong> a synthesizer model writes the final answer from the checked answers. This split into panel, judge and synthesizer makes the result easier to check than a single run.",
+          "pull.1": "“Three separate contexts, one review pass over them, then a synthesis. That is less magical than an agent team but more useful.”",
+          "tech.h": "How it works technically",
+          "tech.1": "pi-fusion is written in TypeScript and installs as a pi extension. It registers a tool called <code>pi_fusion</code> and a set of slash commands. The heart of it is the <em>subagents</em>: for every panelist the extension starts its own child process, a separate run with its own context. Which “runner” takes that on depends on the model slug. pi can run its own models, or hand off to Claude Code for <code>claude/...</code> models, Codex for <code>codex/...</code> or a local Ollama model. So models from completely different sources can be combined in one and the same panel.",
+          "tech.2": "Configuration is a plain JSON file, either global at <code>~/.pi/agent/fusion.json</code> or per project at <code>.pi/fusion.json</code>. The bundled <code>config.json.example</code> shows the layout, slightly shortened here:",
+          "tech.3": "The principle is right there: three different panel models, a dedicated judge, a dedicated synthesizer, three panelists as the default size, at most four in parallel, and <code>confirmBeforeRun</code>, which asks in the TUI before every run starts child processes. If you want presets stored cleanly as profiles you use YAML files under <code>~/.pi/agent/fusion-presets/</code>. pi-fusion parses them without an npm dependency by simply calling Psych, Ruby's standard parser.",
+          "install.h": "Installing and using it",
+          "install.1": "Installation runs straight from GitHub. Either install it permanently or load it once to try it out:",
+          "install.2": "After that you ask your question through the <code>/fusion</code> command. With a named preset it looks like this:",
+          "install.3": "While it runs pi-fusion shows a live widget in the TUI: the chosen preset, which runner and which model sit behind each panelist, the judge and the synthesizer, the status of every stage (<code>pending</code>, <code>running</code>, <code>ok</code>, <code>error</code>), tokens, known API costs, elapsed time and the directory the artefacts end up in. So you see where the run stands instead of just waiting for a finished answer.",
+          "why.h": "Why several models research better",
+          "why.1": "The gain is independence. Every model has its own training data, its own strengths and its own systematic errors. Let three models answer the same question separately and agreements and contradictions stand out at once. Where all three say the same thing you can be fairly sure. Where they diverge you know that is exactly where to look closer. The judge step makes that assessment explicit instead of leaving it to the reader. That is why the effort pays off for high-stakes questions (architecture, benchmarks, deep research) and not for every small lookup.",
+          "catch.h": "The honest catch",
+          "catch.1": "This has a price, quite literally. The README says so itself: fusion runs can be expensive. A single <code>/fusion</code> call starts several panel runs, a judge and a synthesizer. So you pay for five or more model runs on the same question, not for one answer. Then there is latency: several runs plus two downstream stages take longer than a single call. And the child processes inherit the caller's environment and auth, which is why pi-fusion allows only read and web tools by default and asks before it starts. In short: a tool for the questions where the right answer is worth more than the tokens saved. Not for everyday use.",
+          "work.h": "How this fits my work",
+          "work.1": "I use exactly this pattern in client projects: not one huge agent holding everything in context at once but separate runs with a clear role, a clean context and a review step. Sometimes they work in parallel on separate parts, sometimes (as here) on the same question, so that you do not depend on a single model's opinion. pi-fusion is a good illustration of that: gather independent perspectives, have them checked, then merge them cleanly, and at the end a human signs off. If you want to see the code in detail, all of it is open at <a href=\"https://github.com/tjansn/pi-fusion\" target=\"_blank\" rel=\"noopener\">github.com/tjansn/pi-fusion</a>.",
+          "postnav.label": "More notes",
+          "postnav.prev.meta": "← Older article",
+          "postnav.prev.title": "Buddy: a physical status light for local AI agents",
+          "postnav.next.meta": "Newer article →",
+          "postnav.next.title": "NewFileCreator: the new-file function macOS is missing",
+          "footer.privacyLink": "Privacy",
+          "footer.languageLabel": "Language"
+        }
+      };
+    </script>
     <script src="../commercial-pages.js"></script>
     <script src="../archetype-pages.js"></script>
   </body>

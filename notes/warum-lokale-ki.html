@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Why local: Die Lernschleife gehört ins eigene Unternehmen | Tom Jansen Notes</title>
-    <meta name="description" content="Warum lokale KI mehr als Datenschutz ist: Satya Nadellas Reverse Information Paradox, eigene Benchmarks mit DeepSeek-V4-Flash und der Aufbau eines modellunabhängigen Stacks." />
+    <title data-i18n="meta.title">Why local: Die Lernschleife gehört ins eigene Unternehmen | Tom Jansen Notes</title>
+    <meta name="description" content="Warum lokale KI mehr als Datenschutz ist: Satya Nadellas Reverse Information Paradox, eigene Benchmarks mit DeepSeek-V4-Flash und der Aufbau eines modellunabhängigen Stacks." data-i18n-attr="content:meta.description" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Why local: Die Lernschleife gehört ins eigene Unternehmen" />
-    <meta property="og:description" content="Einzelne Modelle sollen austauschbar bleiben. Prompts, Korrekturen, Evals, Memory und Harness sind Unternehmenswissen und sollten unter eigener Kontrolle bleiben." />
+    <meta property="og:title" content="Why local: Die Lernschleife gehört ins eigene Unternehmen" data-i18n-attr="content:meta.ogTitle" />
+    <meta property="og:description" content="Einzelne Modelle sollen austauschbar bleiben. Prompts, Korrekturen, Evals, Memory und Harness sind Unternehmenswissen und sollten unter eigener Kontrolle bleiben." data-i18n-attr="content:meta.ogDescription" />
     <meta name="theme-color" content="#f5f3f0" />
     <link rel="icon" href="../tj-logo.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="../gl-v2.css" />
@@ -21,7 +21,7 @@
         localStorage.setItem("theme", dark ? "dark" : "light");
       }
     </script>
-    <!-- Plausible Analytics — self-hosted (Mac mini, Cloudflare Tunnel), cookieless -->
+    <!-- Plausible Analytics: self-hosted (Mac mini, Cloudflare Tunnel), cookieless, kein Banner nötig -->
     <script defer data-domain="tjansn.com" src="https://stats.gammalabs.cc/js/script.tagged-events.outbound-links.js"></script>
     <script>window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) };</script>
   </head>
@@ -48,14 +48,14 @@
 
     <main class="px-6" style="padding-block: clamp(5rem, 10vw, 8rem) clamp(4rem, 8vw, 6rem);">
       <article class="gl-prose">
-        <p class="gl-eyebrow">Lokale KI · Strategie · Praxis</p>
-        <h1>Why local: Die Lernschleife gehört ins <em>eigene Unternehmen</em></h1>
-        <p class="gl-meta">Tom Jansen · 14.07.2026 · 10 Min. Lesezeit</p>
+        <p class="gl-eyebrow" data-i18n="hero.eyebrow">Lokale KI · Strategie · Praxis</p>
+        <h1 data-i18n="hero.heading" data-i18n-html>Why local: Die Lernschleife gehört ins <em>eigene Unternehmen</em></h1>
+        <p class="gl-meta" data-i18n="hero.meta">Tom Jansen · 14.07.2026 · 10 Min. Lesezeit</p>
         <div class="gl-rule-accent is-visible" style="margin-top: var(--gl-space-6);"></div>
 
 
 
-        <p>
+        <p data-i18n="intro.1" data-i18n-html>
           Am 12. Juli 2026 hat Microsoft-CEO Satya Nadella
           <a href="https://x.com/satyanadella/status/2076323181154230284" target="_blank" rel="noopener">einen Artikel auf X veröffentlicht</a>,
           der ein Problem beschreibt, das auch hinter meiner Arbeit mit lokalen Modellen steht: Unternehmen müssen ihre
@@ -68,7 +68,7 @@
           einer Akte noch im CRM oder Data Warehouse bereits fertig vorliegt.
         </p>
 
-        <p>
+        <p data-i18n="intro.2" data-i18n-html>
           Nadella nennt das den <a href="https://snscratchpad.com/posts/reverse-information-paradox/" target="_blank"
           rel="noopener">„Reverse Information Paradox“</a>. Der Ökonom Kenneth Arrow hat 1962 beschrieben, dass der
           Verkäufer einer Information genug davon offenlegen muss, damit ein Käufer ihren Wert beurteilen kann, und
@@ -78,9 +78,9 @@
           Modell für die konkrete Arbeit überhaupt nützlich wird.
         </p>
 
-        <h2>Unternehmen bezahlen mit Geld und mit eigenem Wissen</h2>
+        <h2 data-i18n="pay.h">Unternehmen bezahlen mit Geld und mit eigenem Wissen</h2>
 
-        <p>
+        <p data-i18n="pay.1">
           Für eine allgemeine Frage braucht ein Modell wenig über das Unternehmen zu wissen. Sobald daraus echte Arbeit
           werden soll, kommen aber interne Dokumente, frühere Entscheidungen, Kundenkontext, Werkzeugzugriffe,
           Qualitätsmaßstäbe und Korrekturen dazu, und je besser das Ergebnis werden soll, desto genauer muss erklärt
@@ -89,7 +89,7 @@
           Organisation brauchbares System macht.
         </p>
 
-        <p>
+        <p data-i18n="pay.2" data-i18n-html>
           Die Eigentumsfrage an der Lernschleife hängt nicht daran, ob ein Anbieter die Eingaben zum Training verwendet.
           <a href="https://openai.com/business-data/" target="_blank"
           rel="noopener">OpenAI sagt für Business-Produkte und die API</a>, dass Ein- und Ausgaben standardmäßig nicht
@@ -101,22 +101,22 @@
           Fälle angemessen sein.
         </p>
 
-        <p>
+        <p data-i18n="pay.3">
           Nadellas Punkt reicht trotzdem weiter, denn selbst wenn kein Anbieter mit den Eingaben trainiert, muss ein
           Unternehmen entscheiden, wo seine Prompts, Evals, Traces, Korrekturen, Memory-Einträge und
           Orchestrierungsregeln entstehen, wem sie gehören und ob sie mitgenommen werden können, wenn morgen ein anderes
           Modell besser, günstiger oder überhaupt noch verfügbar ist.
         </p>
 
-        <p>
+        <p data-i18n="pay.4">
           Gute Vertragsbedingungen sind wichtig. Sie sind aber keine eigene technische Fähigkeit.
         </p>
 
-        <aside class="gl-pull">„In consuming intelligence, you are creating intelligence. And what you create should belong to you.“<br /><small>Satya Nadella, <a href="https://snscratchpad.com/posts/reverse-information-paradox/" target="_blank" rel="noopener">The Reverse Information Paradox</a></small></aside>
+        <aside class="gl-pull" data-i18n="quote.1" data-i18n-html>„In consuming intelligence, you are creating intelligence. And what you create should belong to you.“<br /><small>Satya Nadella, <a href="https://snscratchpad.com/posts/reverse-information-paradox/" target="_blank" rel="noopener">The Reverse Information Paradox</a></small></aside>
 
-        <h2>Aus einem One-Line-Install ist ein eigener Benchmark-Harness geworden</h2>
+        <h2 data-i18n="harness.h">Aus einem One-Line-Install ist ein eigener Benchmark-Harness geworden</h2>
 
-        <p>
+        <p data-i18n="harness.1" data-i18n-html>
           Den minimalen, modellunabhängigen Agent-Harness Pi habe ich etwa im März 2026 installiert und seine Entwicklung
           seitdem verfolgt, aber lokal ist der Stack erst geworden, nachdem Salvatore Sanfilippo, als antirez bekannt
           und ursprünglicher Entwickler von Redis, die Inferenz-Runtime DwarfStar für DeepSeek-V4-Flash veröffentlicht,
@@ -129,7 +129,7 @@
           <a href="frontier-vs-lokal-deepresearch-benchmark.html">Vergleich von DeepSeek-V4-Flash mit GPT-5.5 xhigh</a>.
         </p>
 
-        <p>
+        <p data-i18n="harness.2" data-i18n-html>
           Zunächst ist ein Coding-Vergleich vorgesehen gewesen. Weil Cognition die Aufgaben des
           <a href="https://cognition.com/blog/frontier-code" target="_blank" rel="noopener">FrontierCode-Benchmarks</a>
           zum Schutz vor Kontamination nicht öffentlich freigibt, ist ein unabhängiger Lauf damit nicht möglich gewesen,
@@ -142,7 +142,7 @@
           die lokale Variante für diese Art von Arbeit ernsthaft untersucht werden muss.
         </p>
 
-        <p>
+        <p data-i18n="harness.3" data-i18n-html>
           Und dort hat die Arbeit am Harness angefangen. Im Lauf sind nicht nur Modellgrenzen sichtbar geworden,
           sondern eine einzelne Tool-Ausgabe mit 15,7&nbsp;MB, Kontextüberläufe, leere Antworten, ein zu kleiner
           KV-Disk-Cache und ein
@@ -154,11 +154,11 @@
           besser als jeder Modellvergleich, was „lokal“ praktisch bedeutet.
         </p>
 
-        <p>
+        <p data-i18n="harness.4">
           Man bekommt Kontrolle, aber man übernimmt auch den Betrieb.
         </p>
 
-        <p>
+        <p data-i18n="harness.5">
           Bei der Modellgenerierung sind lokal 0&nbsp;$ API-Kosten angefallen, während die direkte Generierung mit
           GPT-5.5 im Vergleich 612,60&nbsp;$ gekostet hat. Das ist noch kein TCO-Vergleich, denn das MacBook, Strom,
           Laufzeit und die Arbeit am Harness sind natürlich nicht kostenlos, aber die Kosten werden von einer
@@ -166,9 +166,9 @@
           Lauf noch vorhanden ist.
         </p>
 
-        <h2>Modelle wechseln, der Harness bleibt</h2>
+        <h2 data-i18n="swap.h">Modelle wechseln, der Harness bleibt</h2>
 
-        <p>
+        <p data-i18n="swap.1" data-i18n-html>
           Nadella fasst seine Forderung in fünf Begriffe: Control, Capability, Choice, Cost und Compound. Für mich hängt
           fast alles davon an der Trennung zwischen Modell und Harness. In dieser Architektur soll ein Modell ein
           austauschbarer Reasoning-Kern sein, während der Harness den Kontext einspeist, Werkzeuge bereitstellt, Regeln
@@ -179,7 +179,7 @@
           Arbeitsweise, das Memory und die Definition von „gut“ verschwinden müssen.
         </p>
 
-        <p>
+        <p data-i18n="swap.2" data-i18n-html>
           Das ist auch die Idee hinter <a href="pi-fusion.html">pi-fusion</a>. Eine Frage kann in mehrere getrennte
           Modellkontexte gehen, danach bewertet ein Judge die Ergebnisse und eine weitere Stufe führt sie zusammen. Ob
           dabei ein lokales Ollama-Modell, DeepSeek über DwarfStar oder ein gehostetes Modell eingesetzt wird, ist eine
@@ -188,21 +188,21 @@
           an einen Anbieter.
         </p>
 
-        <p>
+        <p data-i18n="swap.3">
           So entsteht für mich „Compound“. Modelle sind viel zu kurzlebig, um über Jahre das dauerhafte Asset zu werden,
           und wertvoller werden stattdessen die eigenen Evals, die Fehlerklassen, die bekannten
           guten und schlechten Workflows, die Tool-Grenzen und die Fähigkeit, eine Aufgabe mit einem anderen Modell
           erneut auszuführen.
         </p>
 
-        <p>
+        <p data-i18n="swap.4">
           Wer diese Schicht besitzt, kann neue Modelle testen. Wer sie nicht besitzt, fängt mit jedem Wechsel wieder
           ziemlich weit vorne an.
         </p>
 
-        <h2>Ein lokales Modell macht noch keine lokale Pipeline</h2>
+        <h2 data-i18n="pipeline.h">Ein lokales Modell macht noch keine lokale Pipeline</h2>
 
-        <p>
+        <p data-i18n="pipeline.1">
           Der bisherige DRACO-Lauf macht diese Grenze messbar. Die Modellinferenz ist auf dem Mac erfolgt, aber Websuche,
           Seitenabrufe und Judge sind im Lauf über Cloudservices ausgeführt worden, und im aktuellen Stack sind diese
           Teile weiterhin cloudbasiert. Dadurch haben Suchbegriffe, URLs, Aufgabeninhalte und Antworten die lokale
@@ -211,7 +211,7 @@
           werden soll.
         </p>
 
-        <p>
+        <p data-i18n="pipeline.2">
           Eine belastbare lokale Pipeline umfasst deshalb mehr als Gewichte auf einer SSD. Auch Tools, Logs, Telemetrie,
           Memory, Zwischenergebnisse, Backups und Bewertung brauchen eine klare Grenze, und jede externe Verbindung muss
           entweder technisch ausgeschlossen oder bewusst und vertraglich kontrolliert sein. Lokale Inferenz ist häufig
@@ -220,7 +220,7 @@
           Architektur ab, und lokale Inferenz bleibt deshalb nur ein Schritt.
         </p>
 
-        <p>
+        <p data-i18n="pipeline.3">
           Diese Sicht ist bei mir auch nicht erst mit DeepSeek entstanden. Diese Website ist bewusst statisch gebaut,
           Schriften liegen lokal und das cookielose Analytics läuft selbst gehostet; OpenClaw habe ich zuerst auf einem
           alten Android-Handy statt auf dem Hauptrechner eingerichtet, weil ein neuer Agent mit weitreichenden Tools
@@ -228,9 +228,9 @@
           mögliche Schaden sollen sichtbar und begrenzt sein, bevor ein System mehr Zugriff bekommt.
         </p>
 
-        <h2>Für hochsensible Arbeit wird die Grenze praktisch</h2>
+        <h2 data-i18n="sensitive.h">Für hochsensible Arbeit wird die Grenze praktisch</h2>
 
-        <p>
+        <p data-i18n="sensitive.1">
           Bei Kanzleien, Steuerberatern, Arztpraxen und Psychologen ist „local“ keine technische Geschmacksfrage.
           Mandatsakten, Steuerunterlagen, Patientendaten oder Gesprächstranskripte aus psychologischen Sitzungen enthalten
           genau den Kontext, den ein Modell für die konkrete Arbeit braucht, und gleichzeitig genau die
@@ -240,7 +240,7 @@
           Datenschutzprüfung noch Berufsrecht, Zugriffskontrollen, Löschkonzepte und einen vernünftigen Betrieb.
         </p>
 
-        <p>
+        <p data-i18n="sensitive.2">
           Für diese Berufsgruppen möchte ich deshalb keine pauschale „KI im Unternehmen“-Lösung verkaufen, sondern
           zuerst den tatsächlichen Informationsfluss sortieren: Welche Daten werden gebraucht, welche Werkzeuge greifen
           darauf zu, wo entstehen Logs und Memory, wer bewertet Ergebnisse und an welcher Stelle verlässt etwas die
@@ -248,9 +248,9 @@
           hybride Architektur sinnvoll ist oder die komplette Kette lokal laufen muss.
         </p>
 
-        <h2>Cloud bleibt, aber sie entscheidet nicht mehr über jede Aufgabe</h2>
+        <h2 data-i18n="cloud.h">Cloud bleibt, aber sie entscheidet nicht mehr über jede Aufgabe</h2>
 
-        <p>
+        <p data-i18n="cloud.1">
           Ich nutze Frontier-Modelle jeden Tag und GPT-5.5 xhigh ist auch in diesem Projekt die Referenz und der Judge
           gewesen. Bei vielen öffentlichen Aufgaben ist zusätzliche Modellleistung wichtiger als maximale lokale
           Kontrolle, und manchmal ist eine sauber vertraglich geregelte Cloudlösung wirtschaftlich und technisch die
@@ -259,7 +259,7 @@
           Anbieterbedingungen gegen einen Cloudaufruf sprechen.
         </p>
 
-        <p>
+        <p data-i18n="cloud.2">
           Seit dem 9. Juli 2026 ist für die weitere Arbeit ein 91-GB-Quant mit 400.000 Token Kontextfenster, 64&nbsp;GB
           KV-Budget, gedeckelten Tool-Ausgaben, Salvage und einem stabileren Harness im Einsatz. Als Nächstes stehen der
           vollständige 100-Aufgaben-Lauf und der Re-Judge der auffälligen Medizin-Aufgabe an, und parallel bleibt die
@@ -269,30 +269,30 @@
           tatsächlich selbst getroffen werden kann.
         </p>
 
-        <p>
+        <p data-i18n="cloud.3">
           Der getestete lokale DS4-Stack ist in dieser internen DRACO-Auswertung trotz nicht identischer Protokolle nah
           genug an die gehostete Referenz herangekommen, um einen kontrollierten Vergleich unter gleichen Regeln und die
           weitere Arbeit am eigenen Stack zu rechtfertigen.
         </p>
 
-        <p>
+        <p data-i18n="cloud.4">
           Ich will nicht ohne Cloud arbeiten. Ich will arbeiten können, wenn die Cloud für die Aufgabe nicht infrage
           kommt.
         </p>
 
-        <h2>Quellen und weiterführende Artikel</h2>
+        <h2 data-i18n="sources.h">Quellen und weiterführende Artikel</h2>
         <ul>
-          <li><a href="https://snscratchpad.com/posts/reverse-information-paradox/" target="_blank" rel="noopener">Satya Nadella: The Reverse Information Paradox</a> · <a href="https://x.com/satyanadella/status/2076323181154230284" target="_blank" rel="noopener">X-Post</a></li>
-          <li><a href="https://www.nber.org/chapters/c2144" target="_blank" rel="noopener">Kenneth J. Arrow: Economic Welfare and the Allocation of Resources for Invention</a></li>
-          <li><a href="https://openai.com/business-data/" target="_blank" rel="noopener">OpenAI: Business data privacy</a> · <a href="https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy" target="_blank" rel="noopener">Microsoft: Data, privacy and security for Azure Direct Models</a></li>
-          <li><a href="frontier-vs-lokal-deepresearch-benchmark.html">Lokal vs. Frontier bei Deep Research</a> · <a href="ds4-draco-optimierung.html">DS4 auf DRACO: die Optimierung des lokalen Stacks</a></li>
-          <li><a href="pi-fusion.html">pi-fusion: modellunabhängige Research-Panels</a> · <a href="es-gibt-keinen-review-agenten.html">Modell, Harness, Spec und Run sauber trennen</a></li>
-          <li><a href="phoneclaw.html">OpenClaw auf einem alten Android-Handy</a></li>
+          <li data-i18n="sources.1" data-i18n-html><a href="https://snscratchpad.com/posts/reverse-information-paradox/" target="_blank" rel="noopener">Satya Nadella: The Reverse Information Paradox</a> · <a href="https://x.com/satyanadella/status/2076323181154230284" target="_blank" rel="noopener">X-Post</a></li>
+          <li data-i18n="sources.2" data-i18n-html><a href="https://www.nber.org/chapters/c2144" target="_blank" rel="noopener">Kenneth J. Arrow: Economic Welfare and the Allocation of Resources for Invention</a></li>
+          <li data-i18n="sources.3" data-i18n-html><a href="https://openai.com/business-data/" target="_blank" rel="noopener">OpenAI: Business data privacy</a> · <a href="https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy" target="_blank" rel="noopener">Microsoft: Data, privacy and security for Azure Direct Models</a></li>
+          <li data-i18n="sources.4" data-i18n-html><a href="frontier-vs-lokal-deepresearch-benchmark.html">Lokal vs. Frontier bei Deep Research</a> · <a href="ds4-draco-optimierung.html">DS4 auf DRACO: die Optimierung des lokalen Stacks</a></li>
+          <li data-i18n="sources.5" data-i18n-html><a href="pi-fusion.html">pi-fusion: modellunabhängige Research-Panels</a> · <a href="es-gibt-keinen-review-agenten.html">Modell, Harness, Spec und Run sauber trennen</a></li>
+          <li data-i18n="sources.6" data-i18n-html><a href="phoneclaw.html">OpenClaw auf einem alten Android-Handy</a></li>
         </ul>
       </article>
 
-      <nav class="tj-post-nav" aria-label="Weitere Notizen">
-        <a href="frontier-vs-lokal-deepresearch-benchmark.html" rel="prev"><span class="gl-meta">← Älterer Artikel</span><strong>Lokal vs. Frontier bei Deep Research</strong></a>
+      <nav class="tj-post-nav" aria-label="Weitere Notizen" data-i18n-attr="aria-label:postnav.label">
+        <a href="frontier-vs-lokal-deepresearch-benchmark.html" rel="prev"><span class="gl-meta" data-i18n="postnav.prev">← Älterer Artikel</span><strong data-i18n="postnav.prevTitle">Lokal vs. Frontier bei Deep Research</strong></a>
       </nav>
     </main>
 
@@ -322,6 +322,67 @@
         </div>
       </div>
     </footer>
+    <script>
+      window.GL_DEFAULT_LANGUAGE = "de";
+      // English copy for this note. German ships in the markup and is read back by commercial-pages.js.
+      window.GL_PAGE_COPY = {
+        en: {
+          "nav.profile": "Profile",
+          "nav.projects": "Projects",
+          "nav.notes": "Notes",
+          "footer.privacyLink": "Privacy",
+          "footer.languageLabel": "Language",
+          "meta.title": "Why local: the learning loop belongs inside your own company | Tom Jansen Notes",
+          "meta.description": "Why local AI is about more than data protection: Satya Nadella's Reverse Information Paradox, my own benchmarks with DeepSeek-V4-Flash and building a model-independent stack.",
+          "meta.ogTitle": "Why local: the learning loop belongs inside your own company",
+          "meta.ogDescription": "Individual models should stay replaceable. Prompts, corrections, evals, memory and harness are company knowledge and should stay under your own control.",
+          "hero.eyebrow": "Local AI · Strategy · Practice",
+          "hero.heading": "Why local: the learning loop belongs <em>inside your own company</em>",
+          "hero.meta": "Tom Jansen · 14 July 2026 · 10 min read",
+          "intro.1": "On 12 July 2026 Microsoft CEO Satya Nadella <a href=\"https://x.com/satyanadella/status/2076323181154230284\" target=\"_blank\" rel=\"noopener\">published an article on X</a> describing a problem that also sits behind my work with local models: companies have to protect their data and on top of that keep the learning loop of prompts, corrections, repeatable quality checks (evals), traces and memory under their own control. That is why a MacBook Pro with 128&nbsp;GB of RAM on my desk is currently running local model inference for hours at a time, and why I am busy with DwarfStar, pi-ds4, a benchmark harness of my own and a KV disk cache that was sized too small. This produces knowledge about your own work that only becomes visible while working with the model. It does not sit ready-made in a file, in the CRM or in the data warehouse.",
+          "intro.2": "Nadella calls this the <a href=\"https://snscratchpad.com/posts/reverse-information-paradox/\" target=\"_blank\" rel=\"noopener\">“Reverse Information Paradox”</a>. In 1962 the economist Kenneth Arrow described how the seller of a piece of information has to disclose enough of it for a buyer to judge its value, and in doing so risks giving the information away before the sale. Nadella turns this <a href=\"https://www.nber.org/chapters/c2144\" target=\"_blank\" rel=\"noopener\">information paradox</a> around for AI: today the buyer pays for a model and on top of that has to hand over their own knowledge before the model they bought is of any use for the actual work.",
+          "pay.h": "Companies pay with money and with their own knowledge",
+          "pay.1": "For a general question a model needs to know little about the company. As soon as it is supposed to do real work, internal documents, earlier decisions, customer context, tool access, quality standards and corrections come into play, and the better the result is supposed to be, the more precisely someone has to explain how this company actually works and makes decisions. So you pay once in euros or dollars and a second time with the context that turns a general model into a system your own organisation can use.",
+          "pay.2": "Who owns the learning loop does not depend on whether a vendor uses the inputs for training. <a href=\"https://openai.com/business-data/\" target=\"_blank\" rel=\"noopener\">OpenAI states for its business products and the API</a> that inputs and outputs are not used for training by default, and <a href=\"https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy\" target=\"_blank\" rel=\"noopener\">Microsoft gives comparable commitments for the models sold in Azure through Microsoft Foundry</a>, though stateful features and abuse monitoring have to be looked at separately. Product, contract, retention, region and configuration therefore make a substantial difference, and a properly configured and contractually reviewed cloud or tenant boundary can be appropriate for many cases.",
+          "pay.3": "Nadella's point still goes further. Even if no vendor trains on the inputs, a company has to decide where its prompts, evals, traces, corrections, memory entries and orchestration rules are created, who owns them and whether they can be taken along when tomorrow a different model is better, cheaper or the only one still available.",
+          "pay.4": "Good contract terms matter. But they are not a technical capability of your own.",
+          "quote.1": "“In consuming intelligence, you are creating intelligence. And what you create should belong to you.”<br><small>Satya Nadella, <a href=\"https://snscratchpad.com/posts/reverse-information-paradox/\" target=\"_blank\" rel=\"noopener\">The Reverse Information Paradox</a></small>",
+          "harness.h": "A one-line install turned into a benchmark harness of my own",
+          "harness.1": "I installed Pi, the minimal model-independent agent harness, around March 2026 and have followed its development since. The stack only went local after Salvatore Sanfilippo (known as antirez, the original author of Redis) released the DwarfStar inference runtime for DeepSeek-V4-Flash, Armin Ronacher (creator of Flask and Jinja) built the bridge to Pi with pi-ds4, and civic hacker and Taiwan's first digital minister Audrey Tang turned that into a one-line install. Her post finally convinced me to try the setup on the M5 Max I already had, and “let's see if it runs” quickly turned into the question of how far a local model really trails a frontier model on a complete research task. The whole story and the roles of the individual parts are in the <a href=\"frontier-vs-lokal-deepresearch-benchmark.html\">comparison of DeepSeek-V4-Flash with GPT-5.5 xhigh</a>.",
+          "harness.2": "The original plan was a coding comparison. Cognition keeps the tasks of the <a href=\"https://cognition.com/blog/frontier-code\" target=\"_blank\" rel=\"noopener\">FrontierCode benchmark</a> private to protect against contamination, so an independent run was not possible and the focus moved to deep research. For that I used DRACO, a benchmark with 100 deep research tasks from ten domains. On the local side a quant of DeepSeek-V4-Flash compressed to 87&nbsp;GB was connected to Pi through DwarfStar and pi-ds4, and the hosted GPT-5.5 xhigh served as the frontier reference. After the retry the local score stands at 48.18&nbsp;% and the frontier reference at 49.37&nbsp;%. The retry and judge protocols were not identical, so this is no proof of equivalence. But the gap is small enough that the local option has to be taken seriously for this kind of work.",
+          "harness.3": "That is where the work on the harness started. The run exposed more than model limits: a single tool output of 15.7&nbsp;MB, context overflows, empty answers, a KV disk cache that was too small and a harness that sometimes stored the wrong message as the result. Over the following three weeks these spots were examined, fixed and measured in several development and comparison runs, and not every change could be isolated. Among other things this produced a public bug ticket at Pi and a merged change to the RAM-dependent default for the KV disk budget in pi-ds4. The <a href=\"ds4-draco-optimierung.html\">full optimisation of the local DRACO stack</a> therefore shows better than any model comparison what “local” means in practice.",
+          "harness.4": "You get control, but you also take on running it.",
+          "harness.5": "Model generation cost $0 in API fees locally, while direct generation with GPT-5.5 in the comparison cost $612.60. That is not a TCO comparison yet, because the MacBook, electricity, runtime and the work on the harness are of course not free, but the cost moves from a usage-based bill into infrastructure of your own and a capability that is still there for the next run.",
+          "swap.h": "Models change, the harness stays",
+          "swap.1": "Nadella sums up his demand in five terms: Control, Capability, Choice, Cost and Compound. For me almost all of it hangs on the separation between model and harness. In this architecture a model is meant to be a replaceable reasoning core, while the harness feeds in the context, provides tools, enforces rules, stores results and organises the feedback loop. In my <a href=\"es-gibt-keinen-review-agenten.html\">attempt at an ontology for AI agents</a> the versioned combination of model, configuration, harness, role, skills and memory reference is the spec, and every single execution is a run. A model swap then creates a new spec version, and the way of working, the memory and the definition of “good” do not have to disappear with it.",
+          "swap.2": "That is also the idea behind <a href=\"pi-fusion.html\">pi-fusion</a>. A question can go into several separate model contexts, then a judge scores the results and a further stage merges them. Whether a local Ollama model, DeepSeek through DwarfStar or a hosted model does the work is a configuration decision and not the identity of the system. That way Choice actually stays a choice, and the work on prompts, evals, tools and guardrails improves your own stack instead of just tightening the lock-in to one vendor.",
+          "swap.3": "That is where “Compound” comes from for me. Models are far too short-lived to become the lasting asset over years. What gains value instead are your own evals, the error classes, the known good and bad workflows, the tool limits and the ability to run a task again with a different model.",
+          "swap.4": "Whoever owns this layer can test new models. Whoever does not starts pretty far back with every switch.",
+          "pipeline.h": "A local model does not make a local pipeline",
+          "pipeline.1": "The DRACO run so far makes this limit measurable. Model inference ran on the Mac, but web search, page fetches and the judge went through cloud services during the run, and in the current stack those parts are still cloud-based. So search terms, URLs, task contents and answers could leave the local environment. For public benchmark questions that is fine. For a client file or the transcript of a therapy session it would be exactly the gap the local model is supposed to close.",
+          "pipeline.2": "A robust local pipeline is therefore more than weights on an SSD. Tools, logs, telemetry, memory, intermediate results, backups and evaluation also need a clear boundary, and every external connection has to be either technically ruled out or deliberately and contractually controlled. Local inference is often one big step, because with cloud-based model generation the context needed for each call leaves the controlled environment. But how much of that is sensitive depends on the task and the architecture, so local inference remains only one step.",
+          "pipeline.3": "This view did not start with DeepSeek either. This website is deliberately built static, the fonts are served locally and the cookieless analytics is self-hosted. I set up OpenClaw on an old Android phone first instead of on my main machine, because a new agent with far-reaching tools needs a confined space to test in. Both cases follow the same principle: dependencies and possible damage should be visible and limited before a system gets more access.",
+          "sensitive.h": "For highly sensitive work the boundary becomes practical",
+          "sensitive.1": "For law firms, tax advisers, medical practices and psychologists, “local” is not a question of technical taste. Client files, tax records, patient data or transcripts from therapy sessions contain exactly the context a model needs for the actual work, and at the same time exactly the information where external processing is only an option after a specific review of product, contract, data protection, professional rules and technical safeguards. A local stack can considerably reduce the number of vendors involved and the trust commitments needed, but it replaces neither the data protection review nor professional rules, access controls, deletion policies and sound operations.",
+          "sensitive.2": "For these professions I therefore do not want to sell a blanket “AI in the company” solution. I want to sort out the actual flow of information first: which data is needed, which tools access it, where logs and memory are created, who evaluates results and at which point something leaves the controlled environment. Only then can you decide whether a private cloud tenant is enough, a hybrid architecture makes sense or the whole chain has to run locally.",
+          "cloud.h": "Cloud stays, but it no longer decides every task",
+          "cloud.1": "I use frontier models every day, and GPT-5.5 xhigh was the reference and the judge in this project too. For many public tasks extra model performance matters more than maximum local control, and sometimes a cloud solution with clean contract terms is the better decision both economically and technically. So “why local” does not answer the question of whether cloud is bad. It answers whether your own organisation can still handle a task when data, cost, availability or vendor terms rule out a cloud call.",
+          "cloud.2": "Since 9 July 2026 the ongoing work runs on a 91 GB quant with a 400,000 token context window, a 64\u00a0GB KV budget, capped tool outputs, salvage and a more stable harness. Next up are the full 100-task run and the re-judge of the medical task that stood out, and alongside that the bigger job remains: pulling web access, logging, memory and evaluation behind the same controlled boundary. Whether every stage ends up physically running on the same machine matters less than an architecture in which you can actually make that decision yourself.",
+          "cloud.3": "In this internal DRACO evaluation the tested local DS4 stack came close enough to the hosted reference, despite the protocols not being identical, to justify a controlled comparison under equal rules and further work on my own stack.",
+          "cloud.4": "I do not want to work without the cloud. I want to be able to work when the cloud is not an option for the task.",
+          "sources.h": "Sources and further reading",
+          "sources.1": "<a href=\"https://snscratchpad.com/posts/reverse-information-paradox/\" target=\"_blank\" rel=\"noopener\">Satya Nadella: The Reverse Information Paradox</a> · <a href=\"https://x.com/satyanadella/status/2076323181154230284\" target=\"_blank\" rel=\"noopener\">Post on X</a>",
+          "sources.2": "<a href=\"https://www.nber.org/chapters/c2144\" target=\"_blank\" rel=\"noopener\">Kenneth J. Arrow: Economic Welfare and the Allocation of Resources for Invention</a>",
+          "sources.3": "<a href=\"https://openai.com/business-data/\" target=\"_blank\" rel=\"noopener\">OpenAI: Business data privacy</a> · <a href=\"https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy\" target=\"_blank\" rel=\"noopener\">Microsoft: Data, privacy and security for Azure Direct Models</a>",
+          "sources.4": "<a href=\"frontier-vs-lokal-deepresearch-benchmark.html\">Local vs. frontier in deep research</a> · <a href=\"ds4-draco-optimierung.html\">DS4 on DRACO: optimising the local stack</a>",
+          "sources.5": "<a href=\"pi-fusion.html\">pi-fusion: model-independent research panels</a> · <a href=\"es-gibt-keinen-review-agenten.html\">Keeping model, harness, spec and run cleanly separated</a>",
+          "sources.6": "<a href=\"phoneclaw.html\">OpenClaw on an old Android phone</a>",
+          "postnav.label": "More notes",
+          "postnav.prev": "← Older article",
+          "postnav.prevTitle": "Local vs. frontier in deep research"
+        }
+      };
+    </script>
     <script src="../commercial-pages.js"></script>
     <script src="../archetype-pages.js"></script>
   </body>

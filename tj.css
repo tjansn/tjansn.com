@@ -61,8 +61,12 @@ h1 em, h2 em, .gl-h1 em, .gl-h2 em {
 .dark .tj-header .gl-theme-toggle__icons .icon-moon { display: none; }
 
 /* header nav: visible on every width, three links fit on a phone */
+.tj-header { gap: var(--gl-space-2); }
+.tj-header > a { flex-shrink: 0; white-space: nowrap; }
 .tj-nav { display: flex; gap: clamp(0.9rem, 3vw, 1.75rem); font-size: 0.9rem; }
-.tj-nav a { color: var(--tj-muted); text-decoration: none; }
+/* Links keep their visual size; the padding only widens the tap area (negative margin cancels it in the layout). */
+.tj-nav a { color: var(--tj-muted); text-decoration: none; padding-block: var(--gl-space-3); margin-block: calc(var(--gl-space-3) * -1); }
+@media (max-width: 380px) { .tj-nav { gap: 0.6rem; font-size: 0.85rem; } }
 .tj-nav a:hover, .tj-nav a[aria-current] { color: var(--tj-ink); }
 .tj-nav a[aria-current] { text-decoration: underline; text-decoration-color: var(--tj-mark); text-underline-offset: 0.45em; text-decoration-thickness: 1.5px; }
 .gl-site-header .gl-nav.commercial-nav { display: none; }
@@ -264,6 +268,8 @@ h1 em, h2 em, .gl-h1 em, .gl-h2 em {
 .tj-contact__mail { font-family: var(--gl-font-mono); font-size: 0.9rem; color: var(--tj-ink); }
 
 /* ---------- footer ---------- */
+/* Same trick as the nav links: 44px tap height without changing the footer layout. */
+.commercial-footer-links a { display: inline-block; padding-block: var(--gl-space-3); margin-block: calc(var(--gl-space-3) * -1); }
 .tj-footer__links-row {
   display: flex;
   flex-wrap: wrap;
@@ -300,6 +306,7 @@ h1 em, h2 em, .gl-h1 em, .gl-h2 em {
 }
 
 /* ---------- project detail page ---------- */
+.gl-filter-chip { display: inline-flex; align-items: center; min-height: 2.5rem; }
 .tj-toc { display: flex; flex-wrap: wrap; gap: var(--gl-space-3); margin-top: var(--gl-space-6); }
 .tj-toc a { color: var(--tj-muted); text-decoration: none; }
 .tj-toc a:hover, .tj-toc a:focus-visible { color: var(--tj-mark); border-color: var(--tj-mark); }
@@ -351,4 +358,6 @@ h1 em, h2 em, .gl-h1 em, .gl-h2 em {
   .tj-step { grid-template-columns: 1fr; gap: 0.3rem; }
   .tj-case { grid-template-columns: 1fr; gap: 0.75rem; }
   .tj-case__meta { grid-auto-flow: column; justify-content: start; gap: 1rem; }
+  /* Stacked columns: equal row heights would only leave gaps above the meta line. */
+  #nebenbei .tj-list { grid-auto-rows: auto; }
 }

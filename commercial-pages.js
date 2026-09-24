@@ -12,6 +12,15 @@
       if (key in fromMarkup) return;
       fromMarkup[key] = element.hasAttribute("data-i18n-html") ? element.innerHTML : element.textContent;
     });
+    // Attribute translations (data-i18n-attr="alt:key;title:key") are read back the same
+    // way, so switching back to the markup language restores them too.
+    document.querySelectorAll("[data-i18n-attr]").forEach((element) => {
+      element.getAttribute("data-i18n-attr").split(";").forEach((entry) => {
+        const [attribute, key] = entry.split(":").map((part) => part && part.trim());
+        if (!attribute || !key || key in fromMarkup || !element.hasAttribute(attribute)) return;
+        fromMarkup[key] = element.getAttribute(attribute);
+      });
+    });
     COPY[DEFAULT_LANGUAGE] = fromMarkup;
   }
 
@@ -60,7 +69,7 @@
       // (legal pages, leaderboard) keeps the document in the markup language and marks
       // just the translated elements. The markup language itself is always complete.
       const complete = requested === DEFAULT_LANGUAGE || (
-        Object.keys(COPY[DEFAULT_LANGUAGE] || {}).every((key) => key in dictionary) &&
+        elements.every((element) => element.getAttribute("data-i18n") in dictionary) &&
         elements.some((element) => !inSiteChrome(element))
       );
       if (complete) document.documentElement.lang = requested;

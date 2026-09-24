@@ -1,0 +1,527 @@
+[
+  {
+    "blindId": "A025",
+    "whyAhead": "Die Bilder vom Mietfach und der Datenschutzfolklore geben der These mehr Eigenheit als der sachliche Einstieg der nächsten Fassung; zugleich verbinden konkrete Harness-Fehler, Mandatsakten und Patientendaten Lernschleife und Pipeline enger.",
+    "weakerThanAbove": "Deutlichste Restschwäche: Die DRACO-Nähe bleibt ohne Messwerte und Protokollvorbehalt weich, und die reparierte Eval-Regel ist weniger konkret als die übrigen Harness-Beispiele."
+  },
+  {
+    "blindId": "A034",
+    "whyAhead": "Diese Fassung ordnet Prompt, Korrektur, Eval, Trace und Memory jeweils eine Funktion zu und belegt den DRACO-Abstand samt Protokollgrenze; die nächste Fassung erklärt diese Artefakte nach der Aufzählung nur knapp.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung klingt der DRACO-Absatz stärker nach Bericht; Bilder wie Mietfach oder Datenschutzfolklore und konkrete Fehler aus der Werkbank fehlen, zudem holpert der Satz zu Logs, Memory und Backups."
+  },
+  {
+    "blindId": "A005",
+    "whyAhead": "Die doppelte Bezahlung trägt den ganzen Text, während beide DRACO-Messwerte und die nicht identischen Protokolle die Nähe vorsichtig begrenzen; die nächste Fassung bleibt beim Vergleich ohne diese Belege.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung bleiben Evals und Traces funktional blass: Die Lernschleife wird vollständig genannt, aber weniger genau als portable Arbeitsweise erklärt."
+  },
+  {
+    "blindId": "A096",
+    "whyAhead": "Mit der Regel, ob Arbeit gut oder Schrott ist, und den sichtbaren Fehlern bei Tools, Kontext, Retry und Memory klingt diese Fassung eigenständiger und weniger gedrängt als der sehr dichte Mittelteil der nächsten Fassung.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlen Messwerte und Protokollvorbehalt; zudem etikettiert Unternehmenswissen in Bewegung den Befund, statt ihn so präzise zu belegen wie die höhere Fassung."
+  },
+  {
+    "blindId": "A077",
+    "whyAhead": "Diese Fassung setzt DwarfStar, pi-ds4 und Pi in klare Rollen, nennt Kontextüberlauf, Tool-Ausgabe und Speicherfehler und zieht die Datenflussgrenze bis zu Telemetrie und Backups; die nächste Fassung bleibt bei den Stack-Rollen allgemeiner.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung ist der Mittelteil merklich dichter und rhythmisch gleichförmiger; ein kurzer, verdienter Payoff zwischen Fehlerarbeit und Pipeline-Grenze fehlt."
+  },
+  {
+    "blindId": "A080",
+    "whyAhead": "Diese Fassung begrenzt den DRACO-Befund ausdrücklich als Nähe ohne Gleichwertigkeitsnachweis und erklärt die Pipeline-Lücke an Suche, Judge, Logs und Memory; die nächste Fassung lässt Mess- und Protokollgrenze offen.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung stehen DeepSeek-V4-Flash, DwarfStar, pi-ds4 und Pi zunächst als Namensgruppe ohne Rollen; auch Lokal heißt nicht automatisch lokal wirkt gebaut."
+  },
+  {
+    "blindId": "A029",
+    "whyAhead": "Der persönliche Einstieg, wiederkehrende Fehlerklassen und der Compound-Effekt verbinden eigene Arbeit und Unternehmenswert in längeren Satzbögen; die nächste Fassung endet dagegen in einer abgehackten Folge kurzer Sätze.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlen Protokollgrenze und greifbarer DRACO-Befund; außerdem ist der Asset grammatisch falsch und Compound-Effekt unnötig englisch markiert."
+  },
+  {
+    "blindId": "A001",
+    "whyAhead": "Hardware, beide DRACO-Messwerte und die konkrete Trennung von Modell, Harness und externer Restpipeline geben dieser Fassung mehr Prüfbarkeit als der nächsten Fassung, deren Vergleich ohne Zahl und Harness-Fehler bleibt.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung bremsen die Fragen im zweiten Absatz und fünf kurze Schlusssätze den natürlichen deutschen Satzfluss; der Compound-Gedanke wird weniger organisch entwickelt."
+  },
+  {
+    "blindId": "A101",
+    "whyAhead": "Diese Fassung nennt die gehostete Referenz und die nicht identischen Protokolle, bevor sie die Pipeline-Grenze zieht; die nächste Fassung bleibt im DRACO-Absatz ohne Messwert, Caveat oder konkretes Fehlerbeispiel.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlen Hardwarewert, Messwerte und ein sichtbarer Harness-Fehler; die doppelte Darum-Konstruktion im Stack-Absatz wirkt zudem schematisch."
+  },
+  {
+    "blindId": "A054",
+    "whyAhead": "Die vielen kleinen Kurskorrekturen und das Bild vom lokalen Motor machen die Lernschleife persönlicher und anschaulicher als die methodisch korrekte, aber glattere Berichtssprache der nächsten Fassung.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung bleibt der eigene Vergleich ohne Messwert, Protokollgrenze und Fehlerbeispiel; dadurch trägt die persönliche Erkenntnis mehr Behauptung als Befund."
+  },
+  {
+    "blindId": "A022",
+    "whyAhead": "Diese Fassung erklärt Arrow, Stack-Rollen, portierbare Lernkurve, konkrete Cloud-Datenpfade und Hybridwahl vollständig und ohne die handelnden Systeme, die die nächste Fassung mehrfach verwendet.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlt ein Werkbankmoment wie die kleinen Kurskorrekturen oder der lokale Motor; die korrekte Prosa bleibt dadurch austauschbarer."
+  },
+  {
+    "blindId": "A086",
+    "whyAhead": "Modelle wechseln eh und Cloud nutzen, ohne Cloud brauchen zu müssen geben dieser Fassung mehr Stimme; konkrete Retry-, Kontext- und Tool-Grenzen tragen die These stärker als die zwei etikettierenden Schlusssätze der nächsten Fassung.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung handeln externe Komponenten und Stack selbst; außerdem fehlen Messwerte und Protokollgrenze, obwohl der DRACO-Befund zentral gesetzt wird."
+  },
+  {
+    "blindId": "A024",
+    "whyAhead": "Der konkrete Benchmark-Einstieg schafft sofort Orientierung, danach werden Evals, Traces und Memory als wiederholbare Fehlerarbeit erklärt; die nächste Fassung zählt diese Lernartefakte eher auf und entfaltet ihre Funktionen kaum.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung klingt diese Fassung sachlicher und markiert mit Das ist für mich der Kern sowie Das ist der Punkt Bedeutung, die die Details bereits selbst tragen."
+  },
+  {
+    "blindId": "A093",
+    "whyAhead": "Datum, Quant, Aufgabenzahl, beide Messwerte und das Caveat zu Retry und Judge machen diese Fassung belastbarer als der bloße kleine Abstand der nächsten Fassung und deren unbelegte, über Monate aufgebaute Qualitätsdefinition.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung bleibt die Lernschleife nach der Liste überwiegend eine Besitzbehauptung; Funktionen von Evals, Traces und Memory werden kaum gezeigt."
+  },
+  {
+    "blindId": "A098",
+    "whyAhead": "Der merkwürdige Tausch und die zweite Lernkurve beim Anbieterwechsel geben dieser Fassung einen klareren eigenen Gedankenfaden als der saubere, aber lehrbuchhafte Aufbau und das abstrakte Schlussziel der nächsten Fassung.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlen Messwerte und Protokollvorbehalt; die über Monate aufgebaute Definition von gut ist zudem nicht aus dem Text belegt."
+  },
+  {
+    "blindId": "A064",
+    "whyAhead": "Hardware, konkrete Kontext- und Speicherfehler sowie die vollständige Grenze von Suche bis Backups geben dieser Fassung mehr technische Bodenhaftung als der dichte Einstieg und das künstliche compoundet der nächsten Fassung.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung ist der Ton lehrbuchhafter, und Diese Wahl ist das Ziel endet abstrakter als deren konkrete Folge eines Anbieterwechsels."
+  },
+  {
+    "blindId": "A007",
+    "whyAhead": "Die langen Satzbögen verbinden Setup, doppelte Bezahlung, wiederkehrende Fehler und Modellwechsel zu einer durchgehenden Kette; die nächste Fassung steuert die Leserwertung stärker mit sauber benannt und wichtiger als.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlen Messwerte und ein konkreter Fehlerbefund; Dort compoundet die Arbeit ist ein künstlicher Anglizismus und der technische Einstieg fordert viel Aufmerksamkeit."
+  },
+  {
+    "blindId": "A037",
+    "whyAhead": "Diese Fassung eröffnet mit Paradox, Anti-Dogma und kompletter Lernschleife in einem natürlich verbundenen Satz und hält den Compound-Gedanken durch; die nächste Fassung liest sich stärker wie eine korrekte Funktionsliste.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlen ein konkreter Harness-Fehler und eine prüfbare DRACO-Grenze; sehr sauber benannt und wichtiger als lenken die Wertung redaktionell vor."
+  },
+  {
+    "blindId": "A090",
+    "whyAhead": "Prompts, Korrekturen, Evals, Traces und Memory erhalten jeweils eine Funktion; die Cloud-Tenant-Option und der genaue Informationsfluss sind konkreter als der Vergleich der nächsten Fassung ohne Protokollvorbehalt.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung ist die Stimme glatter und berichtender; außerdem werden Pipeline-Komponenten bei Cloudservices nutzen selbst zu Akteuren."
+  },
+  {
+    "blindId": "A074",
+    "whyAhead": "Diese Fassung zeigt den Lernwert an Kontextüberläufen und Harness-Fehlern und trennt lokale Generierung von externer Bewertung; die nächste Fassung bleibt beim DRACO-Mechanismus abstrakter und setzt den AI-Tell Interessant daran ein.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlen Messwert und Protokollvorbehalt; Brücke für pi-ds4 ist verständlich, aber weniger präzise als Adapter oder Anbindung."
+  },
+  {
+    "blindId": "A045",
+    "whyAhead": "Die längeren deutschen Satzbögen verbinden Betriebswissen, Anbieterbindung, wiederverwendbare Fähigkeit und externe Pipeline natürlicher als die fertigen Übergangsformeln der nächsten Fassung zur anderen Hälfte der Wahrheit.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlen konkrete Fehler und eine belastbare DRACO-Grenze; Interessant daran und anschlussfähig beim Anbieter bleiben unnötig abstrakt."
+  },
+  {
+    "blindId": "A078",
+    "whyAhead": "Diese Fassung erklärt Fehlerklassen, gute Promptmuster und die eigene Definition von gut genug als das portable Asset; die nächste Fassung formuliert den Weiterbau bürokratisch als gerechtfertigt worden.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung wirken Genau da liegt für mich der Punkt und die andere Hälfte der Wahrheit wie fertige Übergänge; konkrete externe Datenpfade bleiben knapper."
+  },
+  {
+    "blindId": "A091",
+    "whyAhead": "Die Pi-Rolle, der konkrete Tool-Output, die nicht identischen Protokolle und sensible Beispiele machen diese Fassung greifbarer als die nächste Fassung, in der Stack-Rollen und DRACO-Befund allgemein bleiben.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung klingt Der Weiterbau des Stacks ist gerechtfertigt worden bürokratisch; ein Messwert oder klarer Abstand würde den Vergleich stärker tragen."
+  },
+  {
+    "blindId": "A068",
+    "whyAhead": "Datenschutzfolklore, Eigentumsfrage und sichtbare Fehlerklassen geben dieser Fassung mehr eigene Stimme als der nächsten Fassung; deren Aussage, lokale Modelle seien gut genug, bleibt ohne konkreten Befund breit.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung werden DwarfStar, pi-ds4 und Pi nicht in ihren Rollen erklärt, und Das ist der Punkt etikettiert die Bedeutung statt sie zu zeigen."
+  },
+  {
+    "blindId": "A014",
+    "whyAhead": "Diese Fassung führt kompakt von doppelter Zahlung über eigene Evals und reproduzierbare Fehler zur Pipeline und Wahlfreiheit; die nächste Fassung liest sich trotz größerer methodischer Präzision stärker wie ein Kurzbericht.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung ist gut genug ohne Messwert oder konkreten Befund zu breit; im Schluss bleibt zudem unklar, worauf sie in wenn sie für eine Aufgabe ausfällt verweist."
+  },
+  {
+    "blindId": "A008",
+    "whyAhead": "Diese Fassung trennt Trainingszusage, kontrollierten Tenant, Portabilität, Messwerte und nicht identische Protokolle sauber; die nächste Fassung verliert formale Präzision, indem DeepSeek-V4-Flash im Einstieg selbst läuft.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlt ein eigener Werkbankmoment oder kantiger Satz; die Absätze wirken wie ein sauberer Bericht statt wie Toms persönliche Arbeitsnotiz."
+  },
+  {
+    "blindId": "A002",
+    "whyAhead": "Diese Fassung setzt Runtime, Adapter und Harness früh in Beziehung und nennt beide Messwerte samt Protokollgrenze; die nächste Fassung bleibt beim DRACO-Vergleich ohne Zahl und Caveat und gibt Systemen mehrfach Agency.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung handelt DeepSeek-V4-Flash im Einstieg selbst; die methodisch saubere Mittel-Konstruktion der höheren Fassung wird damit verfehlt."
+  },
+  {
+    "blindId": "A105",
+    "whyAhead": "Bedienmüll, Compound und Kontrolle ist die Option, nicht die Pose geben dieser Fassung eine markante Stimme bei vollständiger Pipeline-Grenze; die nächste Fassung ist ebenfalls eigenständig, bleibt aber beim Stack weniger umfassend.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlen Messwerte und Protokollvorbehalt; Modell und externe Komponenten handeln in zwei Sätzen selbst."
+  },
+  {
+    "blindId": "A039",
+    "whyAhead": "Der körperlich verstandene Mechanismus, Lokalromantik und die zwei kurzen Payoffs machen diese Fassung persönlicher als die nächste Fassung; zugleich vermeidet sie deren Auslassung der ersten Zahlung für das Modell.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlen Messwert und Protokollgrenze, und externe Komponenten werden bei laufen selbst zu Akteuren."
+  },
+  {
+    "blindId": "A044",
+    "whyAhead": "Beide Messwerte, Protokollvorbehalt, Harness-Artefakte und vollständige Pipeline geben dieser Fassung mehr überprüfbare Substanz als die wertende Wendung von der richtigen Arbeit in der nächsten Fassung.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlt im Paradox die erste Zahlung für das Modell; Das ist der Punkt setzt nach einem bereits tragfähigen Schluss noch einen generischen Marker."
+  },
+  {
+    "blindId": "A084",
+    "whyAhead": "Das Modalwort ja, die klare Pi-Rolle und der Weg von Fehlern zu Evals geben dieser Fassung mehr technische Wärme als die faktendichte, aber stärker aufzählende Darstellung der Lernschleife in der nächsten Fassung.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlen beide Messwerte und ein konkreter Harness-Fehler; außerdem lässt hat die richtige Arbeit sichtbar gemacht den Vergleich selbst handeln und wertet vor."
+  },
+  {
+    "blindId": "A088",
+    "whyAhead": "Datum, Arrow, beide Messwerte samt Caveat und die Rollen von Runtime, Adapter und Harness liefern mehr prüfbare Faktendichte als der Vergleich der nächsten Fassung ohne Zahl oder Fehlerbeispiel.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung werden Evals und Korrekturen eher aufgezählt als mechanisch entfaltet; Stack und Cloud-Komponenten handeln zudem in zwei Sätzen selbst."
+  },
+  {
+    "blindId": "A092",
+    "whyAhead": "Nicht ins Mietmodell, bei allgemeinem Chat egaler und die Mandatsakten-Beispiele geben dieser Fassung mehr Haltung und konkrete Konsequenz als der abstrakt lernende Harness der nächsten Fassung.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlen Messwerte, Protokollgrenze und Fehlerbefund; Harness und externe Pipeline-Teile handeln selbst."
+  },
+  {
+    "blindId": "A042",
+    "whyAhead": "Diese Fassung hält Eigentumsfrage, mitnehmbare Lernschleife und Cloud-Wahl in einer sauberen Kette und vermeidet den gleichförmigen Berichtsrhythmus sowie den handelnden Modell-Opener der nächsten Fassung.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlen der markante Mietmodell-Rahmen, ein Messwert und ein konkreter Fehler; auch der lernende Harness erhält zu viel Agency."
+  },
+  {
+    "blindId": "A085",
+    "whyAhead": "Hardware, kumulierende Qualitätsdefinition, Cache-Grenze und vorsichtig formulierter möglicher Datenabfluss sind konkreter als die umständliche zweite Rechnung und die aktiven Pipeline-Komponenten der nächsten Fassung.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung handelt DeepSeek-V4-Flash im ersten Satz selbst; fünf ähnlich lange Absätze erzeugen einen gleichmäßigen Berichtsrhythmus."
+  },
+  {
+    "blindId": "A017",
+    "whyAhead": "Diese Fassung erklärt die Lernschleife als Scheitern, Korrektur und veränderten nächsten Lauf und begrenzt beide Messwerte durch die nicht identischen Protokolle; die nächste Fassung bleibt beim Vergleich ohne Zahl oder Fehler.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung geben Modell und Pipeline-Komponenten sich selbst Agency; Geld wechselt den Besitzer führt die zweite Rechnung außerdem unnötig umständlich ein."
+  },
+  {
+    "blindId": "A071",
+    "whyAhead": "Runtime, Adapter und Harness stehen schon im Einstieg in klarer Beziehung, danach folgt eine ruhige Kette von Eigentum zu Modellwechsel und Cloud-Wahl; die nächste Fassung wirkt durch Fehler- und Messkatalog stärker berichtend.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlen Messwerte und ein konkretes Harness-Problem; DeepSeek-V4-Flash und externe Tools handeln zudem selbst."
+  },
+  {
+    "blindId": "A050",
+    "whyAhead": "Tool-Ausgabe, Kontextüberlauf, KV-Cache und falsch gespeicherte Nachricht zeigen konkret, wo die Lernschleife entsteht; die nächste Fassung nennt die Artefakte, entfaltet ihre Funktionen aber kaum.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung handelt DeepSeek-V4-Flash im Opener selbst, und der Schluss mit Modelle wechseln sowie Lernschleife bleibt ist erwartbarer."
+  },
+  {
+    "blindId": "A060",
+    "whyAhead": "Datum, Arrow, Quant, Aufgabenzahl, beide Messwerte und der Protokollvorbehalt geben dieser Fassung deutlich mehr Sachboden als der Vergleich der nächsten Fassung ohne Zahl; diese zerlegt den Gedanken zudem in viele gleichförmige Absätze.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung bleibt die Lernschleife nach der Liste funktional dünn, und der Cloud-Datenabfluss wird bestimmter formuliert als der mögliche Abfluss dort."
+  },
+  {
+    "blindId": "A006",
+    "whyAhead": "Diese Fassung übergibt ausschließlich Artikeltext im Zielumfang und trennt jeden Kausalschritt klar; die nächste Fassung setzt Interessant daran ein und lässt Modell sowie externe Komponenten mehrfach operativ handeln.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlen Messwerte und Protokollvorbehalt; neun fast gleichförmige Ein-Satz-Absätze wirken protokollarisch, und ein Modell biegt personifiziert ab."
+  },
+  {
+    "blindId": "A038",
+    "whyAhead": "Der Messwert im ersten Satz und die verdichtete Erfahrung geben der Eigentumsthese mehr Profil als der formelhafte Schluss der nächsten Fassung; zugleich benennt diese Fassung die vollständige Messgrenze.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung etikettiert Interessant daran die Bedeutung, und Modell sowie externe Komponenten erhalten in zwei Sätzen operative Agency."
+  },
+  {
+    "blindId": "A053",
+    "whyAhead": "Diese Fassung gibt jedem Element der Lernschleife eine konkrete Funktion und begrenzt beide Messwerte methodisch; der Benchmark-Satz der nächsten Fassung packt Runtime, Verbindung, Harness, Referenz und Bewertung schwer lesbar zusammen.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung klingt die Stimme formelhafter; DeepSeek-V4-Flash und die externen Pipeline-Teile handeln selbst, der Schluss Modelle kommen und gehen bleibt erwartbar."
+  },
+  {
+    "blindId": "A055",
+    "whyAhead": "Doppelte Zahlung, portable Fehlerklassen, beide Messwerte samt Caveat und kontrollierbare Hybridarchitektur greifen vollständig ineinander; die nächste Fassung reduziert die Lernschleife auf das Einzige, das Modellwechsel überlebt.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung handelt DeepSeek-V4-Flash im Einstieg selbst, und der lange DRACO-Satz ist syntaktisch deutlich schwerer."
+  },
+  {
+    "blindId": "A043",
+    "whyAhead": "Die doppelte Bezahlung, beide Messwerte, Protokollgrenze und das Mandatsakten-Beispiel bilden eine knappere, natürlichere Kette als die abstraktere Versionierungs- und Entscheidungsprosa der nächsten Fassung.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung wird die kumulative Mechanik der Lernschleife nur knapp erklärt; außerdem ist der mögliche Datenabfluss zu bestimmt formuliert."
+  },
+  {
+    "blindId": "A032",
+    "whyAhead": "Diese Fassung zeigt konkret, wie eine versionierte Schleife Prompts, Evals, Toolgrenzen und Memory über Modellwechsel mitnimmt; die nächste Fassung presst denselben Stoff in zwei überladene Absätze ohne Atem.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung ist die Stimme weniger markant, der Datenabfluss wird als sicher erfolgt dargestellt und im Schluss wird die Cloud selbst zum entscheidenden Akteur."
+  },
+  {
+    "blindId": "A010",
+    "whyAhead": "Arrow-Mechanismus, beide Messwerte, Protokollgrenze und vollständige Restpipeline sind trotz der Dichte präzise vorhanden; die nächste Fassung vermischt Ergebnisbenchmark und Systemdiagnose mit gemessen worden ist die Arbeitsweise.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung ist der zweite Absatz überladen und rhythmisch fast ungeteilt; der Quant läuft zudem selbst, statt als eingesetztes Mittel formuliert zu sein."
+  },
+  {
+    "blindId": "A028",
+    "whyAhead": "Zu große Tool-Ausgaben, Kontextüberläufe, Cache und falsch gespeicherte Ergebnisse machen die Harness-Arbeit greifbar; die nächste Fassung bleibt beim eigenen Stack ohne Ergebnis oder Fehlerbeispiel abstrakt.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung ist die Aussage, DRACO habe die Arbeitsweise gemessen, methodisch unscharf und vermischt Benchmark-Ergebnis mit nachgelagerter Diagnose."
+  },
+  {
+    "blindId": "A012",
+    "whyAhead": "Diese Fassung erklärt die Lernschleife klar als eigene Bewertungs- und Reparaturschicht und vermeidet den anthropomorphen Harness der nächsten Fassung, der weniger raten müsse.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlen Ergebnis, Protokollgrenze und konkreter Fehler; Modell und externe Komponenten handeln in zwei Sätzen selbst."
+  },
+  {
+    "blindId": "A095",
+    "whyAhead": "Datenschutz-Accessoire, zweite Zahlung, konkrete Kontext- und Cache-Probleme sowie die Mandatsakten-Grenze geben dieser Fassung mehr Eigenheit als der generische Doppelschluss der nächsten Fassung.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung bleibt der DRACO-Vergleich ohne Messwert und Protokollvorbehalt; der Harness wird mit weniger raten anthropomorphisiert."
+  },
+  {
+    "blindId": "A020",
+    "whyAhead": "Der CRM-Kontrast und die sichtbaren Tool-, Kontext-, Antwort- und Harness-Fehler machen den Lernwert konkreter als die mehrfachen hat-gezeigt-Konstruktionen im Betriebsabsatz der nächsten Fassung.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung handeln DeepSeek-V4-Flash und externe Komponenten selbst; Das ist Why local setzt vor dem eigentlichen Schluss einen generischen zweiten Schluss an."
+  },
+  {
+    "blindId": "A021",
+    "whyAhead": "Diese Fassung erklärt Runtime, Adapter und Pi als getrennte Rollen und verbindet Kontextgrenze, Cache und Ergebnisablage mit Modellportabilität; die nächste Fassung nennt die eigene Arbeitsweise missverständlich als trainiert.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlt der pointierte CRM-Kontrast; DeepSeek-V4-Flash läuft selbst, der Harness bewahrt aktiv und der DRACO-Absatz wiederholt ähnliche hat-gezeigt-Konstruktionen."
+  },
+  {
+    "blindId": "A089",
+    "whyAhead": "Diese Fassung hält sensible Beispiele, gesamte Informationsgrenze und legitime Cloud-Nutzung in einer formal ruhigeren Kette; die nächste Fassung wiederholt am Schluss die komplette Artefaktliste und gibt mehreren Systemen Agency.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung ist trainiert gleichzeitig seine eigene Arbeitsweise missverständlich, und zwei Sätze lassen Pipeline-Komponenten operativ handeln."
+  },
+  {
+    "blindId": "A040",
+    "whyAhead": "Quant, beide Messwerte nach Retry und die unterschiedlichen Protokolle geben dieser Fassung einen überprüfbaren DRACO-Befund; die nächste Fassung bleibt ohne Zahl, konkretes Problem und zudem knapp unter dem verlangten Umfang.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung wiederholt der letzte Satz Prompts bis Memory unnötig; DeepSeek-V4-Flash und Pipeline-Komponenten handeln in zwei Sätzen selbst."
+  },
+  {
+    "blindId": "A019",
+    "whyAhead": "Offline-Romantik, Retry-Verhalten, Tool-Grenzen und der persönliche Schluss geben dieser Fassung mehr Werkbank-Stimme als der faktendichte, aber berichtende Aufbau der nächsten Fassung.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlt ein Wort zum Mindestumfang sowie ein Messwert oder konkreter Harness-Befund; das System bricht gibt Software zudem Agency."
+  },
+  {
+    "blindId": "A035",
+    "whyAhead": "Datum, Arrow, Aufgabenzahl, Quant, beide Messwerte und Protokollgrenze liefern mehr überprüfbare Substanz als die nächste Fassung, die zu kurz bleibt und keinen konkreten DRACO-Befund nennt.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung bleibt die Lernschleife funktional knapp und die Stimme berichtender; Websuche und Judge handeln selbst, der Datenabfluss ist zu bestimmt formuliert."
+  },
+  {
+    "blindId": "A081",
+    "whyAhead": "Kein Bedienmaterial am Rand und nicht als Bastelromantik geben dieser Fassung Haltung; die Trennung von Harness, Anbieterprodukt und sensibler Pipeline ist präziser als die unscharfe Behauptung der nächsten Fassung, Retry und Speicher seien gemessen worden.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlen zwei Wörter zum Mindestumfang, Messwerte und Protokollgrenze; Die Lernschleife ist der Asset enthält außerdem einen Genusfehler."
+  },
+  {
+    "blindId": "A058",
+    "whyAhead": "Kontextüberlauf, große Tool-Ausgabe, Retry, Judge und Speicher machen die Fehlerarbeit konkreter als die bloße Namensgruppe der nächsten Fassung ohne klare Rollen; die Cloud-Wahl folgt kausal aus der gesamten Pipeline.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlen ebenfalls zwei Wörter zum Mindestumfang; zudem ist die Formulierung methodisch unscharf, Retry und Speicher seien mit dem Benchmark gemessen worden."
+  },
+  {
+    "blindId": "A026",
+    "whyAhead": "Diese Fassung erklärt sowohl Arrows ursprünglichen Offenlegungszwang als auch Nadellas Umkehrung und zieht daraus die Organisationsgrenze; die nächste Fassung setzt das Paradox voraus und bleibt noch kürzer.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung handeln DeepSeek-V4-Flash, DRACO und ein fremdes System selbst; DwarfStar, pi-ds4 und Pi werden trotz Nennung nicht in ihren Rollen erklärt."
+  },
+  {
+    "blindId": "A009",
+    "whyAhead": "Romantik des Offline-Rechnens, der klare Harness-Kontrast und die Schlussregel zur schon vorher gesetzten Grenze klingen natürlicher als der überlange Start und das gebaute Punkt-Finale der nächsten Fassung.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlt der Arrow-Mechanismus; der Text ist drei Wörter zu kurz, und der DRACO-Vergleich handelt mit hat gezeigt selbst."
+  },
+  {
+    "blindId": "A100",
+    "whyAhead": "Diese Fassung liegt im Zielumfang und erklärt Pi ausdrücklich als Rahmen für Kontext, Regeln und Rückkopplung; die nächste Fassung überschreitet den Umfang und lässt den DRACO-Beleg ohne Zahl oder Fehler dünn.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung ist der erste Satz überladen, drei Systeme handeln operativ und die Wiederholung von genau dort sowie Punkt wirkt gebaut."
+  },
+  {
+    "blindId": "A003",
+    "whyAhead": "Diese Fassung entwickelt vom eigenen Stack über die doppelte Zahlung bis zur Anbieterbindung und gesamten Datenflussgrenze einen persönlicheren Bogen als die problematische abgeschlossene Ich-Handlung der nächsten Fassung.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung überschreitet der Text den Umfang; der DRACO-Verweis bleibt ohne Messwert oder konkretes Harness-Problem und verschenkt technische Bodenhaftung."
+  },
+  {
+    "blindId": "A015",
+    "whyAhead": "Klare Absätze, beide Messwerte samt Caveat, die Modell-Harness-Trennung und das Mandatsakten-Beispiel sind deutlich lesbarer als der einzige, nahezu ungeteilte Textblock der nächsten Fassung.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung schildert der Einstieg eine abgeschlossene Testaktion mit ich; außerdem wird möglicher Datenabfluss als tatsächlich erfolgt dargestellt."
+  },
+  {
+    "blindId": "A018",
+    "whyAhead": "Datum, Hardware, Quant, beide Messwerte und sensible Fälle verdichten den Sachkern im korrekten Umfang; die nächste Fassung ist deutlich zu kurz und lässt den DRACO-Befund ohne Zahl oder Problem.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlen Absatzrhythmus und gezielte Payoffs, weil fast der ganze Artikel ein Satzblock ist; Websuche, Abrufe und Judge handeln selbst."
+  },
+  {
+    "blindId": "A067",
+    "whyAhead": "Kein Local-AI-Folkloreprojekt und Kontrolle, nicht Nostalgie geben dieser Fassung mehr Stimme; zugleich vermeidet sie Präteritumformen und aktive Cloud-Komponenten der nächsten Fassung.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlen neun Wörter zum Mindestumfang, Messwerte und ein konkreter Harness-Befund; externe Komponenten handeln zudem selbst."
+  },
+  {
+    "blindId": "A087",
+    "whyAhead": "Hardware, klare Stack-Rollen, Kontextüberlauf, Tool-Ausgabe und Speicherfehler geben dieser Fassung mehr eigene Arbeit als der Vergleich der nächsten Fassung ohne Messwert oder konkretes Problem.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung enthält diese Fassung mehrere Präteritumformen, aktive Cloud-Komponenten und eine zu direkte Behauptung, aus den Fehlern seien Evals und ein Harness entstanden."
+  },
+  {
+    "blindId": "A076",
+    "whyAhead": "Diese Fassung führt in verbundenen Sätzen von gekauftem Modell über eigene Regeln zur externen Restpipeline; die nächste Fassung überschreitet den Umfang stärker, wirkt berichtender und behauptet den Datenabfluss als sicher.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlen sechs Wörter zum Mindestumfang sowie konkrete Fehler; dort wird auffällig oft wiederholt und die Lernschleife erhält Agency."
+  },
+  {
+    "blindId": "A046",
+    "whyAhead": "Stack-Rollen, beide Messwerte, Protokollgrenze, Harness-Funktionen und externe Pipeline sind konkreter als der Vergleich der nächsten Fassung ohne Zahl oder Caveat.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung überschreitet der Text den Umfang, Runtime, Adapter und Harness handeln selbst und der Datenabfluss wird als sicher behauptet."
+  },
+  {
+    "blindId": "A004",
+    "whyAhead": "Diese Fassung trennt die fünf Pflichtgedanken klar und vermeidet die persönliche abgeschlossene Aufbauhandlung sowie die Behauptung der nächsten Fassung, DwarfStar und pi-ds4 lieferten selbst die Inferenz.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlen Messwerte und Protokollvorbehalt; der Text ist noch länger, und der Stack wird mit Fragen erzeugt zum handelnden Akteur."
+  },
+  {
+    "blindId": "A016",
+    "whyAhead": "Jedes Lernartefakt erhält eine Funktion, beide Messwerte und der Protokollvorbehalt sind vorhanden; die nächste Fassung lässt die Modellbezahlung aus und entfernt sich mit Präteritum und Geschäftsjargon deutlich von Tom.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung überschreitet der Text den Umfang und beschreibt den abgeschlossenen Aufbau persönlich; DwarfStar und pi-ds4 werden außerdem zu handelnden Akteuren."
+  },
+  {
+    "blindId": "A027",
+    "whyAhead": "Diese Fassung nennt beide Messwerte, den Protokollvorbehalt und die konkrete externe DRACO-Pipeline; die nächste Fassung bleibt bei DeepSeek-V4-Flash, DwarfStar, pi-ds4 und Pi eine Namensliste ohne Rollen oder Befund.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlt die bezahlte Modellseite des Paradoxons; mehrere wurde-Formen, Tool-Agency und Wörter wie Positionell sowie Betriebsvorteil klingen nach Strategiememo."
+  },
+  {
+    "blindId": "A104",
+    "whyAhead": "Diese Fassung erklärt doppelte Zahlung, vollständige Lernartefakte, externe Pipeline und legitime Cloud-Nutzung klarer als die Steuerungs- und Sicherheitsgewinn-Prosa der nächsten Fassung.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlen konkrete Stack-Rollen, Messwerte, Protokollgrenze und ein Harness-Befund; zudem liegt der Text knapp über dem Umfang und gibt dem System Agency."
+  },
+  {
+    "blindId": "A056",
+    "whyAhead": "Diese Fassung bleibt bei Lernschleife, Pipeline-Grenze und Hybridwahl, während die nächste Fassung mit Kosten, Bug-Ticket und dreiwöchiger Reparatur vom Kurzartikelkern in einen technischen Bericht abdriftet.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlt die bezahlte Modellseite des Paradoxons; wurde-Formen, handelnde Variante und Begriffe wie Steuerungsthema erzeugen Memo-Prosa."
+  },
+  {
+    "blindId": "A057",
+    "whyAhead": "Messwerte, Protokollgrenze, Tool-Ausgabe, KV-Cache und Kosten geben dieser Fassung prüfbare Substanz im Zielumfang; die nächste Fassung überschreitet den Umfang deutlich, obwohl ihre Stimme natürlicher ist.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung überlädt diese Fassung den Kurzartikel mit Reportdetails, nutzt mehrere Präteritumformen und lässt den Datenabfluss sicher statt möglich erscheinen."
+  },
+  {
+    "blindId": "A075",
+    "whyAhead": "Eigentumsfrage, Arrow, konkrete Harness-Funktion, externe DRACO-Teile und Cloud-Tenant bilden eine natürliche Kausalkette; die nächste Fassung klingt mit Kontrollmasse und belastbarer Steuerbarkeit wie ein Strategiebericht.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung liegt diese Fassung deutlich über dem Zielumfang und lässt DeepSeek-V4-Flash sowie den Harness operativ handeln."
+  },
+  {
+    "blindId": "A063",
+    "whyAhead": "Diese Fassung trennt Modell und versionierbaren Workflow klar und führt bis zur lokalen, hybriden oder Cloud-Ausführung; die nächste Fassung überzieht dieselbe These stärker mit Governance-Rahmen, validieren und operativer Intelligenz.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung enthält diese Fassung Präteritum, einen handelnden Stack und Kunstprosa wie Kontrollmasse sowie belastbare Steuerbarkeit; die natürliche Werkbank-Stimme fehlt."
+  },
+  {
+    "blindId": "A083",
+    "whyAhead": "Beide Messwerte, Protokollgrenze, Kontextüberläufe und KV-Cache geben dieser Fassung mehr greifbare eigene Arbeit als der nächsten Fassung, die DRACO und die Rollen von DwarfStar, pi-ds4 und Pi auslässt.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung häufen sich Präteritum, Tool-Agency und Managementsprache wie Governance-Rahmen, validieren sowie operative Intelligenz noch stärker."
+  },
+  {
+    "blindId": "A073",
+    "whyAhead": "Rückseite von Wissen, der klare Modell-Harness-Kontrast und die knappe Handlungsfähigkeitsregel geben dieser Fassung eine echte Stimme; die nächste Fassung ist überlang, technisch gedrängt und lässt mehrere Komponenten handeln.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung ist diese Fassung deutlich zu kurz und lässt DRACO, Messwerte, Stack-Rollen sowie einen überprüfbaren Fehlerbefund komplett aus."
+  },
+  {
+    "blindId": "A013",
+    "whyAhead": "Hardware, beide Messwerte und Protokollvorbehalt geben dieser Fassung einen belastbaren Sachkern; die nächste Fassung entfernt sich mit mehreren Präteritumformen und Begriffen wie Datenklasse oder Kontrollgrenze stärker von Toms Stimme.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung ist diese Fassung zu lang, dichter und weniger persönlich; Quant und Cloud-Komponenten handeln selbst, leistungsgerecht bleibt ein unscharfer Modifikator."
+  },
+  {
+    "blindId": "A061",
+    "whyAhead": "Diese Fassung enthält Paradox, vollständige Artefakte, Aufgabenzahl, beide Messwerte, Protokollgrenze und Hybridentscheidung; die nächste Fassung lässt die Modellbezahlung aus und verheddert sich in Fehlerartifizierung.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung enthält diese Fassung mehrere Präteritumformen und steife Strategiebericht-Wörter wie Einzel-Lieferant, Kontrollgrenze und Datenklasse."
+  },
+  {
+    "blindId": "A047",
+    "whyAhead": "Beide Messwerte, Tool-Ausgabe, Kontextüberlauf, KV-Puffer und Reparaturarbeit geben dieser Fassung technische Bodenhaftung; die nächste Fassung bleibt bei den Stack-Namen ohne Rollen, DRACO-Befund oder konkretes Problem.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlt die Modellbezahlung im Paradox; Präteritum, Tool-Agency sowie Fehlerartifizierung und operative Außenwirkung klingen fremd."
+  },
+  {
+    "blindId": "A052",
+    "whyAhead": "Kein Technikfetisch und die klare Eigentumsposition geben dieser Fassung Stimme; sie hält exakt den Mindestumfang und gliedert die These lesbarer als der zu kurze Ein-Absatz-Block der nächsten Fassung.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung bleiben DeepSeek-V4-Flash, DwarfStar, pi-ds4 und Pi eine Namensliste ohne Rollen, Messwert oder konkreten Harness-Fehler."
+  },
+  {
+    "blindId": "A023",
+    "whyAhead": "Diese Fassung enthält trotz starker Kompression Arrow, eigenen Stack, externe Pipeline, Cloud-Legitimität und Portabilität; die nächste Fassung behauptet dagegen fälschlich, das Modell lerne aus Prompts und Korrekturen.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung ist der Text zu kurz und nahezu ein einziger Block; DRACO nicht als Modellvergleich verengt den tatsächlichen Vergleich unnötig."
+  },
+  {
+    "blindId": "A030",
+    "whyAhead": "Diese Fassung entwickelt eine klare Kette von Kontext über Compound und Harness bis zur Pipeline-Grenze und Cloud-Wahl; die nächste Fassung lässt die bezahlte Modellseite des Paradoxons aus und wiederholt Stack-Namen und Kontrollthese.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung schreibt diese Fassung dem Modell fälschlich dauerhafte Lernwirkung aus Prompts und Memory zu; zudem handelt der Lauf mit hat gezeigt selbst."
+  },
+  {
+    "blindId": "A069",
+    "whyAhead": "Diese Fassung trennt lokale Inferenz konkret von Logs, Tools, Memory, Bewertung und Rückkopplung und vermeidet die Behauptung der nächsten Fassung, das Modell lerne aus der eigenen Arbeit.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlt die bezahlte Modellseite des Paradoxons; Pi und Modell handeln operativ, Anti Cloud Standpunkt und Wiederholungen schwächen die Sprache."
+  },
+  {
+    "blindId": "A106",
+    "whyAhead": "Diese Fassung erklärt Arrow und Nadellas Umkehrung, nennt abweichende Testbedingungen und zieht die Grenze um Tools, Logs, Memory und Bewertung; die nächste Fassung erfindet dagegen eine Nutzung seit März.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung wird das Modell fälschlich zum lernenden System; Harness und Cloud-Komponenten handeln selbst, der DRACO-Befund bleibt ohne Messwert."
+  },
+  {
+    "blindId": "A051",
+    "whyAhead": "Arrow, Hardware, beide Messwerte und die Pipeline-Grenze geben dieser Fassung mehr Orientierung als der zu kurze Block der nächsten Fassung mit Präteritum und dem fehlerhaften laufe ich DwarfStar.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung ist die Chronologie seit März erfunden; der dichte Ein-Absatz-Block, Korrektionen und der sicher behauptete Datenabfluss schwächen Präzision und Rhythmus."
+  },
+  {
+    "blindId": "A070",
+    "whyAhead": "Diese Fassung übergibt ausschließlich Artikeltext und hält doppelte Zahlung, Lernschleife, Pipeline-Grenze und tägliche Cloud-Nutzung kompakt zusammen; die nächste Fassung beginnt mit englischer Skill-Metaausgabe.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung ist diese Fassung zu kurz, enthält Präteritum und Tool-Agency; laufe ich DwarfStar und pi-ds4 ist grammatisch und fachlich misslungen."
+  },
+  {
+    "blindId": "A062",
+    "whyAhead": "Der Artikelteil erklärt doppelte Bezahlung, eigenen Harness, DRACO-Bezug, Pipeline-Grenze und Cloud-Wahl in einer nachvollziehbaren Kette; die nächste Fassung verdreht zusätzlich die DwarfStar-Rolle und nutzt Kunstwörter.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung enthält diese Fassung eine englische Vorrede, liegt deutlich über dem Umfang und presst fast den ganzen Artikel in einen überfrachteten Absatz."
+  },
+  {
+    "blindId": "A103",
+    "whyAhead": "Diese Fassung nennt beide Messwerte und den Protokollvorbehalt und vermeidet die materielle Behauptung der nächsten Fassung, DRACO prüfe den Erhalt der Lernschleife, sowie deren Punkte statt Prozent.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung ist die Prosa mit Ausstiegsgrad und Kontrollmasse künstlicher; DwarfStar erhält eine falsche Rolle, mehrere Tools handeln selbst und der Text ist zu lang."
+  },
+  {
+    "blindId": "A059",
+    "whyAhead": "Diese Fassung hat H1, Fließtext und alle fünf Themenblöcke im Zielumfang; der nächsten Fassung fehlen H1 und mehr als ein Fünftel des geforderten Umfangs.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung beschreibt diese Fassung den Benchmarkzweck materiell falsch, nennt Messwerte Punkte statt Prozent und gibt mehreren Tools sowie Modellen Agency."
+  },
+  {
+    "blindId": "A036",
+    "whyAhead": "Diese Fassung übergibt ohne Skill-Bericht oder Quality-Gate-Meta direkt den Text; die nächste Fassung beginnt mit einer langen Selbstdeklaration und sprengt dadurch den Rohumfang massiv.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlen H1 und viel Umfang; während dieses Fütterns sowie Lokal bedeutet weniger Abhängigkeit als Unabhängigkeit sind sprachlich misslungen."
+  },
+  {
+    "blindId": "A049",
+    "whyAhead": "Der eigentliche Artikel erklärt Arrow, beide Messwerte, Protokollgrenze, Mandatsakten-Beispiel und tägliche Frontier-Nutzung genauer als der nächste kurze, semantisch schiefe Text ohne Traces.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung zerstören Skill-Selbstdeklaration und Überlänge die saubere Übergabe; der mögliche Datenabfluss wird zudem als sicher erfolgt dargestellt."
+  },
+  {
+    "blindId": "A011",
+    "whyAhead": "Diese Fassung bleibt trotz Kürze beim Artikel und vermeidet die materielle Verwechslung von organisatorischer Lernschleife und lernendem System sowie die stärkere Überlänge der nächsten Fassung.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlen Traces, Messwerte und Protokollgrenze; ungepanzertes Kapital ist semantisch schief und die doppelte Antwort-Schablone wirkt künstlich."
+  },
+  {
+    "blindId": "A048",
+    "whyAhead": "Diese Fassung übergibt ohne Vor- oder Nachrede direkt den Artikel und benennt Reproduzierbarkeit, Harness-Fehler und gesamte Pipeline; die nächste Fassung rahmt den Text mit englischer Metaausgabe und Dateihinweis ein.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung ist diese Fassung deutlich zu lang, gibt mehreren Systemen Agency und verwechselt Systemlernen mit der organisatorischen Lernschleife."
+  },
+  {
+    "blindId": "A041",
+    "whyAhead": "Der Artikelteil erklärt Paradox, Stack und Pipeline fachlich klarer als die nächste Fassung, die Quant und DRACO verwechselt, Em-Dashes nutzt und im Schluss das Satzsubjekt verliert.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung enthält diese Fassung sichtbare Metaausgabe vor und nach dem Artikel und liegt dadurch weit über dem Umfang."
+  },
+  {
+    "blindId": "A097",
+    "whyAhead": "Diese Fassung liefert nach dem H1 ausschließlich Fließtext; die nächste Fassung umschließt ihren stärkeren Artikel mit Skill-Report, Trenner, Wortzählung und Quality-Gate-Selbstprüfung.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung enthält diese Fassung die falsche Quant-Größe, zwei Em-Dashes, eine DRACO-Verwechslung, kompounding und einen Schlusssatz ohne Subjekt."
+  },
+  {
+    "blindId": "A065",
+    "whyAhead": "Der Artikelteil erklärt Arrow, Portabilität, Stack, Pipeline und Cloud-Wahl methodisch sauberer als die nächste Fassung und nennt ausdrücklich nicht identische Protokolle ohne sicheren Datenabfluss.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung machen Skill-Report, Trenner, Wortzählung und Quality-Gate die Rohübergabe massiv zu lang und klar meta."
+  },
+  {
+    "blindId": "A099",
+    "whyAhead": "Diese Fassung hat einen starken Arrow-Opener, konkrete Stack-Rollen und ein Mandatsakten-Beispiel; ihre kürzere Selbstprüfung belastet die Übergabe weniger als der lange englische Arbeitsbericht der nächsten Fassung.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlen Protokollvorbehalt und vollständige Pipeline-Details; der Datenabfluss wird zu sicher behauptet und Cloud handelt bei ausfällt selbst."
+  },
+  {
+    "blindId": "A031",
+    "whyAhead": "Der eigentliche Artikel verbindet Arrow, DRACO, externe Pipeline und tägliche Cloud-Nutzung natürlicher als die bürokratische Prosa der nächsten Fassung mit Wissensinstanz, Entscheidungsflüssen und mehreren Präteritumformen.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung ist die englische Vorrede länger, der Rohtext deutlich umfangreicher und drei Software- beziehungsweise Tool-Akteure verletzen die geforderte Agency."
+  },
+  {
+    "blindId": "A033",
+    "whyAhead": "Diese Fassung enthält alle fünf Pflichtblöcke sowie beide Messwerte und den Protokollvorbehalt; die nächste Fassung bleibt sehr kurz, beginnt mit Metaausgabe und presst alles in einen Block.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung ist diese Fassung länger, bürokratischer und enthält mehrere Präteritumformen; Wissensinstanz, Positionell und Entscheidungsflüsse klingen nach KI-Memo."
+  },
+  {
+    "blindId": "A066",
+    "whyAhead": "Diese Fassung bleibt bei den belegten Stack-Namen und erklärt Lernartefakte, Pipeline und tägliche Cloud-Nutzung verständlicher als die erfundene Langzeitpraxis und das gemischte Search-/Control-Layer-Vokabular der nächsten Fassung.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung ist diese Fassung deutlich zu kurz, beginnt mit Vorrede, bleibt ein einziger Block und enthält liefen, Korrektionen sowie Benchmark-Agency."
+  },
+  {
+    "blindId": "A079",
+    "whyAhead": "Diese Fassung ist im Artikelteil strukturell verständlicher und näher am Zielumfang als die nächste Fassung; deren Rollenfehler, fehlende Modellbezahlung und Sätze wie in Deutern machen die Aussage kaum redaktionell nutzbar.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung enthält diese Fassung mehr Meta-Scaffolding, einen Trenner, zwei Em-Dashes, erfundene Langzeitpraxis und Mischsprache wie Search sowie Control Layer."
+  },
+  {
+    "blindId": "A072",
+    "whyAhead": "Diese Fassung übergibt immerhin ohne Chatbot-Vorrede direkt einen Artikel und bleibt wesentlich kürzer als der 393-Wörter-Rohtext der nächsten Fassung; dadurch ist die formale Beschädigung geringer.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung fehlen Modellbezahlung und korrekte Stack-Rollen; in Deutern, Fehlerartifizierung und zahlreiche Grammatikfehler machen die Prosa noch schwerer verständlich."
+  },
+  {
+    "blindId": "A094",
+    "whyAhead": "Diese Fassung verwendet die korrekte Quant-Größe und die belegten DRACO-Messwerte; die nächste Fassung erfindet dagegen eine andere Quant-Größe, tägliche Nutzung und eine Kostensenkung auf null.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung ist diese Fassung erheblich länger, beginnt mit Chatbot-Meta, nutzt mehrere Em-Dashes, verdreht Rollen und lässt den Protokollvorbehalt aus."
+  },
+  {
+    "blindId": "A102",
+    "whyAhead": "Kein nachfolgender regulärer Text existiert. Wichtigste verbleibende Schwäche: Neben Vorrede, Trenner, Überlänge und mehreren Em-Dashes erfindet der Text Quant-Größe, tägliche Nutzung und eine Kostensenkung auf null.",
+    "weakerThanAbove": "Gegenüber der höheren Fassung kommen zu denselben Übergabe- und Umfangsfehlern materielle Erfindungen über Quant, tägliche Nutzung und Kosten hinzu; damit ist die Quellenbasis noch stärker verletzt."
+  }
+]

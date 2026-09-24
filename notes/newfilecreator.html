@@ -26,7 +26,7 @@
         localStorage.setItem("theme", dark ? "dark" : "light");
       }
     </script>
-    <!-- Plausible Analytics - self-hosted (Mac mini, Cloudflare Tunnel), cookieless -->
+    <!-- Plausible Analytics: self-hosted (Mac mini, Cloudflare Tunnel), cookieless, kein Banner nötig -->
     <script defer data-domain="tjansn.com" src="https://stats.gammalabs.cc/js/script.tagged-events.outbound-links.js"></script>
     <script>window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) };</script>
   </head>
@@ -191,30 +191,30 @@ make install-local</code></pre>
           "meta.description": "NewFileCreator adds a new-file function to the macOS Finder: create text and Markdown files by right-click or shortcut without opening an editor or the Terminal.",
           "meta.ogTitle": "NewFileCreator: the new-file function macOS is missing",
           "meta.ogDescription": "A right-click in the Finder can create a new folder but not an empty file. NewFileCreator adds exactly that, including shortcuts for text and Markdown files.",
-          "article.eyebrow": "Open Source · macOS",
+          "article.eyebrow": "Open source · macOS",
           "article.title": "NewFileCreator: the <em>new-file function</em> macOS is missing",
-          "article.meta": "Tom Jansen · 22.06.2026 · 4 min read",
+          "article.meta": "Tom Jansen · 22 June 2026 · 4 min read",
           "article.github": "View on GitHub →",
           "intro.1": "There is a gap in the Finder that has annoyed me for years: a right-click can create a new folder but not an empty file. For a quick note, a <code>todo.md</code> or a small config file you open some editor, save the file and hunt for the right folder. Or you use the Terminal. Both work, but for such an ordinary step it is just too much hassle.",
-          "intro.2": "<strong>NewFileCreator</strong> does exactly this step right in the Finder. The tool adds a <strong>“New File”</strong> entry to the context menu. Under it are currently the two file types I need all the time: text and Markdown. If <code>Untitled.txt</code> already exists, it becomes <code>Untitled 1.txt</code>. Nothing spectacular. But it is one interruption less.",
+          "intro.2": "<strong>NewFileCreator</strong> does exactly that, right in the Finder. The tool adds a <strong>“New File”</strong> entry to the context menu. For now it holds the two file types I need all the time: text and Markdown. If <code>Untitled.txt</code> already exists, it becomes <code>Untitled 1.txt</code>. Nothing spectacular. But it is one less interruption.",
           "users.h": "What you notice as a user",
-          "users.1": "The flow is meant to be as mundane as possible: right-click in a folder, pick <code>New File</code> and the file type, done. The file sits right there and is selected in the Finder. So you can rename or open it straight away instead of first working through a save dialog in an editor.",
-          "users.2": "For me the global keyboard shortcuts matter almost more. They also work where the context menu entry does not, the desktop for example. I press the shortcut and the new file lands in the folder the Finder currently has open.",
+          "users.1": "The flow is meant to be as boring as possible: right-click in a folder, pick <code>New File</code> and the file type, done. The file sits right there and is selected in the Finder. So you can rename or open it straight away instead of first clicking through a save dialog in an editor.",
+          "users.2": "For me the global keyboard shortcuts are almost more important. They also work where the context menu entry does not, such as on the desktop. I press the shortcut and the new file lands in the folder the Finder currently has open.",
           "pull.1": "Create a file right where the Finder is. That is all NewFileCreator needs to do.",
           "why.h": "Why this needs a tool at all",
-          "why.1": "It sounds like a Finder setting Apple simply forgot. Technically it is a bit less direct. The Finder cannot be extended at will and macOS limits where apps may write. So NewFileCreator needs a Finder extension plus an app that does the actual work.",
+          "why.1": "It sounds like a Finder setting Apple simply forgot. Technically it is a bit less straightforward. The Finder cannot be extended at will and macOS limits where apps may write. So NewFileCreator needs a Finder extension plus an app that does the actual work.",
           "why.2": "For the user this split should stay as invisible as possible. You click <code>New File</code> in the Finder, choose text or Markdown and the file is there.",
           "install.h": "Installation",
           "install.1": "For local use you need macOS 14.0 or newer and Xcode 15 or newer. After that two commands are enough:",
           "install.2": "The Makefile builds the app and sets it up locally so the entry shows up in the Finder. The individual steps are documented in the repo. After installing it should be enough to open a Finder window, right-click in a folder and pick <code>New File</code>.",
           "limits.h": "What macOS still dictates",
-          "limits.1": "Two things stay visible. First, you have to enable the Finder extension once in System Settings. The app cannot quietly set that for the user, and that is fine. NewFileCreator walks you through the step, but the final click has to come from the user.",
+          "limits.1": "Two things stay visible. First, you have to enable the Finder extension once in System Settings. The app cannot quietly set that for you, and that is fine. NewFileCreator walks you through the step, but the last click has to be yours.",
           "limits.2": "Second, the Finder itself decides where extension entries land in the context menu. So the <code>New File</code> entry does not sit next to the built-in “New Folder” but with the other extensions. macOS dictates that.",
-          "limits.3": "For global shortcuts macOS also asks for automation permission for the Finder the first time. You have to allow that once. After that the shortcuts should run without further prompts.",
+          "limits.3": "For global shortcuts macOS also asks for permission to automate the Finder the first time you use them. You have to allow that once. After that the shortcuts should run without further prompts.",
           "build.h": "Why I build things like this",
           "build.1": "I like projects like this because the scope is clear: one annoying step, one limitation in macOS and a manageable way around it. Not a big product, more a tool for exactly this moment.",
-          "build.2": "Something like this does not save an hour at a stretch, of course. It removes those short interruptions you eventually just accept. That is what I find practical about AI-assisted software development: your own system becomes easier to shape. If a workflow bothers me I do not always have to put up with it. Often I can just change it.",
-          "build.3": "The code is <a href=\"https://github.com/tjansn/NewFileCreator\" target=\"_blank\" rel=\"noopener\">on GitHub</a> under the MIT license, in case someone wants to use the tool or look at the code.",
+          "build.2": "Something like this does not save you an hour in one go, of course. It removes those short interruptions you eventually just accept. That is what I find practical about AI-assisted software development: your own system becomes easier to shape. If a workflow bothers me I do not always have to put up with it. Often I can just change it.",
+          "build.3": "The code is <a href=\"https://github.com/tjansn/NewFileCreator\" target=\"_blank\" rel=\"noopener\">on GitHub</a> under the MIT licence, in case someone wants to use the tool or look at the code.",
           "postnav.label": "More notes",
           "postnav.prev.meta": "← Older article",
           "postnav.prev.title": "pi-fusion: when several models research together",

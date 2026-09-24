@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="de" class="h-full no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-i18n="page.title">tjansn.com als Terminal | Tom Jansen Notes</title>
+    <meta name="description" content="Warum tjansn.com im März 2026 ein Terminal war: das Zeitalter des Terminals, und Agenten, die Ausprobieren billig machen." data-i18n-attr="content:page.description" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="tjansn.com als Terminal" />
+    <meta property="og:description" content="Warum tjansn.com im März 2026 ein Terminal war." />
+    <meta name="theme-color" content="#f5f3f0" />
+    <link rel="icon" href="../tj-logo.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../gl-v2.css" />
+    <link rel="stylesheet" href="../tj.css" />
+    <script>
+      document.documentElement.classList.remove("no-js");
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "dark") document.documentElement.classList.add("dark");
+      function toggleTheme() {
+        const dark = document.documentElement.classList.toggle("dark");
+        localStorage.setItem("theme", dark ? "dark" : "light");
+      }
+    </script>
+    <!-- Plausible Analytics: self-hosted (Mac mini, Cloudflare Tunnel), cookieless, kein Banner nötig -->
+    <script defer data-domain="tjansn.com" src="https://stats.gammalabs.cc/js/script.tagged-events.outbound-links.js"></script>
+    <script>window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) };</script>
+    <style>
+      .tj-shot { margin: var(--gl-space-8) 0 0; }
+      .tj-shot a { display: block; border: 1px solid var(--tj-rule); border-radius: var(--gl-radius-md); overflow: hidden; background: #0b0f14; }
+      .tj-shot img { display: block; width: 100%; height: auto; }
+      .tj-shot figcaption { margin-top: var(--gl-space-2); font-family: var(--gl-font-mono); font-size: 0.72rem; letter-spacing: 0.04em; color: var(--tj-muted); }
+    </style>
+  </head>
+  <body>
+    <div class="gl-scroll-progress" data-scroll-progress aria-hidden="true"></div>
+
+    <header class="gl-site-header tj-header flex items-center justify-between py-4" data-site-header>
+      <a href="../index.html" class="flex items-center gap-2 font-semibold" aria-label="Tom Jansen, Startseite">
+        <span class="gl-site-title" style="font-family: var(--gl-font-sans); font-weight: 600; font-size: 1.15rem; letter-spacing: -0.02em;">Tom Jansen</span>
+      </a>
+      <nav class="tj-nav" aria-label="Hauptnavigation">
+        <a href="../index.html" data-i18n="nav.profile">Profil</a>
+        <a href="../projekte.html" data-i18n="nav.projects">Projekte</a>
+        <a href="../notes/index.html" aria-current="page" data-i18n="nav.notes">Notizen</a>
+      </nav>
+      <button type="button" onclick="toggleTheme()" class="gl-theme-toggle js-theme-toggle" aria-pressed="false" aria-label="Toggle theme">
+        <span class="gl-theme-toggle__icons" aria-hidden="true">
+          <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z" /></svg>
+        </span>
+        <span class="gl-theme-toggle__thumb" aria-hidden="true"></span>
+      </button>
+    </header>
+
+    <main class="px-6" style="padding-block: clamp(5rem, 10vw, 8rem) clamp(4rem, 8vw, 6rem);">
+      <article class="gl-prose">
+        <p class="gl-eyebrow" data-i18n="a.eyebrow">Experiment · Terminal</p>
+        <h1 data-i18n="a.title" data-i18n-html>tjansn.com als <em>Terminal</em></h1>
+        <p class="gl-meta" data-i18n="a.meta">Tom Jansen · 20.03.2026 · 2 Min. Lesezeit</p>
+        <div class="gl-rule-accent is-visible" style="margin-top: var(--gl-space-6);"></div>
+
+        <figure class="tj-shot">
+          <a href="../experiments/terminal/?theme=terminal" target="_blank" rel="noopener" data-i18n-attr="title:a.shotTitle" title="Terminal-Version in neuem Tab öffnen">
+            <img src="assets/terminal/terminal-window.webp" width="1202" height="767" alt="tjansn.com im Terminal-Modus: ein Shell-Fenster mit Bootmeldungen, ASCII-Porträt und Eingabezeile" data-i18n-attr="alt:a.shotAlt" loading="lazy" decoding="async" />
+          </a>
+          <figcaption data-i18n="a.shotCaption">tjansn.com im Terminal-Modus, März 2026. Klick öffnet die Seite in einem neuen Tab.</figcaption>
+        </figure>
+
+        <h2 data-i18n="a.h2a">Warum ein Terminal</h2>
+        <p data-i18n="a.p3">
+          2025 und 2026 sind das Zeitalter des Terminals. Die interessanten Werkzeuge laufen wieder in der Shell,
+          Coding-Agenten vorneweg, und das Terminalfenster ist für viele von uns wieder der Ort, an dem der Arbeitstag
+          stattfindet. Eine Website, die sich wie ein Terminal verhält, passt in diese Zeit.
+        </p>
+        <p data-i18n="a.p4">
+          Und sie steht für etwas, das ich Kunden oft erkläre: Agenten machen Ausprobieren billig. Dinge, die früher ein
+          Wochenende gekostet hätten und deshalb nie passiert sind, kosten jetzt einen Abend. Also probiert man sie.
+          Manches bleibt. Das meiste nicht, und das ist in Ordnung.
+        </p>
+      </article>
+
+      <nav class="tj-post-nav" aria-label="Weitere Notizen">
+        <a href="phoneclaw.html" rel="prev"><span class="gl-meta" data-i18n="a.prev">← Älterer Artikel</span><strong data-i18n="a.prevTitle">OpenClaw auf einem Android-Handy</strong></a>
+        <a href="draco-pi-fusion-benchmark.html" rel="next"><span class="gl-meta" data-i18n="a.next">Neuerer Artikel →</span><strong data-i18n="a.nextTitle">DRACO mit pi und pi-fusion: was unser Lauf wirklich zeigt</strong></a>
+      </nav>
+    </main>
+
+    <footer class="gl-site-footer tj-footer">
+      <div class="tj-wrap py-10 text-sm">
+        <div class="flex flex-col gap-2">
+          <span style="font-family: var(--gl-font-sans); font-weight: 600; font-size: 1.05rem;">Tom Jansen</span>
+          <span class="gl-meta">Aachen · <span data-live-clock="">09:59</span> CET</span>
+          <div class="tj-footer__links-row">
+            <div class="commercial-footer-links">
+              <a href="https://www.linkedin.com/in/tjansn/" target="_blank" rel="noopener">LinkedIn</a>
+              <a href="https://github.com/tjansn" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://x.com/thomasjansn" target="_blank" rel="noopener">X</a>
+              <a href="../projekte.html" data-i18n="nav.projects">Projekte</a>
+              <a href="../notes/index.html" aria-current="page" data-i18n="nav.notes">Notizen</a>
+              <a href="../impressum.html">Impressum</a>
+              <a href="../datenschutz.html" data-i18n="footer.privacyLink">Datenschutz</a>
+            </div>
+            <div class="gl-language-switcher" role="group" aria-labelledby="footer-language">
+              <span id="footer-language" data-i18n="footer.languageLabel" hidden>Sprache</span>
+              <div class="gl-language-switcher__controls">
+                <button type="button" class="gl-language-switcher__option" data-language-option="de" lang="de" aria-pressed="true">Deutsch</button>
+                <button type="button" class="gl-language-switcher__option" data-language-option="en" lang="en" aria-pressed="false">English</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      window.GL_DEFAULT_LANGUAGE = "de";
+      window.GL_PAGE_COPY = {
+        en: {
+          "page.title": "tjansn.com as a terminal | Tom Jansen Notes",
+          "page.description": "Why tjansn.com was a terminal in March 2026: the age of the terminal, and agents that make trying things cheap.",
+          "a.eyebrow": "Experiment · Terminal",
+          "a.title": "tjansn.com as a <em>terminal</em>",
+          "a.meta": "Tom Jansen · 20 Mar 2026 · 2 min read",
+          "a.shotTitle": "Open the terminal version in a new tab",
+          "a.shotAlt": "tjansn.com in terminal mode: a shell window with boot messages, an ASCII portrait and a prompt",
+          "a.shotCaption": "tjansn.com in terminal mode, March 2026. Click opens the page in a new tab.",
+          "a.h2a": "Why a terminal",
+          "a.p3": "2025 and 2026 are the age of the terminal. The interesting tools run in the shell again, coding agents first of all, and for many of us the terminal window is once more where the working day happens. A website that behaves like a terminal fits the time.",
+          "a.p4": "It also stands for something I often explain to clients: agents make trying things cheap. Things that used to cost a weekend, and therefore never happened, now cost an evening. So you try them. Some of it stays. Most of it doesn't, and that is fine.",
+          "a.prev": "← Older note",
+          "a.next": "Newer note →",
+          "a.prevTitle": "OpenClaw on an old Android phone",
+          "a.nextTitle": "DRACO with pi and pi-fusion: what our run actually shows"
+        }
+      };
+    </script>
+    <script src="../commercial-pages.js"></script>
+    <script src="../archetype-pages.js"></script>
+  </body>
+</html>

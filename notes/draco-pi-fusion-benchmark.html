@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>DRACO mit pi und pi-fusion: GPT-5.5, Judges und DS4-Salvage | Tom Jansen Notes</title>
-    <meta name="description" content="Ein präziser DRACO-Werkstattbericht: GPT-5.5 direkt mit GPT-4.1-mini- und GPT-5.5-Judge, DS4/Gemma/Qwen via pi-fusion, Scores, Kosten, Tokens, Fehler und Vergleich zu OpenRouter." />
+    <title data-i18n="meta.title">DRACO mit pi und pi-fusion: GPT-5.5, Judges und DS4-Salvage | Tom Jansen Notes</title>
+    <meta name="description" data-i18n-attr="content:meta.description" content="Ein präziser DRACO-Werkstattbericht: GPT-5.5 direkt mit GPT-4.1-mini- und GPT-5.5-Judge, DS4/Gemma/Qwen via pi-fusion, Scores, Kosten, Tokens, Fehler und Vergleich zu OpenRouter." />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="DRACO mit pi und pi-fusion" />
-    <meta property="og:description" content="Was der lokale DRACO-Lauf wirklich gemessen hat: gleiche GPT-5.5-Antworten, zwei Judges, ein DS4-Salvage-Lauf und klare Grenzen der Vergleichbarkeit." />
+    <meta property="og:title" data-i18n-attr="content:meta.ogTitle" content="DRACO mit pi und pi-fusion" />
+    <meta property="og:description" data-i18n-attr="content:meta.ogDescription" content="Was der lokale DRACO-Lauf wirklich gemessen hat: gleiche GPT-5.5-Antworten, zwei Judges, ein DS4-Salvage-Lauf und klare Grenzen der Vergleichbarkeit." />
     <meta name="theme-color" content="#f5f3f0" />
     <link rel="icon" href="../tj-logo.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="../gl-v2.css" />
@@ -61,6 +61,19 @@
       .benchmark-table-wrap table { min-width: 720px; margin: 0; }
       .benchmark-table-wrap .gl-data-table th,
       .benchmark-table-wrap .gl-data-table td { vertical-align: top; }
+      /* Phones: the table scrolls sideways; edge shadows hint at it and vanish at either end
+         (the covering gradients scroll with the content, the shadows stay put). */
+      @media (max-width: 640px) {
+        .benchmark-table-wrap {
+          --tbl-bg: var(--gl-color-porcelain);
+          background:
+            linear-gradient(to right, var(--tbl-bg) 35%, transparent) left / 2.5rem 100% no-repeat local,
+            linear-gradient(to left, var(--tbl-bg) 35%, transparent) right / 2.5rem 100% no-repeat local,
+            linear-gradient(to right, rgba(0, 0, 0, 0.16), transparent) left / 1rem 100% no-repeat scroll,
+            linear-gradient(to left, rgba(0, 0, 0, 0.16), transparent) right / 1rem 100% no-repeat scroll;
+        }
+        .dark .benchmark-table-wrap { --tbl-bg: var(--gl-color-midnight); }
+      }
       .benchmark-figure {
         margin: var(--gl-space-8) 0;
       }
@@ -209,7 +222,7 @@
         localStorage.setItem("theme", dark ? "dark" : "light");
       }
     </script>
-    <!-- Plausible Analytics — self-hosted (Mac mini, Cloudflare Tunnel), cookieless -->
+    <!-- Plausible Analytics: self-hosted (Mac mini, Cloudflare Tunnel), cookieless, kein Banner nötig -->
     <script defer data-domain="tjansn.com" src="https://stats.gammalabs.cc/js/script.tagged-events.outbound-links.js"></script>
     <script>window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) };</script>
   </head>
@@ -236,83 +249,83 @@
 
     <main class="px-6" style="padding-block: clamp(5rem, 10vw, 8rem) clamp(4rem, 8vw, 6rem);">
       <article class="gl-prose">
-        <p class="gl-eyebrow">Benchmark · KI-Tooling · Werkstattbericht</p>
-        <h1>DRACO mit pi und pi-fusion: was unser Lauf wirklich zeigt</h1>
-        <p class="gl-meta">Tom Jansen · 22.06.2026 · 14 Min. Lesezeit</p>
+        <p class="gl-eyebrow" data-i18n="head.1">Benchmark · KI-Tooling · Werkstattbericht</p>
+        <h1 data-i18n="head.2">DRACO mit pi und pi-fusion: was unser Lauf wirklich zeigt</h1>
+        <p class="gl-meta" data-i18n="head.3">Tom Jansen · 22.06.2026 · 14 Min. Lesezeit</p>
         <div class="gl-rule-accent is-visible" style="margin-top: var(--gl-space-6);"></div>
 
 
 
         <div class="gl-cta-group" style="justify-content: flex-start;">
-          <a class="gl-button gl-button--outline" href="pi-fusion.html">pi-fusion erklärt →</a>
-          <a class="gl-button gl-button--outline" href="https://github.com/tjansn/pi-fusion" target="_blank" rel="noopener">Repo ansehen →</a>
+          <a class="gl-button gl-button--outline" href="pi-fusion.html" data-i18n="head.4">pi-fusion erklärt →</a>
+          <a class="gl-button gl-button--outline" href="https://github.com/tjansn/pi-fusion" target="_blank" rel="noopener" data-i18n="head.5">Repo ansehen →</a>
         </div>
 
-        <p>
+        <p data-i18n="intro.1" data-i18n-html>
           Wir wollten wissen, ob sich DRACO lokal mit <code>pi</code> und <a href="pi-fusion.html">pi-fusion</a>
           sinnvoll gegen starke öffentliche Referenzwerte stellen lässt. Die kurze Antwort: ja, als Mess- und
           Debug-Harness; nein, noch nicht als sauberer Leaderboard-Vergleich.
         </p>
-        <p>
+        <p data-i18n="intro.2">
           Drei Dinge kann ich sauber belegen: einen direkten GPT-5.5-xhigh-Lauf, bewertet mit GPT-4.1 mini; dieselben
           Antworten erneut bewertet mit GPT-5.5 xhigh als strengem Criterion-Judge; und einen DS4/Gemma/Qwen-Fusion-Lauf,
           aus dem nur die gültigen DS4-Panelantworten separat bewertet wurden.
         </p>
 
-        <aside class="gl-pull">Kernaussage: Der Judge ist kein Detail. Dieselben GPT-5.5-Antworten lagen bei 61,77&nbsp;% mit GPT-4.1 mini und bei 49,37&nbsp;% mit GPT-5.5 xhigh strict.</aside>
+        <aside class="gl-pull" data-i18n="intro.3">Kernaussage: Der Judge ist kein Detail. Dieselben GPT-5.5-Antworten lagen bei 61,77&nbsp;% mit GPT-4.1 mini und bei 49,37&nbsp;% mit GPT-5.5 xhigh strict.</aside>
 
         <div class="benchmark-kpis">
-          <div class="benchmark-kpi"><strong>61,77&nbsp;%</strong><span>GPT-5.5 direkt, GPT-4.1 mini als Judge.</span></div>
-          <div class="benchmark-kpi"><strong>49,37&nbsp;%</strong><span>GPT-5.5 direkt, GPT-5.5 xhigh strict als Judge.</span></div>
-          <div class="benchmark-kpi"><strong>48,21&nbsp;%</strong><span>DS4-Salvage auf 52 gültigen DS4-Antworten.</span></div>
-          <div class="benchmark-kpi"><strong>25,07&nbsp;%</strong><span>DS4-Salvage, wenn 48 Fehler als null zählen.</span></div>
+          <div class="benchmark-kpi"><strong>61,77&nbsp;%</strong><span data-i18n="kpi.1">GPT-5.5 direkt, GPT-4.1 mini als Judge.</span></div>
+          <div class="benchmark-kpi"><strong>49,37&nbsp;%</strong><span data-i18n="kpi.2">GPT-5.5 direkt, GPT-5.5 xhigh strict als Judge.</span></div>
+          <div class="benchmark-kpi"><strong>48,21&nbsp;%</strong><span data-i18n="kpi.3">DS4-Salvage auf 52 gültigen DS4-Antworten.</span></div>
+          <div class="benchmark-kpi"><strong>25,07&nbsp;%</strong><span data-i18n="kpi.4">DS4-Salvage, wenn 48 Fehler als null zählen.</span></div>
         </div>
 
         <figure class="benchmark-figure">
-          <div class="bchart" role="img" aria-label="Horizontales Balkendiagramm: OpenRouter-Referenzwerte (69,0 / 64,7 / 60,0 Prozent) gegen unsere lokalen DRACO-Scores (61,8 / 49,4 / 48,2 / 25,1 Prozent). DRACO-Score in Prozent, Achse 0 bis 100.">
-            <p class="bchart__title">DRACO-Score · % der maximalen Rubrikpunkte</p>
+          <div class="bchart" role="img" data-i18n-attr="aria-label:fig1.1" aria-label="Horizontales Balkendiagramm: OpenRouter-Referenzwerte (69,0 / 64,7 / 60,0 Prozent) gegen unsere lokalen DRACO-Scores (61,8 / 49,4 / 48,2 / 25,1 Prozent). DRACO-Score in Prozent, Achse 0 bis 100.">
+            <p class="bchart__title" data-i18n="fig1.2">DRACO-Score · % der maximalen Rubrikpunkte</p>
             <div class="bbar">
-              <p class="bbar__group">OpenRouter (veröffentlichte Referenz)</p>
+              <p class="bbar__group" data-i18n="fig1.3">OpenRouter (veröffentlichte Referenz)</p>
               <div class="bbar__row"><span class="bbar__label">Fusion Fable&nbsp;5 + GPT-5.5 → Opus&nbsp;4.8</span><span class="bbar__track"><span class="bbar__fill bbar__fill--ref" style="width:69%"></span></span><span class="bbar__val">69,0&nbsp;%</span></div>
-              <div class="bbar__row"><span class="bbar__label">Budget-Fusion (Gemini&nbsp;3 Flash · Kimi · DS4 Pro)</span><span class="bbar__track"><span class="bbar__fill bbar__fill--ref" style="width:64.7%"></span></span><span class="bbar__val">64,7&nbsp;%</span></div>
+              <div class="bbar__row"><span class="bbar__label" data-i18n="fig1.4">Budget-Fusion (Gemini&nbsp;3 Flash · Kimi · DS4 Pro)</span><span class="bbar__track"><span class="bbar__fill bbar__fill--ref" style="width:64.7%"></span></span><span class="bbar__val">64,7&nbsp;%</span></div>
               <div class="bbar__row"><span class="bbar__label">Solo GPT-5.5</span><span class="bbar__track"><span class="bbar__fill bbar__fill--ref" style="width:60%"></span></span><span class="bbar__val">60,0&nbsp;%</span></div>
-              <p class="bbar__group">Unser lokaler Lauf (pi / pi-fusion)</p>
+              <p class="bbar__group" data-i18n="fig1.5">Unser lokaler Lauf (pi / pi-fusion)</p>
               <div class="bbar__row"><span class="bbar__label">GPT-5.5 · Judge GPT-4.1&nbsp;mini</span><span class="bbar__track"><span class="bbar__fill bbar__fill--ours" style="width:61.8%"></span></span><span class="bbar__val">61,8&nbsp;%</span></div>
               <div class="bbar__row"><span class="bbar__label">GPT-5.5 · Judge GPT-5.5&nbsp;xhigh strict</span><span class="bbar__track"><span class="bbar__fill bbar__fill--ours" style="width:49.4%"></span></span><span class="bbar__val">49,4&nbsp;%</span></div>
-              <div class="bbar__row"><span class="bbar__label">DS4-Salvage (52 gültige Antworten)</span><span class="bbar__track"><span class="bbar__fill bbar__fill--ours" style="width:48.2%"></span></span><span class="bbar__val">48,2&nbsp;%</span></div>
-              <div class="bbar__row"><span class="bbar__label">DS4 hart gerechnet (48 Fehler = 0)</span><span class="bbar__track"><span class="bbar__fill bbar__fill--ours" style="width:25.1%"></span></span><span class="bbar__val">25,1&nbsp;%</span></div>
+              <div class="bbar__row"><span class="bbar__label" data-i18n="fig1.6">DS4-Salvage (52 gültige Antworten)</span><span class="bbar__track"><span class="bbar__fill bbar__fill--ours" style="width:48.2%"></span></span><span class="bbar__val">48,2&nbsp;%</span></div>
+              <div class="bbar__row"><span class="bbar__label" data-i18n="fig1.7">DS4 hart gerechnet (48 Fehler = 0)</span><span class="bbar__track"><span class="bbar__fill bbar__fill--ours" style="width:25.1%"></span></span><span class="bbar__val">25,1&nbsp;%</span></div>
             </div>
             <div class="bbar__axis"><span class="bbar__axis-ticks"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></span></div>
             <div class="bchart__legend">
-              <span><span class="bchart__sw bchart__sw--ref"></span>OpenRouter-Referenz</span>
-              <span><span class="bchart__sw bchart__sw--ours"></span>unser Lauf</span>
+              <span data-i18n="fig1.8" data-i18n-html><span class="bchart__sw bchart__sw--ref"></span>OpenRouter-Referenz</span>
+              <span data-i18n="fig1.9" data-i18n-html><span class="bchart__sw bchart__sw--ours"></span>unser Lauf</span>
             </div>
           </div>
-          <figcaption>Die Grafik zeigt Referenzwerte und lokale Ergebnisse. Sie ist kein Leaderboard: Tooling, Judge, Modelle und Fehlerbehandlung unterscheiden sich.</figcaption>
+          <figcaption data-i18n="fig1.10">Die Grafik zeigt Referenzwerte und lokale Ergebnisse. Sie ist kein Leaderboard: Tooling, Judge, Modelle und Fehlerbehandlung unterscheiden sich.</figcaption>
         </figure>
 
-        <h2>Warum DRACO?</h2>
-        <p>
+        <h2 data-i18n="why.1">Warum DRACO?</h2>
+        <p data-i18n="why.2" data-i18n-html>
           DRACO steht für <em>Deep Research Accuracy, Completeness, and Objectivity</em>. Perplexity veröffentlichte den
           Benchmark Anfang 2026 als offenen Test für Deep-Research-Agenten. Der Testdatensatz enthält 100 Aufgaben aus
           zehn Domänen. Jede Aufgabe hat eine eigene Rubrik mit vielen gewichteten Kriterien. Positive Kriterien bringen
           Punkte, negative Kriterien ziehen Punkte ab, wenn die Antwort den beschriebenen Fehler tatsächlich begeht.
         </p>
-        <p>
+        <p data-i18n="why.3">
           Das ist für Agenten relevanter als kurze Frage-Antwort-Benchmarks. DRACO prüft Recherche, Quellenarbeit,
           Vollständigkeit, Faktentreue und Darstellung. Genau dort soll pi-fusion helfen: mehrere unabhängige Antworten
           erzeugen, prüfen und zu einer besseren Endantwort verdichten.
         </p>
 
-        <h2>Externer Vergleich</h2>
-        <p>
+        <h2 data-i18n="ext.1">Externer Vergleich</h2>
+        <p data-i18n="ext.2" data-i18n-html>
           OpenRouter veröffentlichte am 12. Juni 2026 den Artikel
           <a href="https://openrouter.ai/blog/announcements/fusion-beats-frontier/" target="_blank" rel="noopener">Surpassing Frontier Performance with Fusion</a>.
           Dort erreichte das beste berichtete Setup, Fable&nbsp;5 plus GPT-5.5 mit Opus&nbsp;4.8 als Synthesizer,
           69,0&nbsp;%. Ein Budget-Panel aus Gemini&nbsp;3 Flash, Kimi&nbsp;K2.6 und DeepSeek&nbsp;V4 Pro mit
           Opus&nbsp;4.8 als Synthesizer erreichte 64,7&nbsp;%. Solo GPT-5.5 lag bei 60,0&nbsp;%.
         </p>
-        <p>
+        <p data-i18n="ext.3" data-i18n-html>
           OpenRouter nutzte für Fusion- und Solo-Läufe serverseitig dieselben drei Tools:
           <code>openrouter:web_search</code>, <code>openrouter:web_fetch</code> und <code>openrouter:bash</code>.
           Benchmark-Leakage-Quellen wurden per Exclude- oder Blocked-Domains ausgeschlossen. Bewertet wurde mit
@@ -320,46 +333,46 @@
           Judges. Deshalb ist nur die Größenordnung vergleichbar, nicht die Rangliste.
         </p>
 
-        <h2>Was wir ausgeführt haben</h2>
-        <p>
+        <h2 data-i18n="run.1">Was wir ausgeführt haben</h2>
+        <p data-i18n="run.2" data-i18n-html>
           Der direkte Lauf nutzte <code>openai-codex/gpt-5.5:xhigh</code> über <code>pi</code>. Konfiguriert waren
           <code>web_search</code>, <code>fetch_content</code> und <code>get_search_content</code> über
           <code>pi-web-access</code>. Der Lauf erzeugte 100 Antwortdateien. Die Generation-Summary meldet 98
           <code>returncode=0</code>, 2 Timeouts und 34 Zeilen mit <code>error_message</code>. Alle 100 Antwortdateien
           wurden anschließend bewertet.
         </p>
-        <p>
+        <p data-i18n="run.3">
           Für denselben direkten GPT-5.5-Lauf existieren zwei vollständige Score-Dateien:
         </p>
         <ul>
-          <li><code>scores.jsonl</code>: OpenAI <code>gpt-4.1-mini</code> als Criterion-Judge, <code>judge_runs=3</code>.</li>
-          <li><code>scores.pi-gpt55-xhigh-strict-criterion-3.jsonl</code>: pi <code>openai-codex/gpt-5.5:xhigh</code> als strenger Criterion-Judge, <code>judge_runs=3</code>.</li>
+          <li data-i18n="run.4" data-i18n-html><code>scores.jsonl</code>: OpenAI <code>gpt-4.1-mini</code> als Criterion-Judge, <code>judge_runs=3</code>.</li>
+          <li data-i18n="run.5" data-i18n-html><code>scores.pi-gpt55-xhigh-strict-criterion-3.jsonl</code>: pi <code>openai-codex/gpt-5.5:xhigh</code> als strenger Criterion-Judge, <code>judge_runs=3</code>.</li>
         </ul>
-        <p>
+        <p data-i18n="run.6" data-i18n-html>
           Die vorhandene <code>benchmark_summary.json</code> im Direct-Run-Ordner gehört zur ersten Datei, also zum
           GPT-4.1-mini-Judge. Für den GPT-5.5-Judge gibt es ein Score-JSONL, aber keine separate
           <code>benchmark_summary.*</code>. Die Zahlen unten wurden deshalb direkt aus dem Score-JSONL aggregiert.
         </p>
 
-        <h2>Maschine und Tooling</h2>
-        <p>
+        <h2 data-i18n="machine.1">Maschine und Tooling</h2>
+        <p data-i18n="machine.2">
           Der Lauf war ein lokaler Schreibtisch-Benchmark, kein Cloud-Run. Die Hardware- und Tooling-Daten stammen aus
           dem lokalen System- und Projektkontext während der Auswertung.
         </p>
         <div class="benchmark-table-wrap">
           <table class="gl-data-table">
             <thead>
-              <tr><th>Komponente</th><th>Wert</th></tr>
+              <tr><th data-i18n="machine.3">Komponente</th><th data-i18n="machine.4">Wert</th></tr>
             </thead>
             <tbody>
-              <tr><td>Rechner</td><td>MacBook Pro <code>Mac17,6</code>, Apple M5 Max, 18 CPU-Kerne, 128&nbsp;GB RAM</td></tr>
-              <tr><td>Betriebssystem</td><td>macOS&nbsp;26.4, Darwin&nbsp;25.4.0</td></tr>
+              <tr><td data-i18n="machine.5">Rechner</td><td data-i18n="machine.6" data-i18n-html>MacBook Pro <code>Mac17,6</code>, Apple M5 Max, 18 CPU-Kerne, 128&nbsp;GB RAM</td></tr>
+              <tr><td data-i18n="machine.7">Betriebssystem</td><td>macOS&nbsp;26.4, Darwin&nbsp;25.4.0</td></tr>
               <tr><td>pi</td><td>0.79.4</td></tr>
-              <tr><td>pi-fusion</td><td>0.1.0, lokaler Checkout <code>4741f0c</code></td></tr>
+              <tr><td>pi-fusion</td><td data-i18n="machine.8" data-i18n-html>0.1.0, lokaler Checkout <code>4741f0c</code></td></tr>
               <tr><td>Ollama</td><td>0.30.8</td></tr>
               <tr><td>Node</td><td>v24.14.1</td></tr>
-              <tr><td>Python</td><td>3.13.12 im Benchmark-Projekt; gebündelte Codex-Runtime für PNG-Erzeugung</td></tr>
-              <tr><td>DS4</td><td><code>ds4/deepseek-v4-flash</code> über pi; Modellinventar mit <code>ctx 100000</code></td></tr>
+              <tr><td>Python</td><td data-i18n="machine.9">3.13.12 im Benchmark-Projekt; gebündelte Codex-Runtime für PNG-Erzeugung</td></tr>
+              <tr><td>DS4</td><td data-i18n="machine.10" data-i18n-html><code>ds4/deepseek-v4-flash</code> über pi; Modellinventar mit <code>ctx 100000</code></td></tr>
             </tbody>
           </table>
         </div>
@@ -367,23 +380,23 @@
         <div class="benchmark-table-wrap">
           <table class="gl-data-table">
             <thead>
-              <tr><th>Direkter GPT-5.5-Lauf</th><th>GPT-4.1 mini Judge</th><th>GPT-5.5 xhigh strict Judge</th></tr>
+              <tr><th data-i18n="judge.1">Direkter GPT-5.5-Lauf</th><th>GPT-4.1 mini Judge</th><th>GPT-5.5 xhigh strict Judge</th></tr>
             </thead>
             <tbody>
               <tr><td>Scored Tasks</td><td>100</td><td>100</td></tr>
-              <tr><td>Score Mittelwert</td><td>61,77&nbsp;%</td><td>49,37&nbsp;%</td></tr>
+              <tr><td data-i18n="judge.2">Score Mittelwert</td><td>61,77&nbsp;%</td><td>49,37&nbsp;%</td></tr>
               <tr><td>Median</td><td>65,65&nbsp;%</td><td>49,65&nbsp;%</td></tr>
               <tr><td>Min / Max</td><td>0,00&nbsp;% / 100,00&nbsp;%</td><td>0,00&nbsp;% / 86,67&nbsp;%</td></tr>
-              <tr><td>Judge-Kosten</td><td>12,07&nbsp;$</td><td>200,37&nbsp;$</td></tr>
-              <tr><td>Judge-Tokens</td><td>22,76M Input · 0,83M Output · 16,41M Cache-Read</td><td>20,43M Input · 3,23M Output · 2,64M Cache-Read</td></tr>
-              <tr><td>Judge-Laufzeit</td><td>20.748&nbsp;s</td><td>17.315&nbsp;s</td></tr>
+              <tr><td data-i18n="judge.3">Judge-Kosten</td><td>12,07&nbsp;$</td><td>200,37&nbsp;$</td></tr>
+              <tr><td data-i18n="judge.4">Judge-Tokens</td><td>22,76M Input · 0,83M Output · 16,41M Cache-Read</td><td>20,43M Input · 3,23M Output · 2,64M Cache-Read</td></tr>
+              <tr><td data-i18n="judge.5">Judge-Laufzeit</td><td>20.748&nbsp;s</td><td>17.315&nbsp;s</td></tr>
             </tbody>
           </table>
         </div>
 
         <figure class="benchmark-figure">
-          <div class="bchart" role="img" aria-label="Dumbbell-Diagramm: dieselben GPT-5.5-Antworten je Domäne, bewertet mit GPT-4.1-mini-Judge (höher) und GPT-5.5-xhigh-strict-Judge (niedriger). Jede Domäne fällt, von minus 6,8 (Needle in a Haystack) bis minus 18,3 Prozentpunkten (Law).">
-            <p class="bchart__title">Score je Domäne · gleiche Antworten, zwei Judges · Achse 30–90&nbsp;%</p>
+          <div class="bchart" role="img" data-i18n-attr="aria-label:fig2.1" aria-label="Dumbbell-Diagramm: dieselben GPT-5.5-Antworten je Domäne, bewertet mit GPT-4.1-mini-Judge (höher) und GPT-5.5-xhigh-strict-Judge (niedriger). Jede Domäne fällt, von minus 6,8 (Needle in a Haystack) bis minus 18,3 Prozentpunkten (Law).">
+            <p class="bchart__title" data-i18n="fig2.2">Score je Domäne · gleiche Antworten, zwei Judges · Achse 30–90&nbsp;%</p>
             <div class="bdumb">
               <div class="bdumb__row"><span class="bdumb__label">Law</span><span class="bdumb__track"><span class="bdumb__seg" style="left:60.2%;width:30.4%"></span><span class="bdumb__dot bdumb__dot--hi" style="left:90.6%"></span><span class="bdumb__dot bdumb__dot--lo" style="left:60.2%"></span></span><span class="bdumb__val">84,4<span class="arw">→</span><b>66,1</b>&ensp;−18,3</span></div>
               <div class="bdumb__row"><span class="bdumb__label">Medicine</span><span class="bdumb__track"><span class="bdumb__seg" style="left:53.3%;width:21.4%"></span><span class="bdumb__dot bdumb__dot--hi" style="left:74.7%"></span><span class="bdumb__dot bdumb__dot--lo" style="left:53.3%"></span></span><span class="bdumb__val">74,8<span class="arw">→</span><b>62,0</b>&ensp;−12,9</span></div>
@@ -399,14 +412,14 @@
             <div class="bchart__legend">
               <span><span class="bchart__sw bchart__sw--hollow"></span>GPT-4.1&nbsp;mini Judge</span>
               <span><span class="bchart__sw bchart__sw--solid"></span>GPT-5.5&nbsp;xhigh strict Judge</span>
-              <span>Spalte rechts: mini&nbsp;→&nbsp;strict · Differenz</span>
+              <span data-i18n="fig2.3">Spalte rechts: mini&nbsp;→&nbsp;strict · Differenz</span>
             </div>
           </div>
-          <figcaption>Gleiche Antworten, anderer Judge. Der GPT-5.5-xhigh-Judge ist in allen Domänen strenger; die Differenz reicht von -6,8 bis -18,3 Prozentpunkten.</figcaption>
+          <figcaption data-i18n="fig2.4">Gleiche Antworten, anderer Judge. Der GPT-5.5-xhigh-Judge ist in allen Domänen strenger; die Differenz reicht von -6,8 bis -18,3 Prozentpunkten.</figcaption>
         </figure>
 
-        <h2>DS4/Gemma/Qwen über pi-fusion</h2>
-        <p>
+        <h2 data-i18n="fusion.1">DS4/Gemma/Qwen über pi-fusion</h2>
+        <p data-i18n="fusion.2" data-i18n-html>
           Der Fusion-Lauf nutzte ein Panel aus <code>ds4/deepseek-v4-flash:high</code>,
           <code>ollama/gemma4:latest</code> und <code>ollama/qwen3.6:latest:high</code>. Judge und Synthesizer der
           Fusion-Stufe waren jeweils <code>openai-codex/gpt-5.5:xhigh</code>. Der Lauf war mit
@@ -424,19 +437,19 @@
   "max_concurrency": 1,
   "fusion_child_runner": "pi"
 }</code></pre>
-        <p>
+        <p data-i18n="fusion.3" data-i18n-html>
           Blockiert wurden <code>huggingface.co</code>, <code>hf.co</code>,
           <code>datasets-server.huggingface.co</code>, <code>openrouter.ai</code> und <code>cognition.ai</code>.
           DS4 lief als <code>ds4/deepseek-v4-flash</code> über pi; das Modellinventar weist <code>ctx 100000</code>
           aus.
         </p>
-        <p>
+        <p data-i18n="fusion.4" data-i18n-html>
           Der Runner schloss 100/100 Tasks ab. Das bedeutet nicht, dass 100 vollständige Fusion-Läufe vorlagen:
           49 Tasks hatten <code>fusion_status=ok</code>, 51 waren <code>partial</code>. Die Stage-Metriken zeigen:
           DS4 <code>52 ok / 48 error</code>, Gemma <code>99 ok / 1 error</code>, Qwen <code>99 ok / 1 error</code>,
           Fusion-Judge <code>97 ok / 3 error</code>, Synthese <code>100 ok</code>.
         </p>
-        <p>
+        <p data-i18n="fusion.5" data-i18n-html>
           Für die posthoc-Auswertung wurden nur gültige DS4-Panelantworten extrahiert. Das Manifest enthält 100 Zeilen:
           52 wurden eingeschlossen, 48 mit dem Grund <code>panel status is error</code> übersprungen. Von den 48
           DS4-Fehlern waren 42 100k-Kontextüberschreitungen, 2 <code>Provider finish_reason: error</code> und
@@ -446,49 +459,49 @@
         <div class="benchmark-table-wrap">
           <table class="gl-data-table">
             <thead>
-              <tr><th>DS4/Fusion-Metrik</th><th>Wert</th><th>Einordnung</th></tr>
+              <tr><th data-i18n="ftable.1">DS4/Fusion-Metrik</th><th data-i18n="ftable.2">Wert</th><th data-i18n="ftable.3">Einordnung</th></tr>
             </thead>
             <tbody>
-              <tr><td>Runner-Tasks</td><td>100/100</td><td>alle Top-Level-Runs beendet, kein Timeout</td></tr>
-              <tr><td>Fusion-Status</td><td>49 ok · 51 partial</td><td>keine saubere Full-Fusion-Scorebasis</td></tr>
-              <tr><td>DS4-Panel</td><td>52 ok · 48 error</td><td>nur 52 DS4-Antworten wurden bewertet</td></tr>
-              <tr><td>DS4-Salvage Score</td><td>48,21&nbsp;%</td><td>nur gültige DS4-Antworten</td></tr>
-              <tr><td>DS4 hart gerechnet</td><td>25,07&nbsp;%</td><td>48 DS4-Fehler als null Punkte</td></tr>
-              <tr><td>DS4-Salvage Judge-Kosten</td><td>153,66&nbsp;$</td><td>GPT-5.5 xhigh, Criterion-Modus, <code>judge_runs=3</code></td></tr>
+              <tr><td data-i18n="ftable.4">Runner-Tasks</td><td>100/100</td><td data-i18n="ftable.5">alle Top-Level-Runs beendet, kein Timeout</td></tr>
+              <tr><td data-i18n="ftable.6">Fusion-Status</td><td>49 ok · 51 partial</td><td data-i18n="ftable.7">keine saubere Full-Fusion-Scorebasis</td></tr>
+              <tr><td data-i18n="ftable.8">DS4-Panel</td><td>52 ok · 48 error</td><td data-i18n="ftable.9">nur 52 DS4-Antworten wurden bewertet</td></tr>
+              <tr><td data-i18n="ftable.10">DS4-Salvage Score</td><td>48,21&nbsp;%</td><td data-i18n="ftable.11">nur gültige DS4-Antworten</td></tr>
+              <tr><td data-i18n="ftable.12">DS4 hart gerechnet</td><td>25,07&nbsp;%</td><td data-i18n="ftable.13">48 DS4-Fehler als null Punkte</td></tr>
+              <tr><td data-i18n="ftable.14">DS4-Salvage Judge-Kosten</td><td>153,66&nbsp;$</td><td data-i18n="ftable.15" data-i18n-html>GPT-5.5 xhigh, Criterion-Modus, <code>judge_runs=3</code></td></tr>
             </tbody>
           </table>
         </div>
 
         <figure class="benchmark-figure">
-          <div class="bchart" role="img" aria-label="Dumbbell-Diagramm je Domäne für den DS4-Salvage-Lauf, sortiert nach Coverage. Pro Domäne der Valid-only-Score (höher) und der All-tasks-Score mit Fehlern als null (niedriger). Bei niedriger Coverage ist die Lücke am größten: Needle in a Haystack hat nur 1 von 6 bewerteten Fällen und fällt von 82,7 auf 13,8 Prozent.">
-            <p class="bchart__title">DS4-Salvage je Domäne · sortiert nach Coverage · Achse 0–100&nbsp;%</p>
+          <div class="bchart" role="img" data-i18n-attr="aria-label:fig3.1" aria-label="Dumbbell-Diagramm je Domäne für den DS4-Salvage-Lauf, sortiert nach Coverage. Pro Domäne der Valid-only-Score (höher) und der All-tasks-Score mit Fehlern als null (niedriger). Bei niedriger Coverage ist die Lücke am größten: Needle in a Haystack hat nur 1 von 6 bewerteten Fällen und fällt von 82,7 auf 13,8 Prozent.">
+            <p class="bchart__title" data-i18n="fig3.2">DS4-Salvage je Domäne · sortiert nach Coverage · Achse 0–100&nbsp;%</p>
             <div class="bdumb">
-              <div class="bdumb__row"><span class="bdumb__label">Needle in a Haystack<span class="bdumb__cov">n = 1 / 6 bewertet</span></span><span class="bdumb__track"><span class="bdumb__seg" style="left:13.8%;width:68.9%"></span><span class="bdumb__dot bdumb__dot--hi" style="left:82.7%"></span><span class="bdumb__dot bdumb__dot--lo" style="left:13.8%"></span></span><span class="bdumb__val">82,7<span class="arw">→</span><b>13,8</b></span></div>
-              <div class="bdumb__row"><span class="bdumb__label">Personalized Assistant<span class="bdumb__cov">n = 1 / 6 bewertet</span></span><span class="bdumb__track"><span class="bdumb__seg" style="left:7.3%;width:36.3%"></span><span class="bdumb__dot bdumb__dot--hi" style="left:43.6%"></span><span class="bdumb__dot bdumb__dot--lo" style="left:7.3%"></span></span><span class="bdumb__val">43,6<span class="arw">→</span><b>7,3</b></span></div>
-              <div class="bdumb__row"><span class="bdumb__label">General Knowledge<span class="bdumb__cov">n = 4 / 9 bewertet</span></span><span class="bdumb__track"><span class="bdumb__seg" style="left:22.8%;width:28.4%"></span><span class="bdumb__dot bdumb__dot--hi" style="left:51.2%"></span><span class="bdumb__dot bdumb__dot--lo" style="left:22.8%"></span></span><span class="bdumb__val">51,2<span class="arw">→</span><b>22,7</b></span></div>
-              <div class="bdumb__row"><span class="bdumb__label">Medicine<span class="bdumb__cov">n = 4 / 6 bewertet</span></span><span class="bdumb__track"><span class="bdumb__seg" style="left:38.1%;width:19.1%"></span><span class="bdumb__dot bdumb__dot--hi" style="left:57.2%"></span><span class="bdumb__dot bdumb__dot--lo" style="left:38.1%"></span></span><span class="bdumb__val">57,2<span class="arw">→</span><b>38,1</b></span></div>
-              <div class="bdumb__row"><span class="bdumb__label">Law<span class="bdumb__cov">n = 5 / 6 bewertet</span></span><span class="bdumb__track"><span class="bdumb__seg" style="left:63.0%;width:12.6%"></span><span class="bdumb__dot bdumb__dot--hi" style="left:75.7%"></span><span class="bdumb__dot bdumb__dot--lo" style="left:63.0%"></span></span><span class="bdumb__val">75,7<span class="arw">→</span><b>63,0</b></span></div>
-              <div class="bdumb__row"><span class="bdumb__label">Finance<span class="bdumb__cov">n = 6 / 20 bewertet</span></span><span class="bdumb__track"><span class="bdumb__seg" style="left:12.0%;width:28.0%"></span><span class="bdumb__dot bdumb__dot--hi" style="left:40.0%"></span><span class="bdumb__dot bdumb__dot--lo" style="left:12.0%"></span></span><span class="bdumb__val">40,0<span class="arw">→</span><b>12,0</b></span></div>
-              <div class="bdumb__row"><span class="bdumb__label">UX Design<span class="bdumb__cov">n = 6 / 9 bewertet</span></span><span class="bdumb__track"><span class="bdumb__seg" style="left:22.8%;width:11.4%"></span><span class="bdumb__dot bdumb__dot--hi" style="left:34.2%"></span><span class="bdumb__dot bdumb__dot--lo" style="left:22.8%"></span></span><span class="bdumb__val">34,2<span class="arw">→</span><b>22,8</b></span></div>
-              <div class="bdumb__row"><span class="bdumb__label">Technology<span class="bdumb__cov">n = 7 / 10 bewertet</span></span><span class="bdumb__track"><span class="bdumb__seg" style="left:28.1%;width:12.1%"></span><span class="bdumb__dot bdumb__dot--hi" style="left:40.2%"></span><span class="bdumb__dot bdumb__dot--lo" style="left:28.1%"></span></span><span class="bdumb__val">40,2<span class="arw">→</span><b>28,1</b></span></div>
-              <div class="bdumb__row"><span class="bdumb__label">Shopping / Product<span class="bdumb__cov">n = 8 / 16 bewertet</span></span><span class="bdumb__track"><span class="bdumb__seg" style="left:15.5%;width:15.5%"></span><span class="bdumb__dot bdumb__dot--hi" style="left:30.9%"></span><span class="bdumb__dot bdumb__dot--lo" style="left:15.5%"></span></span><span class="bdumb__val">30,9<span class="arw">→</span><b>15,5</b></span></div>
-              <div class="bdumb__row"><span class="bdumb__label">Academic<span class="bdumb__cov">n = 10 / 12 bewertet</span></span><span class="bdumb__track"><span class="bdumb__seg" style="left:49.6%;width:9.9%"></span><span class="bdumb__dot bdumb__dot--hi" style="left:59.5%"></span><span class="bdumb__dot bdumb__dot--lo" style="left:49.6%"></span></span><span class="bdumb__val">59,5<span class="arw">→</span><b>49,6</b></span></div>
+              <div class="bdumb__row"><span class="bdumb__label">Needle in a Haystack<span class="bdumb__cov" data-i18n="fig3.3">n = 1 / 6 bewertet</span></span><span class="bdumb__track"><span class="bdumb__seg" style="left:13.8%;width:68.9%"></span><span class="bdumb__dot bdumb__dot--hi" style="left:82.7%"></span><span class="bdumb__dot bdumb__dot--lo" style="left:13.8%"></span></span><span class="bdumb__val">82,7<span class="arw">→</span><b>13,8</b></span></div>
+              <div class="bdumb__row"><span class="bdumb__label">Personalized Assistant<span class="bdumb__cov" data-i18n="fig3.4">n = 1 / 6 bewertet</span></span><span class="bdumb__track"><span class="bdumb__seg" style="left:7.3%;width:36.3%"></span><span class="bdumb__dot bdumb__dot--hi" style="left:43.6%"></span><span class="bdumb__dot bdumb__dot--lo" style="left:7.3%"></span></span><span class="bdumb__val">43,6<span class="arw">→</span><b>7,3</b></span></div>
+              <div class="bdumb__row"><span class="bdumb__label">General Knowledge<span class="bdumb__cov" data-i18n="fig3.5">n = 4 / 9 bewertet</span></span><span class="bdumb__track"><span class="bdumb__seg" style="left:22.8%;width:28.4%"></span><span class="bdumb__dot bdumb__dot--hi" style="left:51.2%"></span><span class="bdumb__dot bdumb__dot--lo" style="left:22.8%"></span></span><span class="bdumb__val">51,2<span class="arw">→</span><b>22,7</b></span></div>
+              <div class="bdumb__row"><span class="bdumb__label">Medicine<span class="bdumb__cov" data-i18n="fig3.6">n = 4 / 6 bewertet</span></span><span class="bdumb__track"><span class="bdumb__seg" style="left:38.1%;width:19.1%"></span><span class="bdumb__dot bdumb__dot--hi" style="left:57.2%"></span><span class="bdumb__dot bdumb__dot--lo" style="left:38.1%"></span></span><span class="bdumb__val">57,2<span class="arw">→</span><b>38,1</b></span></div>
+              <div class="bdumb__row"><span class="bdumb__label">Law<span class="bdumb__cov" data-i18n="fig3.7">n = 5 / 6 bewertet</span></span><span class="bdumb__track"><span class="bdumb__seg" style="left:63.0%;width:12.6%"></span><span class="bdumb__dot bdumb__dot--hi" style="left:75.7%"></span><span class="bdumb__dot bdumb__dot--lo" style="left:63.0%"></span></span><span class="bdumb__val">75,7<span class="arw">→</span><b>63,0</b></span></div>
+              <div class="bdumb__row"><span class="bdumb__label">Finance<span class="bdumb__cov" data-i18n="fig3.8">n = 6 / 20 bewertet</span></span><span class="bdumb__track"><span class="bdumb__seg" style="left:12.0%;width:28.0%"></span><span class="bdumb__dot bdumb__dot--hi" style="left:40.0%"></span><span class="bdumb__dot bdumb__dot--lo" style="left:12.0%"></span></span><span class="bdumb__val">40,0<span class="arw">→</span><b>12,0</b></span></div>
+              <div class="bdumb__row"><span class="bdumb__label">UX Design<span class="bdumb__cov" data-i18n="fig3.9">n = 6 / 9 bewertet</span></span><span class="bdumb__track"><span class="bdumb__seg" style="left:22.8%;width:11.4%"></span><span class="bdumb__dot bdumb__dot--hi" style="left:34.2%"></span><span class="bdumb__dot bdumb__dot--lo" style="left:22.8%"></span></span><span class="bdumb__val">34,2<span class="arw">→</span><b>22,8</b></span></div>
+              <div class="bdumb__row"><span class="bdumb__label">Technology<span class="bdumb__cov" data-i18n="fig3.10">n = 7 / 10 bewertet</span></span><span class="bdumb__track"><span class="bdumb__seg" style="left:28.1%;width:12.1%"></span><span class="bdumb__dot bdumb__dot--hi" style="left:40.2%"></span><span class="bdumb__dot bdumb__dot--lo" style="left:28.1%"></span></span><span class="bdumb__val">40,2<span class="arw">→</span><b>28,1</b></span></div>
+              <div class="bdumb__row"><span class="bdumb__label">Shopping / Product<span class="bdumb__cov" data-i18n="fig3.11">n = 8 / 16 bewertet</span></span><span class="bdumb__track"><span class="bdumb__seg" style="left:15.5%;width:15.5%"></span><span class="bdumb__dot bdumb__dot--hi" style="left:30.9%"></span><span class="bdumb__dot bdumb__dot--lo" style="left:15.5%"></span></span><span class="bdumb__val">30,9<span class="arw">→</span><b>15,5</b></span></div>
+              <div class="bdumb__row"><span class="bdumb__label">Academic<span class="bdumb__cov" data-i18n="fig3.12">n = 10 / 12 bewertet</span></span><span class="bdumb__track"><span class="bdumb__seg" style="left:49.6%;width:9.9%"></span><span class="bdumb__dot bdumb__dot--hi" style="left:59.5%"></span><span class="bdumb__dot bdumb__dot--lo" style="left:49.6%"></span></span><span class="bdumb__val">59,5<span class="arw">→</span><b>49,6</b></span></div>
             </div>
             <div class="bchart__legend">
-              <span><span class="bchart__sw bchart__sw--hollow"></span>Valid-only (nur gültige DS4-Antworten)</span>
-              <span><span class="bchart__sw bchart__sw--solid"></span>All-tasks (DS4-Fehler = 0)</span>
+              <span data-i18n="fig3.13" data-i18n-html><span class="bchart__sw bchart__sw--hollow"></span>Valid-only (nur gültige DS4-Antworten)</span>
+              <span data-i18n="fig3.14" data-i18n-html><span class="bchart__sw bchart__sw--solid"></span>All-tasks (DS4-Fehler = 0)</span>
             </div>
           </div>
-          <figcaption>Der DS4-Salvage-Score ist ohne Coverage irreführend. Einige Domänen haben nur 1 bis 6 bewertete DS4-Fälle.</figcaption>
+          <figcaption data-i18n="fig3.15">Der DS4-Salvage-Score ist ohne Coverage irreführend. Einige Domänen haben nur 1 bis 6 bewertete DS4-Fälle.</figcaption>
         </figure>
 
-        <h2>Kosten und Tokens</h2>
-        <p>
+        <h2 data-i18n="cost.1">Kosten und Tokens</h2>
+        <p data-i18n="cost.2">
           Der direkte GPT-5.5-Lauf kostete in der Generation 612,60&nbsp;$. Die Generation nutzte 42,80M Input-Tokens,
           1,76M Output-Tokens und 691,64M Cache-Read-Tokens. Der GPT-4.1-mini-Judge addierte 12,07&nbsp;$; der
           GPT-5.5-xhigh-Judge addierte 200,37&nbsp;$.
         </p>
-        <p>
+        <p data-i18n="cost.3">
           Der Fusion-Lauf kostete in der Generation 92,13&nbsp;$. Diese Summe setzt sich aus 68,30&nbsp;$ internem
           Fusion-Judge und 23,83&nbsp;$ Synthese zusammen; DS4, Gemma und Qwen sind in den Stage-Metriken mit
           0&nbsp;$ erfasst. Token: 7,21M Input, 2,24M Output, 199,05M Cache-Read, 7,14M Cache-Write. Das posthoc
@@ -496,107 +509,107 @@
         </p>
 
         <figure class="benchmark-figure">
-          <div class="bchart" role="img" aria-label="Gestapeltes Balkendiagramm der Kosten in US-Dollar, aufgeteilt in Generierung und Judge. Direkt GPT-5.5 mit GPT-4.1-mini-Judge 624,67 Dollar (612,60 Generierung plus 12,07 Judge). Direkt GPT-5.5 mit GPT-5.5-Judge 812,98 Dollar (612,60 plus 200,37). DS4-Fusion mit DS4-Salvage-Judge 245,80 Dollar (92,13 plus 153,66).">
-            <p class="bchart__title">Kosten in US-Dollar · Generierung + Judge · Achse 0–850&nbsp;$</p>
+          <div class="bchart" role="img" data-i18n-attr="aria-label:fig4.1" aria-label="Gestapeltes Balkendiagramm der Kosten in US-Dollar, aufgeteilt in Generierung und Judge. Direkt GPT-5.5 mit GPT-4.1-mini-Judge 624,67 Dollar (612,60 Generierung plus 12,07 Judge). Direkt GPT-5.5 mit GPT-5.5-Judge 812,98 Dollar (612,60 plus 200,37). DS4-Fusion mit DS4-Salvage-Judge 245,80 Dollar (92,13 plus 153,66).">
+            <p class="bchart__title" data-i18n="fig4.2">Kosten in US-Dollar · Generierung + Judge · Achse 0–850&nbsp;$</p>
             <div class="bbar">
               <div class="bbar__row bbar__row--cost">
-                <span class="bbar__label">Direkt GPT-5.5 · Judge GPT-4.1&nbsp;mini</span>
+                <span class="bbar__label" data-i18n="fig4.3">Direkt GPT-5.5 · Judge GPT-4.1&nbsp;mini</span>
                 <span class="bbar__track"><span class="bbar__fill bbar__fill--ref" style="left:0;width:72.07%"></span><span class="bbar__fill bbar__fill--ours" style="left:72.07%;width:1.42%"></span></span>
                 <span class="bbar__val bbar__val--cost"><b>624,67&nbsp;$</b><small>Gen 612,60 · Judge 12,07</small></span>
               </div>
               <div class="bbar__row bbar__row--cost">
-                <span class="bbar__label">Direkt GPT-5.5 · Judge GPT-5.5&nbsp;xhigh</span>
+                <span class="bbar__label" data-i18n="fig4.4">Direkt GPT-5.5 · Judge GPT-5.5&nbsp;xhigh</span>
                 <span class="bbar__track"><span class="bbar__fill bbar__fill--ref" style="left:0;width:72.07%"></span><span class="bbar__fill bbar__fill--ours" style="left:72.07%;width:23.57%"></span></span>
                 <span class="bbar__val bbar__val--cost"><b>812,98&nbsp;$</b><small>Gen 612,60 · Judge 200,37</small></span>
               </div>
               <div class="bbar__row bbar__row--cost">
-                <span class="bbar__label">DS4-Fusion · DS4-Salvage-Judge</span>
+                <span class="bbar__label" data-i18n="fig4.5">DS4-Fusion · DS4-Salvage-Judge</span>
                 <span class="bbar__track"><span class="bbar__fill bbar__fill--ref" style="left:0;width:10.84%"></span><span class="bbar__fill bbar__fill--ours" style="left:10.84%;width:18.08%"></span></span>
                 <span class="bbar__val bbar__val--cost"><b>245,80&nbsp;$</b><small>Gen 92,13 · Judge 153,66</small></span>
               </div>
             </div>
             <div class="bchart__legend">
-              <span><span class="bchart__sw bchart__sw--ref"></span>Generierung</span>
+              <span data-i18n="fig4.6" data-i18n-html><span class="bchart__sw bchart__sw--ref"></span>Generierung</span>
               <span><span class="bchart__sw bchart__sw--ours"></span>Judge</span>
-              <span>Generierung der beiden Direct-Läufe ist identisch und wird geteilt</span>
+              <span data-i18n="fig4.7">Generierung der beiden Direct-Läufe ist identisch und wird geteilt</span>
             </div>
           </div>
-          <figcaption>Die direkte GPT-5.5-Generation wurde für beide Judge-Auswertungen wiederverwendet. Die beiden Direct-Gesamtsummen dürfen deshalb nicht addiert werden.</figcaption>
+          <figcaption data-i18n="fig4.8">Die direkte GPT-5.5-Generation wurde für beide Judge-Auswertungen wiederverwendet. Die beiden Direct-Gesamtsummen dürfen deshalb nicht addiert werden.</figcaption>
         </figure>
 
-        <h2>Was die Scores bedeuten</h2>
-        <p>
+        <h2 data-i18n="meaning.1">Was die Scores bedeuten</h2>
+        <p data-i18n="meaning.2">
           Der GPT-4.1-mini-Judge reproduziert ungefähr den OpenRouter-Solo-GPT-5.5-Kontext: 61,77&nbsp;% lokal gegen
           60,0&nbsp;% bei OpenRouter. Das ist plausibel, aber kein Beweis für Gleichstand, weil Tooling und Judge
           abweichen.
         </p>
-        <p>
+        <p data-i18n="meaning.3">
           Der GPT-5.5-xhigh-Judge drückt dieselben Antworten auf 49,37&nbsp;%. Das ist der methodisch stärkere interne
           Anspruch: strengere Criterion-Einzelbewertung, drei unabhängige Judge-Pässe pro DRACO-Kriterium, JSON-only
           Judge-Instruktion. Es ist aber nicht der DRACO- oder OpenRouter-Judge und deshalb kein offizieller Score.
         </p>
-        <p>
+        <p data-i18n="meaning.4">
           Der DS4-Salvage-Wert von 48,21&nbsp;% zeigt nur die Qualität der 52 erfolgreichen DS4-Panelantworten. Als
           Systemscore für den 100er-Lauf ist 25,07&nbsp;% ehrlicher, weil 48 DS4-Fehler sonst unsichtbar würden.
         </p>
 
-        <h2>Warum die OpenRouter-Lücke groß ist</h2>
-        <p>
+        <h2 data-i18n="gap.1">Warum die OpenRouter-Lücke groß ist</h2>
+        <p data-i18n="gap.2" data-i18n-html>
           Erstens: anderes Modell. OpenRouter berichtet unter anderem DeepSeek V4 Pro. Unser DS4-Panel nutzte
           <code>ds4/deepseek-v4-flash:high</code>. Das ist nicht dieselbe Modellklasse.
         </p>
-        <p>
+        <p data-i18n="gap.3">
           Zweitens: anderer Judge. OpenRouter nutzte Gemini&nbsp;3.1 Pro Preview. Unsere beiden Direct-Scores zeigen,
           wie stark absolute Scores allein durch den Judge schwanken können: 12,41 Prozentpunkte Differenz auf denselben
           Antworten.
         </p>
-        <p>
+        <p data-i18n="gap.4">
           Drittens: anderes Tooling. OpenRouter hatte ein serverseitiges, einheitliches Toolset. Unser Setup kombinierte
           pi, pi-web-access, lokale Ollama-Modelle, DS4 und GPT-5.5. Die DS4-Fehler zeigen, dass Kontextmanagement vor
           Modellqualität kam.
         </p>
-        <p>
+        <p data-i18n="gap.5">
           Viertens: andere Fehlerbehandlung. OpenRouter veröffentlichte Scores für abgeschlossene Systeme. Unser
           Fusion-Lauf produzierte 51 partielle Läufe. Deshalb wurde kein finaler Fusion-Score behauptet.
         </p>
 
-        <h2>Was ich vor dem nächsten Lauf ändern würde</h2>
+        <h2 data-i18n="next.1">Was ich vor dem nächsten Lauf ändern würde</h2>
         <ol>
-          <li><strong>Offizielle Judge-Konfiguration replizieren.</strong> Ein echter DRACO-Vergleich braucht denselben Judge oder mindestens eine klare Judge-Matrix.</li>
-          <li><strong>Coverage immer neben Score berichten.</strong> Valid-only Score und All-tasks Score müssen zusammen stehen.</li>
-          <li><strong>Kontextbudget vor jedem Modellaufruf erzwingen.</strong> 42 DS4-Kontextüberschreitungen sind ein Harness-Problem.</li>
-          <li><strong>Finale Fusion-Antworten erst nach stabilen Panels judgen.</strong> Mit 51 partiellen Läufen wäre ein Fusion-Fullscore irreführend.</li>
-          <li><strong>Artefakte standardisieren.</strong> Jede Judge-Variante braucht eigene Summary-Dateien, Kosten, Tokens, Modellversionen und Run-Manifeste.</li>
-          <li><strong>Smoke-Sets vor Full-Runs nutzen.</strong> 100 DRACO-Tasks sind teuer genug, dass Blocklisten, Tooling und Judge erst auf 10 bis 15 Tasks stabil sein müssen.</li>
+          <li data-i18n="next.2" data-i18n-html><strong>Offizielle Judge-Konfiguration replizieren.</strong> Ein echter DRACO-Vergleich braucht denselben Judge oder mindestens eine klare Judge-Matrix.</li>
+          <li data-i18n="next.3" data-i18n-html><strong>Coverage immer neben Score berichten.</strong> Valid-only Score und All-tasks Score müssen zusammen stehen.</li>
+          <li data-i18n="next.4" data-i18n-html><strong>Kontextbudget vor jedem Modellaufruf erzwingen.</strong> 42 DS4-Kontextüberschreitungen sind ein Harness-Problem.</li>
+          <li data-i18n="next.5" data-i18n-html><strong>Finale Fusion-Antworten erst nach stabilen Panels judgen.</strong> Mit 51 partiellen Läufen wäre ein Fusion-Fullscore irreführend.</li>
+          <li data-i18n="next.6" data-i18n-html><strong>Artefakte standardisieren.</strong> Jede Judge-Variante braucht eigene Summary-Dateien, Kosten, Tokens, Modellversionen und Run-Manifeste.</li>
+          <li data-i18n="next.7" data-i18n-html><strong>Smoke-Sets vor Full-Runs nutzen.</strong> 100 DRACO-Tasks sind teuer genug, dass Blocklisten, Tooling und Judge erst auf 10 bis 15 Tasks stabil sein müssen.</li>
         </ol>
 
-        <h2>Wie es weitergeht</h2>
-        <p>
+        <h2 data-i18n="ahead.1">Wie es weitergeht</h2>
+        <p data-i18n="ahead.2">
           Der nächste saubere Lauf sollte klein starten: 10 bis 15 DRACO-Tasks, identische Blocklisten, identische Tools,
           harte Kontextbudgets und automatische Retry-Regeln. Erst wenn kein Panelmitglied am Kontextlimit stirbt,
           lohnt sich ein neuer 100er-Lauf.
         </p>
-        <p>
+        <p data-i18n="ahead.3" data-i18n-html>
           Danach sollten drei Scores getrennt berichtet werden: Solo-Modell, finaler Fusion-Output und Panel-Salvage.
           Für jeden Score gehören Judge-Modell, Judge-Modus, <code>judge_runs</code>, Coverage, Kosten, Tokens und
           Fehlerklassen in dieselbe Tabelle. Alles andere sieht präzise aus, ist aber nicht reproduzierbar.
         </p>
 
-        <h2>Quellen und Artefakte</h2>
+        <h2 data-i18n="sources.1">Quellen und Artefakte</h2>
         <ul>
           <li><a href="https://openrouter.ai/blog/announcements/fusion-beats-frontier/" target="_blank" rel="noopener">OpenRouter: Surpassing Frontier Performance with Fusion</a></li>
           <li><a href="https://arxiv.org/abs/2602.11685" target="_blank" rel="noopener">DRACO Paper: A Cross-Domain Benchmark for Deep Research Accuracy, Completeness, and Objectivity</a></li>
           <li><a href="https://research.perplexity.ai/articles/evaluating-deep-research-performance-in-the-wild-with-the-draco-benchmark" target="_blank" rel="noopener">Perplexity Research: Evaluating Deep Research Performance in the Wild with the DRACO Benchmark</a></li>
-          <li><a href="https://huggingface.co/datasets/perplexity-ai/draco" target="_blank" rel="noopener">DRACO Dataset auf Hugging Face</a></li>
+          <li><a href="https://huggingface.co/datasets/perplexity-ai/draco" target="_blank" rel="noopener" data-i18n="sources.2">DRACO Dataset auf Hugging Face</a></li>
           <li><a href="https://github.com/tjansn/pi-fusion" target="_blank" rel="noopener">pi-fusion Repository</a></li>
-          <li><a href="pi-fusion.html">pi-fusion: Wenn mehrere Modelle gemeinsam recherchieren</a></li>
-          <li><a href="assets/draco-benchmark/draco-derived-summary.json">Abgeleitete lokale Kennzahlen für diesen Artikel</a></li>
+          <li><a href="pi-fusion.html" data-i18n="sources.3">pi-fusion: Wenn mehrere Modelle gemeinsam recherchieren</a></li>
+          <li><a href="assets/draco-benchmark/draco-derived-summary.json" data-i18n="sources.4">Abgeleitete lokale Kennzahlen für diesen Artikel</a></li>
         </ul>
       </article>
 
       <nav class="tj-post-nav" aria-label="Weitere Notizen">
-        <a href="phoneclaw.html" rel="prev"><span class="gl-meta">← Älterer Artikel</span><strong>OpenClaw auf einem Android-Handy</strong></a>
-        <a href="buddy.html" rel="next"><span class="gl-meta">Neuerer Artikel →</span><strong>Buddy: ein physisches Statuslicht für lokale KI-Agenten</strong></a>
+        <a href="tjansn-als-terminal.html" rel="prev"><span class="gl-meta" data-i18n="postnav.1">← Älterer Artikel</span><strong data-i18n="postnav.2">tjansn.com als Terminal</strong></a>
+        <a href="buddy.html" rel="next"><span class="gl-meta" data-i18n="postnav.3">Neuerer Artikel →</span><strong data-i18n="postnav.4">Buddy: ein physisches Statuslicht für lokale KI-Agenten</strong></a>
       </nav>
     </main>
 
@@ -626,6 +639,149 @@
         </div>
       </div>
     </footer>
+    <script>
+      window.GL_DEFAULT_LANGUAGE = "de";
+      // German ships in the markup; commercial-pages.js reads it back as the "de" dictionary.
+      window.GL_PAGE_COPY = {
+        en: {
+          "nav.profile": "Profile",
+          "nav.projects": "Projects",
+          "nav.notes": "Notes",
+          "meta.title": "DRACO with pi and pi-fusion: GPT-5.5, judges and DS4 salvage | Tom Jansen Notes",
+          "meta.description": "DRACO lab notes: GPT-5.5 direct with a GPT-4.1 mini judge and a GPT-5.5 judge, DS4/Gemma/Qwen via pi-fusion, scores, cost, tokens, errors and a comparison with OpenRouter.",
+          "meta.ogTitle": "DRACO with pi and pi-fusion",
+          "meta.ogDescription": "What the local DRACO run actually measured: the same GPT-5.5 answers, two judges, one DS4 salvage run and clear limits to comparability.",
+          "head.1": "Benchmark · AI tooling · Lab notes",
+          "head.2": "DRACO with pi and pi-fusion: what our run actually shows",
+          "head.3": "Tom Jansen · 22 June 2026 · 14 min read",
+          "head.4": "pi-fusion explained →",
+          "head.5": "View the repo →",
+          "intro.1": "We wanted to know whether DRACO run locally with <code>pi</code> and <a href=\"pi-fusion.html\">pi-fusion</a> can be put up against strong public reference numbers in a meaningful way. The short answer: yes as a measurement and debugging harness, not yet as a clean leaderboard comparison.",
+          "intro.2": "Three things I can back up cleanly: a direct GPT-5.5 xhigh run scored by GPT-4.1 mini, the same answers scored again by GPT-5.5 xhigh as a strict criterion judge, and a DS4/Gemma/Qwen fusion run from which only the valid DS4 panel answers were scored separately.",
+          "intro.3": "Key point: the judge is not a detail. The same GPT-5.5 answers scored 61.77\u00a0% with GPT-4.1 mini and 49.37\u00a0% with GPT-5.5 xhigh strict.",
+          "kpi.1": "GPT-5.5 direct, GPT-4.1 mini as judge.",
+          "kpi.2": "GPT-5.5 direct, GPT-5.5 xhigh strict as judge.",
+          "kpi.3": "DS4 salvage on 52 valid DS4 answers.",
+          "kpi.4": "DS4 salvage with 48 errors counted as zero.",
+          "fig1.1": "Horizontal bar chart: OpenRouter reference values (69.0 / 64.7 / 60.0 percent) against our local DRACO scores (61.8 / 49.4 / 48.2 / 25.1 percent). DRACO score in percent, axis 0 to 100.",
+          "fig1.2": "DRACO score · % of maximum rubric points",
+          "fig1.3": "OpenRouter (published reference)",
+          "fig1.4": "Budget fusion (Gemini\u00a03 Flash · Kimi · DS4 Pro)",
+          "fig1.5": "Our local run (pi / pi-fusion)",
+          "fig1.6": "DS4 salvage (52 valid answers)",
+          "fig1.7": "DS4 all tasks (48 errors = 0)",
+          "fig1.8": "<span class=\"bchart__sw bchart__sw--ref\"></span>OpenRouter reference",
+          "fig1.9": "<span class=\"bchart__sw bchart__sw--ours\"></span>our run",
+          "fig1.10": "The chart shows reference values and local results. It is not a leaderboard: tooling, judge, models and error handling all differ.",
+          "why.1": "Why DRACO?",
+          "why.2": "DRACO stands for <em>Deep Research Accuracy, Completeness, and Objectivity</em>. Perplexity published the benchmark in early 2026 as an open test for deep research agents. The test set has 100 tasks from ten domains. Each task has its own rubric with many weighted criteria. Positive criteria add points and negative criteria subtract points when the answer actually makes the described mistake.",
+          "why.3": "For agents that matters more than short question-and-answer benchmarks. DRACO checks research, source handling, completeness, factual accuracy and presentation. That is exactly where pi-fusion is meant to help: produce several independent answers, check them and condense them into a better final answer.",
+          "ext.1": "External comparison",
+          "ext.2": "On 12 June 2026 OpenRouter published the article <a href=\"https://openrouter.ai/blog/announcements/fusion-beats-frontier/\" target=\"_blank\" rel=\"noopener\">Surpassing Frontier Performance with Fusion</a>. The best reported setup there (Fable\u00a05 plus GPT-5.5 with Opus\u00a04.8 as synthesizer) reached 69.0\u00a0%. A budget panel of Gemini\u00a03 Flash, Kimi\u00a0K2.6 and DeepSeek\u00a0V4 Pro with Opus\u00a04.8 as synthesizer reached 64.7\u00a0%. Solo GPT-5.5 came in at 60.0\u00a0%.",
+          "ext.3": "For both fusion and solo runs OpenRouter used the same three server-side tools: <code>openrouter:web_search</code>, <code>openrouter:web_fetch</code> and <code>openrouter:bash</code>. Sources of benchmark leakage were kept out through excluded or blocked domains. Scoring was done with Gemini\u00a03.1 Pro Preview. Our run used different tools, different models, different error rules and different judges. So only the order of magnitude is comparable, not the ranking.",
+          "run.1": "What we ran",
+          "run.2": "The direct run used <code>openai-codex/gpt-5.5:xhigh</code> through <code>pi</code>. Configured tools were <code>web_search</code>, <code>fetch_content</code> and <code>get_search_content</code> via <code>pi-web-access</code>. The run produced 100 answer files. The generation summary reports 98 <code>returncode=0</code>, 2 timeouts and 34 lines with an <code>error_message</code>. All 100 answer files were scored afterwards.",
+          "run.3": "Two complete score files exist for the same direct GPT-5.5 run:",
+          "run.4": "<code>scores.jsonl</code>: OpenAI <code>gpt-4.1-mini</code> as criterion judge, <code>judge_runs=3</code>.",
+          "run.5": "<code>scores.pi-gpt55-xhigh-strict-criterion-3.jsonl</code>: pi <code>openai-codex/gpt-5.5:xhigh</code> as strict criterion judge, <code>judge_runs=3</code>.",
+          "run.6": "The <code>benchmark_summary.json</code> in the direct-run folder belongs to the first file and therefore to the GPT-4.1 mini judge. The GPT-5.5 judge has a score JSONL but no separate <code>benchmark_summary.*</code>. The numbers below were therefore aggregated straight from the score JSONL.",
+          "machine.1": "Machine and tooling",
+          "machine.2": "The run was a local desk benchmark, not a cloud run. The hardware and tooling data come from the local system and project context during the evaluation.",
+          "machine.3": "Component",
+          "machine.4": "Value",
+          "machine.5": "Machine",
+          "machine.6": "MacBook Pro <code>Mac17,6</code>, Apple M5 Max, 18 CPU cores, 128\u00a0GB RAM",
+          "machine.7": "Operating system",
+          "machine.8": "0.1.0, local checkout <code>4741f0c</code>",
+          "machine.9": "3.13.12 in the benchmark project and a bundled Codex runtime for PNG generation",
+          "machine.10": "<code>ds4/deepseek-v4-flash</code> through pi with <code>ctx 100000</code> in the model inventory",
+          "judge.1": "Direct GPT-5.5 run",
+          "judge.2": "Mean score",
+          "judge.3": "Judge cost",
+          "judge.4": "Judge tokens",
+          "judge.5": "Judge runtime",
+          "fig2.1": "Dumbbell chart: the same GPT-5.5 answers per domain, scored by the GPT-4.1 mini judge (higher) and the GPT-5.5 xhigh strict judge (lower). Every domain drops, from minus 6.8 (Needle in a Haystack) to minus 18.3 percentage points (Law).",
+          "fig2.2": "Score per domain · same answers, two judges · axis 30–90\u00a0%",
+          "fig2.3": "Right column: mini\u00a0→\u00a0strict · difference",
+          "fig2.4": "Same answers, different judge. The GPT-5.5 xhigh judge is stricter in every domain. The difference runs from -6.8 to -18.3 percentage points.",
+          "fusion.1": "DS4/Gemma/Qwen through pi-fusion",
+          "fusion.2": "The fusion run used a panel of <code>ds4/deepseek-v4-flash:high</code>, <code>ollama/gemma4:latest</code> and <code>ollama/qwen3.6:latest:high</code>. Judge and synthesizer of the fusion stage were both <code>openai-codex/gpt-5.5:xhigh</code>. The run was configured with <code>max_concurrency: 1</code>. Gemma and Qwen were unloaded with <code>ollama stop</code> before and after every task to free local resources.",
+          "fusion.3": "Blocked domains were <code>huggingface.co</code>, <code>hf.co</code>, <code>datasets-server.huggingface.co</code>, <code>openrouter.ai</code> and <code>cognition.ai</code>. DS4 ran as <code>ds4/deepseek-v4-flash</code> through pi. The model inventory lists <code>ctx 100000</code>.",
+          "fusion.4": "The runner finished 100/100 tasks. That does not mean there were 100 complete fusion runs: 49 tasks had <code>fusion_status=ok</code> and 51 were <code>partial</code>. The stage metrics show DS4 <code>52 ok / 48 error</code>, Gemma <code>99 ok / 1 error</code>, Qwen <code>99 ok / 1 error</code>, fusion judge <code>97 ok / 3 error</code> and synthesis <code>100 ok</code>.",
+          "fusion.5": "For the post-hoc evaluation only valid DS4 panel answers were extracted. The manifest has 100 lines: 52 were included and 48 skipped with the reason <code>panel status is error</code>. Of the 48 DS4 errors, 42 were 100k context overruns, 2 were <code>Provider finish_reason: error</code> and 4 were <code>pi child produced no assistant output</code>.",
+          "ftable.1": "DS4/fusion metric",
+          "ftable.2": "Value",
+          "ftable.3": "Meaning",
+          "ftable.4": "Runner tasks",
+          "ftable.5": "all top-level runs finished, no timeout",
+          "ftable.6": "Fusion status",
+          "ftable.7": "no clean basis for a full fusion score",
+          "ftable.8": "DS4 panel",
+          "ftable.9": "only 52 DS4 answers were scored",
+          "ftable.10": "DS4 salvage score",
+          "ftable.11": "valid DS4 answers only",
+          "ftable.12": "DS4 all tasks",
+          "ftable.13": "48 DS4 errors as zero points",
+          "ftable.14": "DS4 salvage judge cost",
+          "ftable.15": "GPT-5.5 xhigh, criterion mode, <code>judge_runs=3</code>",
+          "fig3.1": "Dumbbell chart per domain for the DS4 salvage run, sorted by coverage. Per domain the valid-only score (higher) and the all-tasks score with errors as zero (lower). The gap is largest where coverage is low: Needle in a Haystack has only 1 of 6 cases scored and drops from 82.7 to 13.8 percent.",
+          "fig3.2": "DS4 salvage per domain · sorted by coverage · axis 0–100\u00a0%",
+          "fig3.13": "<span class=\"bchart__sw bchart__sw--hollow\"></span>Valid-only (valid DS4 answers only)",
+          "fig3.14": "<span class=\"bchart__sw bchart__sw--solid\"></span>All-tasks (DS4 errors = 0)",
+          "fig3.15": "The DS4 salvage score is misleading without coverage. Some domains have only 1 to 6 scored DS4 cases.",
+          "cost.1": "Cost and tokens",
+          "cost.2": "Generation for the direct GPT-5.5 run cost $612.60. It used 42.80M input tokens, 1.76M output tokens and 691.64M cache-read tokens. The GPT-4.1 mini judge added $12.07 and the GPT-5.5 xhigh judge added $200.37.",
+          "cost.3": "Generation for the fusion run cost $92.13. That is $68.30 for the internal fusion judge plus $23.83 for synthesis. DS4, Gemma and Qwen show up in the stage metrics at $0. Tokens: 7.21M input, 2.24M output, 199.05M cache-read, 7.14M cache-write. The post-hoc DS4 salvage judging added $153.66. Together that is $245.80.",
+          "fig4.1": "Stacked bar chart of cost in US dollars, split into generation and judge. Direct GPT-5.5 with GPT-4.1 mini judge 624.67 dollars (612.60 generation plus 12.07 judge). Direct GPT-5.5 with GPT-5.5 judge 812.98 dollars (612.60 plus 200.37). DS4 fusion with DS4 salvage judge 245.80 dollars (92.13 plus 153.66).",
+          "fig4.2": "Cost in US dollars · generation + judge · axis $0 to $850",
+          "fig4.3": "Direct GPT-5.5 · judge GPT-4.1\u00a0mini",
+          "fig4.4": "Direct GPT-5.5 · judge GPT-5.5\u00a0xhigh",
+          "fig4.5": "DS4 fusion · DS4 salvage judge",
+          "fig4.6": "<span class=\"bchart__sw bchart__sw--ref\"></span>Generation",
+          "fig4.7": "Generation of the two direct runs is identical and shared",
+          "fig4.8": "The direct GPT-5.5 generation was reused for both judge evaluations. So the two direct totals must not be added up.",
+          "meaning.1": "What the scores mean",
+          "meaning.2": "The GPT-4.1 mini judge roughly reproduces the OpenRouter solo GPT-5.5 result: 61.77\u00a0% locally against 60.0\u00a0% at OpenRouter. That is plausible but no proof of parity because tooling and judge differ.",
+          "meaning.3": "The GPT-5.5 xhigh judge pushes the same answers down to 49.37\u00a0%. That is the methodologically stronger internal standard: stricter per-criterion scoring, three independent judge runs per DRACO criterion and a JSON-only judge instruction. But it is neither the DRACO judge nor the OpenRouter judge and therefore not an official score.",
+          "meaning.4": "The DS4 salvage value of 48.21\u00a0% only shows the quality of the 52 successful DS4 panel answers. As a system score for the 100-task run 25.07\u00a0% is more honest because 48 DS4 errors would otherwise become invisible.",
+          "gap.1": "Why the gap to OpenRouter is large",
+          "gap.2": "First: different model. OpenRouter reports DeepSeek V4 Pro among others. Our DS4 panel used <code>ds4/deepseek-v4-flash:high</code>. That is not the same model class.",
+          "gap.3": "Second: different judge. OpenRouter used Gemini\u00a03.1 Pro Preview. Our two direct scores show how much absolute scores can swing on the judge alone: 12.41 percentage points of difference on the same answers.",
+          "gap.4": "Third: different tooling. OpenRouter had one uniform server-side toolset. Our setup combined pi, pi-web-access, local Ollama models, DS4 and GPT-5.5. The DS4 errors show that context management came before model quality.",
+          "gap.5": "Fourth: different error handling. OpenRouter published scores for completed systems. Our fusion run produced 51 partial runs. So no final fusion score was claimed.",
+          "next.1": "What I would change before the next run",
+          "next.2": "<strong>Replicate the official judge configuration.</strong> A real DRACO comparison needs the same judge or at least a clear judge matrix.",
+          "next.3": "<strong>Always report coverage next to the score.</strong> Valid-only score and all-tasks score belong side by side.",
+          "next.4": "<strong>Enforce a context budget before every model call.</strong> 42 DS4 context overruns are a harness problem.",
+          "next.5": "<strong>Judge final fusion answers only once the panels are stable.</strong> With 51 partial runs a full fusion score would be misleading.",
+          "next.6": "<strong>Standardise artefacts.</strong> Every judge variant needs its own summary files, costs, tokens, model versions and run manifests.",
+          "next.7": "<strong>Use smoke sets before full runs.</strong> 100 DRACO tasks are expensive enough that blocklists, tooling and judge have to be stable on 10 to 15 tasks first.",
+          "ahead.1": "What comes next",
+          "ahead.2": "The next clean run should start small: 10 to 15 DRACO tasks, identical blocklists, identical tools, hard context budgets and automatic retry rules. A new 100-task run is only worth it once no panel member dies at the context limit.",
+          "ahead.3": "After that three scores should be reported separately: solo model, final fusion output and panel salvage. For each score the judge model, judge mode, <code>judge_runs</code>, coverage, cost, tokens and error classes belong in the same table. Anything else looks precise but is not reproducible.",
+          "sources.1": "Sources and artefacts",
+          "sources.2": "DRACO dataset on Hugging Face",
+          "sources.3": "pi-fusion: when several models research together",
+          "sources.4": "Derived local figures for this article",
+          "postnav.1": "← Older article",
+          "postnav.2": "tjansn.com as a terminal",
+          "postnav.3": "Newer article →",
+          "postnav.4": "Buddy: a physical status light for local AI agents",
+          "footer.privacyLink": "Privacy",
+          "footer.languageLabel": "Language",
+          "fig3.3": "n = 1 / 6 scored",
+          "fig3.4": "n = 1 / 6 scored",
+          "fig3.5": "n = 4 / 9 scored",
+          "fig3.6": "n = 4 / 6 scored",
+          "fig3.7": "n = 5 / 6 scored",
+          "fig3.8": "n = 6 / 20 scored",
+          "fig3.9": "n = 6 / 9 scored",
+          "fig3.10": "n = 7 / 10 scored",
+          "fig3.11": "n = 8 / 16 scored",
+          "fig3.12": "n = 10 / 12 scored"
+        }
+      };
+    </script>
     <script src="../commercial-pages.js"></script>
     <script src="../archetype-pages.js"></script>
   </body>

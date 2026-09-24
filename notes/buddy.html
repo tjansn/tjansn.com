@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Buddy: ein physisches Statuslicht für lokale KI-Agenten | Tom Jansen Notes</title>
-    <meta name="description" content="Buddy verwandelt ein kleines ESP32-S3-Touch-Display in ein physisches Statuslicht für lokale Coding-Agenten wie Codex, Claude und Pi – per USB oder Bluetooth LE. Ein ehrlicher Blick auf Hardware, Firmware und Tooling." />
+    <title data-i18n="meta.title">Buddy: ein physisches Statuslicht für lokale KI-Agenten | Tom Jansen Notes</title>
+    <meta name="description" data-i18n-attr="content:meta.description" content="Buddy verwandelt ein kleines ESP32-S3-Touch-Display in ein physisches Statuslicht für lokale Coding-Agenten wie Codex, Claude und Pi – per USB oder Bluetooth LE. Ein ehrlicher Blick auf Hardware, Firmware und Tooling." />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Buddy: ein physisches Statuslicht für lokale KI-Agenten" />
-    <meta property="og:description" content="Ein ESP32-S3-Touchscreen, der anzeigt, ob dein Coding-Agent arbeitet, fertig ist oder eine Freigabe braucht – per USB oder BLE. Tippen holt die richtige Mac-Session in den Vordergrund." />
+    <meta property="og:title" data-i18n-attr="content:meta.ogTitle" content="Buddy: ein physisches Statuslicht für lokale KI-Agenten" />
+    <meta property="og:description" data-i18n-attr="content:meta.ogDescription" content="Ein ESP32-S3-Touchscreen, der anzeigt, ob dein Coding-Agent arbeitet, fertig ist oder eine Freigabe braucht – per USB oder BLE. Tippen holt die richtige Mac-Session in den Vordergrund." />
     <meta name="theme-color" content="#f5f3f0" />
     <link rel="icon" href="../tj-logo.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="../gl-v2.css" />
@@ -37,7 +37,7 @@
         localStorage.setItem("theme", dark ? "dark" : "light");
       }
     </script>
-    <!-- Plausible Analytics — self-hosted (Mac mini, Cloudflare Tunnel), cookieless -->
+    <!-- Plausible Analytics: self-hosted (Mac mini, Cloudflare Tunnel), cookieless, kein Banner nötig -->
     <script defer data-domain="tjansn.com" src="https://stats.gammalabs.cc/js/script.tagged-events.outbound-links.js"></script>
     <script>window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) };</script>
   </head>
@@ -64,23 +64,23 @@
 
     <main class="px-6" style="padding-block: clamp(5rem, 10vw, 8rem) clamp(4rem, 8vw, 6rem);">
       <article class="gl-prose">
-        <p class="gl-eyebrow">Open Source · Hardware</p>
-        <h1>Buddy: ein physisches <em>Statuslicht</em> für lokale KI-Agenten</h1>
-        <p class="gl-meta">Tom Jansen · 22.06.2026 · 6 Min. Lesezeit</p>
+        <p class="gl-eyebrow" data-i18n="hero.eyebrow">Open Source · Hardware</p>
+        <h1 data-i18n="hero.title" data-i18n-html="">Buddy: ein physisches <em>Statuslicht</em> für lokale KI-Agenten</h1>
+        <p class="gl-meta" data-i18n="hero.meta">Tom Jansen · 22.06.2026 · 6 Min. Lesezeit</p>
         <div class="gl-rule-accent is-visible" style="margin-top: var(--gl-space-6);"></div>
 
 
 
-        <div class="gl-cta-group" style="justify-content: flex-start;"><a class="gl-button gl-button--outline" href="https://github.com/tjansn/Buddy" target="_blank" rel="noopener">Auf GitHub ansehen →</a></div>
+        <div class="gl-cta-group" style="justify-content: flex-start;"><a class="gl-button gl-button--outline" href="https://github.com/tjansn/Buddy" target="_blank" rel="noopener" data-i18n="hero.github">Auf GitHub ansehen →</a></div>
 
-        <p>
+        <p data-i18n="intro.1">
           Wer mehrere Coding-Agenten parallel auf dem Mac laufen lässt – Codex, Claude, vielleicht noch eine
           Pi-Session – kennt das Problem: Man weiß nie genau, welche Session gerade arbeitet, welche fertig ist und
           welche seit zehn Minuten auf eine Freigabe wartet. Ständig zwischen Terminal-Tabs zu wechseln, um nachzusehen,
           kostet Aufmerksamkeit. Buddy ist mein Versuch, diesen Status aus den Tabs herauszuholen: nicht noch ein Fenster
           auf dem Bildschirm, sondern ein kleines physisches Display auf dem Schreibtisch.
         </p>
-        <p>
+        <p data-i18n="intro.2" data-i18n-html="">
           Buddy verwandelt ein angeschlossenes
           <a href="https://www.amazon.de/Waveshare-ESP32-S3-Development-Accelerometer-Gyroscope/dp/B0D3GDH7VD/" target="_blank" rel="noopener"><strong>Waveshare ESP32-S3-Touch-LCD-1.69</strong></a> in ein USB- oder
           Bluetooth-LE-gesteuertes Signal für lokale Agenten und Skripte. Das Display zeigt für jede Session einen
@@ -89,13 +89,13 @@
         </p>
 
         <figure class="buddy-figure buddy-figure--hero">
-          <img src="assets/buddy/buddy-working.webp" width="1400" height="1050" alt="Buddy auf dem Schreibtisch: Das kleine Touch-Display zeigt den Zustand WORKING für eine Codex-Session am Projekt _FIRMA auf dem Branch main, daneben das angeschlossene OpenAI-Logo und Pfeile zum Blättern." loading="lazy" decoding="async" />
-          <figcaption>Status auf einen Blick: Hier arbeitet eine Codex-Session am Projekt <code>_FIRMA</code> auf dem Branch <code>main</code> – Zustand <code>WORKING</code>, ohne in den Terminal-Tab zu wechseln.</figcaption>
+          <img src="assets/buddy/buddy-working.webp" srcset="assets/buddy/buddy-working-720.webp 720w, assets/buddy/buddy-working.webp 1400w" sizes="(max-width: 767px) calc(100vw - 3rem), 45rem" width="1400" height="1050" data-i18n-attr="alt:figures.hero.alt" alt="Buddy auf dem Schreibtisch: Das kleine Touch-Display zeigt den Zustand WORKING für eine Codex-Session am Projekt _FIRMA auf dem Branch main, daneben das angeschlossene OpenAI-Logo und Pfeile zum Blättern." loading="lazy" decoding="async" />
+          <figcaption data-i18n="figures.hero.caption" data-i18n-html="">Status auf einen Blick: Hier arbeitet eine Codex-Session am Projekt <code>_FIRMA</code> auf dem Branch <code>main</code> – Zustand <code>WORKING</code>, ohne in den Terminal-Tab zu wechseln.</figcaption>
         </figure>
 
         <div class="buddy-update">
-          <p class="gl-eyebrow">Update</p>
-          <p>
+          <p class="gl-eyebrow" data-i18n="update.eyebrow">Update</p>
+          <p data-i18n="update.body" data-i18n-html="">
             Buddy läuft jetzt auch <strong>mobil</strong>: Mit einem kleinen LiPo-Akku braucht das Gerät kein dauerhaftes
             USB-Kabel mehr und kann frei auf dem Schreibtisch stehen. Die <code>STATUS</code>-Seite zeigt Ladezustand und
             Spannung an, neue Firmware lässt sich danach drahtlos per BLE einspielen. Passt direkt:
@@ -103,8 +103,8 @@
           </p>
         </div>
 
-        <h2>Worauf Buddy aufsetzt</h2>
-        <p>
+        <h2 data-i18n="stack.heading">Worauf Buddy aufsetzt</h2>
+        <p data-i18n="stack.1" data-i18n-html="">
           Der eigentliche Code in diesem Projekt ist überschaubar – das Interessante ist die Kombination.
           Buddy besteht aus zwei Teilen. Auf dem Mikrocontroller läuft eine eigene Firmware, geschrieben in nativem
           Arduino/PlatformIO. Diesen Weg hat das Projekt bewusst gewählt, weil das Waveshare-Board einen
@@ -113,18 +113,18 @@
           verlässliche Pfad für dieses Board.
         </p>
         <figure class="buddy-figure">
-          <img src="assets/buddy/buddy-board.webp" width="1400" height="1050" alt="Nahaufnahme des unverbauten Waveshare ESP32-S3-Touch-LCD-1.69-Boards mit beschrifteten Pins, ESP32-S3-Chip und angeschlossenem USB-C-Kabel." loading="lazy" decoding="async" />
-          <figcaption>Das ganze Gerät: ein Waveshare <strong>ESP32-S3-Touch-LCD-1.69</strong> – hier noch ohne Gehäuse, direkt am USB-C. <a href="https://www.amazon.de/Waveshare-ESP32-S3-Development-Accelerometer-Gyroscope/dp/B0D3GDH7VD/" target="_blank" rel="noopener">Auf amazon.de ansehen ↗</a></figcaption>
+          <img src="assets/buddy/buddy-board.webp" srcset="assets/buddy/buddy-board-720.webp 720w, assets/buddy/buddy-board.webp 1400w" sizes="(max-width: 767px) calc(100vw - 3rem), 45rem" width="1400" height="1050" data-i18n-attr="alt:figures.board.alt" alt="Nahaufnahme des unverbauten Waveshare ESP32-S3-Touch-LCD-1.69-Boards mit beschrifteten Pins, ESP32-S3-Chip und angeschlossenem USB-C-Kabel." loading="lazy" decoding="async" />
+          <figcaption data-i18n="figures.board.caption" data-i18n-html="">Das ganze Gerät: ein Waveshare <strong>ESP32-S3-Touch-LCD-1.69</strong> – hier noch ohne Gehäuse, direkt am USB-C. <a href="https://www.amazon.de/Waveshare-ESP32-S3-Development-Accelerometer-Gyroscope/dp/B0D3GDH7VD/" target="_blank" rel="noopener">Auf amazon.de ansehen ↗</a></figcaption>
         </figure>
-        <p>
+        <p data-i18n="stack.2" data-i18n-html="">
           Der zweite Teil sind Python-Werkzeuge auf dem Mac, die den Zustand der Agenten beobachten und über die passende
           Verbindung an Buddy schicken. Das Board meldet sich als native USB-Serial-Schnittstelle und stellt zusätzlich
           einen BLE-Dienst namens <code>Buddy</code> bereit. Die BLE-Brücke nutzt die Bibliothek <code>bleak</code> –
           eine der wenigen echten externen Abhängigkeiten.
         </p>
 
-        <h2>Wie es technisch funktioniert</h2>
-        <p>
+        <h2 data-i18n="how.heading">Wie es technisch funktioniert</h2>
+        <p data-i18n="how.1">
           Der Kern ist ein einfaches Kommando-Tool. Man sagt Buddy von der Kommandozeile aus, in welchem Zustand eine
           benannte Agenten-Session ist:
         </p>
@@ -134,7 +134,7 @@ python3 tools/buddy_signal.py approval codex
 python3 tools/buddy_signal.py question claude
 python3 tools/buddy_signal.py error pi
 python3 tools/buddy_signal.py idle</code></pre>
-        <p>
+        <p data-i18n="how.2" data-i18n-html="">
           Für echte Benachrichtigungen mit Projektkontext gibt es <code>buddy_notify.py</code>. Es schickt einen
           strukturierten Payload aus Zustand, Projektordner, Branch und einem stabilen Fokus-Schlüssel – damit mehrere
           Sessions im selben Projekt und Branch auf dem Display getrennt bleiben. Interessant wird es durch die
@@ -143,7 +143,7 @@ python3 tools/buddy_signal.py idle</code></pre>
           oder <code>error</code>, je nachdem, was der Agent gerade tut. Die Standard-Verbindung ist
           <code>auto</code>: Existiert der BLE-Brücken-Socket, wird zuerst BLE versucht, sonst USB-Serial.
         </p>
-        <p>
+        <p data-i18n="how.3" data-i18n-html="">
           Buddy ist nicht nur Anzeige, sondern auch Eingabe. Zeigt das Display <code>DONE</code>, holt ein Tippen auf
           den Touchscreen die passende Mac-App in den Vordergrund – Codex-Desktop-Sessions aktivieren Codex,
           Ghostty-gestartete Terminal-Agenten holen den exakten Ghostty-Tab nach vorn. Das Display behält die letzten
@@ -154,13 +154,13 @@ python3 tools/buddy_signal.py idle</code></pre>
         </p>
         <figure class="buddy-figure">
           <video src="assets/buddy/buddy-demo.mp4" poster="assets/buddy/buddy-demo-poster.webp" width="1280" height="720" controls muted loop playsinline preload="none"></video>
-          <figcaption>Buddy in Aktion neben dem Mac: Der Zustand folgt automatisch der laufenden Agenten-Session – ein Tippen auf den Touchscreen holt anschließend den passenden Tab nach vorn.</figcaption>
+          <figcaption data-i18n="figures.demo.caption">Buddy in Aktion neben dem Mac: Der Zustand folgt automatisch der laufenden Agenten-Session – ein Tippen auf den Touchscreen holt anschließend den passenden Tab nach vorn.</figcaption>
         </figure>
 
-        <aside class="gl-pull">„Ein Blick zur Seite statt zehn Tab-Wechsel – der Status der Agenten wandert vom Bildschirm auf den Schreibtisch."</aside>
+        <aside class="gl-pull" data-i18n="pull.quote">„Ein Blick zur Seite statt zehn Tab-Wechsel – der Status der Agenten wandert vom Bildschirm auf den Schreibtisch."</aside>
 
-        <h2>Selbst ausprobieren</h2>
-        <p>
+        <h2 data-i18n="try.heading">Selbst ausprobieren</h2>
+        <p data-i18n="try.1" data-i18n-html="">
           Man braucht das passende
           <a href="https://www.amazon.de/Waveshare-ESP32-S3-Development-Accelerometer-Gyroscope/dp/B0D3GDH7VD/" target="_blank" rel="noopener">Waveshare-Board</a> und einen Mac. Die Firmware wird mit einem virtuellen Environment und
           PlatformIO gebaut und geflasht:
@@ -171,21 +171,21 @@ python3 -m pip install -r requirements.txt
 
 make PIO=.venv/bin/platformio build
 make PIO=.venv/bin/platformio PORT=/dev/cu.usbmodem101 flash</code></pre>
-        <p>
+        <p data-i18n="try.2">
           Danach steuern die Python-Tools das Gerät. Wer drahtlos arbeiten will, startet zusätzlich die BLE-Brücke, die
           eine dauerhafte Verbindung hält und einen lokalen Unix-Socket bereitstellt. Das gesamte Projekt steht unter der
           MIT-Lizenz frei zur Verfügung.
         </p>
         <figure class="buddy-figure">
           <div class="buddy-grid">
-            <img src="assets/buddy/buddy-status.webp" width="1400" height="1050" alt="Buddy im Akkubetrieb auf einem LiPo-Akku liegend, das Display zeigt die STATUS-Ansicht mit 76 Prozent Akkustand und 3,97 Volt." loading="lazy" decoding="async" />
-            <img src="assets/buddy/buddy-ota-angle.webp" width="1400" height="1050" alt="Buddy auf einem LiPo-Akku, das Display zeigt ein laufendes Firmware-Update über die OTA-Ansicht mit Fortschrittsbalken." loading="lazy" decoding="async" />
+            <img src="assets/buddy/buddy-status.webp" srcset="assets/buddy/buddy-status-720.webp 720w, assets/buddy/buddy-status.webp 1400w" sizes="(max-width: 560px) 100vw, 36ch" width="1400" height="1050" data-i18n-attr="alt:figures.status.alt" alt="Buddy im Akkubetrieb auf einem LiPo-Akku liegend, das Display zeigt die STATUS-Ansicht mit 76 Prozent Akkustand und 3,97 Volt." loading="lazy" decoding="async" />
+            <img src="assets/buddy/buddy-ota-angle.webp" srcset="assets/buddy/buddy-ota-angle-720.webp 720w, assets/buddy/buddy-ota-angle.webp 1400w" sizes="(max-width: 560px) 100vw, 36ch" width="1400" height="1050" data-i18n-attr="alt:figures.ota.alt" alt="Buddy auf einem LiPo-Akku, das Display zeigt ein laufendes Firmware-Update über die OTA-Ansicht mit Fortschrittsbalken." loading="lazy" decoding="async" />
           </div>
-          <figcaption>Auch mobil nutzbar: links die <code>STATUS</code>-Ansicht mit Akkustand im Batteriebetrieb (hier mit <a href="https://www.amazon.de/dp/B0F18ST3K5" target="_blank" rel="noopener">diesem LiPo-Akku</a>), rechts ein Firmware-Update direkt auf dem Gerät (OTA) – ganz ohne Kabel-Reflash.</figcaption>
+          <figcaption data-i18n="figures.grid.caption" data-i18n-html="">Auch mobil nutzbar: links die <code>STATUS</code>-Ansicht mit Akkustand im Batteriebetrieb (hier mit <a href="https://www.amazon.de/dp/B0F18ST3K5" target="_blank" rel="noopener">diesem LiPo-Akku</a>), rechts ein Firmware-Update direkt auf dem Gerät (OTA) – ganz ohne Kabel-Reflash.</figcaption>
         </figure>
 
-        <h2>Eine ehrliche Einschränkung</h2>
-        <p>
+        <h2 data-i18n="limits.heading">Eine ehrliche Einschränkung</h2>
+        <p data-i18n="limits.1" data-i18n-html="">
           Buddy ist kein poliertes Produkt, sondern ein persönliches Werkzeug für mein lokales Setup. Es ist eng auf
           macOS zugeschnitten: Die LaunchAgents, das Aktivieren der richtigen App und die
           Touch-to-Focus-Funktion setzen macOS voraus, das exakte Ansteuern eines Codex-Fensters braucht zudem die
@@ -195,16 +195,16 @@ make PIO=.venv/bin/platformio PORT=/dev/cu.usbmodem101 flash</code></pre>
           also nicht ohne Weiteres so übernehmen – aber als Vorlage für eigene physische Signale ist das Konzept gut
           übertragbar.
         </p>
-        <p>
+        <p data-i18n="limits.2" data-i18n-html="">
           Der gesamte Code liegt offen auf
           <a href="https://github.com/tjansn/Buddy" target="_blank" rel="noopener">github.com/tjansn/Buddy</a> –
           inklusive Firmware, Python-Tools und den LaunchAgent-Definitionen.
         </p>
       </article>
 
-      <nav class="tj-post-nav" aria-label="Weitere Notizen">
-        <a href="draco-pi-fusion-benchmark.html" rel="prev"><span class="gl-meta">← Älterer Artikel</span><strong>DRACO mit pi und pi-fusion: was unser Lauf wirklich zeigt</strong></a>
-        <a href="pi-fusion.html" rel="next"><span class="gl-meta">Neuerer Artikel →</span><strong>pi-fusion: Wenn mehrere Modelle gemeinsam recherchieren</strong></a>
+      <nav class="tj-post-nav" aria-label="Weitere Notizen" data-i18n-attr="aria-label:postnav.label">
+        <a href="draco-pi-fusion-benchmark.html" rel="prev"><span class="gl-meta" data-i18n="postnav.older">← Älterer Artikel</span><strong data-i18n="postnav.prevTitle">DRACO mit pi und pi-fusion: was unser Lauf wirklich zeigt</strong></a>
+        <a href="pi-fusion.html" rel="next"><span class="gl-meta" data-i18n="postnav.newer">Neuerer Artikel →</span><strong data-i18n="postnav.nextTitle">pi-fusion: Wenn mehrere Modelle gemeinsam recherchieren</strong></a>
       </nav>
     </main>
 
@@ -234,6 +234,58 @@ make PIO=.venv/bin/platformio PORT=/dev/cu.usbmodem101 flash</code></pre>
         </div>
       </div>
     </footer>
+    <script>
+      window.GL_DEFAULT_LANGUAGE = "de";
+      // German ships in the markup; commercial-pages.js reads it back as the "de" dictionary.
+      window.GL_PAGE_COPY = {
+        en: {
+          "nav.profile": "Profile",
+          "nav.projects": "Projects",
+          "nav.notes": "Notes",
+          "meta.title": "Buddy: a physical status light for local AI agents | Tom Jansen Notes",
+          "meta.description": "Buddy turns a small ESP32-S3 touch display into a physical status light for local coding agents like Codex, Claude and Pi, over USB or Bluetooth LE. An honest look at the hardware, firmware and tooling.",
+          "meta.ogTitle": "Buddy: a physical status light for local AI agents",
+          "meta.ogDescription": "An ESP32-S3 touchscreen that shows whether your coding agent is working, done or waiting for approval, over USB or BLE. A tap brings the right Mac session to the front.",
+          "hero.eyebrow": "Open source · Hardware",
+          "hero.title": "Buddy: a physical <em>status light</em> for local AI agents",
+          "hero.meta": "Tom Jansen · 22 June 2026 · 6 min read",
+          "hero.github": "View on GitHub →",
+          "intro.1": "Anyone running several coding agents side by side on a Mac (Codex, Claude, maybe a Pi session too) knows the problem: you never quite know which session is working, which one is done and which one has been waiting ten minutes for an approval. Switching between terminal tabs all the time to check costs attention. Buddy is my attempt to get that status out of the tabs: a small physical display on the desk instead of yet another window on the screen.",
+          "intro.2": "Buddy turns a connected <a href=\"https://www.amazon.de/Waveshare-ESP32-S3-Development-Accelerometer-Gyroscope/dp/B0D3GDH7VD/\" target=\"_blank\" rel=\"noopener\"><strong>Waveshare ESP32-S3-Touch-LCD-1.69</strong></a> into a signal for local agents and scripts, driven over USB or Bluetooth LE. The display shows one state per session: <code>WORKING</code>, <code>DONE</code>, <code>APPROVAL</code>, <code>QUESTION</code> or <code>ERROR</code>. A glance to the side is enough. No need to break focus.",
+          "figures.hero.alt": "Buddy on the desk: the small touch display shows the state WORKING for a Codex session on the project _FIRMA on the branch main, with the OpenAI logo and paging arrows beside it.",
+          "figures.hero.caption": "Status at a glance: a Codex session is working on the project <code>_FIRMA</code> on the branch <code>main</code>. State <code>WORKING</code>, without switching to the terminal tab.",
+          "update.eyebrow": "Update",
+          "update.body": "Buddy now also runs <strong>unplugged</strong>: with a small LiPo battery the device no longer needs a permanent USB cable and can sit anywhere on the desk. The <code>STATUS</code> page shows charge level and voltage, and new firmware can then be flashed wirelessly over BLE. A direct fit: <a href=\"https://www.amazon.de/dp/B0F18ST3K5\" target=\"_blank\" rel=\"noopener\">this 3.7 V LiPo battery on amazon.de ↗</a>.",
+          "stack.heading": "What Buddy builds on",
+          "stack.1": "The actual code in this project is small. The interesting part is the combination. Buddy has two parts. The microcontroller runs its own firmware, written in native Arduino/PlatformIO. That was a deliberate choice because the Waveshare board has to set a power latch (<code>SYS_EN</code>) early in the boot process. An older MicroPython experiment is still in the repo under <code>device/main.py</code>, but the native firmware in <code>src/main.cpp</code> is the reliable path for this board.",
+          "figures.board.alt": "Close-up of the bare Waveshare ESP32-S3-Touch-LCD-1.69 board with labelled pins, the ESP32-S3 chip and a USB-C cable plugged in.",
+          "figures.board.caption": "The whole device: a Waveshare <strong>ESP32-S3-Touch-LCD-1.69</strong>, here still without a case and plugged straight into USB-C. <a href=\"https://www.amazon.de/Waveshare-ESP32-S3-Development-Accelerometer-Gyroscope/dp/B0D3GDH7VD/\" target=\"_blank\" rel=\"noopener\">View on amazon.de ↗</a>",
+          "stack.2": "The second part is a set of Python tools on the Mac that watch the agents' state and send it to Buddy over whichever connection fits. The board shows up as a native USB serial interface and also offers a BLE service named <code>Buddy</code>. The BLE bridge uses the <code>bleak</code> library, one of the few real external dependencies.",
+          "how.heading": "How it works",
+          "how.1": "The core is a simple command line tool. You tell Buddy from the shell which state a named agent session is in:",
+          "how.2": "For real notifications with project context there is <code>buddy_notify.py</code>. It sends a structured payload of state, project folder, branch and a stable focus key so that several sessions in the same project and branch stay separate on the display. The automation is where it gets interesting: three LaunchAgents on the Mac watch the local session logs of Codex, Claude and Pi and send <code>busy</code>, <code>done</code>, <code>approval</code>, <code>question</code> or <code>error</code> on their own, depending on what the agent is doing. The default connection is <code>auto</code>: if the BLE bridge socket exists, BLE is tried first, otherwise USB serial.",
+          "how.3": "Buddy is input as well as output. When the display shows <code>DONE</code>, a tap on the touchscreen brings the matching Mac app to the front. Codex desktop sessions activate Codex. Terminal agents started from Ghostty bring the exact Ghostty tab forward. The display keeps the last 25 sessions and two large touch areas at the bottom page left and right. To make the runner obvious at a glance, the UI uses each vendor's typical colours: warm ivory and terracotta for Claude/Anthropic, a light neutral grey with green accents for Codex/OpenAI and a dark terminal look with cyan for Pi.",
+          "figures.demo.caption": "Buddy in action next to the Mac: the state follows the running agent session on its own. A tap on the touchscreen then brings the matching tab to the front.",
+          "pull.quote": "“A glance to the side instead of ten tab switches. The agents' status moves from the screen to the desk.”",
+          "try.heading": "Try it yourself",
+          "try.1": "You need the matching <a href=\"https://www.amazon.de/Waveshare-ESP32-S3-Development-Accelerometer-Gyroscope/dp/B0D3GDH7VD/\" target=\"_blank\" rel=\"noopener\">Waveshare board</a> and a Mac. The firmware is built and flashed with a virtual environment and PlatformIO:",
+          "try.2": "After that the Python tools drive the device. If you want to go wireless, also start the BLE bridge, which keeps a persistent connection and provides a local Unix socket. The whole project is available under the MIT licence.",
+          "figures.status.alt": "Buddy running on battery on top of a LiPo pack. The display shows the STATUS view with 76 percent charge and 3.97 volts.",
+          "figures.ota.alt": "Buddy on a LiPo battery. The display shows a firmware update in progress in the OTA view with a progress bar.",
+          "figures.grid.caption": "Works unplugged too. Left: the <code>STATUS</code> view with the charge level on battery (here with <a href=\"https://www.amazon.de/dp/B0F18ST3K5\" target=\"_blank\" rel=\"noopener\">this LiPo battery</a>). Right: a firmware update straight on the device (OTA), no cable reflash needed.",
+          "limits.heading": "An honest caveat",
+          "limits.1": "Buddy is not a polished product. It is a personal tool for my local setup and it is tightly bound to macOS: the LaunchAgents, activating the right app and the touch-to-focus function all require macOS, and targeting a specific Codex window also needs the Accessibility permission for <code>osascript</code>. On macOS CoreBluetooth also wants a small app wrapper with a Bluetooth usage description. Otherwise the plain command line Python process can abort before the permission dialog even appears. Without a Waveshare board and a Mac you cannot simply take Buddy over as it is, but as a template for your own physical signals the concept carries over well.",
+          "limits.2": "All of the code is public at <a href=\"https://github.com/tjansn/Buddy\" target=\"_blank\" rel=\"noopener\">github.com/tjansn/Buddy</a>, including the firmware, the Python tools and the LaunchAgent definitions.",
+          "postnav.label": "More notes",
+          "postnav.older": "← Older article",
+          "postnav.prevTitle": "DRACO with pi and pi-fusion: what our run actually shows",
+          "postnav.newer": "Newer article →",
+          "postnav.nextTitle": "pi-fusion: when several models research together",
+          "footer.privacyLink": "Privacy",
+          "footer.languageLabel": "Language"
+        }
+      };
+    </script>
     <script src="../commercial-pages.js"></script>
     <script src="../archetype-pages.js"></script>
   </body>
