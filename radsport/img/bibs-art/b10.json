@@ -1,0 +1,41 @@
+{
+ "id": "b10",
+ "w": 884,
+ "h": 900,
+ "photoRect": [
+  -20.4,
+  7.0,
+  906.4,
+  885.0
+ ],
+ "number": "41",
+ "digits": [
+  {
+   "d": "4",
+   "state": "ink"
+  },
+  {
+   "d": "1",
+   "state": "ink"
+  }
+ ],
+ "reconstructed": [
+  {
+   "de": "Linker Rand (unter einer anderen Nummer): Tyvek, ein Nadelloch.",
+   "en": "Left edge (under another number): Tyvek, a pin hole."
+  }
+ ],
+ "reconstructedShare": 0.063,
+ "model": "FLUX.2 [klein] 4B (Apache-2.0)",
+ "paper": [
+  245,
+  249,
+  248
+ ],
+ "files": {
+  "art": "b10.webp",
+  "order": "b10-order.webp",
+  "recon": "b10-recon.png"
+ },
+ "photo": "img/bibs/b10.webp"
+}

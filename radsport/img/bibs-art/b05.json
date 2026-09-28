@@ -1,0 +1,49 @@
+{
+ "id": "b05",
+ "w": 796,
+ "h": 900,
+ "photoRect": [
+  -102.3,
+  47.7,
+  840.7,
+  854.4
+ ],
+ "number": "165",
+ "digits": [
+  {
+   "d": "1",
+   "state": "ink"
+  },
+  {
+   "d": "6",
+   "state": "ink"
+  },
+  {
+   "d": "5",
+   "state": "ink"
+  }
+ ],
+ "reconstructed": [
+  {
+   "de": "Oberer Rand (außerhalb des Fotos): Tyvek, die oberen Enden der 1, 6 und 5.",
+   "en": "Top edge (beyond the photo's edge): Tyvek, the tops of the 1, 6 and 5."
+  },
+  {
+   "de": "Rechter Teil und unterer Teil (unter einer anderen Nummer): Tyvek.",
+   "en": "Right part and lower part (under another number): Tyvek."
+  }
+ ],
+ "reconstructedShare": 0.208,
+ "model": "FLUX.2 [klein] 4B (Apache-2.0)",
+ "paper": [
+  249,
+  250,
+  244
+ ],
+ "files": {
+  "art": "b05.webp",
+  "order": "b05-order.webp",
+  "recon": "b05-recon.png"
+ },
+ "photo": "img/bibs/b05.webp"
+}

@@ -1,0 +1,45 @@
+{
+ "id": "b17",
+ "w": 900,
+ "h": 826,
+ "photoRect": [
+  109.3,
+  8.3,
+  699.9,
+  588.7
+ ],
+ "number": "77",
+ "digits": [
+  {
+   "d": "7",
+   "state": "ink"
+  },
+  {
+   "d": "7",
+   "state": "ink"
+  }
+ ],
+ "reconstructed": [
+  {
+   "de": "Fast das ganze Blatt (unter anderen Nummern): Papier und die 77. Die Nummer ist aus Startliste und Rennfotos bekannt; auf dem Wandfoto zeigt sich nur eine Ecke der zweiten 7.",
+   "en": "Almost the whole sheet (under other numbers): paper and the 77. The number is known from the start list and race photos; the wall photo shows only one corner of the second 7."
+  },
+  {
+   "de": "Unten (unter anderen Nummern): das rote Logo „Sparkasse Mansfeld-Südharz“ mit dem S-Zeichen, wie auf dem Rahmenschild dieses Rennens. Zu sehen sind nur „…e“ und „…d-Sü…“.",
+   "en": "Bottom (under other numbers): the red “Sparkasse Mansfeld-Südharz” logo with its S symbol, as on this race's frame plate. Only “…e” and “…d-Sü…” show."
+  }
+ ],
+ "reconstructedShare": 0.818,
+ "model": "FLUX.2 [klein] 4B (Apache-2.0)",
+ "paper": [
+  247,
+  248,
+  249
+ ],
+ "files": {
+  "art": "b17.webp",
+  "order": "b17-order.webp",
+  "recon": "b17-recon.png"
+ },
+ "photo": "img/bibs/b17.webp"
+}

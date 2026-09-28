@@ -1,0 +1,53 @@
+{
+ "id": "b22",
+ "w": 792,
+ "h": 900,
+ "photoRect": [
+  43.7,
+  -2.3,
+  768.0,
+  935.9
+ ],
+ "number": "114",
+ "digits": [
+  {
+   "d": "1",
+   "state": "ink"
+  },
+  {
+   "d": "1",
+   "state": "ink"
+  },
+  {
+   "d": "4",
+   "state": "ink"
+  }
+ ],
+ "reconstructed": [
+  {
+   "de": "Linker Rand (unter einer anderen Nummer): Papier und das Ende der blauen Linie.",
+   "en": "Left edge (under another number): paper and the end of the blue rule."
+  },
+  {
+   "de": "Unterer Teil (unter zwei anderen Nummern): Papier, die Unterkante des Brückenlogos und das Ende der kleinen Zeile „ΡΙΟΥ-ΑΝΤΙΡΡΙΟΥ“; auf dem Foto ist sie nur bis „ΑΝΤΙΡ“ zu lesen.",
+   "en": "Lower part (under two other numbers): paper, the lower edge of the bridge logo and the end of the small line “ΡΙΟΥ-ΑΝΤΙΡΡΙΟΥ”; the photo shows it only up to “ΑΝΤΙΡ”."
+  },
+  {
+   "de": "Ecke oben rechts (unter einer anderen Nummer): Papier; der Knick dort ist glatt gezeichnet.",
+   "en": "Top-right corner (under another number): paper; the crease there is drawn flat."
+  }
+ ],
+ "reconstructedShare": 0.216,
+ "model": "FLUX.2 [klein] 4B (Apache-2.0)",
+ "paper": [
+  247,
+  248,
+  246
+ ],
+ "files": {
+  "art": "b22.webp",
+  "order": "b22-order.webp",
+  "recon": "b22-recon.png"
+ },
+ "photo": "img/bibs/b22.webp"
+}

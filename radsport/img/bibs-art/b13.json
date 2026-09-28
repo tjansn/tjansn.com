@@ -1,0 +1,49 @@
+{
+ "id": "b13",
+ "w": 900,
+ "h": 514,
+ "photoRect": [
+  19.0,
+  -3.5,
+  751.6,
+  520.5
+ ],
+ "number": "104",
+ "digits": [
+  {
+   "d": "1",
+   "state": "ink"
+  },
+  {
+   "d": "0",
+   "state": "ink"
+  },
+  {
+   "d": "4",
+   "state": "ink"
+  }
+ ],
+ "reconstructed": [
+  {
+   "de": "Rechter Teil (unter einer anderen Nummer): Papier und der Teambuchstabe A hinter der 104. Auf dem Foto ist nur sein Fuß zu sehen; 104A steht in der Zeitmessung und auf meinem Helm.",
+   "en": "Right part (under another number): paper and the team letter A after 104. The photo shows only its foot; 104A is in the timing and on my helmet."
+  },
+  {
+   "de": "Linker Rand: ein schmaler Streifen Papier, damit der Anstrich der 1 sauber endet (auf dem Foto läuft er bis an den Rand).",
+   "en": "Left edge: a thin strip of paper so the flag of the 1 ends cleanly (on the photo it runs to the edge)."
+  }
+ ],
+ "reconstructedShare": 0.228,
+ "model": "FLUX.2 [klein] 4B (Apache-2.0)",
+ "paper": [
+  255,
+  220,
+  111
+ ],
+ "files": {
+  "art": "b13.webp",
+  "order": "b13-order.webp",
+  "recon": "b13-recon.png"
+ },
+ "photo": "img/bibs/b13.webp"
+}

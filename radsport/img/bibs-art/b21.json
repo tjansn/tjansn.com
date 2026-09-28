@@ -1,0 +1,45 @@
+{
+ "id": "b21",
+ "w": 826,
+ "h": 900,
+ "photoRect": [
+  45.4,
+  5.9,
+  780.2,
+  896.7
+ ],
+ "number": "41",
+ "digits": [
+  {
+   "d": "4",
+   "state": "ink"
+  },
+  {
+   "d": "1",
+   "state": "ink"
+  }
+ ],
+ "reconstructed": [
+  {
+   "de": "Ecke oben rechts (unter einer anderen Nummer): Tyvek.",
+   "en": "Top-right corner (under another number): Tyvek."
+  },
+  {
+   "de": "Unterer Rand (unter einer anderen Nummer): Tyvek, blaues Band.",
+   "en": "Bottom edge (under another number): Tyvek, blue band."
+  }
+ ],
+ "reconstructedShare": 0.097,
+ "model": "FLUX.2 [klein] 4B (Apache-2.0)",
+ "paper": [
+  247,
+  248,
+  244
+ ],
+ "files": {
+  "art": "b21.webp",
+  "order": "b21-order.webp",
+  "recon": "b21-recon.png"
+ },
+ "photo": "img/bibs/b21.webp"
+}

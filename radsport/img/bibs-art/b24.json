@@ -1,0 +1,45 @@
+{
+ "id": "b24",
+ "w": 784,
+ "h": 900,
+ "photoRect": [
+  6.0,
+  7.0,
+  777.1,
+  896.1
+ ],
+ "number": "185",
+ "digits": [
+  {
+   "d": "1",
+   "state": "ink"
+  },
+  {
+   "d": "8",
+   "state": "ink"
+  },
+  {
+   "d": "5",
+   "state": "ink"
+  }
+ ],
+ "reconstructed": [
+  {
+   "de": "Rechter Rand (unter einer anderen Nummer): Tyvek, „…del“ von „Drankenhandel“, ein Teil der 5.",
+   "en": "Right edge (under another number): Tyvek, “…del” of “Drankenhandel”, part of the 5."
+  }
+ ],
+ "reconstructedShare": 0.1,
+ "model": "FLUX.2 [klein] 4B (Apache-2.0)",
+ "paper": [
+  247,
+  247,
+  245
+ ],
+ "files": {
+  "art": "b24.webp",
+  "order": "b24-order.webp",
+  "recon": "b24-recon.png"
+ },
+ "photo": "img/bibs/b24.webp"
+}

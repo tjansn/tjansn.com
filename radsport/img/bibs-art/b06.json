@@ -1,0 +1,45 @@
+{
+ "id": "b06",
+ "w": 711,
+ "h": 900,
+ "photoRect": [
+  -0.7,
+  41.7,
+  803.0,
+  864.2
+ ],
+ "number": "99",
+ "digits": [
+  {
+   "d": "9",
+   "state": "ink"
+  },
+  {
+   "d": "9",
+   "state": "ink"
+  }
+ ],
+ "reconstructed": [
+  {
+   "de": "Oberer Rand (außerhalb des Fotos): Papier.",
+   "en": "Top edge (beyond the photo's edge): paper."
+  },
+  {
+   "de": "Rechter Teil (unter einer anderen Nummer): Papier, das zweite „t“ von „Tageblatt“, „…RG“ von „ZEITUNG FIR LËTZEBUERG“ und das Ende der roten Linie.",
+   "en": "Right part (under another number): paper, the second “t” of “Tageblatt”, “…RG” of “ZEITUNG FIR LËTZEBUERG” and the end of the red rule."
+  }
+ ],
+ "reconstructedShare": 0.203,
+ "model": "FLUX.2 [klein] 4B (Apache-2.0)",
+ "paper": [
+  250,
+  252,
+  250
+ ],
+ "files": {
+  "art": "b06.webp",
+  "order": "b06-order.webp",
+  "recon": "b06-recon.png"
+ },
+ "photo": "img/bibs/b06.webp"
+}

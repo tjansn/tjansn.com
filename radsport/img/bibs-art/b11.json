@@ -1,0 +1,45 @@
+{
+ "id": "b11",
+ "w": 900,
+ "h": 702,
+ "photoRect": [
+  49.8,
+  6.4,
+  855.1,
+  689.8
+ ],
+ "number": "143",
+ "digits": [
+  {
+   "d": "1",
+   "state": "ink"
+  },
+  {
+   "d": "4",
+   "state": "ink"
+  },
+  {
+   "d": "3",
+   "state": "ink"
+  }
+ ],
+ "reconstructed": [
+  {
+   "de": "Oberer Teil und linker Teil (unter einer anderen Nummer): Papier, die oberen Enden der 1, 4 und 3.",
+   "en": "Upper part and left part (under another number): paper, the tops of the 1, 4 and 3."
+  }
+ ],
+ "reconstructedShare": 0.5,
+ "model": "FLUX.2 [klein] 4B (Apache-2.0)",
+ "paper": [
+  249,
+  251,
+  249
+ ],
+ "files": {
+  "art": "b11.webp",
+  "order": "b11-order.webp",
+  "recon": "b11-recon.png"
+ },
+ "photo": "img/bibs/b11.webp"
+}

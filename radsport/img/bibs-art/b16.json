@@ -1,0 +1,45 @@
+{
+ "id": "b16",
+ "w": 824,
+ "h": 900,
+ "photoRect": [
+  -3.5,
+  6.3,
+  828.7,
+  888.2
+ ],
+ "number": "49",
+ "digits": [
+  {
+   "d": "4",
+   "state": "ink"
+  },
+  {
+   "d": "9",
+   "state": "ink"
+  }
+ ],
+ "reconstructed": [
+  {
+   "de": "Ecke oben links und oberer Rand (unter anderen Nummern): Papier.",
+   "en": "Top-left corner and top edge (under other numbers): paper."
+  },
+  {
+   "de": "Unterer Rand in der Mitte (unter einer anderen Nummer): Papier.",
+   "en": "Bottom edge in the middle (under another number): paper."
+  }
+ ],
+ "reconstructedShare": 0.092,
+ "model": "FLUX.2 [klein] 4B (Apache-2.0)",
+ "paper": [
+  244,
+  247,
+  246
+ ],
+ "files": {
+  "art": "b16.webp",
+  "order": "b16-order.webp",
+  "recon": "b16-recon.png"
+ },
+ "photo": "img/bibs/b16.webp"
+}

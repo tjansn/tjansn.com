@@ -1,0 +1,581 @@
+{
+ "version": 1,
+ "units": {
+  "u": "1/2000 of the collage width (about 0.93 mm on the real board); x right, y down",
+  "collage": [
+   0,
+   0,
+   2000,
+   1473
+  ],
+  "rect": "[x, y, w, h] in u; x, y of a picture = top-left of its unrotated box; rotation in degrees clockwise about the box centre; depth = distance from the bricks in u (shadows, parallax); window and glass = [x, y, w, h] in u inside the picture's own box",
+  "for": "lights[] and fixtures[] belong to the picture named in 'for' and show only with it"
+ },
+ "bricks": {
+  "albedo": [
+   {
+    "file": "img/room/bricks-3200.webp",
+    "w": 3200,
+    "h": 2000,
+    "pxPerU": 1.0,
+    "bytes": 467604
+   },
+   {
+    "file": "img/room/bricks-1600.webp",
+    "w": 1600,
+    "h": 1000,
+    "pxPerU": 0.5,
+    "bytes": 125874,
+    "use": "phones, Save-Data"
+   }
+  ],
+  "normal": {
+   "file": "img/room/bricks-normal-1600.webp",
+   "w": 1600,
+   "h": 1000,
+   "pxPerU": 0.5,
+   "bytes": 114712,
+   "encoding": "R = nx*0.5+0.5, G = ny*0.5+0.5 (image space: x right, y down, z to the viewer; the same convention as img/wall/wall-normal-1600.webp and the wall shader's world), B = height 0..1 (mortar low, brick faces and plaster high); lossy WebP, renormalise in the shader"
+  },
+  "lqip": {
+   "file": "img/room/bricks-lqip.webp",
+   "w": 40,
+   "h": 25,
+   "dataUri": "data:image/webp;base64,UklGRswAAABXRUJQVlA4IMAAAACwBACdASooABkAPtFgp0+oJaMiJWsxABoJZWBr+jZQAIUHpKhgHPr4w90SMqoAAP7tWMKnIe2/R2j7K+S69pEYZCdj25Q+EEPD6+m8Wx91M4u+4+TGMe4eFyfugymIeFMXPafYubwmK5lfco2poOOvZUpBf7dzTXgk3jy9+hWeFNJfP7hIbi24vSOAcou361MnFgthPAQbizGtTReNaGWnbUocOi/Q6GNo88VPiymKVSiRWiOmYZwhlLcwWh4AAAA="
+  },
+  "sizeU": [
+   3200,
+   2000
+  ],
+  "originU": [
+   -600,
+   -263.5
+  ],
+  "wrap": "repeat-x",
+  "note": "texture px = (wall u - originU) * pxPerU. Seamless in x; vertically it covers wall y -263.5..1736.5, more than any room layout shows (1440 x 900: -135..1608, phones: about -125..1598), and it gets darker towards the ceiling, so clamp it vertically (no y repeat). The middle (u 40..1960 x 40..1433) is always behind the board and is published smoothed; a plain x repeat is safe to +-3200 u around the collage, for even wider rooms use a mirrored repeat.",
+  "average": "#553b2d",
+  "bond": "Flemish bond, 30 courses of 66.7 u, stretchers 200 u, headers 94 u, lime joints 11 to 15 u",
+  "lighting": "albedo with ambient occlusion and a faint top light baked in; the GL tier relights with the normal map (raking lamp light), the DOM tier dims it and lets the CSS lamp dodge it"
+ },
+ "board": {
+  "frame": {
+   "file": "img/room/board-frame.webp",
+   "w": 2080,
+   "h": 1553,
+   "rect": [
+    -40,
+    -40,
+    2080,
+    1553
+   ],
+   "insetU": 40,
+   "slicePx": 40,
+   "bytes": 57012,
+   "note": "1 px = 1 u, black painted wood; inside the sight edge the image only carries a soft occlusion (alpha) that lies over the photo's edges. As a CSS border-image: slice 40 (no fill), width 40 u, repeat stretch."
+  },
+  "normal": {
+   "file": "img/room/board-frame-ngl.webp",
+   "w": 1040,
+   "h": 776,
+   "bytes": 5836,
+   "encoding": "R, G = normal x, y (as the bricks), B = gloss 0..1"
+  },
+  "shadow": {
+   "file": "img/room/board-shadow.webp",
+   "w": 580,
+   "h": 448,
+   "bytes": 1596,
+   "rect": [
+    -160,
+    -160,
+    2320,
+    1793
+   ],
+   "offsetU": [
+    6,
+    24
+   ],
+   "opacity": 0.9,
+   "note": "soft contact shadow of the whole board (black with alpha); move it away from the lamp by offsetU (the lamp hangs above left in front)"
+  },
+  "depth": 30
+ },
+ "pictures": [
+  {
+   "id": "muur",
+   "file": "img/room/muur.webp",
+   "normal": "img/room/muur-ngl.webp",
+   "px": [
+    475,
+    552
+   ],
+   "pxNormal": [
+    237,
+    276
+   ],
+   "w": 334.4,
+   "h": 388.6,
+   "x": -430,
+   "y": 150,
+   "rotation": 0.0,
+   "depth": 30,
+   "kind": "gilt",
+   "content": "generated",
+   "window": [
+    49.3,
+    49.3,
+    235.8,
+    290.4
+   ],
+   "glass": null,
+   "caption": {
+    "de": "Muur van Geraardsbergen",
+    "en": "Muur van Geraardsbergen"
+   },
+   "link": null,
+   "priority": 1,
+   "decorative": true,
+   "shadow": {
+    "dx": 3,
+    "dy": 21.5,
+    "blur": 26.0,
+    "opacity": 0.62
+   },
+   "bytes": 109072
+  },
+  {
+   "id": "hellas",
+   "file": "img/room/hellas.webp",
+   "normal": "img/room/hellas-ngl.webp",
+   "px": [
+    460,
+    354
+   ],
+   "pxNormal": [
+    230,
+    177
+   ],
+   "w": 323.8,
+   "h": 249.2,
+   "x": -424,
+   "y": 860,
+   "rotation": 0.6,
+   "depth": 18,
+   "kind": "cafe",
+   "content": "own-photo",
+   "window": [
+    51.0,
+    51.0,
+    221.8,
+    147.0
+   ],
+   "glass": [
+    19.4,
+    19.4,
+    285.1,
+    210.3
+   ],
+   "caption": {
+    "de": "Tour of Hellas 2006",
+    "en": "Tour of Hellas 2006"
+   },
+   "link": "2006-04-05-tour-of-hellas",
+   "priority": 1,
+   "decorative": false,
+   "shadow": {
+    "dx": 3,
+    "dy": 16.1,
+    "blur": 18.8,
+    "opacity": 0.62
+   },
+   "bytes": 15786,
+   "source": "radsport/img/photos/2006-04-05/01 (kb/photos/export/2006-04-09/DSCN0793.jpeg), rights own"
+  },
+  {
+   "id": "poster",
+   "file": "img/room/poster.webp",
+   "normal": "img/room/poster-ngl.webp",
+   "px": [
+    340,
+    445
+   ],
+   "pxNormal": [
+    170,
+    222
+   ],
+   "w": 239.4,
+   "h": 313.3,
+   "x": 2104,
+   "y": 170,
+   "rotation": -2.4,
+   "depth": 8,
+   "kind": "poster",
+   "content": "generated+typeset",
+   "window": [
+    8.8,
+    8.8,
+    221.8,
+    295.7
+   ],
+   "glass": [
+    8.8,
+    8.8,
+    221.8,
+    295.7
+   ],
+   "caption": {
+    "de": "Kermesse-Plakat, Groote Prijs van Koersegem",
+    "en": "Kermesse poster, Groote Prijs van Koersegem"
+   },
+   "link": null,
+   "priority": 1,
+   "decorative": true,
+   "shadow": {
+    "dx": 3,
+    "dy": 11.6,
+    "blur": 12.8,
+    "opacity": 0.62
+   },
+   "bytes": 33010
+  },
+  {
+   "id": "maxhuette",
+   "file": "img/room/maxhuette.webp",
+   "normal": "img/room/maxhuette-ngl.webp",
+   "px": [
+    378,
+    300
+   ],
+   "pxNormal": [
+    189,
+    150
+   ],
+   "w": 266.1,
+   "h": 211.2,
+   "x": 2104,
+   "y": 820,
+   "rotation": 0.0,
+   "depth": 16,
+   "kind": "walnut",
+   "content": "own-photo",
+   "window": [
+    41.4,
+    41.4,
+    183.0,
+    128.5
+   ],
+   "glass": [
+    13.2,
+    13.2,
+    239.4,
+    184.8
+   ],
+   "caption": {
+    "de": "24h-MTB-WM 2011, Maxhütte",
+    "en": "24-hour MTB Worlds 2011, Maxhütte"
+   },
+   "link": "2011-08-20-24h-mtb-wm-sulzbach-rosenberg",
+   "priority": 1,
+   "decorative": false,
+   "shadow": {
+    "dx": 3,
+    "dy": 15.2,
+    "blur": 17.6,
+    "opacity": 0.62
+   },
+   "bytes": 11324,
+   "source": "radsport/img/photos/2011-08-20/01 (kb/photos/export/2011-08-19/2011-08-19 13.52.42 HDR.jpeg), rights own"
+  },
+  {
+   "id": "flandrien",
+   "file": "img/room/flandrien.webp",
+   "normal": "img/room/flandrien-ngl.webp",
+   "px": [
+    402,
+    346
+   ],
+   "pxNormal": [
+    201,
+    173
+   ],
+   "w": 283.0,
+   "h": 243.6,
+   "x": 2574,
+   "y": 620,
+   "rotation": 0.0,
+   "depth": 20,
+   "kind": "oak",
+   "content": "generated",
+   "window": [
+    26.4,
+    26.4,
+    230.6,
+    191.0
+   ],
+   "glass": [
+    26.4,
+    26.4,
+    230.6,
+    191.0
+   ],
+   "caption": {
+    "de": "Flandrien im Regen",
+    "en": "A flandrien in the rain"
+   },
+   "link": null,
+   "priority": 2,
+   "decorative": true,
+   "shadow": {
+    "dx": 3,
+    "dy": 17.0,
+    "blur": 20.0,
+    "opacity": 0.62
+   },
+   "bytes": 34272
+  },
+  {
+   "id": "speaker",
+   "file": "img/room/speaker.webp",
+   "normal": "img/room/speaker-ngl.webp",
+   "px": [
+    405,
+    319
+   ],
+   "pxNormal": [
+    202,
+    159
+   ],
+   "w": 285.1,
+   "h": 224.6,
+   "x": -880,
+   "y": 470,
+   "rotation": 0.0,
+   "depth": 18,
+   "kind": "green",
+   "content": "generated",
+   "window": [
+    21.1,
+    21.1,
+    242.9,
+    182.2
+   ],
+   "glass": [
+    21.1,
+    21.1,
+    242.9,
+    182.2
+   ],
+   "caption": {
+    "de": "Lautsprecherwagen vor dem Feld",
+    "en": "Loudspeaker car ahead of the bunch"
+   },
+   "link": null,
+   "priority": 2,
+   "decorative": true,
+   "shadow": {
+    "dx": 3,
+    "dy": 16.1,
+    "blur": 18.8,
+    "opacity": 0.62
+   },
+   "bytes": 35786
+  }
+ ],
+ "lights": [
+  {
+   "id": "light-muur",
+   "for": "muur",
+   "pos": [
+    -262.8,
+    141.0,
+    130.0
+   ],
+   "dir": [
+    0.0,
+    0.878,
+    -0.478
+   ],
+   "in": 16,
+   "out": 40,
+   "pow": 1.9,
+   "range": 420,
+   "col": "#ffcf8f"
+  },
+  {
+   "id": "light-hellas",
+   "for": "hellas",
+   "pos": [
+    -262.1,
+    851.0,
+    130.0
+   ],
+   "dir": [
+    0.0,
+    0.734,
+    -0.679
+   ],
+   "in": 16,
+   "out": 40,
+   "pow": 1.7,
+   "range": 420,
+   "col": "#ffcf8f"
+  },
+  {
+   "id": "light-maxhuette",
+   "for": "maxhuette",
+   "pos": [
+    2237.1,
+    811.0,
+    130.0
+   ],
+   "dir": [
+    0.0,
+    0.674,
+    -0.739
+   ],
+   "in": 16,
+   "out": 40,
+   "pow": 1.6,
+   "range": 420,
+   "col": "#ffcf8f"
+  },
+  {
+   "id": "light-flandrien",
+   "for": "flandrien",
+   "pos": [
+    2715.5,
+    611.0,
+    130.0
+   ],
+   "dir": [
+    0.0,
+    0.733,
+    -0.68
+   ],
+   "in": 16,
+   "out": 40,
+   "pow": 1.5,
+   "range": 420,
+   "col": "#ffcf8f"
+  }
+ ],
+ "fixtures": [
+  {
+   "id": "lamp-muur",
+   "for": "muur",
+   "file": "img/room/plight.webp",
+   "normal": "img/room/plight-ngl.webp",
+   "px": [
+    115,
+    220
+   ],
+   "w": 92.0,
+   "h": 176.0,
+   "x": -308.8,
+   "y": -30.2,
+   "depth": 20,
+   "bulb": [
+    -262.8,
+    141.0,
+    130.0
+   ],
+   "glow": {
+    "r": 14,
+    "col": "#ffe2b0"
+   }
+  },
+  {
+   "id": "lamp-hellas",
+   "for": "hellas",
+   "file": "img/room/plight.webp",
+   "normal": "img/room/plight-ngl.webp",
+   "px": [
+    115,
+    220
+   ],
+   "w": 92.0,
+   "h": 176.0,
+   "x": -308.1,
+   "y": 679.8,
+   "depth": 20,
+   "bulb": [
+    -262.1,
+    851.0,
+    130.0
+   ],
+   "glow": {
+    "r": 14,
+    "col": "#ffe2b0"
+   }
+  },
+  {
+   "id": "lamp-maxhuette",
+   "for": "maxhuette",
+   "file": "img/room/plight.webp",
+   "normal": "img/room/plight-ngl.webp",
+   "px": [
+    115,
+    220
+   ],
+   "w": 92.0,
+   "h": 176.0,
+   "x": 2191.1,
+   "y": 639.8,
+   "depth": 20,
+   "bulb": [
+    2237.1,
+    811.0,
+    130.0
+   ],
+   "glow": {
+    "r": 14,
+    "col": "#ffe2b0"
+   }
+  },
+  {
+   "id": "lamp-flandrien",
+   "for": "flandrien",
+   "file": "img/room/plight.webp",
+   "normal": "img/room/plight-ngl.webp",
+   "px": [
+    115,
+    220
+   ],
+   "w": 92.0,
+   "h": 176.0,
+   "x": 2669.5,
+   "y": 439.8,
+   "depth": 20,
+   "bulb": [
+    2715.5,
+    611.0,
+    130.0
+   ],
+   "glow": {
+    "r": 14,
+    "col": "#ffe2b0"
+   }
+  }
+ ],
+ "credits": {
+  "de": "Backsteinwand, Rahmen, Lampen und die Bilder Muur, Flandrien, Plakat und Lautsprecherwagen: mit FLUX.2 [klein] 4B (Apache-2.0) erzeugt und nachbearbeitet; Ort und Rennen auf dem Plakat sind erfunden. Die Fotos in den Rahmen sind meine eigenen.",
+  "en": "Brick wall, frames, lamps and the pictures Muur, flandrien, poster and loudspeaker car: made with FLUX.2 [klein] 4B (Apache-2.0) and reworked; the town and the race on the poster are invented. The photos in the frames are my own."
+ },
+ "look": {
+  "houseTint": "#ffe2bd",
+  "note": "the mocks (1440 x 900, 1920 x 1080) use the GL lamp as it is (house 0.14), this warmer house tint, the four picture lamps (lights[] with their fixtures[]) and a soft bloom around the bulbs and the lamp pool (light above 0.6, blurred 18 u and 60 u, added at 0.6). Bulb glow: fixtures[].glow"
+ },
+ "loadOrder": [
+  "bricks.lqip (inline data URI) with bricks.average as background-color",
+  "after the collage: bricks.albedo (1600 on phones and with Save-Data, else 3200), board.frame, board.shadow",
+  "pictures and fixtures of priority 1 (desktop only)",
+  "GL tier only: bricks.normal, board.normal, pictures[].normal, fixtures[].normal",
+  "pictures of priority 2 only when the room shows them whole"
+ ],
+ "budget": {
+  "desktopGL": 895656,
+  "desktopDOM": 761488,
+  "phoneGL": 305030,
+  "phoneDOM": 184482
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "id": "b31",
+ "w": 753,
+ "h": 900,
+ "photoRect": [
+  7.6,
+  5.0,
+  740.8,
+  847.3
+ ],
+ "number": "31",
+ "digits": [
+  {
+   "d": "3",
+   "state": "ink"
+  },
+  {
+   "d": "1",
+   "state": "ink"
+  }
+ ],
+ "reconstructed": [
+  {
+   "de": "Rechter Teil (unter einer anderen Nummer): Papier, ein Teil der 1.",
+   "en": "Right part (under another number): paper, part of the 1."
+  },
+  {
+   "de": "Oberer Teil und linker Teil (unter einer anderen Nummer): Papier, ein Teil der 3.",
+   "en": "Upper part and left part (under another number): paper, part of the 3."
+  }
+ ],
+ "reconstructedShare": 0.413,
+ "model": "FLUX.2 [klein] 4B (Apache-2.0)",
+ "paper": [
+  249,
+  252,
+  251
+ ],
+ "files": {
+  "art": "b31.webp",
+  "order": "b31-order.webp",
+  "recon": "b31-recon.png"
+ },
+ "photo": "img/bibs/b31.webp"
+}

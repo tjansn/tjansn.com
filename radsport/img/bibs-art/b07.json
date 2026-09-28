@@ -1,0 +1,53 @@
+{
+ "id": "b07",
+ "w": 900,
+ "h": 566,
+ "photoRect": [
+  193.0,
+  -95.8,
+  690.5,
+  801.5
+ ],
+ "number": "2311",
+ "digits": [
+  {
+   "d": "2",
+   "state": "ink"
+  },
+  {
+   "d": "3",
+   "state": "ink"
+  },
+  {
+   "d": "1",
+   "state": "ink"
+  },
+  {
+   "d": "1",
+   "state": "ink"
+  }
+ ],
+ "reconstructed": [
+  {
+   "de": "Oberer Rand (außerhalb des Fotos): Karton, die obere Hälfte der Zeile „Raiffeisenbank“ und der obere Teil des rechten 24h-Logos.",
+   "en": "Top edge (beyond the photo's edge): card, the top half of the line “Raiffeisenbank” and the top of the right 24h logo."
+  },
+  {
+   "de": "Unterer Teil und linker Teil (unter anderen Nummern): das rosa Feld, die Zahl 2311, das Flammenband und das linke 24h-Logo, nach meiner Lenkertafel mit demselben Druck auf einem Rennfoto vom 24-Stunden-Rennen.",
+   "en": "Lower part and left part (under other numbers): the pink field, the number 2311, the band of flames and the left 24h logo, after my handlebar plate with the same print in a race photo from the 24-hour race."
+  }
+ ],
+ "reconstructedShare": 0.788,
+ "model": "FLUX.2 [klein] 4B (Apache-2.0)",
+ "paper": [
+  242,
+  243,
+  238
+ ],
+ "files": {
+  "art": "b07.webp",
+  "order": "b07-order.webp",
+  "recon": "b07-recon.png"
+ },
+ "photo": "img/bibs/b07.webp"
+}

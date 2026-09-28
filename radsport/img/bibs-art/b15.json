@@ -1,0 +1,45 @@
+{
+ "id": "b15",
+ "w": 736,
+ "h": 900,
+ "photoRect": [
+  -33.4,
+  15.3,
+  695.3,
+  866.7
+ ],
+ "number": "103",
+ "digits": [
+  {
+   "d": "1",
+   "state": "ink"
+  },
+  {
+   "d": "0",
+   "state": "ink"
+  },
+  {
+   "d": "3",
+   "state": "ink"
+  }
+ ],
+ "reconstructed": [
+  {
+   "de": "Fast das ganze Blatt (unter anderen Nummern): Papier, die oberen und unteren Teile der 1 und der 0 und die ganze 3 in einer ähnlichen Schrift. Zu sehen ist nur ein Band mit der Mitte der Ziffern.",
+   "en": "Almost the whole sheet (under other numbers): paper, the tops and bottoms of the 1 and the 0, and the whole 3 in a similar typeface. Only a band through the middle of the digits shows."
+  }
+ ],
+ "reconstructedShare": 0.89,
+ "model": "FLUX.2 [klein] 4B (Apache-2.0)",
+ "paper": [
+  245,
+  245,
+  245
+ ],
+ "files": {
+  "art": "b15.webp",
+  "order": "b15-order.webp",
+  "recon": "b15-recon.png"
+ },
+ "photo": "img/bibs/b15.webp"
+}

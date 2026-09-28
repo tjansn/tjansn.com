@@ -1,0 +1,100 @@
+{
+ "heading": {
+  "de": "Quellen und Klang.",
+  "en": "Sources and sound."
+ },
+ "intro": {
+  "de": "Klangkulisse aus freien Feldaufnahmen, Stimmen synthetisch. Keine der Aufnahmen stammt aus meinen Rennen.",
+  "en": "Soundscape from free field recordings, synthetic voices. None of the recordings is from my own races."
+ },
+ "ccby": {
+  "title": {
+   "de": "Aufnahmen unter CC BY 4.0",
+   "en": "Recordings under CC BY 4.0"
+  },
+  "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+  "items": [
+   {
+    "file": "amb/amb_roadside_waiting_nl.mp3",
+    "title": "see you later - Vuelta Vlijmen 244PM 220820_0507",
+    "author": "klankbeeld",
+    "url": "https://freesound.org/people/klankbeeld/sounds/720305/",
+    "license": "CC BY 4.0",
+    "changes": {
+     "de": "Ausschnitt, geblendet, lautheitsnormalisiert",
+     "en": "excerpt, faded, loudness-normalised"
+    }
+   },
+   {
+    "file": "sfx/pass_criterium_whistle.mp3",
+    "title": "AMBSprt_Criterium Bicycle Race_Tim Kahn_MKH80208030st",
+    "author": "tim.kahn",
+    "url": "https://freesound.org/people/tim.kahn/sounds/822290/",
+    "license": "CC BY 4.0",
+    "changes": {
+     "de": "Ausschnitt, geblendet, lautheitsnormalisiert",
+     "en": "excerpt, faded, loudness-normalised"
+    }
+   },
+   {
+    "file": "sfx/scene_tdf_convoy.mp3",
+    "title": "LS_34039_FR_TourDeFrance.wav",
+    "author": "kevp888",
+    "url": "https://freesound.org/people/kevp888/sounds/499689/",
+    "license": "CC BY 4.0",
+    "changes": {
+     "de": "Ausschnitt, geblendet, lautheitsnormalisiert",
+     "en": "excerpt, faded, loudness-normalised"
+    }
+   },
+   {
+    "files": [
+     "vo_fr_radiotour_f",
+     "vo_fr_crevaison",
+     "vo_fr_ecart",
+     "vo_fr_attention"
+    ],
+    "title": "SIWIS French Speech Synthesis Database (Piper voice fr_FR-siwis-medium)",
+    "author": "University of Edinburgh",
+    "url": "https://datashare.is.ed.ac.uk/handle/10283/2353",
+    "license": "CC BY 4.0",
+    "changes": {
+     "de": "synthetische Stimme, Lautsprecher- und Funkeffekt",
+     "en": "synthetic voice, loudspeaker and radio effect"
+    }
+   }
+  ]
+ },
+ "cc0": {
+  "title": {
+   "de": "Aufnahmen unter CC0 1.0 (Dank an)",
+   "en": "Recordings under CC0 1.0 (with thanks to)"
+  },
+  "authors": [
+   "4Cairnz",
+   "ChemiCatz",
+   "craigsmith",
+   "csnmedia",
+   "dazzamoo",
+   "kyles",
+   "richwise",
+   "Rosa-Orenes256",
+   "TRP"
+  ]
+ },
+ "voices": {
+  "de": "Stimmen: synthetisch mit Piper (Stimmen nathalie, rdh, gilles, siwis, thorsten, davefx, paola, rapunzelina). Es sind keine echten Streckensprecher.",
+  "en": "Voices: synthesised with Piper (voices nathalie, rdh, gilles, siwis, thorsten, davefx, paola, rapunzelina). They are not real race announcers."
+ },
+ "own": {
+  "de": "Eigene Synthese: die Hommage an den Rodania-Wagen (Motiv aus Beethovens 5. Sinfonie, gemeinfrei; kein Ausschnitt der Rodania-Aufnahme), die Startuhr und alle Geräusche, die der Browser live erzeugt.",
+  "en": "Own synthesis: the homage to the Rodania car (motif from Beethoven's 5th Symphony, public domain; not taken from the Rodania recording), the start clock and every sound the browser generates live."
+ },
+ "weather": {
+  "de": "Wetterdaten: Open-Meteo.com (CC BY 4.0), ERA5-Reanalyse des Copernicus Climate Change Service.",
+  "en": "Weather data: Open-Meteo.com (CC BY 4.0), ERA5 reanalysis of the Copernicus Climate Change Service.",
+  "url": "https://open-meteo.com/",
+  "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+  "note": "Text follows spec 4.5 source.credit; WP2 verifies the licence wording and may override it from data/weather/*.json source.credit."
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "id": "b34",
+ "w": 821,
+ "h": 900,
+ "photoRect": [
+  -10.0,
+  9.6,
+  779.4,
+  876.1
+ ],
+ "number": "41",
+ "digits": [
+  {
+   "d": "4",
+   "state": "ink"
+  },
+  {
+   "d": "1",
+   "state": "ink"
+  }
+ ],
+ "reconstructed": [
+  {
+   "de": "Rechter Rand, vor allem die eingerollte Ecke unten rechts (teils außerhalb des Fotos): Tyvek, hellgrünes Band.",
+   "en": "Right edge, mainly the curled bottom-right corner (partly beyond the photo's edge): Tyvek, lime-green band."
+  },
+  {
+   "de": "Oberer Rand, ein schmaler Streifen: Tyvek.",
+   "en": "Top edge, a thin strip: Tyvek."
+  }
+ ],
+ "reconstructedShare": 0.031,
+ "model": "FLUX.2 [klein] 4B (Apache-2.0)",
+ "paper": [
+  248,
+  248,
+  247
+ ],
+ "files": {
+  "art": "b34.webp",
+  "order": "b34-order.webp",
+  "recon": "b34-recon.png"
+ },
+ "photo": "img/bibs/b34.webp"
+}

@@ -1,0 +1,45 @@
+{
+ "id": "b14",
+ "w": 827,
+ "h": 900,
+ "photoRect": [
+  7.6,
+  5.2,
+  819.7,
+  888.1
+ ],
+ "number": "254",
+ "digits": [
+  {
+   "d": "2",
+   "state": "ink"
+  },
+  {
+   "d": "5",
+   "state": "ink"
+  },
+  {
+   "d": "4",
+   "state": "ink"
+  }
+ ],
+ "reconstructed": [
+  {
+   "de": "Linker Teil (unter einer anderen Nummer): Tyvek, „MÜLL…“ von „MÜLLER | DIE LILA LOGISTIK“, ein Nadelloch.",
+   "en": "Left part (under another number): Tyvek, “MÜLL…” of “MÜLLER | DIE LILA LOGISTIK”, a pin hole."
+  }
+ ],
+ "reconstructedShare": 0.083,
+ "model": "FLUX.2 [klein] 4B (Apache-2.0)",
+ "paper": [
+  235,
+  232,
+  228
+ ],
+ "files": {
+  "art": "b14.webp",
+  "order": "b14-order.webp",
+  "recon": "b14-recon.png"
+ },
+ "photo": "img/bibs/b14.webp"
+}

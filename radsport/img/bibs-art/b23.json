@@ -1,0 +1,49 @@
+{
+ "id": "b23",
+ "w": 796,
+ "h": 900,
+ "photoRect": [
+  50.4,
+  22.4,
+  869.4,
+  871.3
+ ],
+ "number": "76",
+ "digits": [
+  {
+   "d": "7",
+   "state": "ink"
+  },
+  {
+   "d": "6",
+   "state": "ink"
+  }
+ ],
+ "reconstructed": [
+  {
+   "de": "Oberer Teil (unter anderen Nummern): Papier, der obere Balken der 7 und der Bogen der 6.",
+   "en": "Upper part (under other numbers): paper, the top bar of the 7 and the arch of the 6."
+  },
+  {
+   "de": "Rechte Seite (unter einer anderen Nummer): Papier, die rechte Hälfte der 6, „…el“ von „Mutuel“ und das Ende der rechten dünnen Linie.",
+   "en": "Right side (under another number): paper, the right half of the 6, “…el” of “Mutuel” and the end of the right thin line."
+  },
+  {
+   "de": "Linker Rand und Ecke unten links (unter anderen Nummern): Papier, „C…“ von „Crédit“ und der Anfang der linken dünnen Linie.",
+   "en": "Left edge and bottom-left corner (under other numbers): paper, “C…” of “Crédit” and the start of the left thin line."
+  }
+ ],
+ "reconstructedShare": 0.586,
+ "model": "FLUX.2 [klein] 4B (Apache-2.0)",
+ "paper": [
+  247,
+  250,
+  248
+ ],
+ "files": {
+  "art": "b23.webp",
+  "order": "b23-order.webp",
+  "recon": "b23-recon.png"
+ },
+ "photo": "img/bibs/b23.webp"
+}

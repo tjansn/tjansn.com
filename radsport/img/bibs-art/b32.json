@@ -1,0 +1,53 @@
+{
+ "id": "b32",
+ "w": 856,
+ "h": 900,
+ "photoRect": [
+  7.9,
+  8.8,
+  813.8,
+  878.6
+ ],
+ "number": "201",
+ "digits": [
+  {
+   "d": "2",
+   "state": "ink"
+  },
+  {
+   "d": "0",
+   "state": "ink"
+  },
+  {
+   "d": "1",
+   "state": "sketch"
+  }
+ ],
+ "reconstructed": [
+  {
+   "de": "Rechter Teil (unter anderen Nummern): Karton, blaues Band, „…d“ von „Het Nieuwsblad“.",
+   "en": "Right part (under other numbers): card, blue band, “…d” of “Het Nieuwsblad”."
+  },
+  {
+   "de": "Ecke oben links (unter einer anderen Nummer): Karton.",
+   "en": "Top-left corner (under another number): card."
+  },
+  {
+   "de": "Geschätzte Ziffer 1 nur als Bleistiftskizze.",
+   "en": "Estimated digit 1 only as a pencil sketch."
+  }
+ ],
+ "reconstructedShare": 0.306,
+ "model": "FLUX.2 [klein] 4B (Apache-2.0)",
+ "paper": [
+  245,
+  248,
+  246
+ ],
+ "files": {
+  "art": "b32.webp",
+  "order": "b32-order.webp",
+  "recon": "b32-recon.png"
+ },
+ "photo": "img/bibs/b32.webp"
+}

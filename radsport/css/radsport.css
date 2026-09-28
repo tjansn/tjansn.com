@@ -1,0 +1,723 @@
+/* radsport.css (WP3): tokens, room, intro, HUD, season card, dossier frame. Later sheets may override the
+   "renderer default" rules. Everything below the room (strip, list, credits) is in list.css, loaded after boot.
+   Inter + JetBrains Mono only, no italics. */
+
+/* tokens */
+:root {
+  --rs-room: #0b0c0d;
+  --rs-room-tint: #ffe2bd;                       /* house light: room.json look.houseTint (both tiers, r3 fix) */
+  --rs-house: 0.1;                               /* spec 1.2: 0.14; lowered so the lamp keeps its drama */
+  --rs-lamp: #fff0d8;
+  --rs-room-ink: #f5f3f0;
+  --rs-room-muted: rgba(245, 243, 240, 0.62);
+  --rs-room-faint: rgba(245, 243, 240, 0.44);
+  --rs-room-line: rgba(245, 243, 240, 0.14);
+  --rs-room-card: rgba(12, 12, 11, 0.86);
+  --rs-room-focus: #f8a48e;
+  --rs-accent: #e7350d;
+  --rs-sheet: #f5f3f0;
+  --rs-sheet-2: #ebe4d7;
+  --rs-ink: #050505;
+  --rs-muted: #6c655c;
+  --rs-rule: color-mix(in srgb, #6c655c 22%, transparent);
+  --rs-mark: #c12a0b;
+  --rs-ok: #2f7d4a;
+  --rs-maybe: #b88a00;
+  --rs-hatch-ink: color-mix(in srgb, #6c655c 45%, transparent);
+  --rs-hatch: repeating-linear-gradient(135deg, var(--rs-hatch-ink) 0 1px, transparent 1px 7px);
+  --rs-chart-line: #1a1816;
+  --rs-chart-alt: #d8d0c2;
+  --rs-chart-alt-line: #6c655c;
+  --rs-chart-grid: rgba(108, 101, 92, 0.18);
+  --rs-chart-mark: #c12a0b;
+
+  --rs-ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --rs-ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --rs-ease-cine: cubic-bezier(0.65, 0, 0.35, 1);
+  --rs-ease-flight: cubic-bezier(0.22, 0.72, 0.18, 1);
+  --rs-ease-gravity: cubic-bezier(0.5, 0, 0.9, 0.45);
+
+  --rs-prose-features: "cv11", "ss01";          /* prose without the site's global tnum (widens hyphens) */
+  --rs-header-h: 4.5rem;                         /* measured by main.js */
+  /* a band above and below the wall holds the HUD (line on top; rail and buttons below): no chrome over a number */
+  --rs-band: 4rem;
+  /* round 3 (D29): <= 67vw, the fitted room shows the pictures beside the board (render_static.py SIZES follows) */
+  --rs-wall-w: min(67vw, 115vh, calc((100svh - var(--rs-header-h) - 2 * var(--rs-band)) * 1.3578));
+  --rs-wall-dim: 0.24;                           /* = 0.14 + house light 0.10 (renderer-dom.js setHouse) */
+  --rs-lamp-x: 38%;
+  --rs-lamp-y: 44%;
+  --rs-lamp-r: 26vmax;
+  --rs-halo: 0 0 1px #000, 0 0 3px rgba(0, 0, 0, 0.95), 0 0 8px rgba(0, 0, 0, 0.9), 0 0 16px rgba(0, 0, 0, 0.7);   /* small text over the lamp */
+}
+.no-js { --rs-wall-w: min(92vw, 115vh, calc((100svh - var(--rs-header-h) - 2 * var(--rs-band)) * 1.3578)); }   /* the plain photo */
+.dark {
+  --rs-room-tint: #f1e6d6;                       /* a warm neutral: the café keeps its tungsten tone (r3 fix) */
+  --rs-house: 0.08;
+  --rs-wall-dim: 0.22;
+  --rs-sheet: #131616;
+  --rs-sheet-2: #1a1815;
+  --rs-ink: #f5f3f0;
+  --rs-muted: color-mix(in srgb, #f5f3f0 62%, #131616);
+  --rs-rule: color-mix(in srgb, #f5f3f0 14%, transparent);
+  --rs-mark: #f8a48e;
+  --rs-ok: #5cb87f;
+  --rs-maybe: #e0b43a;
+  --rs-hatch-ink: color-mix(in srgb, #8f877c 45%, transparent);
+  --rs-chart-line: #f5f3f0;
+  --rs-chart-alt: #3a3631;
+  --rs-chart-alt-line: #8f877c;
+  --rs-chart-grid: rgba(245, 243, 240, 0.1);
+  --rs-chart-mark: #e7350d;
+}
+
+@property --rs-lamp-x { syntax: "<percentage>"; inherits: true; initial-value: 38%; }
+@property --rs-lamp-y { syntax: "<percentage>"; inherits: true; initial-value: 44%; }
+
+/* utilities */
+.rs-sr {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.rs-skip {
+  position: absolute;
+  left: var(--gl-space-4);
+  top: -4rem;
+  z-index: 80;
+  padding: var(--gl-space-2) var(--gl-space-3);
+  border-radius: var(--gl-radius-sm);
+  background: var(--gl-color-slate);
+  color: #f5f3f0;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.rs-skip:focus { top: var(--gl-space-2); }
+.dark .rs-skip { background: #f5f3f0; color: #050505; }
+
+.rs-page { font-feature-settings: "cv11", "ss01", "tnum"; }
+.rs-intro__lede,
+.rs-intro__note,
+.rs-season-card__line { font-feature-settings: var(--rs-prose-features); }
+
+#wand, #saisons, #liste, #quellen { scroll-margin-top: var(--rs-header-h); }
+
+/* the room */
+.rs-room {
+  position: relative;
+  height: calc(100svh - var(--rs-header-h));
+  min-height: 560px;
+  background: var(--rs-room);
+  color: var(--rs-room-ink);
+  overflow: hidden;
+  isolation: isolate;
+  contain: layout paint;
+  --rs-hud-pad: max(var(--tj-gutter), calc((100% - var(--tj-max)) / 2 + var(--tj-gutter)));   /* the site column */
+}
+.rs-room:focus { outline: none; }
+.rs-room::after {                                   /* vignette: the wall continues into the dark */
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: radial-gradient(ellipse 75% 70% at 50% 50%, transparent 55%, rgba(11, 12, 13, 0.55) 100%);
+}
+@media not all and (prefers-contrast: more) {       /* DOM tier (r3 fix): the café is dark, the lamp's pool reads */
+  .rs-room[data-renderer="dom"]::after { background: radial-gradient(ellipse 75% 70% at 50% 50%, transparent 45%, rgba(11, 12, 13, 0.7) 100%); }
+}
+@media (max-height: 640px) {                        /* the room never outgrows a short viewport */
+  .rs-room { min-height: 0; }
+}
+.rs-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  touch-action: pan-y pinch-zoom;                    /* stage.js pans sideways; pinch-zoom stays */
+  -webkit-tap-highlight-color: transparent;
+}
+.rs-wall,
+.rs-hit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--rs-wall-w);
+  height: auto;
+  aspect-ratio: 4789 / 3527;
+  transform: translate(-50%, -50%);
+}
+.rs-wall {
+  display: block;
+  max-width: none;
+  z-index: 0;
+  background: var(--rs-lqip, none) 0 0 / 100% 100% no-repeat;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+html:not(.no-js) .rs-wall {                          /* renderer default: darkened until the lamp finds it */
+  filter: brightness(var(--rs-wall-dim));
+  transition: filter var(--gl-dur-flow) var(--rs-ease-out);
+}
+.rs-room[data-house="on"] { --rs-wall-dim: 0.74; }
+.rs-gl {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: block;
+  opacity: 0;
+  transition: opacity var(--gl-dur-flow) var(--rs-ease-out);
+}
+.rs-gl.is-ready { opacity: 1; }
+.rs-hit {
+  z-index: 4;
+  overflow: visible;
+  pointer-events: none;
+}
+.rs-hit a { pointer-events: auto; cursor: pointer; outline: none; }
+.rs-hit polygon { fill: transparent; stroke: none; }
+.rs-hit a:focus-visible polygon:not(.rs-halo) {       /* renderer default: dashed accent ring on the real outline */
+  stroke: var(--rs-room-focus);
+  stroke-width: 2;
+  stroke-dasharray: 6 5;
+  vector-effect: non-scaling-stroke;
+}
+.rs-lift, .rs-label { position: absolute; z-index: 5; pointer-events: none; }
+.rs-room:not([data-renderer]) .rs-hit a[data-lit] polygon:not(.rs-halo),
+.rs-room:not([data-renderer]) .rs-hit a:hover polygon:not(.rs-halo) {   /* no renderer yet: outline the paper */
+  fill: rgba(255, 240, 216, 0.1);
+  stroke: rgba(255, 240, 216, 0.75);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+.rs-lift { inset: 0; }
+
+/* first-paint lamp (renderer default); steps back once main.js sets data-renderer */
+.rs-lamp {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+html:not(.no-js) .rs-room:not([data-renderer]) .rs-lamp {
+  /* colour-dodge with 0.66 grey undoes brightness(.34) in the pool */
+  background: radial-gradient(circle var(--rs-lamp-r) at var(--rs-lamp-x) var(--rs-lamp-y),
+    rgb(170 166 156) 0%, rgb(150 146 138) 34%, rgb(84 82 78) 62%, rgb(0 0 0) 88%);
+  mix-blend-mode: color-dodge;
+  animation: rs-wander-x 23s ease-in-out infinite alternate, rs-wander-y 17s ease-in-out infinite alternate;
+}
+.rs-room[data-house="on"]:not([data-renderer]) .rs-lamp { opacity: 0.35; }
+html:not(.no-js) .rs-room.is-tracking:not([data-renderer]) .rs-lamp {
+  animation: none;
+  transition: --rs-lamp-x 140ms var(--rs-ease-out), --rs-lamp-y 140ms var(--rs-ease-out);
+}
+@keyframes rs-wander-x { from { --rs-lamp-x: 24%; } to { --rs-lamp-x: 70%; } }
+@keyframes rs-wander-y { from { --rs-lamp-y: 30%; } to { --rs-lamp-y: 66%; } }
+
+/* intro card */
+.rs-intro {
+  position: absolute;
+  z-index: 8;
+  left: max(var(--tj-gutter), calc((100% - var(--tj-max)) / 2 + var(--tj-gutter)));
+  bottom: clamp(1.5rem, 6vh, 4rem);
+  width: min(34rem, calc(100% - 2 * var(--tj-gutter)));
+  transition: opacity var(--gl-dur-flow) var(--rs-ease-out), transform var(--gl-dur-flow) var(--rs-ease-out), visibility 0s linear 0s;
+}
+.rs-intro::before {                                  /* soft reading scrim, not a box */
+  content: "";
+  position: absolute;
+  inset: -34% -42% -42% -30%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(closest-side, rgba(5, 6, 7, 0.92), rgba(5, 6, 7, 0.74) 62%, rgba(5, 6, 7, 0));
+}
+.rs-intro__card { display: grid; gap: var(--gl-space-4); }
+.rs-intro .tj-kicker {                                /* readable with the lamp behind it */
+  color: rgba(245, 243, 240, 0.86);
+  text-shadow: var(--rs-halo);
+}
+.rs-intro .tj-kicker::before { background: var(--rs-accent); }
+.rs-intro__title,
+.dark .rs-intro__title {
+  color: var(--rs-room-ink);
+  font-size: clamp(2.6rem, 6vw, 4.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+}
+.rs-intro__title .gl-dot,
+.dark .rs-intro__title .gl-dot { color: var(--rs-accent); }
+.rs-intro__lede {
+  color: color-mix(in srgb, var(--rs-room-ink) 82%, transparent);
+  font-size: clamp(1rem, 1.35vw, 1.12rem);
+  line-height: 1.6;
+  max-width: 31rem;
+  text-wrap: pretty;
+}
+.rs-intro__actions { display: flex; flex-wrap: wrap; gap: var(--gl-space-3); margin-top: var(--gl-space-1); }
+.rs-intro__actions .gl-button { min-height: 2.75rem; padding-inline: var(--gl-space-5); font-size: 0.9rem; }
+.rs-intro .gl-button--outline {
+  color: var(--rs-room-ink);
+  border-color: color-mix(in srgb, var(--rs-room-ink) 38%, transparent);
+}
+.rs-intro .gl-button--outline:hover,
+.rs-intro .gl-button--outline:focus-visible {
+  color: var(--rs-room-ink);
+  border-color: var(--rs-room-ink);
+  background: color-mix(in srgb, var(--rs-room-ink) 8%, transparent);
+}
+.rs-intro .gl-button:focus-visible { outline: 2px solid var(--rs-room-focus); outline-offset: 3px; }
+.rs-intro__note { color: var(--rs-room-muted); font-size: 0.875rem; line-height: 1.5; max-width: 30rem; }
+.rs-intro__keys,
+.rs-intro__noscript {
+  font-family: var(--gl-font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  line-height: 1.5;
+  color: var(--rs-room-muted);
+}
+.rs-intro__keys { text-wrap: pretty; }
+/* touch: a touch line instead of the keyboard line; "Wischen" only where the wall pans */
+.rs-intro__touch, .rs-intro__swipe { display: none; }
+@media (pointer: coarse) {
+  .rs-intro__keys:not(.rs-intro__touch) { display: none; }
+  .rs-intro__touch { display: block; }
+}
+.rs-room:has(.rs-stage[data-rs-mode="pan"]) .rs-intro__swipe { display: inline; }
+.no-js .rs-intro__actions,
+.no-js .rs-intro__note,
+.no-js .rs-intro__keys { display: none; }
+
+/* without JS: photo at full brightness, the intro next to it, never on top */
+.no-js .rs-room { height: auto; min-height: 0; padding-bottom: var(--gl-space-10); }
+.no-js .rs-room::after { display: none; }
+.no-js .rs-stage { position: relative; inset: auto; width: var(--rs-wall-w); max-width: 100%; margin: var(--gl-space-4) auto 0; aspect-ratio: 4789 / 3527; }
+.no-js .rs-wall { width: 100%; }
+.no-js .rs-intro {
+  position: relative;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  width: auto;
+  max-width: 34rem;
+  margin: var(--gl-space-8) var(--tj-gutter) 0 max(var(--tj-gutter), calc((100% - var(--tj-max)) / 2 + var(--tj-gutter)));
+}
+.no-js .rs-intro::before { display: none; }
+
+/* a focused number is never under the intro: the card steps aside (its buttons stay tabbable) */
+.rs-room:not(.is-entered):has(.rs-hit a:focus-visible) .rs-intro {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* entered, returning visitors and deep links: the card leaves, the heading stays for screen readers */
+.rs-room.is-entered .rs-intro,
+html.rs-skip-intro:not(.no-js) .rs-intro {
+  opacity: 0;
+  transform: translateY(12px);
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--gl-dur-flow) var(--rs-ease-out), transform var(--gl-dur-flow) var(--rs-ease-out), visibility 0s linear var(--gl-dur-flow);
+}
+.rs-room.is-entered .rs-intro__title,
+html.rs-skip-intro:not(.no-js) .rs-intro__title {
+  visibility: visible;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* entry moment (integration): lights out, the start clock counts down, the lamp clacks on */
+.rs-blackout {
+  position: absolute;
+  inset: 0;
+  z-index: 6;                                        /* over the wall and the lifted paper, under the HUD and the intro */
+  pointer-events: none;
+  background: #000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 90ms linear, visibility 0s linear 90ms;   /* the lamp: a clack, not a fade */
+}
+.rs-room.is-dark .rs-blackout { opacity: 1; visibility: visible; transition: opacity 400ms var(--rs-ease-cine), visibility 0s linear 0s; }
+.rs-room.is-dark .rs-hud__room,
+.rs-room.is-dark .rs-hud__controls,
+.rs-room.is-dark .rs-rail { opacity: 0.16; transition: opacity 400ms var(--rs-ease-out); }
+/* start clock: one digit at a time in a ring that fills until the long beep (1.9 s), red on the final tick;
+   timing in main.js (ENTRY_MS) */
+@property --rs-cd { syntax: "<percentage>"; inherits: false; initial-value: 0%; }
+.rs-countdown {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  width: 7.5rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  font: 500 clamp(2.5rem, 6vw, 4rem)/1 var(--gl-font-mono);
+  font-feature-settings: "tnum";
+  color: var(--rs-room-ink);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 200ms var(--rs-ease-out), visibility 0s linear 200ms;
+}
+.rs-countdown::before,
+.rs-countdown::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.rs-countdown::after { border: 1px solid var(--rs-room-line); }
+.rs-countdown::before {                               /* 2 px arc cut from a conic fill */
+  background: conic-gradient(var(--rs-room-ink) var(--rs-cd), transparent 0);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+  opacity: 0.85;
+}
+.rs-room.is-counting .rs-countdown { opacity: 1; visibility: visible; transition: opacity 200ms var(--rs-ease-out), visibility 0s linear 0s; }
+.rs-room.is-counting .rs-countdown::before { animation: rs-cd 1900ms linear both; }
+.rs-countdown.is-go::before { background: var(--rs-accent); opacity: 1; }
+@keyframes rs-cd { from { --rs-cd: 0%; } to { --rs-cd: 100%; } }
+.rs-countdown__sep,
+.rs-countdown > span:not(.is-on) { display: none; }
+.rs-countdown > span.is-on { grid-area: 1 / 1; animation: rs-tick 420ms var(--rs-ease-out) both; }
+@keyframes rs-tick {
+  from { opacity: 0; filter: blur(4px); scale: 0.96; }
+  to { opacity: 1; filter: none; scale: 1; }
+}
+@media (forced-colors: active) { .rs-blackout { display: none; } }
+
+/* HUD */
+.rs-hud {
+  position: absolute;
+  inset: 0;
+  z-index: 7;
+  pointer-events: none;
+  font-family: var(--gl-font-mono);
+  --rs-ctl-w: 25rem;                                  /* button row width (main.js measures it) */
+}
+.no-js .rs-hud,
+.no-js .rs-hit { display: none; }                   /* without JS the list below is the way in */
+.rs-hud__room {                                       /* dark halo: readable over the lamp */
+  position: absolute;
+  left: var(--rs-hud-pad);
+  top: var(--gl-space-4);
+  margin: 0;
+  font-size: 0.68rem;
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(245, 243, 240, 0.86);
+  text-shadow: var(--rs-halo);
+  font-feature-settings: "tnum";
+}
+.rs-hud__room > span:first-child { color: var(--rs-room-ink); }
+.rs-hud__captions {                                   /* top band, under "Die Wand" */
+  position: absolute;
+  left: var(--rs-hud-pad);
+  top: calc(var(--gl-space-4) + 1.35rem);
+  max-width: min(46ch, calc(100% - 2 * var(--rs-hud-pad)));
+}
+.rs-hud__controls {
+  position: absolute;
+  right: var(--rs-hud-pad);
+  bottom: var(--gl-space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--gl-space-2);
+  pointer-events: auto;
+}
+.rs-ctl {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gl-space-2);
+  min-height: 2.75rem;
+  min-width: 2.75rem;
+  padding: 0 var(--gl-space-3);
+  border: 1px solid var(--rs-room-line);
+  border-radius: var(--gl-radius-sm);
+  background: var(--rs-room-card);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: var(--rs-room-ink);
+  font: 500 0.68rem/1 var(--gl-font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color var(--gl-dur-snap) var(--rs-ease-out), background-color var(--gl-dur-snap) var(--rs-ease-out);
+}
+.rs-ctl:hover { border-color: color-mix(in srgb, var(--rs-room-ink) 36%, transparent); background: rgba(24, 25, 26, 0.92); }
+.rs-ctl:focus-visible { outline: 2px solid var(--rs-room-focus); outline-offset: 2px; }
+.rs-ctl[aria-pressed="true"] { border-color: color-mix(in srgb, var(--rs-accent) 70%, transparent); }
+.rs-ctl__icon {
+  width: 1rem;
+  height: 1rem;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.rs-ctl[aria-pressed="false"] .rs-ctl__on,
+.rs-ctl[aria-pressed="true"] .rs-ctl__off { display: none; }
+.rs-ctl[hidden] { display: none; }
+.rs-ask {
+  position: absolute;
+  right: calc(100% + var(--gl-space-2));
+  display: none;
+  padding: 0.35rem 0.55rem;
+  border-radius: 999px;
+  background: var(--rs-room-card);
+  border: 1px solid color-mix(in srgb, var(--rs-accent) 60%, transparent);
+  color: var(--rs-room-ink);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.rs-room.is-ask .rs-ask { display: block; animation: rs-ask 1.6s var(--rs-ease-out) 3 both; }
+@keyframes rs-ask {
+  0% { opacity: 0; transform: translateX(6px); }
+  25%, 70% { opacity: 1; transform: none; }
+  100% { opacity: 0; transform: none; }
+}
+.rs-room.is-ask [data-rs-sound] { animation: rs-pulse 1.6s var(--rs-ease-out) 3; }
+@keyframes rs-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(231, 53, 13, 0); }
+  35% { box-shadow: 0 0 0 5px rgba(231, 53, 13, 0.32); }
+}
+
+/* the intro owns the room until the visitor enters; "Ton an?" borrows the rail's place */
+.rs-room:not(.is-entered) .rs-hud__captions,
+.rs-room:not(.is-entered) .rs-rail { opacity: 0; visibility: hidden; }
+html.rs-skip-intro .rs-room .rs-hud__captions,
+html.rs-skip-intro .rs-room:not(.is-ask) .rs-rail { opacity: 1; visibility: visible; }
+.rs-room.is-ask .rs-rail { opacity: 0; visibility: hidden; }
+html.rs-dossier-open .rs-hud { opacity: 0; visibility: hidden; transition: opacity var(--gl-dur-mid) var(--rs-ease-out), visibility 0s linear var(--gl-dur-mid); }
+
+/* season rail (HUD, desktop): bottom band, left of the buttons */
+.rs-rail {
+  position: absolute;
+  right: calc(var(--rs-hud-pad) + var(--rs-ctl-w) + var(--gl-space-3));
+  bottom: var(--gl-space-4);
+  display: flex;
+  box-sizing: border-box;
+  width: min(24.5rem, calc(100% - 2 * var(--rs-hud-pad) - var(--rs-ctl-w) - var(--gl-space-3)));
+  height: 2.75rem;
+  padding: 0.3rem 0.5rem 0.2rem;
+  border: 1px solid var(--rs-room-line);
+  border-radius: var(--gl-radius-sm);
+  background: var(--rs-room-card);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  pointer-events: auto;
+  transition: opacity var(--gl-dur-flow) var(--rs-ease-out), visibility 0s linear 0s;
+}
+.rs-rail:empty { display: none; }
+.rs-rail__years { display: flex; flex: 1; align-items: stretch; min-width: 0; }
+.rs-rail__year {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 1px;
+  border: 0;
+  background: transparent;
+  color: var(--rs-room-muted);
+  font: 500 0.64rem/1 var(--gl-font-mono);
+  letter-spacing: 0.02em;
+  cursor: pointer;
+}
+.rs-rail__ticks { position: relative; flex: 1; min-height: 0.6rem; border-bottom: 1px solid var(--rs-room-line); }
+.rs-rail__tick {
+  position: absolute;
+  bottom: 0;
+  left: var(--x, 50%);
+  height: var(--h, 40%);
+  width: 1px;
+  background: color-mix(in srgb, var(--rs-room-ink) 42%, transparent);
+  transition: background-color var(--gl-dur-snap) var(--rs-ease-out);
+}
+.rs-rail__tick.is-win { background: var(--rs-accent); width: 2px; }
+.rs-rail__label { display: block; padding-top: 0.2rem; text-align: center; font-size: 0.64rem; letter-spacing: 0; font-feature-settings: "tnum"; }
+.rs-rail__year:hover,
+.rs-rail__year:focus-visible,
+.rs-rail__year[aria-pressed="true"] { color: var(--rs-room-ink); }
+.rs-rail__year:hover .rs-rail__tick,
+.rs-rail__year:focus-visible .rs-rail__tick,
+.rs-rail__year[aria-pressed="true"] .rs-rail__tick { background: var(--rs-room-ink); }
+.rs-rail__year:focus-visible { outline: 2px solid var(--rs-room-focus); outline-offset: 2px; border-radius: 2px; }
+.rs-rail__year.is-empty { cursor: default; color: var(--rs-room-faint); }
+@media (pointer: coarse) {                            /* touch: 44 px columns */
+  .rs-rail { height: auto; padding-block: 0; width: min(35.75rem, calc(100% - 2 * var(--rs-hud-pad) - var(--rs-ctl-w) - var(--gl-space-3))); }
+  .rs-rail__years { height: 2.75rem; }
+  .rs-rail__year { min-height: 2.75rem; padding-bottom: 0.2rem; }
+}
+
+/* season card (HUD; the section card is in list.css) */
+.rs-season-card {
+  display: grid;
+  gap: 0.3rem;
+  padding: var(--gl-space-3) var(--gl-space-4);
+  border-radius: var(--gl-radius-sm);
+  font-family: var(--gl-font-sans);
+}
+.rs-season-card[hidden] { display: none; }
+.rs-season-card--hud {                               /* main.js moves it where no lit number is */
+  position: absolute;
+  right: calc(var(--rs-hud-pad) + var(--rs-ctl-w) + var(--gl-space-3));
+  bottom: calc(var(--gl-space-4) + 2.75rem + var(--gl-space-3));
+  width: min(20rem, calc(100% - 2 * var(--rs-hud-pad)));
+  box-sizing: border-box;
+  background: var(--rs-room-card);
+  border: 1px solid var(--rs-room-line);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: var(--rs-room-ink);
+  animation: rs-rise 400ms var(--rs-ease-out) both;
+}
+.rs-season-card--hud[data-placed] { left: var(--rs-card-x, auto); top: var(--rs-card-y, auto); right: auto; bottom: auto; }
+.rs-season-card--hud[data-over] {                     /* no free spot: lit numbers show through */
+  background: rgba(12, 12, 11, 0.42);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.9), 0 0 1px #000;
+}
+@keyframes rs-rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.rs-season-card__k {
+  font: 500 0.68rem/1.2 var(--gl-font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rs-room-muted);
+}
+.rs-season-card__t { font-weight: 600; font-size: 1.05rem; line-height: 1.25; letter-spacing: -0.01em; }
+.rs-season-card__line { font-size: 0.875rem; line-height: 1.45; color: var(--rs-room-muted); }
+.rs-season-card__line b { color: var(--rs-room-ink); font-weight: 600; }
+/* dossier frame (page level) */
+.gl-site-header { transition: opacity var(--gl-dur-flow) var(--rs-ease-out), background-color 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease, color 0.3s ease; }
+.gl-site-header > * { transition: opacity 400ms var(--rs-ease-cine); }
+html.rs-dossier-open .gl-site-header { opacity: 0.35; }
+
+/* lights out: the header goes dark with the room and recedes; light theme: it keeps the room palette while the
+   entered room fills most of the viewport (html.rs-head-room, main.js) */
+html:has(.rs-room.is-dark) .gl-site-header,
+html.rs-head-room:not(.dark) .gl-site-header {
+  --tj-ink: #f5f3f0;
+  --tj-muted: color-mix(in srgb, #f5f3f0 66%, #0b0c0d);
+  --tj-soft: color-mix(in srgb, #f5f3f0 8%, transparent);
+  --gl-color-slate: #f5f3f0;
+  --gl-color-midtone: color-mix(in srgb, #f5f3f0 66%, #0b0c0d);
+  color: var(--gl-color-midtone);
+  background-color: var(--rs-room);
+  border-bottom-color: var(--rs-room-line);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+html:has(.rs-room.is-dark) .gl-site-header > * { opacity: 0.35; }
+html.rs-head-room:not(.dark).rs-dossier-open .gl-site-header { opacity: 1; }
+html.rs-head-room:not(.dark).rs-dossier-open .gl-site-header > * { opacity: 0.35; }
+.rs-dossier:not([open]), .rs-lightbox:not([open]) { display: none; }
+.rs-flight { position: fixed; inset: 0; z-index: 90; pointer-events: none; }
+.rs-flight:empty { display: none; }
+
+/* phones and tablets */
+@media (max-width: 1023px) {
+  .rs-rail, .rs-season-card--hud { display: none; }
+}
+/* portrait tablets: the wall fills the room height (up to 140 % of the width, pan mode) */
+@media (min-width: 760px) and (orientation: portrait) {
+  :root { --rs-wall-w: min(140vw, calc((100svh - var(--rs-header-h) - 2 * var(--rs-band)) * 1.3578)); }
+}
+@media (max-width: 759px) {
+  /* phones: the whole wall height fits the room; only sideways panning. The band holds the button row (12 + 44 px) */
+  :root { --rs-band: 3.5rem; --rs-wall-w: min(280vw, calc((100svh - var(--rs-header-h) - 2 * var(--rs-band)) * 1.3578)); }
+  .no-js { --rs-wall-w: 100%; }
+  .rs-intro { left: var(--tj-gutter); right: var(--tj-gutter); width: auto; bottom: 1.25rem; }
+  .rs-intro__title, .dark .rs-intro__title { font-size: 2.6rem; }
+  .rs-intro__lede { font-size: 1rem; }
+  .rs-intro__actions .gl-button { flex: 1 1 auto; }
+  .rs-hud__room { top: var(--gl-space-3); }
+  .rs-hud__controls { right: var(--tj-gutter); bottom: var(--gl-space-3); gap: 0.4rem; }
+  .rs-ctl { padding: 0 0.75rem; }
+  .rs-ctl__txt { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .rs-ctl [data-rs-meter] { display: none; }
+  .rs-hud__captions { left: var(--tj-gutter); right: var(--tj-gutter); top: auto; bottom: calc(var(--gl-space-3) + 3.4rem); max-width: none; }
+  .rs-room:not(.is-entered) .rs-hud__controls { opacity: 0; visibility: hidden; }
+  html.rs-skip-intro .rs-room .rs-hud__controls { opacity: 1; visibility: visible; }
+}
+/* landscape phones: wall height fits, buttons in the right margin, captions in the left, intro in two columns */
+@media (orientation: landscape) and (max-height: 520px) and (max-width: 1023px) {
+  :root { --rs-band: 2rem; --rs-wall-w: min(92vw, calc((100svh - var(--rs-header-h) - 2 * var(--rs-band)) * 1.3578)); }
+  .rs-room { min-height: 0; height: calc(100svh - var(--rs-header-h)); }
+  .rs-hud__room { top: var(--gl-space-2); }
+  .rs-hud__controls { flex-direction: column; align-items: stretch; right: var(--rs-hud-pad); top: 50%; bottom: auto; transform: translateY(-50%); gap: 0.4rem; }
+  .rs-hud__captions { left: var(--rs-hud-pad); right: auto; top: calc(var(--gl-space-2) + 1.6rem); bottom: auto; max-width: max(8rem, calc((100% - var(--rs-wall-w)) / 2 - var(--rs-hud-pad) - var(--gl-space-3))); }
+  .rs-room:not(.is-entered) .rs-hud__controls { opacity: 0; visibility: hidden; }
+  html.rs-skip-intro .rs-room .rs-hud__controls { opacity: 1; visibility: visible; }
+  .rs-intro { left: var(--rs-hud-pad); right: var(--rs-hud-pad); width: auto; bottom: var(--gl-space-3); }
+  .rs-intro::before { inset: -20% -10% -30% -10%; }
+  .rs-intro__card { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: var(--gl-space-2) var(--gl-space-6); align-items: start; }
+  .rs-intro__kicker, .rs-intro__title, .rs-intro__lede { grid-column: 1; }
+  .rs-intro__actions, .rs-intro__note, .rs-intro__keys { grid-column: 2; }
+  .rs-intro__kicker { grid-row: 1; }
+  .rs-intro__title { grid-row: 2; }
+  .rs-intro__lede { grid-row: 3 / span 3; }
+  .rs-intro__actions { grid-row: 1 / span 2; align-self: end; margin-top: 0; }
+  .rs-intro__note { grid-row: 3; }
+  .rs-intro__keys { grid-row: 4; }
+  .rs-intro__title, .dark .rs-intro__title { font-size: clamp(1.9rem, 5vw, 2.6rem); }
+  .rs-intro__lede { font-size: 0.95rem; line-height: 1.5; }
+  .rs-intro__note { font-size: 0.8rem; line-height: 1.4; }
+  .rs-intro__actions .gl-button { flex: 1 1 auto; }
+}
+
+/* preferences */
+@media (prefers-reduced-motion: reduce) {
+  html:not(.no-js) .rs-room:not([data-renderer]) .rs-lamp { animation: none; }
+  .rs-intro, .rs-room.is-entered .rs-intro, html.rs-skip-intro .rs-intro, .rs-season-card--hud, .rs-gl, .rs-ctl,
+  html:not(.no-js) .rs-wall, html.rs-dossier-open .rs-hud, .gl-site-header, .gl-site-header > *, .rs-rail, .rs-countdown > span {
+    transition-duration: 1ms !important;
+    transition-delay: 0ms !important;
+    animation-duration: 1ms !important;
+  }
+  .rs-room.is-ask .rs-ask { animation: none; opacity: 1; }
+  .rs-room.is-ask [data-rs-sound] { animation: none; }
+}
+@media (forced-colors: active) {
+  html:not(.no-js) .rs-wall { filter: none; }
+  .rs-lamp, .rs-room::after { display: none; }
+  .rs-intro::before { display: none; }
+  .rs-ctl, .rs-season-card { border: 1px solid ButtonText; forced-color-adjust: auto; }
+  .rs-hit a:focus-visible polygon:not(.rs-halo) { stroke: Highlight; }
+  .rs-ctl:focus-visible, .rs-rail__year:focus-visible { outline: 2px solid Highlight; }
+}
+
+/* print */
+@media print {
+  .rs-room { height: auto; min-height: 0; background: none; color: #000; }
+  .rs-stage { position: static; }
+  .rs-wall, .rs-hit { position: static; transform: none; width: 100%; filter: none !important; }
+  .rs-hit, .rs-lamp, .rs-gl, .rs-hud, .rs-intro__actions, .rs-intro__note, .rs-intro__keys, .rs-skip, .rs-room::after { display: none !important; }
+  .rs-intro { position: static; width: auto; opacity: 1 !important; visibility: visible !important; transform: none !important; }
+  .rs-intro::before { display: none; }
+  .rs-intro__title, .rs-intro .tj-kicker, .rs-intro__lede { color: #000 !important; position: static !important; width: auto !important; height: auto !important; clip-path: none !important; }
+}

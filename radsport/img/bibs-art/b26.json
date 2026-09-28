@@ -1,0 +1,45 @@
+{
+ "id": "b26",
+ "w": 768,
+ "h": 900,
+ "photoRect": [
+  6.6,
+  7.2,
+  761.9,
+  888.4
+ ],
+ "number": "191",
+ "digits": [
+  {
+   "d": "1",
+   "state": "ink"
+  },
+  {
+   "d": "9",
+   "state": "ink"
+  },
+  {
+   "d": "1",
+   "state": "ink"
+  }
+ ],
+ "reconstructed": [
+  {
+   "de": "Rechter Rand (unter einer anderen Nummer): Papier, rotes Band, „…ria“ von „Cantabria“, „…ita“ von „Infinita“.",
+   "en": "Right edge (under another number): paper, red band, “…ria” of “Cantabria”, “…ita” of “Infinita”."
+  }
+ ],
+ "reconstructedShare": 0.085,
+ "model": "FLUX.2 [klein] 4B (Apache-2.0)",
+ "paper": [
+  245,
+  247,
+  246
+ ],
+ "files": {
+  "art": "b26.webp",
+  "order": "b26-order.webp",
+  "recon": "b26-recon.png"
+ },
+ "photo": "img/bibs/b26.webp"
+}

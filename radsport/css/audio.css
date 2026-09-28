@@ -1,0 +1,199 @@
+/* radsport/css/audio.css (WP8): caption line, HUD sound meter, Ton / UT toggle states.
+   Loaded after radsport.css; every rs-* token has a fallback so this file also works alone.
+   Markup hooks (from WP3 / WP6):
+     .rs-cap            caption line (captions.mount(el) adds the class and aria-hidden); a room line gets
+                        data-rs-cap="free|dock", data-rs-dock="top|bottom", --rs-cap-dx/-dy/-w/-pl/-pr from captions.js
+     [data-rs-sound]    Ton button (aria-pressed), may contain the meter
+     [data-rs-meter]    4 bars (<i> children; bindControls adds them if missing), data-level 0..4
+     [data-rs-cc]       UT button (aria-pressed, data-mode auto | on | off) */
+
+.rs-cap {
+  --rs-cap-bg: var(--rs-room-card, rgba(12, 12, 11, 0.86));
+  --rs-cap-ink: var(--rs-room-ink, #f5f3f0);
+  --rs-cap-muted: var(--rs-room-muted, rgba(245, 243, 240, 0.62));
+  --rs-cap-mark: var(--rs-accent, #e7350d);
+  display: block;
+  min-height: 0;
+  line-height: 0;                     /* the line box is exactly the caption pill (captions.js measures it) */
+  pointer-events: none;
+  /* room line: captions.js moves it clear of the label / touch card and the lit bib */
+  translate: var(--rs-cap-dx, 0px) var(--rs-cap-dy, 0px);
+}
+
+/* a shown line glides to a new spot; a new caption appears in its spot at once */
+.rs-cap.is-shown {
+  transition: translate 220ms var(--rs-ease-out, cubic-bezier(0.2, 0.7, 0.2, 1));
+}
+
+.rs-cap__text {
+  display: inline-block;
+  max-width: min(46ch, calc(100vw - 32px));
+  padding: 0.45rem 0.75rem 0.5rem;
+  border-radius: var(--gl-radius-sm, 0.375rem);
+  background: var(--rs-cap-bg);
+  color: var(--rs-cap-ink);
+  font-family: var(--gl-font-sans, "Inter", system-ui, sans-serif);
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.35;
+  font-feature-settings: normal;      /* prose: the site's global tnum widens hyphens */
+  letter-spacing: 0;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 180ms var(--rs-ease-out, cubic-bezier(0.2, 0.7, 0.2, 1)),
+              transform 180ms var(--rs-ease-out, cubic-bezier(0.2, 0.7, 0.2, 1));
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.rs-cap.is-shown .rs-cap__text {
+  opacity: 1;
+  transform: none;
+}
+
+.rs-cap:not(.is-shown) .rs-cap__text {
+  transition-duration: 320ms;
+}
+
+/* levels: scene lines carry a small accent mark, minor lines are quieter */
+.rs-cap[data-level="scene"] .rs-cap__text::before {
+  content: "";
+  display: inline-block;
+  width: 0.4em;
+  height: 0.4em;
+  margin: 0 0.5em 0.1em 0;
+  border-radius: 50%;
+  background: var(--rs-cap-mark);
+  vertical-align: middle;
+}
+
+.rs-cap[data-level="minor"] .rs-cap__text,
+.rs-cap[data-level="ambient"] .rs-cap__text {
+  color: var(--rs-cap-muted);
+}
+
+/* no free spot beside the touch card: scene and event captions dock to the card's edge as a strip,
+   as wide as the card, text aligned with the card's text; the joined corners go square */
+.rs-cap__text--dock {
+  display: block;
+  box-sizing: border-box;
+  width: var(--rs-cap-w, auto);
+  max-width: none;
+  padding: 0.5rem var(--rs-cap-pr, 1rem) 0.55rem var(--rs-cap-pl, 1rem);
+  border: 1px solid var(--rs-room-line, rgba(245, 243, 240, 0.14));
+}
+
+.rs-cap[data-rs-dock="top"] .rs-cap__text--dock {
+  border-bottom-color: transparent;
+  border-radius: var(--gl-radius-sm, 0.375rem) var(--gl-radius-sm, 0.375rem) 0 0;
+}
+
+.rs-cap[data-rs-dock="bottom"] .rs-cap__text--dock {
+  border-top-color: transparent;
+  border-radius: 0 0 var(--gl-radius-sm, 0.375rem) var(--gl-radius-sm, 0.375rem);
+}
+
+.rs-room:has(.rs-cap.is-shown[data-rs-dock="top"]) .rs-label.is-on .rs-label__card {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.rs-room:has(.rs-cap.is-shown[data-rs-dock="bottom"]) .rs-label.is-on .rs-label__card {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* ---------------------------------------------------------------- HUD: Ton + meter, UT */
+[data-rs-meter] {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 13px;
+  vertical-align: middle;
+}
+
+[data-rs-meter] > i {
+  display: block;
+  width: 3px;
+  border-radius: 1px;
+  background: currentColor;
+  opacity: 0.22;
+  transition: opacity 90ms linear;
+}
+
+[data-rs-meter] > i:nth-child(1) { height: 4px; }
+[data-rs-meter] > i:nth-child(2) { height: 7px; }
+[data-rs-meter] > i:nth-child(3) { height: 10px; }
+[data-rs-meter] > i:nth-child(4) { height: 13px; }
+
+[data-rs-meter][data-level="1"] > i:nth-child(-n + 1),
+[data-rs-meter][data-level="2"] > i:nth-child(-n + 2),
+[data-rs-meter][data-level="3"] > i:nth-child(-n + 3),
+[data-rs-meter][data-level="4"] > i:nth-child(-n + 4) {
+  opacity: 1;
+}
+
+/* sound on but silent right now: first bar stays lit so "on" is readable without motion */
+[data-rs-meter].is-on[data-level="0"] > i:nth-child(1) {
+  opacity: 0.7;
+}
+
+/* sound off: bars flat and dim, a thin strike across them */
+[data-rs-sound][aria-pressed="false"] [data-rs-meter] {
+  position: relative;
+}
+
+[data-rs-sound][aria-pressed="false"] [data-rs-meter]::after {
+  content: "";
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  top: 50%;
+  height: 1.5px;
+  background: currentColor;
+  transform: rotate(-35deg);
+  opacity: 0.8;
+}
+
+[data-rs-sound][aria-pressed="true"],
+[data-rs-cc][aria-pressed="true"] {
+  color: var(--rs-room-ink, #f5f3f0);
+}
+
+[data-rs-cc][aria-pressed="true"] {
+  box-shadow: inset 0 -2px 0 var(--rs-accent, #e7350d);
+}
+
+[data-rs-sound][aria-pressed="false"],
+[data-rs-cc][aria-pressed="false"] {
+  color: var(--rs-room-muted, rgba(245, 243, 240, 0.62));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rs-cap__text,
+  .rs-cap.is-shown,
+  [data-rs-meter] > i {
+    transition: none;
+  }
+  .rs-cap__text {
+    transform: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .rs-cap__text,
+  .rs-cap[data-rs-dock] .rs-cap__text--dock {
+    background: Canvas;
+    color: CanvasText;
+    border: 1px solid CanvasText;
+    backdrop-filter: none;
+  }
+  .rs-cap[data-level="scene"] .rs-cap__text::before,
+  [data-rs-meter] > i {
+    background: CanvasText;
+  }
+  [data-rs-cc][aria-pressed="true"] {
+    box-shadow: none;
+    outline: 2px solid Highlight;
+  }
+}

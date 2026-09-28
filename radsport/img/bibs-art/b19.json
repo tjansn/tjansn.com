@@ -1,0 +1,57 @@
+{
+ "id": "b19",
+ "w": 900,
+ "h": 638,
+ "photoRect": [
+  -38.9,
+  29.0,
+  851.4,
+  587.2
+ ],
+ "number": "1086",
+ "digits": [
+  {
+   "d": "1",
+   "state": "ink"
+  },
+  {
+   "d": "0",
+   "state": "ink"
+  },
+  {
+   "d": "8",
+   "state": "ink"
+  },
+  {
+   "d": "6",
+   "state": "ink"
+  }
+ ],
+ "reconstructed": [
+  {
+   "de": "Oberer Rand und Ecke oben links (unter anderen Nummern): Tyvek und „Ma…“ von „Marathon Rursee“. Was davor steht, ist verdeckt und bleibt leer.",
+   "en": "Top edge and top-left corner (under other numbers): Tyvek and “Ma…” of “Marathon Rursee”. Whatever stands before it is hidden and left blank."
+  },
+  {
+   "de": "Linkes und rechtes Ende (dort biegt sich die Karte von der Wand weg): Tyvek und das gelbe Feld bis an den Rand.",
+   "en": "Left and right ends (the card bends away from the wall there): Tyvek and the yellow field up to the edge."
+  },
+  {
+   "de": "Unterer Teil (unter zwei anderen Nummern): Tyvek und der untere Teil des runden Logos, vereinfacht als Kreis. Vom roten Feld unten rechts sind nur zwei Kanten zu sehen; sein Rest bleibt offen.",
+   "en": "Lower part (under two other numbers): Tyvek and the lower part of the round logo, simplified to a circle. Of the red field at the bottom right only two edges show; the rest of it is left open."
+  }
+ ],
+ "reconstructedShare": 0.367,
+ "model": "FLUX.2 [klein] 4B (Apache-2.0)",
+ "paper": [
+  243,
+  245,
+  239
+ ],
+ "files": {
+  "art": "b19.webp",
+  "order": "b19-order.webp",
+  "recon": "b19-recon.png"
+ },
+ "photo": "img/bibs/b19.webp"
+}

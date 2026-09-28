@@ -1,0 +1,53 @@
+{
+ "id": "b12",
+ "w": 900,
+ "h": 857,
+ "photoRect": [
+  50.9,
+  -16.2,
+  844.1,
+  853.1
+ ],
+ "number": "2614",
+ "digits": [
+  {
+   "d": "2",
+   "state": "ink"
+  },
+  {
+   "d": "6",
+   "state": "ink"
+  },
+  {
+   "d": "1",
+   "state": "ink"
+  },
+  {
+   "d": "4",
+   "state": "ink"
+  }
+ ],
+ "reconstructed": [
+  {
+   "de": "Rechter Rand (unter einer anderen Nummer): Papier.",
+   "en": "Right edge (under another number): paper."
+  },
+  {
+   "de": "Ecke oben rechts (unter einer anderen Nummer): Papier.",
+   "en": "Top-right corner (under another number): paper."
+  }
+ ],
+ "reconstructedShare": 0.114,
+ "model": "FLUX.2 [klein] 4B (Apache-2.0)",
+ "paper": [
+  245,
+  246,
+  242
+ ],
+ "files": {
+  "art": "b12.webp",
+  "order": "b12-order.webp",
+  "recon": "b12-recon.png"
+ },
+ "photo": "img/bibs/b12.webp"
+}

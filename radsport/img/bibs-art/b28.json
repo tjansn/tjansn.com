@@ -1,0 +1,45 @@
+{
+ "id": "b28",
+ "w": 762,
+ "h": 900,
+ "photoRect": [
+  4.5,
+  5.5,
+  775.8,
+  887.9
+ ],
+ "number": "152",
+ "digits": [
+  {
+   "d": "1",
+   "state": "ink"
+  },
+  {
+   "d": "5",
+   "state": "ink"
+  },
+  {
+   "d": "2",
+   "state": "ink"
+  }
+ ],
+ "reconstructed": [
+  {
+   "de": "Rechter Rand (unter einer anderen Nummer): Papier.",
+   "en": "Right edge (under another number): paper."
+  }
+ ],
+ "reconstructedShare": 0.042,
+ "model": "FLUX.2 [klein] 4B (Apache-2.0)",
+ "paper": [
+  245,
+  246,
+  246
+ ],
+ "files": {
+  "art": "b28.webp",
+  "order": "b28-order.webp",
+  "recon": "b28-recon.png"
+ },
+ "photo": "img/bibs/b28.webp"
+}

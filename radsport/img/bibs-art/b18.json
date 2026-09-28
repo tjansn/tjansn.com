@@ -1,0 +1,41 @@
+{
+ "id": "b18",
+ "w": 851,
+ "h": 900,
+ "photoRect": [
+  140.1,
+  25.8,
+  717.5,
+  867.1
+ ],
+ "number": "53",
+ "digits": [
+  {
+   "d": "5",
+   "state": "ink"
+  },
+  {
+   "d": "3",
+   "state": "ink"
+  }
+ ],
+ "reconstructed": [
+  {
+   "de": "Oberer Teil und linker Teil (unter einer anderen Nummer): Papier, „H…“ von „Henninger“, Teile der 5 und 3.",
+   "en": "Upper part and left part (under another number): paper, “H…” of “Henninger”, parts of the 5 and 3."
+  }
+ ],
+ "reconstructedShare": 0.359,
+ "model": "FLUX.2 [klein] 4B (Apache-2.0)",
+ "paper": [
+  247,
+  237,
+  195
+ ],
+ "files": {
+  "art": "b18.webp",
+  "order": "b18-order.webp",
+  "recon": "b18-recon.png"
+ },
+ "photo": "img/bibs/b18.webp"
+}

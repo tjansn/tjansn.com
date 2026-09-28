@@ -1,0 +1,49 @@
+{
+ "id": "b03",
+ "w": 900,
+ "h": 756,
+ "photoRect": [
+  2.7,
+  142.1,
+  905.2,
+  550.6
+ ],
+ "number": "103",
+ "digits": [
+  {
+   "d": "1",
+   "state": "ink"
+  },
+  {
+   "d": "0",
+   "state": "ink"
+  },
+  {
+   "d": "3",
+   "state": "ink"
+  }
+ ],
+ "reconstructed": [
+  {
+   "de": "Oberer Teil (außerhalb des Fotos): Papier, rotes Band, „…rkasse“ von „Sparkasse“ und der obere Rand des Punkts über dem Sparkassen-S.",
+   "en": "Upper part (beyond the photo's edge): paper, red band, “…rkasse” of “Sparkasse” and the top of the dot above the Sparkasse S."
+  },
+  {
+   "de": "Unterer Rand (unter einer anderen Nummer): Papier.",
+   "en": "Bottom edge (under another number): paper."
+  }
+ ],
+ "reconstructedShare": 0.237,
+ "model": "FLUX.2 [klein] 4B (Apache-2.0)",
+ "paper": [
+  249,
+  250,
+  246
+ ],
+ "files": {
+  "art": "b03.webp",
+  "order": "b03-order.webp",
+  "recon": "b03-recon.png"
+ },
+ "photo": "img/bibs/b03.webp"
+}

@@ -1,0 +1,61 @@
+{
+ "id": "b09",
+ "w": 851,
+ "h": 900,
+ "photoRect": [
+  6.2,
+  -119.9,
+  854.2,
+  1066.3
+ ],
+ "number": "1???",
+ "digits": [
+  {
+   "d": "1",
+   "state": "sketch"
+  },
+  {
+   "d": "?",
+   "state": "unknown"
+  },
+  {
+   "d": "?",
+   "state": "unknown"
+  },
+  {
+   "d": "?",
+   "state": "unknown"
+  }
+ ],
+ "reconstructed": [
+  {
+   "de": "Oberer Rand (außerhalb des Fotos): Tyvek, dunkelblaues Feld.",
+   "en": "Top edge (beyond the photo's edge): Tyvek, navy field."
+  },
+  {
+   "de": "Unterer Teil und linker Teil (unter einer anderen Nummer): Tyvek.",
+   "en": "Lower part and left part (under another number): Tyvek."
+  },
+  {
+   "de": "Geschätzte Ziffer 1 nur als Bleistiftskizze.",
+   "en": "Estimated digit 1 only as a pencil sketch."
+  },
+  {
+   "de": "Unbekannte Ziffern als Fragezeichen.",
+   "en": "Unknown digits drawn as question marks."
+  }
+ ],
+ "reconstructedShare": 0.659,
+ "model": "FLUX.2 [klein] 4B (Apache-2.0)",
+ "paper": [
+  242,
+  242,
+  239
+ ],
+ "files": {
+  "art": "b09.webp",
+  "order": "b09-order.webp",
+  "recon": "b09-recon.png"
+ },
+ "photo": "img/bibs/b09.webp"
+}

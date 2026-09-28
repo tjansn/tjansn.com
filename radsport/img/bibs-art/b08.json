@@ -1,0 +1,49 @@
+{
+ "id": "b08",
+ "w": 883,
+ "h": 900,
+ "photoRect": [
+  -20.8,
+  8.2,
+  943.6,
+  904.0
+ ],
+ "number": "103",
+ "digits": [
+  {
+   "d": "1",
+   "state": "ink"
+  },
+  {
+   "d": "0",
+   "state": "ink"
+  },
+  {
+   "d": "3",
+   "state": "ink"
+  }
+ ],
+ "reconstructed": [
+  {
+   "de": "Unterer Teil (unter einer anderen Nummer): Papier, rotes Band, ein Nadelloch.",
+   "en": "Lower part (under another number): paper, red band, a pin hole."
+  },
+  {
+   "de": "Oberer Rand (unter einer anderen Nummer): Papier.",
+   "en": "Top edge (under another number): paper."
+  }
+ ],
+ "reconstructedShare": 0.101,
+ "model": "FLUX.2 [klein] 4B (Apache-2.0)",
+ "paper": [
+  246,
+  248,
+  246
+ ],
+ "files": {
+  "art": "b08.webp",
+  "order": "b08-order.webp",
+  "recon": "b08-recon.png"
+ },
+ "photo": "img/bibs/b08.webp"
+}

@@ -1,0 +1,49 @@
+{
+ "id": "b30",
+ "w": 763,
+ "h": 900,
+ "photoRect": [
+  5.8,
+  -10.7,
+  774.1,
+  904.5
+ ],
+ "number": "111",
+ "digits": [
+  {
+   "d": "1",
+   "state": "ink"
+  },
+  {
+   "d": "1",
+   "state": "ink"
+  },
+  {
+   "d": "1",
+   "state": "ink"
+  }
+ ],
+ "reconstructed": [
+  {
+   "de": "Oberer Teil (unter einer anderen Nummer): Papier, die oberen Enden der drei Einsen.",
+   "en": "Upper part (under another number): paper, the tops of the three 1s."
+  },
+  {
+   "de": "Rechter Teil (unter anderen Nummern): Papier, ein Stück der dritten 1.",
+   "en": "Right part (under other numbers): paper, a piece of the third 1."
+  }
+ ],
+ "reconstructedShare": 0.279,
+ "model": "FLUX.2 [klein] 4B (Apache-2.0)",
+ "paper": [
+  250,
+  245,
+  235
+ ],
+ "files": {
+  "art": "b30.webp",
+  "order": "b30-order.webp",
+  "recon": "b30-recon.png"
+ },
+ "photo": "img/bibs/b30.webp"
+}

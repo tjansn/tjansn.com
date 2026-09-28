@@ -1,0 +1,49 @@
+{
+ "id": "b04",
+ "w": 755,
+ "h": 900,
+ "photoRect": [
+  -43.8,
+  15.2,
+  850.5,
+  996.7
+ ],
+ "number": "121",
+ "digits": [
+  {
+   "d": "1",
+   "state": "ink"
+  },
+  {
+   "d": "2",
+   "state": "ink"
+  },
+  {
+   "d": "1",
+   "state": "ink"
+  }
+ ],
+ "reconstructed": [
+  {
+   "de": "Rechter Rand und unterer Teil (unter anderen Nummern): Tyvek, das untere Ende des roten Bogens rechts vom Logo (vereinfacht) und das letzte „t“ von „Fietst“.",
+   "en": "Right edge and lower part (under other numbers): Tyvek, the lower end of the red arc right of the logo (simplified) and the last “t” of “Fietst”."
+  },
+  {
+   "de": "Oberer Rand (unter einer anderen Nummer): Tyvek.",
+   "en": "Top edge (under another number): Tyvek."
+  }
+ ],
+ "reconstructedShare": 0.171,
+ "model": "FLUX.2 [klein] 4B (Apache-2.0)",
+ "paper": [
+  250,
+  252,
+  252
+ ],
+ "files": {
+  "art": "b04.webp",
+  "order": "b04-order.webp",
+  "recon": "b04-recon.png"
+ },
+ "photo": "img/bibs/b04.webp"
+}

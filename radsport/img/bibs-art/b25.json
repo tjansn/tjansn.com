@@ -1,0 +1,45 @@
+{
+ "id": "b25",
+ "w": 900,
+ "h": 593,
+ "photoRect": [
+  7.7,
+  5.0,
+  886.9,
+  583.0
+ ],
+ "number": "101",
+ "digits": [
+  {
+   "d": "1",
+   "state": "ink"
+  },
+  {
+   "d": "0",
+   "state": "ink"
+  },
+  {
+   "d": "1",
+   "state": "ink"
+  }
+ ],
+ "reconstructed": [
+  {
+   "de": "Ein schmaler Streifen am unteren Rand (unter einer anderen Nummer): Karton.",
+   "en": "A thin strip along the bottom edge (under another number): card."
+  }
+ ],
+ "reconstructedShare": 0.008,
+ "model": "FLUX.2 [klein] 4B (Apache-2.0)",
+ "paper": [
+  250,
+  251,
+  251
+ ],
+ "files": {
+  "art": "b25.webp",
+  "order": "b25-order.webp",
+  "recon": "b25-recon.png"
+ },
+ "photo": "img/bibs/b25.webp"
+}

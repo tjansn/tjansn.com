@@ -1,0 +1,49 @@
+{
+ "id": "b33",
+ "w": 900,
+ "h": 615,
+ "photoRect": [
+  5.6,
+  4.8,
+  780.4,
+  565.5
+ ],
+ "number": "125",
+ "digits": [
+  {
+   "d": "1",
+   "state": "ink"
+  },
+  {
+   "d": "2",
+   "state": "ink"
+  },
+  {
+   "d": "5",
+   "state": "ink"
+  }
+ ],
+ "reconstructed": [
+  {
+   "de": "Rechter Rand (die Karte biegt sich dort von der Wand weg): Karton, die rechte Hälfte des oberen Balkens der 5 und ihr Bauch.",
+   "en": "Right edge (the card curls away from the wall there): card, the right half of the 5's top bar and its bowl."
+  },
+  {
+   "de": "Unterer Teil (unter einer anderen Nummer): Karton, die unteren Hälften der 1, 2 und 5.",
+   "en": "Lower part (under another number): card, the lower halves of the 1, 2 and 5."
+  }
+ ],
+ "reconstructedShare": 0.511,
+ "model": "FLUX.2 [klein] 4B (Apache-2.0)",
+ "paper": [
+  246,
+  248,
+  246
+ ],
+ "files": {
+  "art": "b33.webp",
+  "order": "b33-order.webp",
+  "recon": "b33-recon.png"
+ },
+ "photo": "img/bibs/b33.webp"
+}
