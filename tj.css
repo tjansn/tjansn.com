@@ -306,17 +306,27 @@ h1 em, h2 em, .gl-h1 em, .gl-h2 em {
 }
 
 /* ---------- project detail page ---------- */
+/* One list, newest first. The chips filter it by theme group (script in projekte.html),
+   so without JS they are hidden and the whole list shows. */
 .gl-filter-chip { display: inline-flex; align-items: center; min-height: 2.5rem; }
 .tj-toc { display: flex; flex-wrap: wrap; gap: var(--gl-space-3); margin-top: var(--gl-space-6); }
-.tj-toc a { color: var(--tj-muted); text-decoration: none; }
-.tj-toc a:hover, .tj-toc a:focus-visible { color: var(--tj-mark); border-color: var(--tj-mark); }
-.tj-group { padding-top: clamp(3.5rem, 7vw, 5.5rem); scroll-margin-top: 5rem; }
-.tj-group > h2 { font-size: clamp(1.4rem, 2.6vw, 1.8rem); margin-top: 0.75rem; }
-.tj-group > p { margin-top: 0.75rem; color: var(--tj-muted); max-width: none; line-height: 1.65; }
+.no-js .tj-toc { display: none; }
+.tj-toc .gl-filter-chip[aria-pressed="false"] { color: var(--tj-muted); }
+.tj-toc .gl-filter-chip[aria-pressed="false"]:hover,
+.tj-toc .gl-filter-chip[aria-pressed="false"]:focus-visible { color: var(--tj-ink); border-color: var(--tj-muted); }
+.tj-toc .gl-filter-chip:focus-visible { outline: 2px solid var(--tj-mark); outline-offset: 2px; }
+.tj-toc__count { margin-left: 0.6rem; font-feature-settings: "tnum"; }
+.tj-projects { padding-top: clamp(3rem, 6vw, 4.5rem); }
+.tj-projects__intro { margin-bottom: 2rem; scroll-margin-top: 5rem; }
+.tj-projects__intro h2 { font-size: clamp(1.4rem, 2.6vw, 1.8rem); }
+.tj-projects__intro p { margin-top: 0.75rem; color: var(--tj-muted); max-width: none; line-height: 1.65; }
+.tj-projects__list { border-top: 1px solid var(--tj-rule); }
 .tj-case { display: grid; grid-template-columns: 13rem minmax(0, 1fr); gap: clamp(1.25rem, 4vw, 3rem); padding: 2rem 0; border-bottom: 1px solid var(--tj-rule); scroll-margin-top: 5rem; }
-.tj-group > .tj-case:first-of-type { border-top: 1px solid var(--tj-rule); margin-top: 2rem; }
+.tj-case[hidden] { display: none; }
 .tj-case__meta { display: grid; gap: 0.35rem; align-content: start; font-family: var(--gl-font-mono); font-size: 0.75rem; color: var(--tj-muted); letter-spacing: 0.02em; }
 .tj-case__meta .tj-num { margin: 0; font-size: 0.8rem; }
+.tj-case__meta .gl-badge--mono { justify-self: start; margin-top: 0.5rem; font-size: 0.68rem; }
+.tj-sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .tj-case h3 { font-size: 1.2rem; }
 .tj-case__summary { margin-top: 0.6rem; color: var(--tj-ink); line-height: 1.65; }
 .tj-case ul { margin: 0.9rem 0 0; padding: 0; list-style: none; display: grid; gap: 0.5rem; }
@@ -357,7 +367,8 @@ h1 em, h2 em, .gl-h1 em, .gl-h2 em {
   .tj-row__title { grid-column: 1 / -1; }
   .tj-step { grid-template-columns: 1fr; gap: 0.3rem; }
   .tj-case { grid-template-columns: 1fr; gap: 0.75rem; }
-  .tj-case__meta { grid-auto-flow: column; justify-content: start; gap: 1rem; }
+  .tj-case__meta { grid-template-columns: auto auto minmax(0, 1fr); gap: 0.6rem 1rem; }
+  .tj-case__meta .gl-badge--mono { grid-column: 1 / -1; margin-top: 0; }
   /* Stacked columns: equal row heights would only leave gaps above the meta line. */
   #nebenbei .tj-list { grid-auto-rows: auto; }
 }

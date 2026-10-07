@@ -51,182 +51,181 @@
         <span class="tj-kicker" data-i18n="hero.kicker">Projektreferenzen</span>
         <h1 style="max-width: 18ch;" data-i18n="hero.heading" data-i18n-html>Projekte und Aufgaben<span class="gl-dot">.</span></h1>
         <p class="tj-lede" data-i18n="hero.lede">Eine Sammlung von Referenzen aus Festanstellung, Freiberuflichkeit und eigenen Projekten und Startups.</p>
-        <nav class="tj-toc" aria-label="Themen">
-          <a class="gl-filter-chip" href="#product" data-i18n="toc.product">Product Ownership</a>
-          <a class="gl-filter-chip" href="#verifikation" data-i18n="toc.verification">Daten &amp; Verifikation</a>
-          <a class="gl-filter-chip" href="#fuehrung" data-i18n="toc.leadership">Führung</a>
-          <a class="gl-filter-chip" href="#beratung" data-i18n="toc.consulting">Beratung &amp; Enablement</a>
-        </nav>
+        <div class="tj-toc" role="group" aria-label="Nach Thema filtern" data-i18n-attr="aria-label:toc.label">
+          <button type="button" class="gl-filter-chip" data-group-filter="all" aria-pressed="true"><span data-i18n="toc.all">Alle</span><span class="tj-toc__count">16</span></button>
+          <button type="button" class="gl-filter-chip" data-group-filter="product" aria-pressed="false"><span data-i18n="toc.product">Product Ownership</span><span class="tj-toc__count">6</span></button>
+          <button type="button" class="gl-filter-chip" data-group-filter="verifikation" aria-pressed="false"><span data-i18n="toc.verification">Daten &amp; Verifikation</span><span class="tj-toc__count">4</span></button>
+          <button type="button" class="gl-filter-chip" data-group-filter="fuehrung" aria-pressed="false"><span data-i18n="toc.leadership">Führung</span><span class="tj-toc__count">2</span></button>
+          <button type="button" class="gl-filter-chip" data-group-filter="beratung" aria-pressed="false"><span data-i18n="toc.consulting">Beratung &amp; Enablement</span><span class="tj-toc__count">4</span></button>
+        </div>
       </section>
 
-      <!-- ============ PRODUCT OWNERSHIP ============ -->
-      <section id="product" class="tj-group">
-        <h2 data-i18n="product.heading" data-i18n-html>Product Ownership &amp; Business-Analyse<span class="gl-dot">.</span></h2>
-        <p data-i18n="product.intro">Fachliche End-to-End-Leitung von der Planung und Konzeption über die Entwicklung bis zum Livegang, einschließlich Anlaufphase und Bugfixing. Schwerpunkte sind Telekommunikation und Softwareprodukte.</p>
+      <!-- ============ PROJEKTE, neueste zuerst ============ -->
+      <section class="tj-projects">
+        <h2 id="projects-heading" class="tj-sr-only" data-i18n="list.heading">Alle Projekte, neueste zuerst</h2>
+        <div id="product" class="tj-projects__intro" data-group-intro="product" hidden>
+          <h2 data-i18n="product.heading" data-i18n-html>Product Ownership &amp; Business-Analyse<span class="gl-dot">.</span></h2>
+          <p data-i18n="product.intro">Fachliche End-to-End-Leitung von der Planung und Konzeption über die Entwicklung bis zum Livegang, einschließlich Anlaufphase und Bugfixing. Schwerpunkte sind Telekommunikation und Softwareprodukte.</p>
+        </div>
+        <div id="verifikation" class="tj-projects__intro" data-group-intro="verifikation" hidden>
+          <h2 data-i18n="verification.heading" data-i18n-html>Datenanalyse und Verifikation<span class="gl-dot">.</span></h2>
+          <p data-i18n="verification.intro">Planung und Umsetzung von Anwendungen zur Kostenanalyse, Abrechnungsprüfung und Kundenbindung mit KI-Agenten. Fachliche Steuerung und unabhängige Prüfung der Ergebnisse.</p>
+        </div>
+        <div id="fuehrung" class="tj-projects__intro" data-group-intro="fuehrung" hidden>
+          <h2 data-i18n="leadership.heading" data-i18n-html>Leadership &amp; Arbeitsorganisation<span class="gl-dot">.</span></h2>
+          <p data-i18n="leadership.intro">Personalführung in einem verteilten Team und fachliche Weiterentwicklung der Product Manager und Product Owner.</p>
+        </div>
+        <div id="beratung" class="tj-projects__intro" data-group-intro="beratung" hidden>
+          <h2 data-i18n="consulting.heading" data-i18n-html>Gründerberatung und KI-Schulungen<span class="gl-dot">.</span></h2>
+          <p data-i18n="consulting.intro">Vorbereitung auf Investorengespräche sowie Konzepte und Workshops für den Einsatz von KI im Arbeitsalltag.</p>
+        </div>
 
-        <article id="p03" class="tj-case">
-          <div class="tj-case__meta"><span class="tj-num">01</span><span>2025 – 2026</span><span data-i18n="p03.meta">Freiberuflich · Telekommunikation / FTTH</span></div>
-          <div>
-            <h3 data-i18n="p03.title">Product Ownership für ein Business Support System</h3>
-            <p class="tj-case__summary" data-i18n="p03.summary">Verantwortung für die Weiterentwicklung eines bestehenden und produktiven Business Support Systems (BSS) auf Auftraggeberseite. Fachliche Steuerung von der Quartalsplanung und Backlog-Priorisierung über die Umsetzung bis zu Releases und Bugfixing. Abstimmung mit dem Softwarelieferanten und Reviews mit der Geschäftsleitung.</p>
-            <div class="tj-tags"><span class="tj-tag">BSS</span><span class="tj-tag">Backlog</span><span class="tj-tag" data-i18n="p03.tag.3">Lieferantensteuerung</span></div>
-          </div>
-        </article>
+        <div class="tj-projects__list">
+          <article id="p09" class="tj-case" data-group="verifikation">
+            <div class="tj-case__meta"><span class="tj-num">01</span><span data-i18n="p09.meta1">seit 2025</span><span data-i18n="p09.meta2">Software &amp; Daten</span><span class="gl-badge--mono" data-i18n="toc.verification">Daten &amp; Verifikation</span></div>
+            <div>
+              <h3 data-i18n="p09.title">Agentensteuerung und Ergebnisverifikation</h3>
+              <p class="tj-case__summary" data-i18n="p09.summary">Absicherung KI-gestützter Softwareentwicklung durch automatisierte Tests und unabhängige Nachrechnungen mit Beispieldaten. Fachlicher Abgleich von Prototypen mit den Anforderungen der Auftraggeber. Projektübergreifende Arbeitsweise innerhalb der Datenprojekte, kein separates Kundenmandat.</p>
+              <div class="tj-tags"><span class="tj-tag">Quality Gates</span><span class="tj-tag">Property-based Testing</span><span class="tj-tag">Mutation Testing</span></div>
+            </div>
+          </article>
 
-        <article id="p01" class="tj-case">
-          <div class="tj-case__meta"><span class="tj-num">02</span><span>2024 – 2025</span><span data-i18n="p01.meta">Freiberuflich · Telekommunikation / FTTH</span></div>
-          <div>
-            <h3 data-i18n="p01.title">FTTH-Anbieter: Plattform- und Providerwechsel</h3>
-            <p class="tj-case__summary" data-i18n="p01.summary">Fachliche Leitung des Plattform- und Providerwechsels bei einem kommunalen Glasfaseranbieter. Planung und Konzeption der Datenmigration sowie Steuerung von Entwicklung, Tests und Livegang bis zur Anlaufphase und Fehlerbehebung. Umfassendes Stakeholdermanagement zwischen Auftraggeber, Fachbereichen und Softwarelieferant. Erfolgreicher Abschluss der Migration und Abschaltung des Altsystems.</p>
-            <div class="tj-tags"><span class="tj-tag">Compax AAX³</span><span class="tj-tag">Purtel</span><span class="tj-tag" data-i18n="p01.tag.3">Stakeholdermanagement</span><span class="tj-tag" data-i18n="p01.tag.4">Datenmigration</span><span class="tj-tag">Scrum</span><span class="tj-tag" data-i18n="p01.tag.6">Risikomanagement</span></div>
-          </div>
-        </article>
+          <article id="p16" class="tj-case" data-group="beratung">
+            <div class="tj-case__meta"><span class="tj-num">02</span><span>2026</span><span>Community</span><span class="gl-badge--mono" data-i18n="toc.consulting">Beratung &amp; Enablement</span></div>
+            <div>
+              <h3 data-i18n="p16.title">STARTPLATZ Köln: Hackathon-Mentoring</h3>
+              <p class="tj-case__summary" data-i18n="p16.summary">Mentoring bei zwei AI-Coding-Hackathons im STARTPLATZ Köln. Unterstützung bei der Eingrenzung von Produktideen auf umsetzbare Prototypen sowie beim Einsatz von Coding-Agenten und Git.</p>
+              <div class="tj-tags"><span class="tj-tag">Mentoring</span><span class="tj-tag" data-i18n="p16.tag.2">MVP-Scoping</span><span class="tj-tag">Agent Loops</span></div>
+            </div>
+          </article>
 
-        <article id="p02" class="tj-case">
-          <div class="tj-case__meta"><span class="tj-num">03</span><span>2023 – 2024</span><span data-i18n="p02.meta">Freiberuflich · Telekommunikation / FTTH</span></div>
-          <div>
-            <h3 data-i18n="p02.title">Carrier-Prozesse und Schnittstellen FTTH</h3>
-            <p class="tj-case__summary" data-i18n="p02.summary">Spezifikation der Abläufe und Schnittstellen zwischen Telekommunikationsanbietern für Anbieterwechsel, Auftragsänderungen und Produktversand. Fachliche Leitung der Prozesskonzeption über die Entwicklung bis zur Einführung und anschließenden Fehlerbehebung.</p>
-            <div class="tj-tags"><span class="tj-tag">WBCI</span><span class="tj-tag">AK S/PRI</span><span class="tj-tag">Bizagi</span><span class="tj-tag" data-i18n="p02.tag.4">XML-Schemata</span></div>
-          </div>
-        </article>
+          <article id="p03" class="tj-case" data-group="product">
+            <div class="tj-case__meta"><span class="tj-num">03</span><span>2025 – 2026</span><span data-i18n="p03.meta">Freiberuflich · Telekommunikation / FTTH</span><span class="gl-badge--mono" data-i18n="toc.product">Product Ownership</span></div>
+            <div>
+              <h3 data-i18n="p03.title">Product Ownership für ein Business Support System</h3>
+              <p class="tj-case__summary" data-i18n="p03.summary">Verantwortung für die Weiterentwicklung eines bestehenden und produktiven Business Support Systems (BSS) auf Auftraggeberseite. Fachliche Steuerung von der Quartalsplanung und Backlog-Priorisierung über die Umsetzung bis zu Releases und Bugfixing. Abstimmung mit dem Softwarelieferanten und Reviews mit der Geschäftsleitung.</p>
+              <div class="tj-tags"><span class="tj-tag">BSS</span><span class="tj-tag">Backlog</span><span class="tj-tag" data-i18n="p03.tag.3">Lieferantensteuerung</span></div>
+            </div>
+          </article>
 
-        <article id="p04" class="tj-case">
-          <div class="tj-case__meta"><span class="tj-num">04</span><span>2018 – 2021</span><span data-i18n="p04.meta">Convidera · Köln</span></div>
-          <div>
-            <h3 data-i18n="p04.title">SaaS Handwerkssoftware: Produktaufbau mit vier Teams</h3>
-            <p class="tj-case__summary" data-i18n="p04.summary">Fachliche Leitung des Greenfield-Aufbaus einer Software-Suite für Dachdecker von der ersten Idee zum Produkt. Zunächst Führung eines Teams, später Koordination von vier internationalen Teams. Verantwortung von der Produktkonzeption und dem gemeinsamen Designsystem bis zum Livegang sowie der anschließenden Weiterentwicklung und Fehlerbehebung. Erste Version innerhalb von sechs Monaten.</p>
-            <div class="tj-tags"><span class="tj-tag">Domain-Driven Design</span><span class="tj-tag" data-i18n="p04.tag.2">Designsystem</span><span class="tj-tag">Jira · Zenhub</span><span class="tj-tag" data-i18n="p04.tag.4">Multi-Team</span></div>
-          </div>
-        </article>
+          <article id="p08" class="tj-case" data-group="verifikation">
+            <div class="tj-case__meta"><span class="tj-num">04</span><span>2025 – 2026</span><span data-i18n="p08.meta">Freiberuflich · Mobilfunk</span><span class="gl-badge--mono" data-i18n="toc.verification">Daten &amp; Verifikation</span></div>
+            <div>
+              <h3 data-i18n="p08.title">Abrechnungsprüfung im Postpaid-Geschäft</h3>
+              <p class="tj-case__summary" data-i18n="p08.summary">Planung und Konzeption einer Desktop-Anwendung zur Abrechnungsprüfung von Mobilfunkkunden. Fachliche Leitung der KI-gestützten Entwicklung und Prüfung des systemübergreifenden Datenabgleichs. Lieferung und Installation einer Windows-Anwendung sowie Betreuung nach dem Livegang und Bugfixing.</p>
+              <div class="tj-tags"><span class="tj-tag">Rust · Tauri</span><span class="tj-tag">SvelteKit</span><span class="tj-tag">SQLite</span><span class="tj-tag" data-i18n="p08.tag.4">Datenqualität</span></div>
+            </div>
+          </article>
 
-        <article id="p05" class="tj-case">
-          <div class="tj-case__meta"><span class="tj-num">05</span><span data-i18n="p05.meta">Convidera · Köln</span><span>IoT</span></div>
-          <div>
-            <h3 data-i18n="p05.title">Plattform für vernetzte Objekte</h3>
-            <p class="tj-case__summary" data-i18n="p05.summary">Product Ownership für den Greenfield-Aufbau einer Plattform von der ersten Idee zum Produkt. Verwaltung und Verknüpfung physischer Objekte mit digitalen Informationen über NFC und QR-Codes. Analyse der Nutzeranforderungen und Konkretisierung durch Prototypen. Fachliche Leitung von Konzeption und Entwicklung bis zum Livegang und zur anschließenden Fehlerbehebung.</p>
-            <div class="tj-tags"><span class="tj-tag">Product Discovery</span><span class="tj-tag">Prototyping</span><span class="tj-tag">NFC · QR</span></div>
-          </div>
-        </article>
+          <article id="p10" class="tj-case" data-group="verifikation">
+            <div class="tj-case__meta"><span class="tj-num">05</span><span>2025 – 2026</span><span data-i18n="p10.meta">Freiberuflich · Mobilfunk</span><span class="gl-badge--mono" data-i18n="toc.verification">Daten &amp; Verifikation</span></div>
+            <div>
+              <h3 data-i18n="p10.title">Retention Intelligence im Prepaid-Geschäft</h3>
+              <p class="tj-case__summary" data-i18n="p10.summary">Planung und Konzeption eines Datenprodukts zur Bewertung der Kundenaktivität und zur Kampagnensteuerung im Prepaid-Geschäft. Fachliche Leitung der KI-gestützten Entwicklung bis zur Bereitstellung des Prototyps auf Kundenservern. Abstimmung von Releases und anschließender Fehlerbehebung mit dem Auftraggeber.</p>
+              <p class="tj-case__note" data-i18n="p10.note">Der Prototyp läuft mit Echtdaten auf Kundenservern.</p>
+              <div class="tj-tags"><span class="tj-tag">dbt · DuckDB</span><span class="tj-tag">FastAPI</span><span class="tj-tag">SvelteKit</span><span class="tj-tag">Churn · Retention</span></div>
+            </div>
+          </article>
 
-        <article id="p06" class="tj-case">
-          <div class="tj-case__meta"><span class="tj-num">06</span><span data-i18n="p06.meta">Convidera · Köln</span><span>Care</span></div>
-          <div>
-            <h3 data-i18n="p06.title">Dienstleistungsplattform im Care-Bereich</h3>
-            <p class="tj-case__summary" data-i18n="p06.summary">Fachliche Leitung des Greenfield-Aufbaus einer Dienstleistungsplattform im Care-Bereich. Verantwortung von der ersten Idee über Planung und Entwicklung bis zum Livegang und zur anschließenden Fehlerbehebung. Untersuchung der Nutzerbedürfnisse und Ausarbeitung von Prozessen und Prototypen. Abstimmung der Anforderungen und Prioritäten mit Business, Design und Entwicklung.</p>
-            <div class="tj-tags"><span class="tj-tag">Service Design</span><span class="tj-tag">Prototyping</span><span class="tj-tag">Jira · Confluence</span></div>
-          </div>
-        </article>
-      </section>
+          <article id="p15" class="tj-case" data-group="beratung">
+            <div class="tj-case__meta"><span class="tj-num">06</span><span>2025 – 2026</span><span data-i18n="p15.meta">Freiberuflich · KI-Konzeption</span><span class="gl-badge--mono" data-i18n="toc.consulting">Beratung &amp; Enablement</span></div>
+            <div>
+              <h3 data-i18n="p15.title">KI-Methodenkatalog für Product Owner</h3>
+              <p class="tj-case__summary" data-i18n="p15.summary">Erarbeitung eines Methodenkatalogs für den Einsatz von KI im Product Ownership. Definition geeigneter Aufgaben sowie menschlicher Prüf- und Freigabeschritte. Konzeption einer Roadmap zur schrittweisen Einführung im Team.</p>
+              <div class="tj-tags"><span class="tj-tag">AI Governance</span><span class="tj-tag" data-i18n="p15.tag.2">Autonomiegrade</span><span class="tj-tag">Roadmap</span></div>
+            </div>
+          </article>
 
-      <!-- ============ VERIFIKATION ============ -->
-      <section id="verifikation" class="tj-group">
-        <h2 data-i18n="verification.heading" data-i18n-html>Datenanalyse und Verifikation<span class="gl-dot">.</span></h2>
-        <p data-i18n="verification.intro">Planung und Umsetzung von Anwendungen zur Kostenanalyse, Abrechnungsprüfung und Kundenbindung mit KI-Agenten. Fachliche Steuerung und unabhängige Prüfung der Ergebnisse.</p>
+          <article id="p07" class="tj-case" data-group="verifikation">
+            <div class="tj-case__meta"><span class="tj-num">07</span><span>2025</span><span data-i18n="p07.meta">Freiberuflich · Software Development</span><span class="gl-badge--mono" data-i18n="toc.verification">Daten &amp; Verifikation</span></div>
+            <div>
+              <h3 data-i18n="p07.title">Analyse der Lieferantenkosten in der Softwareentwicklung</h3>
+              <p class="tj-case__summary" data-i18n="p07.summary">Konzeption und Umsetzung eines lokalen Analysetools zur Auswertung von Lieferantenkosten nach Feature und Zeitraum. Zusammenführung von Abrechnungen und Stundennachweisen mit der Entwicklungshistorie. Fachliche End-to-End-Leitung der KI-gestützten Entwicklung bis zur Einführung und Fehlerbehebung, einschließlich Prüfung der Berechnungen.</p>
+              <div class="tj-tags"><span class="tj-tag">SQLite</span><span class="tj-tag">Python</span><span class="tj-tag" data-i18n="p07.tag.3">Kostenanalyse</span></div>
+            </div>
+          </article>
 
-        <article id="p09" class="tj-case">
-          <div class="tj-case__meta"><span class="tj-num">07</span><span data-i18n="p09.meta1">seit 2025</span><span data-i18n="p09.meta2">Software &amp; Daten</span></div>
-          <div>
-            <h3 data-i18n="p09.title">Agentensteuerung und Ergebnisverifikation</h3>
-            <p class="tj-case__summary" data-i18n="p09.summary">Absicherung KI-gestützter Softwareentwicklung durch automatisierte Tests und unabhängige Nachrechnungen mit Beispieldaten. Fachlicher Abgleich von Prototypen mit den Anforderungen der Auftraggeber. Projektübergreifende Arbeitsweise innerhalb der Datenprojekte, kein separates Kundenmandat.</p>
-            <div class="tj-tags"><span class="tj-tag">Quality Gates</span><span class="tj-tag">Property-based Testing</span><span class="tj-tag">Mutation Testing</span></div>
-          </div>
-        </article>
+          <article id="p01" class="tj-case" data-group="product">
+            <div class="tj-case__meta"><span class="tj-num">08</span><span>2024 – 2025</span><span data-i18n="p01.meta">Freiberuflich · Telekommunikation / FTTH</span><span class="gl-badge--mono" data-i18n="toc.product">Product Ownership</span></div>
+            <div>
+              <h3 data-i18n="p01.title">FTTH-Anbieter: Plattform- und Providerwechsel</h3>
+              <p class="tj-case__summary" data-i18n="p01.summary">Fachliche Leitung des Plattform- und Providerwechsels bei einem kommunalen Glasfaseranbieter. Planung und Konzeption der Datenmigration sowie Steuerung von Entwicklung, Tests und Livegang bis zur Anlaufphase und Fehlerbehebung. Umfassendes Stakeholdermanagement zwischen Auftraggeber, Fachbereichen und Softwarelieferant. Erfolgreicher Abschluss der Migration und Abschaltung des Altsystems.</p>
+              <div class="tj-tags"><span class="tj-tag">Compax AAX³</span><span class="tj-tag">Purtel</span><span class="tj-tag" data-i18n="p01.tag.3">Stakeholdermanagement</span><span class="tj-tag" data-i18n="p01.tag.4">Datenmigration</span><span class="tj-tag">Scrum</span><span class="tj-tag" data-i18n="p01.tag.6">Risikomanagement</span></div>
+            </div>
+          </article>
 
-        <article id="p08" class="tj-case">
-          <div class="tj-case__meta"><span class="tj-num">08</span><span>2025 – 2026</span><span data-i18n="p08.meta">Freiberuflich · Mobilfunk</span></div>
-          <div>
-            <h3 data-i18n="p08.title">Abrechnungsprüfung im Postpaid-Geschäft</h3>
-            <p class="tj-case__summary" data-i18n="p08.summary">Planung und Konzeption einer Desktop-Anwendung zur Abrechnungsprüfung von Mobilfunkkunden. Fachliche Leitung der KI-gestützten Entwicklung und Prüfung des systemübergreifenden Datenabgleichs. Lieferung und Installation einer Windows-Anwendung sowie Betreuung nach dem Livegang und Bugfixing.</p>
-            <div class="tj-tags"><span class="tj-tag">Rust · Tauri</span><span class="tj-tag">SvelteKit</span><span class="tj-tag">SQLite</span><span class="tj-tag" data-i18n="p08.tag.4">Datenqualität</span></div>
-          </div>
-        </article>
+          <article id="p02" class="tj-case" data-group="product">
+            <div class="tj-case__meta"><span class="tj-num">09</span><span>2023 – 2024</span><span data-i18n="p02.meta">Freiberuflich · Telekommunikation / FTTH</span><span class="gl-badge--mono" data-i18n="toc.product">Product Ownership</span></div>
+            <div>
+              <h3 data-i18n="p02.title">Carrier-Prozesse und Schnittstellen FTTH</h3>
+              <p class="tj-case__summary" data-i18n="p02.summary">Spezifikation der Abläufe und Schnittstellen zwischen Telekommunikationsanbietern für Anbieterwechsel, Auftragsänderungen und Produktversand. Fachliche Leitung der Prozesskonzeption über die Entwicklung bis zur Einführung und anschließenden Fehlerbehebung.</p>
+              <div class="tj-tags"><span class="tj-tag">WBCI</span><span class="tj-tag">AK S/PRI</span><span class="tj-tag">Bizagi</span><span class="tj-tag" data-i18n="p02.tag.4">XML-Schemata</span></div>
+            </div>
+          </article>
 
-        <article id="p10" class="tj-case">
-          <div class="tj-case__meta"><span class="tj-num">09</span><span>2025 – 2026</span><span data-i18n="p10.meta">Freiberuflich · Mobilfunk</span></div>
-          <div>
-            <h3 data-i18n="p10.title">Retention Intelligence im Prepaid-Geschäft</h3>
-            <p class="tj-case__summary" data-i18n="p10.summary">Planung und Konzeption eines Datenprodukts zur Bewertung der Kundenaktivität und zur Kampagnensteuerung im Prepaid-Geschäft. Fachliche Leitung der KI-gestützten Entwicklung bis zur Bereitstellung des Prototyps auf Kundenservern. Abstimmung von Releases und anschließender Fehlerbehebung mit dem Auftraggeber.</p>
-            <p class="tj-case__note" data-i18n="p10.note">Der Prototyp läuft mit Echtdaten auf Kundenservern.</p>
-            <div class="tj-tags"><span class="tj-tag">dbt · DuckDB</span><span class="tj-tag">FastAPI</span><span class="tj-tag">SvelteKit</span><span class="tj-tag">Churn · Retention</span></div>
-          </div>
-        </article>
+          <article id="p14" class="tj-case" data-group="beratung">
+            <div class="tj-case__meta"><span class="tj-num">10</span><span>2022 – 2023</span><span>Convidera · Startup</span><span class="gl-badge--mono" data-i18n="toc.consulting">Beratung &amp; Enablement</span></div>
+            <div>
+              <h3 data-i18n="p14.title">Startup: Vorbereitung auf Investorengespräche</h3>
+              <p class="tj-case__summary" data-i18n="p14.summary">Aufbau eines Datarooms für die Investorenprüfung zur Vorbereitung der Gründer auf Investorengespräche. Einordnung des Marktpotenzials eines Startups für nutzergenerierte Inhalte sowie Konzeption der Erfolgsmessung für die Kundengewinnung.</p>
+              <div class="tj-tags"><span class="tj-tag">Due Diligence</span><span class="tj-tag">TAM/SAM/SOM</span><span class="tj-tag">Notion</span></div>
+            </div>
+          </article>
 
-        <article id="p07" class="tj-case">
-          <div class="tj-case__meta"><span class="tj-num">10</span><span>2025</span><span data-i18n="p07.meta">Freiberuflich · Software Development</span></div>
-          <div>
-            <h3 data-i18n="p07.title">Analyse der Lieferantenkosten in der Softwareentwicklung</h3>
-            <p class="tj-case__summary" data-i18n="p07.summary">Konzeption und Umsetzung eines lokalen Analysetools zur Auswertung von Lieferantenkosten nach Feature und Zeitraum. Zusammenführung von Abrechnungen und Stundennachweisen mit der Entwicklungshistorie. Fachliche End-to-End-Leitung der KI-gestützten Entwicklung bis zur Einführung und Fehlerbehebung, einschließlich Prüfung der Berechnungen.</p>
-            <div class="tj-tags"><span class="tj-tag">SQLite</span><span class="tj-tag">Python</span><span class="tj-tag" data-i18n="p07.tag.3">Kostenanalyse</span></div>
-          </div>
-        </article>
+          <article id="p13" class="tj-case" data-group="fuehrung">
+            <div class="tj-case__meta"><span class="tj-num">11</span><span>2021 – 2023</span><span data-i18n="p13.meta">Convidera · Köln</span><span class="gl-badge--mono" data-i18n="toc.leadership">Führung</span></div>
+            <div>
+              <h3 data-i18n="p13.title">Functional Lead Product: fachliche Führung</h3>
+              <p class="tj-case__summary" data-i18n="p13.summary">Fachliche Führung und Coaching der Product Manager und Product Owner in konkreten Projektsituationen. Begleitung der Weiterbildung und Durchführung fachlicher Einstellungsinterviews. Ausarbeitung eines Karrierepfad-Modells mit teilweiser Umsetzung im HR-System.</p>
+              <div class="tj-tags"><span class="tj-tag">Coaching</span><span class="tj-tag">Mentoring</span><span class="tj-tag" data-i18n="p13.tag.3">Karrierepfade</span><span class="tj-tag">PSPO II</span></div>
+            </div>
+          </article>
 
-      </section>
+          <article id="p04" class="tj-case" data-group="product">
+            <div class="tj-case__meta"><span class="tj-num">12</span><span>2018 – 2021</span><span data-i18n="p04.meta">Convidera · Köln</span><span class="gl-badge--mono" data-i18n="toc.product">Product Ownership</span></div>
+            <div>
+              <h3 data-i18n="p04.title">SaaS Handwerkssoftware: Produktaufbau mit vier Teams</h3>
+              <p class="tj-case__summary" data-i18n="p04.summary">Fachliche Leitung des Greenfield-Aufbaus einer Software-Suite für Dachdecker von der ersten Idee zum Produkt. Zunächst Führung eines Teams, später Koordination von vier internationalen Teams. Verantwortung von der Produktkonzeption und dem gemeinsamen Designsystem bis zum Livegang sowie der anschließenden Weiterentwicklung und Fehlerbehebung. Erste Version innerhalb von sechs Monaten.</p>
+              <div class="tj-tags"><span class="tj-tag">Domain-Driven Design</span><span class="tj-tag" data-i18n="p04.tag.2">Designsystem</span><span class="tj-tag">Jira · Zenhub</span><span class="tj-tag" data-i18n="p04.tag.4">Multi-Team</span></div>
+            </div>
+          </article>
 
-      <!-- ============ FÜHRUNG ============ -->
-      <section id="fuehrung" class="tj-group">
-        <h2 data-i18n="leadership.heading" data-i18n-html>Leadership &amp; Arbeitsorganisation<span class="gl-dot">.</span></h2>
-        <p data-i18n="leadership.intro">Personalführung in einem verteilten Team und fachliche Weiterentwicklung der Product Manager und Product Owner.</p>
+          <article id="p12" class="tj-case" data-group="fuehrung">
+            <div class="tj-case__meta"><span class="tj-num">13</span><span>2018 – 2021</span><span data-i18n="p12.meta">Convidera · Köln</span><span class="gl-badge--mono" data-i18n="toc.leadership">Führung</span></div>
+            <div>
+              <h3 data-i18n="p12.title">Squad Lead: Personalführung im verteilten Team</h3>
+              <p class="tj-case__summary" data-i18n="p12.summary">Personalverantwortung für neun Mitarbeitende in Köln und Kiew. Durchführung von Entwicklungsgesprächen und Performance Reviews sowie Begleitung von Einstellungen und Gehaltsentscheidungen. Organisation der Zusammenarbeit und des Wissenstransfers im englischsprachigen Team.</p>
+              <div class="tj-tags"><span class="tj-tag">People Management</span><span class="tj-tag">Remote Leadership</span><span class="tj-tag">Hiring</span></div>
+            </div>
+          </article>
 
-        <article id="p13" class="tj-case">
-          <div class="tj-case__meta"><span class="tj-num">11</span><span>2021 – 2023</span><span data-i18n="p13.meta">Convidera · Köln</span></div>
-          <div>
-            <h3 data-i18n="p13.title">Functional Lead Product: fachliche Führung</h3>
-            <p class="tj-case__summary" data-i18n="p13.summary">Fachliche Führung und Coaching der Product Manager und Product Owner in konkreten Projektsituationen. Begleitung der Weiterbildung und Durchführung fachlicher Einstellungsinterviews. Ausarbeitung eines Karrierepfad-Modells mit teilweiser Umsetzung im HR-System.</p>
-            <div class="tj-tags"><span class="tj-tag">Coaching</span><span class="tj-tag">Mentoring</span><span class="tj-tag" data-i18n="p13.tag.3">Karrierepfade</span><span class="tj-tag">PSPO II</span></div>
-          </div>
-        </article>
+          <article id="p05" class="tj-case" data-group="product">
+            <div class="tj-case__meta"><span class="tj-num">14</span><span data-i18n="p05.meta">Convidera · Köln</span><span>IoT</span><span class="gl-badge--mono" data-i18n="toc.product">Product Ownership</span></div>
+            <div>
+              <h3 data-i18n="p05.title">Plattform für vernetzte Objekte</h3>
+              <p class="tj-case__summary" data-i18n="p05.summary">Product Ownership für den Greenfield-Aufbau einer Plattform von der ersten Idee zum Produkt. Verwaltung und Verknüpfung physischer Objekte mit digitalen Informationen über NFC und QR-Codes. Analyse der Nutzeranforderungen und Konkretisierung durch Prototypen. Fachliche Leitung von Konzeption und Entwicklung bis zum Livegang und zur anschließenden Fehlerbehebung.</p>
+              <div class="tj-tags"><span class="tj-tag">Product Discovery</span><span class="tj-tag">Prototyping</span><span class="tj-tag">NFC · QR</span></div>
+            </div>
+          </article>
 
-        <article id="p12" class="tj-case">
-          <div class="tj-case__meta"><span class="tj-num">12</span><span>2018 – 2021</span><span data-i18n="p12.meta">Convidera · Köln</span></div>
-          <div>
-            <h3 data-i18n="p12.title">Squad Lead: Personalführung im verteilten Team</h3>
-            <p class="tj-case__summary" data-i18n="p12.summary">Personalverantwortung für neun Mitarbeitende in Köln und Kiew. Durchführung von Entwicklungsgesprächen und Performance Reviews sowie Begleitung von Einstellungen und Gehaltsentscheidungen. Organisation der Zusammenarbeit und des Wissenstransfers im englischsprachigen Team.</p>
-            <div class="tj-tags"><span class="tj-tag">People Management</span><span class="tj-tag">Remote Leadership</span><span class="tj-tag">Hiring</span></div>
-          </div>
-        </article>
-      </section>
+          <article id="p06" class="tj-case" data-group="product">
+            <div class="tj-case__meta"><span class="tj-num">15</span><span data-i18n="p06.meta">Convidera · Köln</span><span>Care</span><span class="gl-badge--mono" data-i18n="toc.product">Product Ownership</span></div>
+            <div>
+              <h3 data-i18n="p06.title">Dienstleistungsplattform im Care-Bereich</h3>
+              <p class="tj-case__summary" data-i18n="p06.summary">Fachliche Leitung des Greenfield-Aufbaus einer Dienstleistungsplattform im Care-Bereich. Verantwortung von der ersten Idee über Planung und Entwicklung bis zum Livegang und zur anschließenden Fehlerbehebung. Untersuchung der Nutzerbedürfnisse und Ausarbeitung von Prozessen und Prototypen. Abstimmung der Anforderungen und Prioritäten mit Business, Design und Entwicklung.</p>
+              <div class="tj-tags"><span class="tj-tag">Service Design</span><span class="tj-tag">Prototyping</span><span class="tj-tag">Jira · Confluence</span></div>
+            </div>
+          </article>
 
-      <!-- ============ BERATUNG ============ -->
-      <section id="beratung" class="tj-group">
-        <h2 data-i18n="consulting.heading" data-i18n-html>Gründerberatung und KI-Schulungen<span class="gl-dot">.</span></h2>
-        <p data-i18n="consulting.intro">Vorbereitung auf Investorengespräche sowie Konzepte und Workshops für den Einsatz von KI im Arbeitsalltag.</p>
-
-        <article id="p16" class="tj-case">
-          <div class="tj-case__meta"><span class="tj-num">13</span><span>2026</span><span>Community</span></div>
-          <div>
-            <h3 data-i18n="p16.title">STARTPLATZ Köln: Hackathon-Mentoring</h3>
-            <p class="tj-case__summary" data-i18n="p16.summary">Mentoring bei zwei AI-Coding-Hackathons im STARTPLATZ Köln. Unterstützung bei der Eingrenzung von Produktideen auf umsetzbare Prototypen sowie beim Einsatz von Coding-Agenten und Git.</p>
-            <div class="tj-tags"><span class="tj-tag">Mentoring</span><span class="tj-tag" data-i18n="p16.tag.2">MVP-Scoping</span><span class="tj-tag">Agent Loops</span></div>
-          </div>
-        </article>
-
-        <article id="p15" class="tj-case">
-          <div class="tj-case__meta"><span class="tj-num">14</span><span>2025 – 2026</span><span data-i18n="p15.meta">Freiberuflich · KI-Konzeption</span></div>
-          <div>
-            <h3 data-i18n="p15.title">KI-Methodenkatalog für Product Owner</h3>
-            <p class="tj-case__summary" data-i18n="p15.summary">Erarbeitung eines Methodenkatalogs für den Einsatz von KI im Product Ownership. Definition geeigneter Aufgaben sowie menschlicher Prüf- und Freigabeschritte. Konzeption einer Roadmap zur schrittweisen Einführung im Team.</p>
-            <div class="tj-tags"><span class="tj-tag">AI Governance</span><span class="tj-tag" data-i18n="p15.tag.2">Autonomiegrade</span><span class="tj-tag">Roadmap</span></div>
-          </div>
-        </article>
-
-        <article id="p14" class="tj-case">
-          <div class="tj-case__meta"><span class="tj-num">15</span><span>2022 – 2023</span><span>Convidera · Startup</span></div>
-          <div>
-            <h3 data-i18n="p14.title">Startup: Vorbereitung auf Investorengespräche</h3>
-            <p class="tj-case__summary" data-i18n="p14.summary">Aufbau eines Datarooms für die Investorenprüfung zur Vorbereitung der Gründer auf Investorengespräche. Einordnung des Marktpotenzials eines Startups für nutzergenerierte Inhalte sowie Konzeption der Erfolgsmessung für die Kundengewinnung.</p>
-            <div class="tj-tags"><span class="tj-tag">Due Diligence</span><span class="tj-tag">TAM/SAM/SOM</span><span class="tj-tag">Notion</span></div>
-          </div>
-        </article>
-
-        <article id="p17" class="tj-case">
-          <div class="tj-case__meta"><span class="tj-num">16</span><span data-i18n="p17.meta">Freiberuflich</span><span>Enablement</span></div>
-          <div>
-            <h3 data-i18n="p17.title">KI-Workshops für Fachanwender</h3>
-            <p class="tj-case__summary" data-i18n="p17.summary">Konzeption und Durchführung von KI-Workshops anhand konkreter Aufgaben der Teilnehmenden. Anleitung zur Formulierung von Anforderungen sowie zum Bau und zur Prüfung eigener Prototypen. Vermittlung von Datenschutz und dem Umgang mit fehlerhaften oder riskanten KI-Ausgaben.</p>
-            <div class="tj-tags"><span class="tj-tag">Workshops</span><span class="tj-tag">AI Literacy</span><span class="tj-tag">Responsible AI</span></div>
-          </div>
-        </article>
+          <article id="p17" class="tj-case" data-group="beratung">
+            <div class="tj-case__meta"><span class="tj-num">16</span><span data-i18n="p17.meta">Freiberuflich</span><span>Enablement</span><span class="gl-badge--mono" data-i18n="toc.consulting">Beratung &amp; Enablement</span></div>
+            <div>
+              <h3 data-i18n="p17.title">KI-Workshops für Fachanwender</h3>
+              <p class="tj-case__summary" data-i18n="p17.summary">Konzeption und Durchführung von KI-Workshops anhand konkreter Aufgaben der Teilnehmenden. Anleitung zur Formulierung von Anforderungen sowie zum Bau und zur Prüfung eigener Prototypen. Vermittlung von Datenschutz und dem Umgang mit fehlerhaften oder riskanten KI-Ausgaben.</p>
+              <div class="tj-tags"><span class="tj-tag">Workshops</span><span class="tj-tag">AI Literacy</span><span class="tj-tag">Responsible AI</span></div>
+            </div>
+          </article>
+        </div>
       </section>
     </main>
 
@@ -272,6 +271,9 @@
           "toc.verification": "Data & verification",
           "toc.leadership": "Leadership",
           "toc.consulting": "Consulting & enablement",
+          "toc.label": "Filter by theme",
+          "toc.all": "All",
+          "list.heading": "All projects, newest first",
 
           "product.heading": "Product ownership &amp; business analysis<span class=\"gl-dot\">.</span>",
           "product.intro": "Leading the business side end to end, from planning and design through development to go-live, including ramp-up and bug fixing. Mainly telecommunications and software products.",
@@ -365,6 +367,47 @@
           "footer.languageLabel": "Language"
         }
       };
+    </script>
+    <script>
+      // One list, newest first. The chips filter it by theme group; the old section anchors
+      // (#product, #verifikation, #fuehrung, #beratung) open the page with that filter set.
+      (() => {
+        const chips = [...document.querySelectorAll("[data-group-filter]")];
+        const cases = [...document.querySelectorAll(".tj-case[data-group]")];
+        const intros = [...document.querySelectorAll("[data-group-intro]")];
+        const allHeading = document.getElementById("projects-heading");
+        const groups = intros.map((intro) => intro.dataset.groupIntro);
+
+        chips.forEach((chip) => {
+          const group = chip.dataset.groupFilter;
+          chip.querySelector(".tj-toc__count").textContent =
+            cases.filter((item) => group === "all" || item.dataset.group === group).length;
+        });
+
+        const show = (group) => {
+          chips.forEach((chip) => chip.setAttribute("aria-pressed", chip.dataset.groupFilter === group ? "true" : "false"));
+          cases.forEach((item) => { item.hidden = group !== "all" && item.dataset.group !== group; });
+          intros.forEach((intro) => { intro.hidden = intro.dataset.groupIntro !== group; });
+          allHeading.hidden = group !== "all";
+        };
+
+        const followHash = () => {
+          const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+          if (!target) return;
+          if (groups.includes(target.id)) show(target.id);
+          else if (target.closest(".tj-case[hidden]")) show("all");
+          else return;
+          target.scrollIntoView();
+        };
+
+        chips.forEach((chip) => chip.addEventListener("click", () => {
+          const group = chip.getAttribute("aria-pressed") === "true" ? "all" : chip.dataset.groupFilter;
+          show(group);
+          history.replaceState(null, "", group === "all" ? location.pathname + location.search : `#${group}`);
+        }));
+        window.addEventListener("hashchange", followHash);
+        followHash();
+      })();
     </script>
     <script src="commercial-pages.js"></script>
     <script src="archetype-pages.js"></script>
